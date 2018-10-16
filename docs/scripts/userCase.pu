@@ -1,0 +1,41 @@
+@startuml phatAdvisor
+left to right direction
+
+:User: --|> :Admin:
+
+:Admin: ..> (validate)
+:Admin: ..> (add)
+:Admin: ..> (modify)
+:Admin: ..> (delete)
+
+(add) ..> (restaurant)
+(modify) ..> (restaurant)
+(delete) ..> (restaurant)
+
+:User: --> (connect) 
+
+(validate) ..> (suggestion page)
+
+(connect) --> (suggestion page)
+(connect)  --> (visualize listing)
+(connect) --> (favorite page) 
+
+
+(visualize listing) --> (detailed description)
+(visualize listing) --> (sort)
+
+
+
+(detailed description) --> (restaurant)
+(detailed description) --> (add in favorite)
+(suggestion page) --> (restaurant)
+
+(restaurant ) -|> (visualize geographical location)
+(restaurant ) -|> (notate)
+(restaurant ) -|> (picture)
+(restaurant ) -|> (comment)
+(restaurant ) -|> (discount)
+(restaurant ) -|> (novelty)
+(restaurant ) -|> (price)
+
+@enduml

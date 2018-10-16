@@ -20,6 +20,7 @@ This command starts the application without installing anything.
 - postgres-data : Répertoire de données de la  DB
 - public : contient l'index.php qui incluera des fichiers .php de src/ et le vendor/autoload.php
 - data/phat-advisor.sql : contiendra les requêtes SQL pour la création du modèle physique de données (Tables etc) S'utilise à l'installation avec `make phat-db.install`
+- docs : contient toutes les documentations nécessaire
 
 ## Development 
 #### Git
