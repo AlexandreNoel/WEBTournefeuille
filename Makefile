@@ -12,6 +12,9 @@ help:
 	@echo "${bold}db.connect${normal}\n\t Connects to the database.\n"
 	@echo "${bold}phpunit.run${normal}\n\t Runs the unit tests.\n"
 
+doc.uml:
+	java -jar ./docs/bin/plantuml.jar ./docs/scripts/*.pu -o ../diagrams
+
 start:
 	docker-compose up --build -d
 	sleep 3
