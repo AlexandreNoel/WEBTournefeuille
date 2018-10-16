@@ -20,7 +20,7 @@ stop:
 	docker-compose down -v
 	docker-compose rm -v
 
-install: uninstall start composer.install phat-db.install
+install: uninstall start composer.install db.install
 
 depedencies: /usr/bin/docker /usr/local/bin/docker-compose
 
@@ -44,12 +44,9 @@ reinstall: install
 
 #Connects to the databatase
 db.connect:
-	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
+	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER $$POSTGRES_DB'
 
 db.install:
-	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/db.sql '
-
-phat-db.install:
 	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/phat-advisor.sql $$POSTGRES_DB'
 	
 php.connect:
