@@ -1,10 +1,10 @@
-#Projet LeBarD
+# Projet LeBarD
 
 Site de gestion des clients et transactions du bar 
 
-[Le site "Le Bar(d)"](https://www.ibdw.com)
+[Le site "Le Bar(d)"](https://www.ibdw.fr)
 
-##Membres :
+## Membres :
 
 * Chapusot Antoine
 * Grimaldi Xavie
