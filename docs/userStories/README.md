@@ -33,4 +33,4 @@ Application permettant aux étudiants de l'ENSIIE de s'organiser pour déjeuner.
 - [ ] Recevoir un restaurant suggéré par mail
 - [ ] Editer les droits des utilisateurs
 - [ ] Attribution de badges aux restaurants
-
+- [ ] Ajouter des fichiers 
