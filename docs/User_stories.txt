@@ -1,0 +1,24 @@
+Notre application vous partage les restaurants et magasins de qualité sur Evry pour le midi.
+
+
+Utilisateur Lambda :
+- Se connecte via arise pour accéder à notre application (attribué par le BDE)
+- une fois connecté, il se fait rediriger vers l'interface de listing des restaurants à proximité (Nom,Note,Prix Moyen)
+- L'utilisateur pourra faire un tri sur les restaurants en fonction de ses goûts, critères
+- L'utilisateur selectionne un restaurant qui lui plait et visionne un description plus détaillé du restaurant (Menu,Type,Note,Commentaire)
+- L'utilisateur pourra attribué une note et faire un commentaire pour chaque restaurant
+- L'utilisateur aura accès à une carte pour avoir directement une localistion du restaurant
+- L'utilisateur peut accéder à une page suggestion qui lui permettra de faire une demande d'ajout de restaurant
+- L'utilisateur peut ajouter des restaurants favoris à sa liste et les retrouver rapidement dans une page dédiée
+
+Utilisateur Admin :
+
+- Se connecte via arise pour accéder à notre application (attribué par le BDE)
+- L'utilisateur est redirigé vers une interface de choix entre l'interface admin et l'interface de listing des restaurants
+
+	Interface Admin :
+	- L'administrateur pourra ajouter de nouveaux restaurants au listing
+	- L'administrateur pourra modifier la description d'un restaurant déjà connu
+	- L'administrateur pourra ajouter et supprimer des partenariats / reductions
+	- L'administrateur peut accepter des restaurants suggérer par les utilisateurs après reception automatique d'un mail
+	- Sur la page des restaurants, l'utilisateur peut cliqué sur un bouton d'ajout de restaurant où il remplira un formulaire qu'il pourra compléte
