@@ -1,15 +1,16 @@
 <?php
-require '../vendor/autoload.php';
+    require '../vendor/autoload.php';
 
-//postgres
-$dbName = getenv('DB_NAME');
-$dbUser = getenv('DB_USER');
-$dbPassword = getenv('DB_PASSWORD');
-$connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
+    //postgres
+    $dbName = getenv('DB_NAME');
+    $dbUser = getenv('DB_USER');
+    $dbPassword = getenv('DB_PASSWORD');
+    $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
 
-$userRepository = new \User\UserRepository($connection);
-$users = $userRepository->fetchAll();
+    $userRepository = new \User\UserRepository($connection);
+    $users = $userRepository->fetchAll();
 ?>
+
 <!DOCTYPE html>
 <html>  
 
@@ -17,25 +18,26 @@ $users = $userRepository->fetchAll();
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon.ico">
+        <title>Le Bar D - Accueil</title>
 
-        <title>TEST ACCUEIL</title>
-
+        <!-- Ressources -->
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- Font Awesome JS -->
-        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+        <!-- Css -->
         <link rel="stylesheet" href="css/bard_main.css">
     </head>
 
     <body>
 
         <!-- NAVBAR !-->
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top" id="banner">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top" id="navbarD">
             <div class="container">
                 <!-- Brand -->
-                <a class="navbar-brand" href="#"><img id="img-navbar" src="assets/logo_sf.png" style="width:75px;">Bar <span>D</span></a>
+                <a class="navbar-brand" href="#"><img id="img-navbar" src="assets/images/logo_sf.png" style="width:75px;"></a>
 
                 <!-- BANNIERE ACCUEIL !-->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -68,19 +70,34 @@ $users = $userRepository->fetchAll();
                     <div class="banner-sub-heading">
                         ENSIIE - EVRY
                     </div>
-                    <button type="button" class="btn btn-warning text-dark btn-banner">Connecte toi</button>
+                    <button type="button" class="btn text-dark btn-banner hvr-wobble-horizontal">Connecte toi</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BANNIERE CATALOGUE !-->
+        <div class="banner-catalogue">
+            <div class="container">
+                <div class="banner-text">
+                    <div class="banner-heading">
+                        Consulte notre catalogue   <i class="fa fa-beer"></i>  
+                    </div>
+                    <div class="banner-sub-heading">
+                        <br>
+                    </div>
+                    <button type="button" class="btn text-dark btn-banner">Catalogue</button>
                 </div>
             </div>
         </div>
 
 
         <section id="about">
-        <div class="container">
-            <div class="text-intro">
-            <h2>Nous contacter</h2>
-                <p>Viens donc nous voir ! </p>
+            <div class="container">
+                <div class="text-intro">
+                    <h4>Nous contacter</h4>
+                    <p>Email: lebard@ensiie.fr</p>
+                </div>
             </div>
-        </div>
         </section>
 
 
@@ -88,12 +105,14 @@ $users = $userRepository->fetchAll();
         <script>
             $(document).on("scroll", function(){
                 if($(document).scrollTop() > 86){
-                    $("#banner").addClass("shrink");
-                    $("#img-navbar").attr("src","assets/logo_sf_blanc.png");
+                    $("#navbarD").addClass("shrink");
+                    $(".nav-link").addClass("shrink-text");
+                    $("#img-navbar").attr("src","assets/images/logo_sf_blanc.png");
                 }
                 else{
-                    $("#banner").removeClass("shrink");
-                    $("#img-navbar").attr("src","assets/logo_sf.png");
+                    $("#navbarD").removeClass("shrink");
+                    $(".nav-link").removeClass("shrink-text");
+                    $("#img-navbar").attr("src","assets/images/logo_sf.png");
                 }
             });
         </script>
