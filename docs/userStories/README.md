@@ -6,16 +6,22 @@ Application permettant aux étudiants de l'ENSIIE de s'organiser pour déjeuner.
 
 ### Utilisateur
 
-- [ ] Se connecter via arise pour accéder à l'application ou via une inscription directement sur l'application
-- [ ] Accéder à la liste des restaurants disponibles et pouvoir les filtrer et trier
-- [ ] Selectionner un restaurant et visionner la description détaillée
-- [ ] Cliquer sur le site du restaurant
+- [ ] Se connecter via arise pour accéder à l'application 
+- [ ] Se connecter via une inscription directement sur l'application
+- [ ] Accéder à la liste des restaurants disponibles 
+- [ ] Filtrer la liste des restaurants
+- [ ] Trier la liste des restaurants
+- [ ] Sélectionner un restaurant pour visionner la description détaillée
+- [ ] Cliquer sur le site web du restaurant
 - [ ] Visualiser le menu du restaurant
-- [ ] Noter et commenter un restaurant
+- [ ] Noter un restaurant
+- [ ] Commenter un restaurant
 - [ ] Localiser les restaurants via une map
-- [ ] Ajouter des restaurants favoris et accéder à la liste
+- [ ] Ajouter des restaurants favoris 
+- [ ] Accéder à la liste des restaurants favoris
 - [ ] Contacter un restaurant par téléphone, alloresto...
 - [ ] Suggérer l'ajout de nouveaux restaurants via un formulaire
+- [ ] Suggérer l'ajout de documents
 - [ ] Accéder à la liste des départs groupés 
 - [ ] Créer des départs groupés vers un restaurant
 - [ ] Choisir restaurant, heure départ depuis ENSIIE, ... 
@@ -32,5 +38,7 @@ Application permettant aux étudiants de l'ENSIIE de s'organiser pour déjeuner.
 - [ ] Supprimer une fiche d'un restaurant
 - [ ] Recevoir un restaurant suggéré par mail
 - [ ] Editer les droits des utilisateurs
-- [ ] Attribution de badges aux restaurants
-- [ ] Ajouter des fichiers 
+- [ ] Attribuer des badges aux restaurants
+- [ ] Ajouter des fichiers/images
+- [ ] Accéder à la liste des utilisateurs de la plateforme
+- [ ] Modérer les commentaires
