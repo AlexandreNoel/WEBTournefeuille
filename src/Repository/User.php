@@ -1,6 +1,8 @@
 <?php
-namespace User;
-class UserRepository
+
+namespace Repository;
+
+class User
 {
     /**
      * @var \PDO
@@ -8,7 +10,7 @@ class UserRepository
     private $connection;
 
     /**
-     * UserRepository constructor.
+     * User constructor.
      * @param \PDO $connection
      */
     public function __construct(\PDO $connection)
@@ -21,7 +23,7 @@ class UserRepository
         $rows = $this->connection->query('SELECT * FROM "user"')->fetchAll(\PDO::FETCH_OBJ);
         $users = [];
         foreach ($rows as $row) {
-            $user = new User();
+            $user = new \Entity\User();
             $user
                 ->setId($row->id)
                 ->setFirstname($row->firstname)
