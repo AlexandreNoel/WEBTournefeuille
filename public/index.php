@@ -10,6 +10,9 @@ $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=
 $userRepository = new Repository\User($connection);
 
 $users = $userRepository->fetchAll();
+
+$userControler = new Controler\User();
+$userControler->register_user();
 ?>
 
 <html>

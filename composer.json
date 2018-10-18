@@ -6,7 +6,9 @@
         "psr-4": {
             "Repository\\": "src/Repository",
             "Entity\\": "src/Entity",
-            "Hydrator\\": "src/Hydrator"
+            "Hydrator\\": "src/Hydrator",
+            "Controler\\": "src/Controler",
+            "Service\\": "src/Service"
         }
     },
     "autoload-dev": {
