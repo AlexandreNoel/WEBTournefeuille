@@ -1,5 +1,7 @@
 postgres-data
 .idea/
-/vendor
 composer.lock
+# ignore env
 .env
+# ignore composer vendor directory
+/vendor
