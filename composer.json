@@ -4,7 +4,9 @@
     },
     "autoload": {
         "psr-4": {
-            "User\\": "src/User/"
+            "Repository\\": "src/Repository",
+            "Entity\\": "src/Entity",
+            "Hydrator\\": "src/Hydrator"
         }
     },
     "autoload-dev": {
