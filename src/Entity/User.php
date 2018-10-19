@@ -19,9 +19,24 @@ class User
     private $lastname;
 
     /**
-     * @var \DateTimeInterface
+     * @var string
      */
-    private $birthday;
+    private $mailAdress;
+
+    /**
+     * @var string
+     */
+    private $password;
+
+    /**
+     * @var int
+     */
+    private $promo;
+
+    /**
+     * @var bool
+     */
+    private $isAdmin;
 
     /**
      * @return int
@@ -78,37 +93,75 @@ class User
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return int
      */
-    public function getBirthday(): \DateTimeInterface
+    public function getPromo()
     {
-        return $this->birthday;
+        return $this->promo;
     }
 
     /**
-     * @param \DateTimeInterface $birthday
+     * @param int $promo
      * @return User
      */
-    public function setBirthday(\DateTimeInterface $birthday)
+    public function setPromo($promo)
     {
-        $this->birthday = $birthday;
+        $this->promo = $promo;
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->isAdmin;
+    }
 
     /**
-     * @return int
-     * @throws \OutOfRangeException
+     * @param bool $isAdmin
+     * @return User
      */
-    public function getAge(): int
+    public function setIsAdmin($isAdmin)
     {
-        $now = new \DateTime();
+        $this->isAdmin = $isAdmin;
+        return $this;
+    }
 
-        if ($now < $this->getBirthday()) {
-            throw new \OutOfRangeException('Birthday in the future');
-        }
+    /**
+     * @return string
+     */
+    public function getMailAdress()
+    {
+        return $this->mailAdress;
+    }
 
-        return $now->diff($this->getBirthday())->y;
+    /**
+     * @param string $mailAdress
+     * @return User
+     */
+    public function setMailAdress($mailAdress)
+    {
+        $this->mailAdress = $mailAdress;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
     }
 }
 

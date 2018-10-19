@@ -7,8 +7,12 @@ $dbUser = getenv('DB_USER');
 $dbPassword = getenv('DB_PASSWORD');
 $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
 
-$userRepository = new \User\UserRepository($connection);
+$userRepository = new Repository\User($connection);
+
 $users = $userRepository->fetchAll();
+
+$userControler = new Controler\User();
+$userControler->register_user();
 ?>
 
 <html>
@@ -23,10 +27,9 @@ $users = $userRepository->fetchAll();
 
     <table class="table table-bordered table-hover table-striped">
         <thead style="font-weight: bold">
-            <td>#</td>
+            <td>id</td>
             <td>Firstname</td>
             <td>Lastname</td>
-            <td>Age</td>
         </thead>
         <?php /** @var \User\User $user */
         foreach ($users as $user) : ?>
@@ -34,7 +37,6 @@ $users = $userRepository->fetchAll();
                 <td><?php echo $user->getId() ?></td>
                 <td><?php echo $user->getFirstname() ?></td>
                 <td><?php echo $user->getLastname() ?></td>
-                <td><?php echo $user->getAge() ?> years</td>
             </tr>
         <?php endforeach; ?>
     </table>
