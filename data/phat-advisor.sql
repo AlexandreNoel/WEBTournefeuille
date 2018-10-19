@@ -10,17 +10,11 @@
 -- Table: Persons
 ------------------------------------------------------------
 CREATE TABLE public.Persons(
-<<<<<<< HEAD
 
 	Id_User       SERIAL ,
 	Nom_User      VARCHAR (25) NOT NULL ,
 	Prenom_User   VARCHAR (25) NOT NULL ,
 	mail_User	  VARCHAR(40) NOT NULL,
-=======
-	Id_User       INT  NOT NULL ,
-	Nom_User      VARCHAR (25) NOT NULL ,
-	Prenom_User   VARCHAR (25) NOT NULL ,
->>>>>>> 8147021f1d5fab35f3da69e4e10dc7a6c470c8b0
 	Promo_User    INT  NOT NULL ,
 	isAdmin       BOOL  NOT NULL ,
 	Secret_User   VARCHAR (100) NOT NULL  ,
@@ -32,7 +26,6 @@ CREATE TABLE public.Persons(
 -- Table: Restos
 ------------------------------------------------------------
 CREATE TABLE public.Restos(
-<<<<<<< HEAD
 	Id_Resto        SERIAL ,
 	Nom_Resto       VARCHAR (25) NOT NULL ,
 	Descr_Resto     VARCHAR (200) NOT NULL ,
@@ -42,15 +35,6 @@ CREATE TABLE public.Restos(
 	Tel_Resto       VARCHAR(20) ,
 	Website_Resto   VARCHAR (50) NOT NULL  ,
 
-=======
-	Id_Resto        INT  NOT NULL ,
-	Nom_Resto       VARCHAR (25) NOT NULL ,
-	Descr_Resto     VARCHAR (200) NOT NULL ,
-	Addr_Resto      VARCHAR (100) NOT NULL ,
-	CP_Resto        INT  NOT NULL ,
-	Tel_Resto       INT  NOT NULL ,
-	Website_Resto   VARCHAR (15) NOT NULL  ,
->>>>>>> 8147021f1d5fab35f3da69e4e10dc7a6c470c8b0
 	CONSTRAINT Restos_PK PRIMARY KEY (Id_Resto)
 )WITHOUT OIDS;
 
@@ -59,11 +43,7 @@ CREATE TABLE public.Restos(
 -- Table: Comments
 ------------------------------------------------------------
 CREATE TABLE public.Comments(
-<<<<<<< HEAD
 	id_Comment        SERIAL ,
-=======
-	id_Comment        INT  NOT NULL ,
->>>>>>> 8147021f1d5fab35f3da69e4e10dc7a6c470c8b0
 	Id_Resto          INT  NOT NULL ,
 	Id_User           INT  NOT NULL ,
 	Text_comment      VARCHAR (500) NOT NULL ,
@@ -81,11 +61,7 @@ CREATE TABLE public.Comments(
 -- Table: Favoris
 ------------------------------------------------------------
 CREATE TABLE public.Favoris(
-<<<<<<< HEAD
 	id_Fav            SERIAL  ,
-=======
-	id_Fav            INT  NOT NULL ,
->>>>>>> 8147021f1d5fab35f3da69e4e10dc7a6c470c8b0
 	Id_Resto          INT  NOT NULL ,
 	Id_User           INT  NOT NULL ,
 	Id_User_Persons   INT  NOT NULL ,
@@ -94,7 +70,6 @@ CREATE TABLE public.Favoris(
 
 	,CONSTRAINT Favoris_Persons_FK FOREIGN KEY (Id_User_Persons) REFERENCES public.Persons(Id_User)
 	,CONSTRAINT Favoris_Restos0_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
-<<<<<<< HEAD
 )WITHOUT OIDS;
 
 ---------------------------
@@ -133,6 +108,3 @@ VALUES (
 ---------------------------
 INSERT INTO persons VALUES (DEFAULT,'admin_lastname','admin_firstname','admin@mail.com',2020,'1',md5('admin_secret'));
 INSERT INTO persons VALUES (DEFAULT,'user_lastname','user_firstname','user@mail.com',2021,'0',md5('user_secret'));
-=======
-)WITHOUT OIDS;
->>>>>>> 8147021f1d5fab35f3da69e4e10dc7a6c470c8b0
