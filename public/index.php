@@ -13,11 +13,10 @@
 
 <!DOCTYPE html>
 <html>  
-
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta   http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon.ico">
         <title>Le Bar D - Accueil</title>
 
@@ -37,7 +36,7 @@
         <nav class="navbar navbar-expand-md navbar-dark fixed-top" id="navbarD">
             <div class="container">
                 <!-- Brand -->
-                <a class="navbar-brand" href="#"><img id="img-navbar" src="assets/images/logo_sf.png" style="width:75px;"></a>
+                <a class="navbar-brand" href="index.php"><img id="img-navbar" src="assets/images/logo_sf.png"></a>
 
                 <!-- BANNIERE ACCUEIL !-->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -47,7 +46,7 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Accueil</a>
+                            <a class="nav-link" href="home.php">Accueil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Catalogue</a>
@@ -105,13 +104,25 @@
         <script>
             $(document).on("scroll", function(){
                 if($(document).scrollTop() > 86){
-                    $("#navbarD").addClass("shrink");
-                    $(".nav-link").addClass("shrink-text");
+                    $("#navbarD").addClass("fixed-nav");
+                    $(".nav-link").addClass("fixed-nav-text");
                     $("#img-navbar").attr("src","assets/images/logo_sf_blanc.png");
                 }
                 else{
-                    $("#navbarD").removeClass("shrink");
-                    $(".nav-link").removeClass("shrink-text");
+                    $("#navbarD").removeClass("fixed-nav");
+                    $(".nav-link").removeClass("fixed-nav-text");
+                    $("#img-navbar").attr("src","assets/images/logo_sf.png");
+                }
+            });
+            $(document).on("scroll", function(){
+                if($(document).scrollTop() > 86){
+                    $("#navbarD").addClass("fixed-nav");
+                    $(".nav-link").addClass("fixed-nav-text");
+                    $("#img-navbar").attr("src","assets/images/logo_sf_blanc.png");
+                }
+                else{
+                    $("#navbarD").removeClass("fixed-nav");
+                    $(".nav-link").removeClass("fixed-nav-text");
                     $("#img-navbar").attr("src","assets/images/logo_sf.png");
                 }
             });
