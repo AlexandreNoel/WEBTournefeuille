@@ -17,7 +17,7 @@ CREATE TABLE Role (
 
 CREATE TABLE Utilisateur (
     idUtilisateur SERIAL PRIMARY KEY ,
-    Pseudo VARCHAR NOT NULL UNIQUE,
+    pseudo VARCHAR NOT NULL UNIQUE,
     prenom VARCHAR NOT NULL ,
     nom VARCHAR NOT NULL ,
     solde INTEGER NOT NULL ,
@@ -44,6 +44,7 @@ CREATE TABLE Produit(
     idProduit SERIAL PRIMARY KEY,
     libelle VARCHAR NOT NULL,
     prix INTEGER NOT NULL,
+    reduction INTEGER NOT NULL,
     quantiteStock INTEGER NOT NULL,
     idCategorie INTEGER NOT NULL REFERENCES Categorie (idCategorie)
 );
@@ -61,7 +62,7 @@ CREATE TABLE NouveauProduit(
     idNouveauProduit SERIAL PRIMARY KEY,
     libelle VARCHAR NOT NULL,
     description VARCHAR NOT NULL,
-    idAutheur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur)
+    idAuteur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur)
 );
 
 CREATE TABLE Vote(
@@ -75,29 +76,29 @@ CREATE TABLE Annonce (
     idAnnonce SERIAL PRIMARY KEY,
     titre VARCHAR NOT NULL,
     contenu VARCHAR NOT NULL,
-    idAutheur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur)
+    idAuteur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur)
 );
 
 INSERT INTO Role(idRole,libelle) VALUES (1,'Admin');
 INSERT INTO Role(idRole,libelle) VALUES (2,'Barman');
 INSERT INTO Role(idRole,libelle) VALUES (3,'Client');
-INSERT INTO Utilisateur(idUtilisateur,Pseudo,  prenom,nom, solde,idRole ) VALUES (1,'Gefclic', 'Benoit','SCHOLL','25','3');
-INSERT INTO Utilisateur(idUtilisateur,Pseudo,  prenom,nom, solde,idRole ) VALUES (2,'Chap','Antoine','CHAPUZOT','25','2');
-INSERT INTO Utilisateur(idUtilisateur,Pseudo,  prenom,nom, solde,idRole ) VALUES (3,'Théo', 'Théo','PEUCKVERT','25','2');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (1,'Gefclic', 'Benoit','SCHOLL','25','3');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (2,'Chap','Antoine','CHAPUZOT','25','2');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (3,'Théo', 'Théo','PEUCKVERT','25','2');
 INSERT INTO Barman(idUtilisateur,MotDePasse) VALUES(2,'LaGuinessCestLaBase');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (1,'Boisson');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (2,'Friandise');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (3,'Snack');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (4,'Boissons Chaudes');
-INSERT INTO Produit(idProduit,libelle,prix,quantiteStock,idCategorie) VALUES (1,'Coca',0.50,4,1);
-INSERT INTO Produit(idProduit,libelle,prix,quantiteStock,idCategorie) VALUES (2,'Fanta',0.50,2,1);
-INSERT INTO Produit(idProduit,libelle,prix,quantiteStock,idCategorie) VALUES (3,'Sprite',0.50,5,1);
-INSERT INTO Produit(idProduit,libelle,prix,quantiteStock,idCategorie) VALUES (4,'Pizza ChouFleur',1.60,2,3);
-INSERT INTO Produit(idProduit,libelle,prix,quantiteStock,idCategorie) VALUES (5,'Buns Flageolet',1.50,2,3);
-INSERT INTO Produit(idProduit,libelle,prix,quantiteStock,idCategorie) VALUES (6,'Mars',0.50,2,2);
-INSERT INTO Produit(idProduit,libelle,prix,quantiteStock,idCategorie) VALUES (7,'Kinder Bueno',0.50,2,2);
-INSERT INTO Produit(idProduit,libelle,prix,quantiteStock,idCategorie) VALUES (8,'Cafe Fort',0.40,20,4);
-INSERT INTO Produit(idProduit,libelle,prix,quantiteStock,idCategorie) VALUES (9,'Cafe leger',0.40,20,4);
-INSERT INTO Produit(idProduit,libelle,prix,quantiteStock,idCategorie) VALUES (10,'Thé',0.40,20,4);
-INSERT INTO Annonce(idAnnonce,titre,contenu,idAutheur) VALUES (1,'Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3);
-INSERT INTO NouveauProduit(idNouveauProduit,libelle,Description,idAutheur) VALUES (1,'RedBull','Pour avoir des ailes en allant en cours',1);
+INSERT INTO Produit(idProduit,libelle,prix,reduction,quantiteStock,idCategorie) VALUES (1,'Coca',0.50,0,4,1);
+INSERT INTO Produit(idProduit,libelle,prix,reduction,quantiteStock,idCategorie) VALUES (2,'Fanta',0.50,0,2,1);
+INSERT INTO Produit(idProduit,libelle,prix,reduction,quantiteStock,idCategorie) VALUES (3,'Sprite',0.50,0,5,1);
+INSERT INTO Produit(idProduit,libelle,prix,reduction,quantiteStock,idCategorie) VALUES (4,'Pizza ChouFleur',1.60,0,2,3);
+INSERT INTO Produit(idProduit,libelle,prix,reduction,quantiteStock,idCategorie) VALUES (5,'Buns Flageolet',1.50,0,2,3);
+INSERT INTO Produit(idProduit,libelle,prix,reduction,quantiteStock,idCategorie) VALUES (6,'Mars',0.50,0,2,2);
+INSERT INTO Produit(idProduit,libelle,prix,reduction,quantiteStock,idCategorie) VALUES (7,'Kinder Bueno',0.50,0,2,2);
+INSERT INTO Produit(idProduit,libelle,prix,reduction,quantiteStock,idCategorie) VALUES (8,'Cafe Fort',0.40,0,20,4);
+INSERT INTO Produit(idProduit,libelle,prix,reduction,quantiteStock,idCategorie) VALUES (9,'Cafe leger',0.40,0,20,4);
+INSERT INTO Produit(idProduit,libelle,prix,reduction,quantiteStock,idCategorie) VALUES (10,'Thé',0.40,0,20,4);
+INSERT INTO Annonce(idAnnonce,titre,contenu,idAuteur) VALUES (1,'Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3);
+INSERT INTO NouveauProduit(idNouveauProduit,libelle,Description,idAuteur) VALUES (1,'RedBull','Pour avoir des ailes en allant en cours',1);

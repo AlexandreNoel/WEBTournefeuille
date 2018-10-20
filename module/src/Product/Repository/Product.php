@@ -36,17 +36,25 @@ class Product
     public function update(\Product\Hydrator\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
-        $statement = $this->dbAdapter->prepare('update product set done_at = :doneAt where id = :id');
+        $statement = $this->dbAdapter->prepare('update product set libelle = :name,prix = :price,reduction = :reduction,quantite = :quantity,idFamille = :idfamilly where id = :id');
         $statement->bindParam(':id', $productArray['id']);
-        $statement->bindParam(':doneAt', $productArray['done_at']);
+        $statement->bindParam(':name', $productArray['name']);
+        $statement->bindParam(':price', $productArray['price']);
+        $statement->bindParam(':reduction', $productArray['reduction']);
+        $statement->bindParam(':quantity', $productArray['quantity']);
+        $statement->bindParam(':idfamilly', $productArray['idfamilly']);
         $statement->execute();
     }
     public function create (\Product\Hydrator\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
-        $statement = $this->dbAdapter->prepare('INSERT INTO product (idUser, Pseudo,firstname,lastname,) values (:todo_id, :name)');
-        $statement->bindParam(':todo_id', $productArray['todo_id']);
+        $statement = $this->dbAdapter->prepare('INSERT INTO product (idProduit, libelle,prix,reduction,quantite,idFamille) values (:id, :name,:price,:reduction,:idfamilly,:quantity)');
+        $statement->bindParam(':id', $productArray['id']);
         $statement->bindParam(':name', $productArray['name']);
+        $statement->bindParam(':price', $productArray['price']);
+        $statement->bindParam(':reduction', $productArray['reduction']);
+        $statement->bindParam(':quantity', $productArray['quantity']);
+        $statement->bindParam(':idfamilly', $productArray['idfamilly']);
         $statement->execute();
     }
     public function delete($productId)
