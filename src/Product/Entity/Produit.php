@@ -5,7 +5,12 @@
  * Date: 17/10/18
  * Time: 17:18
  */
-Class Produit{
+namespace Product\Entity;
+/**
+ * Class Product
+ * @package Product\Entity
+ */
+Class Product{
 
     /**
      * @var int
@@ -30,7 +35,7 @@ Class Produit{
     /**
      * @var int
      */
-    private $idfamille;
+    private $idfamilly;
 
     /**
      * @var int
@@ -48,9 +53,10 @@ Class Produit{
     /**
      * @param int $id
      */
-    public function setId(int $id): void
+    public function setId(int $id): Product
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -64,9 +70,10 @@ Class Produit{
     /**
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setName(string $name): Product
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
@@ -80,9 +87,10 @@ Class Produit{
     /**
      * @param int $price
      */
-    public function setPrice(int $price): void
+    public function setPrice(int $price): Product
     {
         $this->price = $price;
+        return $this;
     }
 
     /**
@@ -96,25 +104,27 @@ Class Produit{
     /**
      * @param int $reduction
      */
-    public function setReduction(int $reduction): void
+    public function setReduction(int $reduction): Product
     {
         $this->reduction = $reduction;
+        return $this;
     }
 
     /**
      * @return int
      */
-    public function getIdfamille(): int
+    public function getIdfamilly(): int
     {
-        return $this->idfamille;
+        return $this->idfamilly;
     }
 
     /**
-     * @param int $idfamille
+     * @param int $idfamilly
      */
-    public function setIdfamille(int $idfamille): void
+    public function setIdfamilly(int $idfamilly): Product
     {
-        $this->idfamille = $idfamille;
+        $this->idfamilly = $idfamilly;
+        return $this;
     }
 
     /**
@@ -128,19 +138,11 @@ Class Produit{
     /**
      * @param int $Quantity
      */
-    public function setQuantity(int $Quantity): void
+    public function setQuantity(int $Quantity): Product
     {
         if ($Quantity>0){
-        $this->Quantity = $Quantity;
-        }
-    }
-    /**
-     * @param int $Quantity
-     */
-    public function addQuantity(int $Quantity): void
-    {
-        if ($Quantity > 0){
-            $this->Quantity += $Quantity;
+            $this->Quantity = $Quantity;
+            return $this;
         }
         else{
             throwException(U_ILLEGAL_ARGUMENT_ERROR);
@@ -149,10 +151,24 @@ Class Produit{
     /**
      * @param int $Quantity
      */
-    public function removeQuantity(int $Quantity): void
+    public function addQuantity(int $Quantity): Product
+    {
+        if ($Quantity > 0){
+            $this->Quantity += $Quantity;
+            return $this;
+        }
+        else{
+            throwException(U_ILLEGAL_ARGUMENT_ERROR);
+        }
+    }
+    /**
+     * @param int $Quantity
+     */
+    public function removeQuantity(int $Quantity): Product
     {
         if ($Quantity > 0){
             $this->Quantity -= $Quantity;
+            return $this;
         }
         else{
             throwException(U_ILLEGAL_ARGUMENT_ERROR);
