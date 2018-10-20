@@ -1,7 +1,8 @@
 <?php
     require '../vendor/autoload.php';
+    include '../module/src/User/Repository/UserRepository.php';
 
-    //postgres
+//postgres
     $dbName = getenv('DB_NAME');
     $dbUser = getenv('DB_USER');
     $dbPassword = getenv('DB_PASSWORD');
