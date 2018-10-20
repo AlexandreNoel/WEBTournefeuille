@@ -5,37 +5,37 @@ use  \Adapter\DatabaseFactory;
 
 class User
 {
-    function isExisting($data){
-    $adapter = new DatabaseFactory();
-    $connection = $adapter->getDbAdapter();
-
-        $repo = new \Repository\User($connection);
-       if(!is_null($repo->findOneByMail($data['mail_User']))){
-        return true;
+        /**
+     * @param \Repository\User $userRepository
+     * @param array
+     * @return array
+     */
+       function verify_registration($userRepository, $data){
+         $error = [];
+       if($data['prenom_user']){
+        $error['prenom_user'] = 'name is required';
        }
-
-       return false;
-    }
-   function verify_registration($data){
-        
-       if(!isset($data['prenom_user'])){
-        return "Error with firstname";
+       if($data['nom_user']){
+        $error['nom_user'] = 'lastname is required';
        }
-       if(!isset($data['nom_user'])){
-        return "Error with firstname";
+       if($data['isadmin']){
+        $error['mail'] = 'isadmin is required, internal error';
        }
-       if(!isset($data['isadmin'])){
-        return "Error with firstname";
+       if($data['promo']){
+        $error['promo'] = 'Promo is required';
        }
-       if(!isset($data['promo'])){
-        return "Error with firstname";
-       }
-        if(!isset($data['mail'])){
-        return "Error with firstname";
+        if($data['mail']){
+        $error['mail'] = 'Mail is required';
         } 
-        if(!isset($data['password'])){
-        return "Error with firstname";
+        if(!$data['password']){
+        $error['password'] = 'Password is required';
        }
+
+       $user = $userRepository->findOneByMail($mail);
+       if ($user) {
+                $error['user_not_exists'] = 'user already exist';
+            }
+            return $error;
     }
 
 
@@ -71,4 +71,3 @@ class User
     }
 
 }
-
