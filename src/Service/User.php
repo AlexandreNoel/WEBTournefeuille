@@ -1,31 +1,40 @@
 <?php
 namespace Service;
 
+use  \Adapter\DatabaseFactory;
+
 class User
 {
-   function verify_registration($firstname,$lastname,$birthday,$mail){
-       $dbName = getenv('DB_NAME');
-$dbUser = getenv('DB_USER');
-$dbPassword = getenv('DB_PASSWORD');
-$connection = new \PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
+    function isExisting($data){
+    $adapter = new DatabaseFactory();
+    $connection = $adapter->getDbAdapter();
 
-
-       if(!isset($firstname)){
-        return "Error with firstname";
-       }
-       if(!isset($lastname)){
-        return "Error with firstname";
-       }
-       if(!isset($birthday)){
-        return "Error with firstname";
-       }
-       if(!isset($mail)){
-        return "Error with firstname";
+        $repo = new \Repository\User($connection);
+       if(!is_null($repo->findOneByMail($data['mail_User']))){
+        return true;
        }
 
-       $repo = new \Repository\User($connection);
-       if(!is_null($repo->findOneByMail($_POST['mail']))){
-        return "Already registred";
+       return false;
+    }
+   function verify_registration($data){
+        
+       if(!isset($data['prenom_user'])){
+        return "Error with firstname";
+       }
+       if(!isset($data['nom_user'])){
+        return "Error with firstname";
+       }
+       if(!isset($data['isadmin'])){
+        return "Error with firstname";
+       }
+       if(!isset($data['promo'])){
+        return "Error with firstname";
+       }
+        if(!isset($data['mail'])){
+        return "Error with firstname";
+        } 
+        if(!isset($data['password'])){
+        return "Error with firstname";
        }
         return "ok";
     }
