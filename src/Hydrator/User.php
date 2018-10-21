@@ -44,11 +44,11 @@ class User
     {
         return $emptyEntity
             ->setId($data['id_user'] ?? null)
-            ->setFirstname($data['prenom_user'] ?? null)
-            ->setLastname($data['nom_user'] ?? null)
-            ->setPassword($data['secret_user'] ?? null)
-            ->setMailAdress($data['mail_user'] ?? null)
-            ->setIsAdmin($data['isadmin']  ?? null)
-            ->setPromo($data['promo'] ?? null);
+            ->setFirstname($data['Prenom_User'] ?? null)
+            ->setLastname($data['Nom_User'] ?? null)
+            ->setPassword($data['Secret_User'] ?? null)
+            ->setMailAdress($data['mail_User'] ?? null)
+            ->setIsAdmin($data['isAdmin']  ?? null)
+            ->setPromo($data['Promo_User'] ?? null);
     }
 }

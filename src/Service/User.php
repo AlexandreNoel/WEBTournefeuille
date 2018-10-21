@@ -8,33 +8,34 @@ class User
         /**
      * @param \Repository\User $userRepository
      * @param array
-     * @return array
+     * @return string
      */
        function verify_registration($userRepository, $data){
-         $error = [];
-       if($data['prenom_user']){
-        $error['prenom_user'] = 'name is required';
+       $error = "ok";
+        if(is_null($data['Prenom_User']) || $data['Prenom_User'] == ''){
+        $error = 'name is required';
        }
-       if($data['nom_user']){
-        $error['nom_user'] = 'lastname is required';
+       if(is_null($data['Nom_User']) || $data['Nom_User'] == ''){
+        $error = 'lastname is required';
        }
-       if($data['isadmin']){
-        $error['mail'] = 'isadmin is required, internal error';
+       if(is_null($data['isAdmin'])){
+        $error = 'isadmin is required, internal error';
        }
-       if($data['promo']){
-        $error['promo'] = 'Promo is required';
+       if(is_null($data['Promo_User']) || $data['Promo_User'] == ''){
+        $error = 'Promo is required';
        }
-        if($data['mail']){
-        $error['mail'] = 'Mail is required';
-        } 
-        if(!$data['password']){
-        $error['password'] = 'Password is required';
-       }
-
-       $user = $userRepository->findOneByMail($mail);
+        if(is_null($data['mail_User']) || $data['mail_User'] == ''){
+        $error = 'Mail is required';
+        }else{
+        $user = $userRepository->findOneByMail($data['mail_User']);
        if ($user) {
-                $error['user_not_exists'] = 'user already exist';
+                $error = 'user already exist';
             }
+       }
+        
+        if(is_null($data['Secret_User']) || $data['Secret_User'] == ''){
+        $error = 'Password is required';
+       }
             return $error;
     }
 

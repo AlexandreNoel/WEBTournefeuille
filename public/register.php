@@ -2,7 +2,6 @@
 
 require '../vendor/autoload.php';
 
-
 $dbName = getenv('DB_NAME');
 $dbUser = getenv('DB_USER');
 $dbPassword = getenv('DB_PASSWORD');
@@ -13,36 +12,32 @@ $userHydrator = new \Hydrator\User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $birthday = $_POST['birthday'];
+    $firstname = $_POST['Prenom_User'];
+    $lastname = $_POST['Nom_User'];
     $isadmin =false;
-    $promo = $_POST['promo'];
-    $mail = $_POST['mail'];
-    $password = $_POST['password'];
+    $promo = $_POST['Promo_User'];
+    $mail = $_POST['mail_User'];
+    $password = $_POST['Secret_User'];
 
+  
     $view = [
         'user' => [
-            'firtname' => $firstname ?? null,
-            'lastname' => $lastname ?? null,
-            'birthday' => $birthday ?? null,
-            'isadmin' => $isadmin ?? null,
-            'promo' => $promo ?? null,
-            'mail' => $mail ?? null,
-            'password' => $password ?? null,
-        ],
-        'errors',
+            'Prenom_User' => $firstname ?? null,
+            'Nom_User' => $lastname ?? null,
+            'isAdmin' => $isadmin ?? null,
+            'Promo_User' => $promo ?? null,
+            'mail_User' => $mail ?? null,
+            'Secret_User' => $password ?? null,
+        ]
     ];
-
     $userService = new \Service\User();
-    $view['errors'] = $userService->verify_registration($userRepository, $mail, $view);
+    $error = $userService->verify_registration($userRepository, $view['user']);
 
-    if (count($view['errors']) === 0) {
-        $_SESSION['uniqid'] = uniqid();
-        $_SESSION['mail'] = $mail;
-
-        header('Location: index.php');
+    if ($error == 'ok') {
+        $newUser = $userHydrator->hydrate($view['user'],new \Entity\User());
+        var_dump($newUser);
+    }else {
+    echo $error;
     }
+    echo "  --- now just add the object 'user' in the database ! :)";
 }
-require_once('../view/register.php');
-
