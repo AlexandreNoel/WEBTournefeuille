@@ -2,8 +2,10 @@
 
 set -e
 
-echo -e "$PRIVATE_KEY" > /root/.ssh/id_rsa
-chmod 600 /root/.ssh/id_rsa
+mkdir -p ~/.ssh
+touch ~/.ssh/id_rsa
+echo -e "$PRIVATE_KEY" > ~/.ssh/id_rsa
+chmod 600 ~/.ssh/id_rsa
 
 touch ~/.ssh/config
 echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config
