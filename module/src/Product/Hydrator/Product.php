@@ -37,12 +37,12 @@ class Product{
     public function hydrate(array $data, \Product\Entity\Product $emptyEntity): \Product\Entity\Product
     {
         return $emptyEntity
-            ->setId($data['id'] ?? null)
-            ->setName($data['name'] ?? null)
-            ->setPrice($data['price'] ?? null)
+            ->setId($data['idproduit'] ?? null)
+            ->setName($data['libelle'] ?? null)
+            ->setPrice($data['prix'] ?? null)
             ->setReduction($data['reduction'] ?? null)
-            ->setIdfamilly($data['idfamilly'] ?? null)
-            ->setQuantity($data['quantity'] ?? null);
+            ->setQuantity($data['quantitestock'] ?? null)
+            ->setIdfamilly($data['idcategorie'] ?? null);
     }
 }
 ?>

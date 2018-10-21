@@ -8,6 +8,7 @@ use Product\Entity\Product;
 
 class ProductTest extends TestCase
 {
+
     /**
      * @test
      */
@@ -23,21 +24,25 @@ class ProductTest extends TestCase
      */
     public function testCreate()
     {
+
+
         $productHydrator = new \Product\Hydrator\Product();
         $productRepository = new \Product\Repository\Product();
         $newProduct = $productHydrator->hydrate(
             [
-                'name' => "tagada",
-                'price' => 2,
-                'quantity' => 2,
+                'libelle' => "tagada",
+                'prix' => 2,
+                'quantitestock' => 2,
                 'reduction' => 0,
-                'idfamilly' => 1,
+                'idcategorie' => 1,
             ],
             new \Product\Entity\Product()
         );
         $productRepository->create($newProduct);
+        $monproduct=$productRepository->findById(16);
         $product = new Product();
         $product->setQuantity(4);
+        var_dump($monproduct);
 
         self::assertSame(4, $product->getQuantity());
     }
