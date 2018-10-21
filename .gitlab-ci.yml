@@ -10,7 +10,7 @@ image: php:7.1.1
   
 before_script:
     - apt-get update
-    - apt-get install -y openssh 
+    - apt-get install -y openssh-client
     
 
 deployToAWS:
