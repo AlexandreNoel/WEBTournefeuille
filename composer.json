@@ -4,7 +4,8 @@
     },
     "autoload": {
         "psr-4": {
-            "User\\": "src/User/"
+            "User\\": "src/User/",
+            "Product\\": "module/src/Product"
         }
     },
     "autoload-dev": {
