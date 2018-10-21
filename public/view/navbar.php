@@ -11,7 +11,7 @@
 
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link fixed-nav-text" href="/home.php">Accueil</a>
                 </li>
                 <li id="Actualités" class="nav-item">
