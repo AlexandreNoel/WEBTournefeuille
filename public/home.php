@@ -10,6 +10,8 @@
 
     $userRepository = new \User\UserRepository($connection);
     $users = $userRepository->fetchAll();
+    $username = "Sphinx06";
+    $userFullName = "Xavier GRIMALDI";
 ?>
 
 <!DOCTYPE html>
@@ -39,103 +41,73 @@
         
         <!-- CONTENU !-->
         <div class="content-container">
+
             <div class="grid-container pr-3 pl-3">
-                <div class="Actualité">
-                    <h3>Actus</h3>
-                    <div class="container">
-                        <div class="row blog">
-                            <div class="col-md-12">
-                                <div id="blogCarousel" class="carousel slide" data-ride="carousel">
+                <div class="Actualité grid-block">
+                    <div class="wrapper">
+                        <div id="newsCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#newsCarousel" data-slide-to="0" class=""></li>
+                                <li data-target="#newsCarousel" data-slide-to="1" class="active"></li>
+                                <li data-target="#newsCarousel" data-slide-to="2" class=""></li>
+                            </ol>
 
-                                    <ol class="carousel-indicators">
-                                        <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
-                                        <li data-target="#blogCarousel" data-slide-to="1"></li>
-                                    </ol>
-
-                                    <!-- Carousel items -->
-                                    <div class="carousel-inner">
-
-                                        <div class="carousel-item active">
-                                            <div class="row align-items-center">
-                                                <div class="col-md-6 ">
-                                                    <a href="#">
-                                                        <img src="assets/images/beer_catalogue.jpg" alt="Image" style="max-width:100%;">
-
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5 class="font-weight-bold text-white">Incroyable</h5>
-                                                            <p class="font-weight-bold text-white">Super</p>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <a href="#">
-                                                        <img src="assets/images/beer_catalogue.jpg" alt="Image" style="max-width:100%;">
-
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5 class="font-weight-bold text-white">Incroyable</h5>
-                                                            <p class="font-weight-bold text-white">Super</p>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!--.row-->
-                                        </div>
-                                        <!--.item-->
-
-                                        <div class="carousel-item">
-                                            <div class="row align-items-center">
-                                                <div class="col-md-6">
-                                                    <a href="#">
-                                                        <img src="assets/images/beer_catalogue.jpg" alt="Image" style="max-width:100%;">
-
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5 class="font-weight-bold text-white">Incroyable</h5>
-                                                            <p class="font-weight-bold text-white">Super</p>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <a href="#">
-                                                        <img src="assets/images/beer_catalogue.jpg" alt="Image" style="max-width:100%;">
-
-                                                        <div class="carousel-caption d-none d-md-block">
-                                                            <h5 class="font-weight-bold text-white">Incroyable</h5>
-                                                            <p class="font-weight-bold text-white">Super</p>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!--.row-->
-                                        </div>
-                                        <!--.item-->
-
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item">
+                                    <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
+                                    <div class="carousel-caption">
+                                        <h3>La pinte de Noel</h3>
+                                        <p>Papa noël</p>
                                     </div>
-                                    <!--.carousel-inner-->
                                 </div>
-                                <!--.Carousel-->
-
+                                <div class="carousel-item active">
+                                    <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
+                                    <div class="carousel-caption">
+                                        <h3>NJV BEUVERIE</h3>
+                                        <p>Soon</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
+                                    <div class="carousel-caption">
+                                        <h3>Yes</h3>
+                                        <p>C'est beau</p>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="Catalogue">
-                    <h3>Catalogue</h3>
+
+                <div class="Catalogue grid-block">
+                    <a href="/catalogue.php">
+                        <div class="container h-100">
+                            <div class="row h-100 justify-content-center align-items-center">
+                                <div class="col-12 mx-auto">
+                                    <h3>Catalogue</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="Compte">
+                <div class="Compte grid-block">
                     <div class="container">
-                        <div class = "row">
-                            <div class = "col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="card-base">
                                     <div class="card-icon"><a href="#" title="Widgets" id="widgetCardIcon" class="imagecard"><span class="fa fa-user"></span></a>
                                         <div class="card-data widgetCardData">
-                                            <h2 class="box-title" style="color: #bb7824;">John Doe Aka Pseudo</h2>
+                                            <h2 class="box-title pb-0" style="color: #bb7824;"><?php echo $username?> </h2>
+                                            <h6 class="box-title pt-0" style="color: #bb7824;"><?php echo $userFullName?></h6>
                                             <p class="card-block text-center">
                                                 Mon compte
                                                 <br>
                                                 Solde: 25€
                                             </p>
-                                            <a href="#" title="Mes statistiques" class="anchor btn btn-default" > <i class="fa fa-chart-bar" aria-hidden="true"></i>  Mes statistiques </a>
-                                            <a href="#" title="Mes transactions" class="anchor btn btn-default" > <i class="fa fa-chart-bar" aria-hidden="true"></i>  Mes transactions </a>
+                                            <a href="stats.php" title="Mes statistiques" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i>Mes statistiques </a>
+                                            <a href="transactions.php" title="Mes transactions" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i> Mes transactions </a>
                                         </div>
                                     </div>
                                     <div class="space"></div>
@@ -146,7 +118,13 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
+        <div class="footer">
+
+        </div>
+
     </body>
 
 </html>
