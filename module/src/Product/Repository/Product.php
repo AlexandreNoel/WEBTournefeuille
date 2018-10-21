@@ -6,8 +6,7 @@
  * Time: 17:48
  */
 namespace Product\Repository;
-use Application\Adapter\DatabaseFactory;
-
+use \Adapter\DatabaseFactory;
 class Product
 {
     /**
@@ -37,7 +36,6 @@ class Product
     {
         $productArray = $this->hydrator->extract($product);
         $statement = $this->dbAdapter->prepare('update product set libelle = :name,prix = :price,reduction = :reduction,quantite = :quantity,idFamille = :idfamilly where id = :id');
-        $statement->bindParam(':id', $productArray['id']);
         $statement->bindParam(':name', $productArray['name']);
         $statement->bindParam(':price', $productArray['price']);
         $statement->bindParam(':reduction', $productArray['reduction']);
@@ -48,8 +46,7 @@ class Product
     public function create (\Product\Hydrator\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
-        $statement = $this->dbAdapter->prepare('INSERT INTO product (idProduit, libelle,prix,reduction,quantite,idFamille) values (:id, :name,:price,:reduction,:idfamilly,:quantity)');
-        $statement->bindParam(':id', $productArray['id']);
+        $statement = $this->dbAdapter->prepare('INSERT INTO product (libelle,prix,reduction,quantite,idFamille) values (:id, :name,:price,:reduction,:idfamilly,:quantity)');
         $statement->bindParam(':name', $productArray['name']);
         $statement->bindParam(':price', $productArray['price']);
         $statement->bindParam(':reduction', $productArray['reduction']);
