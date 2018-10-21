@@ -2,6 +2,8 @@
 namespace Product;
 
 use PHPUnit\Framework\TestCase;
+use Product\Entity\Product;
+
 //use Product\Entity\Product;
 
 class ProductTest extends TestCase
