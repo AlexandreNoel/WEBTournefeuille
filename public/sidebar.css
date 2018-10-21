@@ -1,0 +1,133 @@
+/*-------------------------------*/
+/*           Wrappers            */
+/*-------------------------------*/
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 18em;
+}
+
+/*-------------------------------*/
+/*     Sidebar nav styles        */
+/*-------------------------------*/
+
+#sidebar-wrapper {
+    z-index: 1000;
+    left: 18em;
+    width: 0;
+    height: 100%;
+    margin-left: -18em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #f5f5f5;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    top: 3.7em;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 18em;
+}
+
+#page-content-wrapper {
+    width: 100%;
+}
+
+
+.sidebar-nav li:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 100%;
+    width: 0px;
+    background-color: #1c1c1c;
+    -webkit-transition: width .2s ease-in;
+    -moz-transition:  width .2s ease-in;
+    -ms-transition:  width .2s ease-in;
+    transition: width .2s ease-in;
+
+}
+.sidebar-nav li:before {
+    background-color: #dcdcdc; 
+}
+.sidebar-nav li:hover:before,
+.sidebar-nav li.open:hover:before {
+    width: 100%;
+    -webkit-transition: width .2s ease-in;
+    -moz-transition:  width .2s ease-in;
+    -ms-transition:  width .2s ease-in;
+    transition: width .2s ease-in;
+
+}
+
+.sidebar-nav li a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    padding: 10px 15px 10px 30px;    
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus,
+.sidebar-nav li.open a:hover,
+.sidebar-nav li.open a:active,
+.sidebar-nav li.open a:focus{
+    text-decoration: none;
+    background-color: transparent;
+}
+
+/*-------------------------------*/
+/*       Hamburger-Cross         */
+/*-------------------------------*/
+
+.hamburger {
+    position: relative;
+    top: 0.7em;  
+    z-index: 999;
+    display: block;
+    width: 2em;
+    height: 2em;
+    margin-left: 0.7em;
+    background: transparent;
+    border: none;
+}
+.hamburger:hover,
+.hamburger:focus,
+.hamburger:active {
+    outline: none;
+}
+.hamburger .hamb-top,
+.hamburger .hamb-middle,
+.hamburger .hamb-bottom {
+    position: absolute;
+    left: 0;
+    height: 0.2em;
+    width: 100%;
+}
+.hamburger .hamb-top,
+.hamburger .hamb-middle,
+.hamburger .hamb-bottom {
+    background-color: #a0a0a0;
+}
+.hamburger .hamb-top { 
+    top: 0.1em; 
+}
+.hamburger .hamb-middle {
+    top: 50%;
+    margin-top: -0.1em;
+}
+.hamburger .hamb-bottom {
+    bottom: 0.1em;  
+}
