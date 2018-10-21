@@ -71,6 +71,10 @@
 
 }
 
+.sidebar-nav li.selected {
+    background: #00000030;
+}
+
 .sidebar-nav li a {
     display: block;
     color: #000;

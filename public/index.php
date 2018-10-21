@@ -89,7 +89,7 @@ session_start();
     <div id="wrapper">
         <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
             <ul class="nav sidebar-nav">
-                <li>
+                <li class="selected">
                     <a href="#"><i class="fas fa-home"></i>Home</a>
                 </li>
                 <li>
