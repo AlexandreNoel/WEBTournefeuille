@@ -1,16 +1,16 @@
 <?php
-namespace User;
+namespace Client;
 
 use PHPUnit\Framework\TestCase;
 
-class UserTest extends TestCase
+class ClientTest extends TestCase
 {
     /**
      * @test
      */
     public function ageWhenBirthdayInThePast()
     {
-        $user = new User();
+        $user = new Client();
         $user->setBirthday(new \DateTime('-10 years'));
         self::assertSame(10, $user->getAge());
     }
@@ -20,7 +20,7 @@ class UserTest extends TestCase
      */
     public function ageWhenBirthdayNow()
     {
-        $user = new User();
+        $user = new Client();
         $user->setBirthday(new \DateTime());
         self::assertSame(0, $user->getAge());
     }
@@ -31,7 +31,7 @@ class UserTest extends TestCase
      */
     public function ageWhenBirthdayInTheFuture()
     {
-        $user = new User();
+        $user = new Client();
         $user->setBirthday(new \DateTime('+10 years'));
         $user->getAge();
     }
