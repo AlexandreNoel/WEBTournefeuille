@@ -12,28 +12,28 @@ class User
      */
        function verify_registration($userRepository, $data){
        $error = "ok";
-        if(is_null($data['Prenom_User']) || $data['Prenom_User'] == ''){
+        if(is_null($data['prenom_user']) || $data['prenom_user'] == ''){
         $error = 'name is required';
        }
-       if(is_null($data['Nom_User']) || $data['Nom_User'] == ''){
+       if(is_null($data['nom_user']) || $data['nom_user'] == ''){
         $error = 'lastname is required';
        }
-       if(is_null($data['isAdmin'])){
+       if(is_null($data['isadmin'])){
         $error = 'isadmin is required, internal error';
        }
-       if(is_null($data['Promo_User']) || $data['Promo_User'] == ''){
+       if(is_null($data['promo_user']) || $data['promo_user'] == ''){
         $error = 'Promo is required';
        }
-        if(is_null($data['mail_User']) || $data['mail_User'] == ''){
+        if(is_null($data['mail_user']) || $data['mail_user'] == ''){
         $error = 'Mail is required';
         }else{
-        $user = $userRepository->findOneByMail($data['mail_User']);
+        $user = $userRepository->findOneByMail($data['mail_user']);
        if ($user) {
                 $error = 'user already exist';
             }
        }
         
-        if(is_null($data['Secret_User']) || $data['Secret_User'] == ''){
+        if(is_null($data['secret_user']) || $data['secret_user'] == ''){
         $error = 'Password is required';
        }
             return $error;

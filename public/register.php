@@ -2,40 +2,49 @@
 
 require '../vendor/autoload.php';
 
-$dbName = getenv('DB_NAME');
-$dbUser = getenv('DB_USER');
-$dbPassword = getenv('DB_PASSWORD');
-$connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
-
-$userRepository = new \Repository\User($connection);
+$userRepository = new \Repository\User();
 $userHydrator = new \Hydrator\User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $firstname = $_POST['Prenom_User'];
-    $lastname = $_POST['Nom_User'];
+    $firstname = $_POST['prenom_user'];
+    $lastname = $_POST['nom_user'];
     $isadmin =false;
-    $promo = $_POST['Promo_User'];
-    $mail = $_POST['mail_User'];
-    $password = $_POST['Secret_User'];
+    $promo = $_POST['promo_user'];
+    $mail = $_POST['mail_user'];
+    $password = $_POST['secret_user'];
 
   
     $view = [
         'user' => [
-            'Prenom_User' => $firstname ?? null,
-            'Nom_User' => $lastname ?? null,
-            'isAdmin' => $isadmin ?? null,
-            'Promo_User' => $promo ?? null,
-            'mail_User' => $mail ?? null,
-            'Secret_User' => $password ?? null,
+            'prenom_user' => $firstname ?? null,
+            'nom_user' => $lastname ?? null,
+            'isadmin' => $isadmin ?? null,
+            'promo_user' => $promo ?? null,
+            'mail_user' => $mail ?? null,
+            'secret_user' => $password ?? null,
         ]
     ];
     $userService = new \Service\User();
     $error = $userService->verify_registration($userRepository, $view['user']);
 
     if ($error == 'ok') {
-        $newUser = $userHydrator->hydrate($view['user'],new \Entity\User());
-        var_dump($newUser);
+
+        $newUser = $userHydrator->hydrate(
+            [
+                'prenom_user' => $firstname,
+                'nom_user' => $lastname,
+                'isadmin' => $isadmin,
+                'promo_user' => $promo,
+                'mail_user' => $mail,
+                'secret_user' => password_hash($password, PASSWORD_DEFAULT)
+            ],
+            new \Entity\User()
+        );
+        $userRepository->create($newUser);
+
+        header('Location: index.php');
+
     }else {
     echo $error;
     }
