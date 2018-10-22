@@ -5,3 +5,6 @@ composer.lock
 .env
 # ignore composer vendor directory
 /vendor
+/data/deploy.sh
+/data/updateMaster.sh
+/data/updateDev.sh
