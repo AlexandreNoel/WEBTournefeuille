@@ -20,13 +20,17 @@
                 <li id="Catalogue" class="nav-item">
                     <a class="nav-link fixed-nav-text" href="/catalogue.php">Catalogue</a>
                 </li>
-                <li id="Sphinx06" class="nav-item">
-                    <a class="nav-link fixed-nav-text" href="#"><?php echo $username ?> <i class="far fa-user"></i></a>
+                <li id="<?php print $username ?>" class="nav-item">
+                    <a class="nav-link fixed-nav-text" href="#"><?php print $username ?> <i class="far fa-user"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fixed-nav-text" href="/consoleHome.php"> Console <i class="fa fa-cog"></i></a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
 <script>
     $(document).ready(function() {
         $('a[href="' + this.location.pathname + '"]').parent().addClass('active');

@@ -9,6 +9,7 @@
     $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
     $username = "Sphinx06";
     $userFullName = "Xavier GRIMALDI";
+    $userAdmin = true;
 ?>
 
 <!DOCTYPE html>

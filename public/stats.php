@@ -10,6 +10,7 @@
 
     $username = "Sphinx06";
     $userFullName = "Xavier GRIMALDI";
+    $userAdmin = true;
 ?>
 
 <!DOCTYPE html>
