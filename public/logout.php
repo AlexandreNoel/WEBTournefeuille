@@ -1,7 +1,7 @@
 <?php
 
-require_once("../module/src/auth/OAuthAriseClient.php");
-require_once("../module/src/lib/config.inc.php");
+require_once("../module/oAuth/auth/OAuthAriseClient.php");
+require_once("../module/oAuth/lib/config.inc.php");
 
 $consumer = OAuthAriseClient::getInstance($consumer_key, $consumer_secret, $consumer_private_key);
 
