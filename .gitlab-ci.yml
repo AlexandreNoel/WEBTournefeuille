@@ -14,8 +14,6 @@ before_script:
     
 
 deployToAWS:
-  only:
-    - master
   stage: deploy
   script:
     - cd /builds/ProjetsEnsiie/lebard/
