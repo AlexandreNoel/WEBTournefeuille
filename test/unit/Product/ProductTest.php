@@ -31,20 +31,18 @@ class ProductTest extends TestCase
         $newProduct = $productHydrator->hydrate(
             [
                 'libelle' => "tagada",
-                'prix' => 2,
-                'quantitestock' => 2,
-                'reduction' => 0,
+                'prix' => 0,
+                'quantitestock' => 1,
+                'reduction' => 2,
                 'idcategorie' => 1,
             ],
             new \Product\Entity\Product()
         );
-        $productRepository->create($newProduct);
-        $monproduct=$productRepository->findById(16);
-        $product = new Product();
-        $product->setQuantity(4);
-        var_dump($monproduct);
+        var_dump($productRepository->create($newProduct));
+        $monproduct=$productRepository->findByName("tagada");
 
-        self::assertSame(4, $product->getQuantity());
+
+        self::assertSame(2, $monproduct->getReduction());
     }
 
 }

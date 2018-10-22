@@ -32,7 +32,8 @@ class Product
             $products[] = $this->hydrator->hydrate($productData, clone $entity);
         }
         return $products;
-    }public function findById($id)
+    }
+    public function findById($id)
     {
         $product = null;
         $statement = $this->dbAdapter->prepare('select * from produit where idproduit = :id');
@@ -44,20 +45,33 @@ class Product
         }
         return $product;
     }
+    public function findByName($libelle)
+    {
+        $product = null;
+        $statement = $this->dbAdapter->prepare('select * from produit where libelle = :libelle');
+        $statement->bindParam(':libelle', $libelle);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $productData) {
+            $entity = new \Product\Entity\Product();
+            $product = $this->hydrator->hydrate($productData, clone $entity);
+        }
+        return $product;
+    }
     public function update(\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
         $statement = $this->dbAdapter->prepare('update produit set libelle = :name,prix = :price,reduction = :reduction,quantite = :quantity,idFamille = :idfamilly where id = :id');
-        $statement->bindParam(':name', $productArray['name']);
-        $statement->bindParam(':price', $productArray['price']);
+        $statement->bindParam(':libelle', $productArray['libelle']);
+        $statement->bindParam(':prix', $productArray['prix']);
         $statement->bindParam(':reduction', $productArray['reduction']);
-        $statement->bindParam(':quantity', $productArray['quantity']);
-        $statement->bindParam(':idfamilly', $productArray['idfamilly']);
+        $statement->bindParam(':quantitestock', $productArray['quantitestock']);
+        $statement->bindParam(':idcategorie', $productArray['idcategorie']);
         $statement->execute();
     }
     public function create (\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
+        return $this->hydrator->extract($product);
         $statement = $this->dbAdapter->prepare('INSERT INTO produit (libelle,prix,reduction,quantitestock,idcategorie) values (:libelle, :prix,:reduction,:idcategorie,:quantitestock)');
         $statement->bindParam(':libelle', $productArray['libelle']);
         $statement->bindParam(':prix', $productArray['prix']);
@@ -65,6 +79,8 @@ class Product
         $statement->bindParam(':quantitestock', $productArray['quantitestock']);
         $statement->bindParam(':idcategorie', $productArray['idcategorie']);
         $statement->execute();
+
+
     }
     public function delete($productId)
     {
