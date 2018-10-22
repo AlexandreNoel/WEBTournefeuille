@@ -10,9 +10,6 @@ $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=
 $userRepository = new Repository\User($connection);
 
 $users = $userRepository->fetchAll();
-
-$userControler = new Controler\User();
-$userControler->register_user();
 ?>
 
 <html>
@@ -24,12 +21,17 @@ $userControler->register_user();
 
 <div class="container">
     <h3><?php echo 'Hello world from Docker! php' . PHP_VERSION; ?></h3>
+    <button type="button" onclick="location.href = 'view/connect.php';">connect</button>
+    
+    <button type="button" onclick="location.href = 'view/register.php';">register</button>
 
     <table class="table table-bordered table-hover table-striped">
         <thead style="font-weight: bold">
             <td>id</td>
             <td>Firstname</td>
             <td>Lastname</td>
+            <td>mail</td>
+            <td>admin?</td>
         </thead>
         <?php /** @var \User\User $user */
         foreach ($users as $user) : ?>
@@ -37,6 +39,8 @@ $userControler->register_user();
                 <td><?php echo $user->getId() ?></td>
                 <td><?php echo $user->getFirstname() ?></td>
                 <td><?php echo $user->getLastname() ?></td>
+                <td><?php echo $user->getMailAdress() ?></td>
+                <td><?php echo $user->isAdmin() ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

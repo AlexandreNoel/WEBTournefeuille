@@ -40,12 +40,12 @@ class User
     public function findOneByMail($mail)
     {
         $user = null;
-        $statement = $this->connection->prepare('select * from "user" where mail = :mail');
+        $statement = $this->connection->prepare('select * from "persons" where mail_user = :mail');
         $statement->bindParam(':mail', $mail);
         $statement->execute();
 
         foreach ($statement->fetchAll() as $userData) {
-            $entity = new \User\Entity\User();
+            $entity = new \Entity\User();
             $user = $this->hydrator->hydrate($userData, clone $entity);
         }
 
@@ -59,12 +59,12 @@ class User
     public function findOneById($userId)
     {
         $user = null;
-        $statement = $this->dbAdapter->prepare('select * from "user" where id_user = :id_user');
+        $statement = $this->dbAdapter->prepare('select * from "persons" where id_user = :id_user');
         $statement->bindParam(':id_user', $userId);
         $statement->execute();
 
         foreach ($statement->fetchAll() as $userData) {
-            $entity = new \User\Entity\User();
+            $entity = new \Entity\User();
             $user = $this->hydrator->hydrate($userData, clone $entity);
         }
 

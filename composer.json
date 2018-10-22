@@ -7,8 +7,8 @@
             "Repository\\": "src/Repository",
             "Entity\\": "src/Entity",
             "Hydrator\\": "src/Hydrator",
-            "Controler\\": "src/Controler",
-            "Service\\": "src/Service"
+            "Service\\": "src/Service",
+            "Adapter\\": "src/Adapter"
         }
     },
     "autoload-dev": {

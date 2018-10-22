@@ -31,10 +31,10 @@ class User
         }
 
         if ($object->getMailAdress()) {
-            $data['mail'] = $object->getMailAdress();
+            $data['mail_user'] = $object->getMailAdress();
         }
         if ($object->getPassword()) {
-            $data['password'] = $object->getPassword();
+            $data['secret_user'] = $object->getPassword();
         }
 
         return $data;
@@ -44,13 +44,11 @@ class User
     {
         return $emptyEntity
             ->setId($data['id_user'] ?? null)
-            ->setFirstname($data['prenom_user'] ?? null)
-            ->setLastname($data['nom_user'] ?? null)
-            /* todo
-             ->setMailAdress($data['mail'] ?? null)
-             ->setPassword($data['password'] ?? null)
-             */
-            ->setIsAdmin($data['isadmin']  ?? null)
-            ->setPromo($data['promo'] ?? null);
+            ->setFirstname($data['Prenom_User'] ?? null)
+            ->setLastname($data['Nom_User'] ?? null)
+            ->setPassword($data['Secret_User'] ?? null)
+            ->setMailAdress($data['mail_User'] ?? null)
+            ->setIsAdmin($data['isAdmin']  ?? null)
+            ->setPromo($data['Promo_User'] ?? null);
     }
 }
