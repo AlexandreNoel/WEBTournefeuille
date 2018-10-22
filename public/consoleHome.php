@@ -1,7 +1,8 @@
 <?php
     require '../vendor/autoload.php';
     include '../module/src/User/Repository/UserRepository.php';
-
+    if(session_status()!=PHP_SESSION_ACTIVE)
+        session_start();
     //postgres
     $dbName = getenv('DB_NAME');
     $dbUser = getenv('DB_USER');
@@ -9,7 +10,6 @@
     $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
     $username = "Sphinx06";
     $userFullName = "Xavier GRIMALDI";
-    $userAdmin = true;
 ?>
 
 <!DOCTYPE html>
@@ -41,9 +41,9 @@
 
     <div class="content-container">
         <section class="tabConsole">
-                <input class="tabConsoleInput" type="radio" id="search" value="1" name="tractor" checked='checked' />
-                <input class="tabConsoleInput" type="radio" id="profile" value="2" name="tractor" />
-                <input class="tabConsoleInput" type="radio" id="command" value="3" name="tractor" />
+            <input class="tabConsoleInput" type="radio" id="search" value="1" name="tractor" checked='checked' />
+            <input class="tabConsoleInput" type="radio" id="profile" value="2" name="tractor" />
+            <input class="tabConsoleInput" type="radio" id="command" value="3" name="tractor" />
             <nav>
                 <label for="search" class='fa fa-search'></label>
                 <label for="profile" class='fa fa-user'></label>
@@ -65,6 +65,11 @@
 
             <article class='userTab fa fa-wrench'>
                 <h2>Gestion du client</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">Nom:</li>
+                    <li class="list-group-item">Prénom:</li>
+                    <li class="list-group-item">Solde:</li>
+                </ul>
             </article>
 
             <article class='commandTab fa fa-beer'>
@@ -73,11 +78,12 @@
         </section>
     </div>
 
-<script src="assets/js/search.js"></script>
-<script>
-    var users= ["Sphinx06","Chap","Toast","Alvis","Zerox","Erman","Rat","Trobos"];
-    autocomplete(document.getElementById("myInput"), users);
-</script>
+    <!--Script-->
+    <script src="assets/js/search.js"></script>
+    <script>
+        var users= ["Sphinx06","Chap","Toast","Alvis","Zerox","Erman","Rat","Trobos"];
+        autocomplete(document.getElementById("myInput"), users);
+    </script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 <?php
     require '../vendor/autoload.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -38,14 +39,11 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="home.php">Accueil</a>
+                            <a class="nav-link" href="/redirect.php">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Catalogue</a>
+                            <a class="nav-link" name="login" >Catalogue</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Se connecter</a>
-                        </li> 
                     </ul>
                 </div>
             </div>
@@ -54,15 +52,17 @@
         <!-- BANNIERE ACCUEIL !-->
         <div class="banner">
             <div class="container">
-                <div class="banner-text">
-                    <div class="banner-heading">
-                        Le bar digital vous ouvre ses portes
+                <form method="POST" action="/login.php">
+                    <div class="banner-text">
+                        <div class="banner-heading">
+                            Le bar digital vous ouvre ses portes
+                        </div>
+                        <div class="banner-sub-heading">
+                            ENSIIE - EVRY
+                        </div>
+                        <button type="submit" name="login" class="btn text-dark btn-banner hvr-wobble-horizontal">Connecte toi</button>
                     </div>
-                    <div class="banner-sub-heading">
-                        ENSIIE - EVRY
-                    </div>
-                    <button type="button" class="btn text-dark btn-banner hvr-wobble-horizontal">Connecte toi</button>
-                </div>
+                </form>
             </div>
         </div>
 

@@ -5,7 +5,7 @@
  * Date: 21/10/18
  * Time: 12:00
  */
-namespace Entity\;
+namespace Article\Entity;
 class Article {
     /**
      * @var int

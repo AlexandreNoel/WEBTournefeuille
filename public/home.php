@@ -1,8 +1,10 @@
 <?php
     require '../vendor/autoload.php';
     include '../module/src/User/Repository/UserRepository.php';
+    if(session_status()!=PHP_SESSION_ACTIVE)
+        session_start();
 
-//postgres
+    //postgres
     $dbName = getenv('DB_NAME');
     $dbUser = getenv('DB_USER');
     $dbPassword = getenv('DB_PASSWORD');
@@ -10,6 +12,8 @@
     $username = "Sphinx06";
     $userFullName = "Xavier GRIMALDI";
     $userAdmin = true;
+
+
 ?>
 
 <!DOCTYPE html>

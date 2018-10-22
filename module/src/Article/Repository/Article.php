@@ -5,23 +5,25 @@
  * Date: 21/10/18
  * Time: 12:25
  */
+namespace Article\Repository;
+use \Adapter\DatabaseFactory;
 
-namespace Repository\;
 class Article {
     /**
      * @var \PDO
-     */
+     **/
     private $connection;
-
     /**
      * UserRepository constructor.
      * @param \PDO $connection
      */
-    public function __construct(\PDO $connection)
+    public function __construct()
     {
-        $this->connection = $connection;
+        $dbFactory = new DatabaseFactory();
+        $this->dbAdapter = $dbFactory->getDbAdapter();
+        $this->hydrator = new \Product\Hydrator\Product();
     }
-
+    
     /**
      * @param int $number
      * @return array
