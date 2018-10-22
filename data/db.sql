@@ -43,8 +43,8 @@ CREATE TABLE Categorie(
 CREATE TABLE Produit(
     idProduit SERIAL PRIMARY KEY,
     libelle VARCHAR NOT NULL,
-    prix INTEGER NOT NULL,
-    reduction INTEGER NOT NULL,
+    prix FLOAT NOT NULL,
+    reduction FLOAT NOT NULL,
     quantiteStock INTEGER NOT NULL,
     idCategorie INTEGER NOT NULL REFERENCES Categorie (idCategorie)
 );
@@ -52,7 +52,7 @@ CREATE TABLE Produit(
 CREATE TABLE FaitPartieCommande(
     idProduit SERIAL NOT NULL REFERENCES Produit (idProduit),
     idCommande SERIAL NOT NULL REFERENCES Commande (idCommande),
-    prixVente INTEGER NOT NULL,
+    prixVente FLOAT NOT NULL,
     quantite INTEGER NOT NULL,
     PRIMARY KEY (idProduit, idCommande)
 );
