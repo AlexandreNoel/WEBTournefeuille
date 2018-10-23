@@ -2,13 +2,9 @@
 
 require '../vendor/autoload.php';
 
+session_start();
 
-$dbName = getenv('DB_NAME');
-$dbUser = getenv('DB_USER');
-$dbPassword = getenv('DB_PASSWORD');
-$connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
-
-$userRepository = new \Repository\User($connection);
+$userRepository = new \Repository\User();
 $userHydrator = new \Hydrator\User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -31,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['mail'] = $mail;
 
         header('Location: index.php');
+    }else{
+        require_once('view/connect.php');
     }
 }
-require_once('../view/connect.php');
 

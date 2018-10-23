@@ -2,6 +2,8 @@
 
 namespace Repository;
 
+use \Adapter\DatabaseFactory;
+
 class User
 {
     /**
@@ -9,13 +11,16 @@ class User
      */
     private $connection;
 
+    private $hydrator;
+
     /**
      * User constructor.
      * @param \PDO $connection
      */
-    public function __construct(\PDO $connection)
+    public function __construct()
     {
-        $this->connection = $connection;
+        $dbFactory = new DatabaseFactory();
+        $this->connection = $dbFactory->getDbAdapter();
         $this->hydrator = new \Hydrator\User();
     }
 
@@ -59,7 +64,7 @@ class User
     public function findOneById($userId)
     {
         $user = null;
-        $statement = $this->dbAdapter->prepare('select * from "persons" where id_user = :id_user');
+        $statement = $this->connection->prepare('select * from "persons" where id_user = :id_user');
         $statement->bindParam(':id_user', $userId);
         $statement->execute();
 
@@ -69,5 +74,19 @@ class User
         }
 
         return $user;
+    }
+
+    public function create (\Entity\User $user)
+    {
+        $userArray = $this->hydrator->extract($user);
+        $statement = $this->connection->prepare('INSERT INTO persons values (DEFAULT, :nom_user, :prenom_user, :mail_user, :promo_user, :isadmin, :secret_user)');
+        $statement->bindParam(':nom_user', $userArray['nom_user']);
+        $statement->bindParam(':prenom_user', $userArray['prenom_user']);
+        $statement->bindParam(':mail_user', $userArray['mail_user']);
+        $statement->bindParam(':promo_user', $userArray['promo_user']);
+        $statement->bindParam(':isadmin', $userArray['isadmin']);
+        $statement->bindParam(':secret_user', $userArray['secret_user']);
+
+        $statement->execute();
     }
 }

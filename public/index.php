@@ -1,6 +1,8 @@
 <?php
 require '../vendor/autoload.php';
 
+session_start();
+
 //postgres
 $dbName = getenv('DB_NAME');
 $dbUser = getenv('DB_USER');
@@ -18,11 +20,10 @@ $users = $userRepository->fetchAll();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-
 <div class="container">
     <h3><?php echo 'Hello world from Docker! php' . PHP_VERSION; ?></h3>
     <button type="button" onclick="location.href = 'view/connect.php';">connect</button>
-    
+
     <button type="button" onclick="location.href = 'view/register.php';">register</button>
 
     <table class="table table-bordered table-hover table-striped">
