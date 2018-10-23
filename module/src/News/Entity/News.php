@@ -1,12 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sphinx06
- * Date: 21/10/18
- * Time: 12:00
- */
-namespace Article\Entity;
-class Article {
+
+namespace Annonce\Entity;
+class Annonce {
     /**
      * @var int
      */

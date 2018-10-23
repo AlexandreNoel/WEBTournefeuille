@@ -5,10 +5,10 @@
  * Date: 21/10/18
  * Time: 12:25
  */
-namespace Article\Repository;
+namespace Annonce\Repository;
 use \Adapter\DatabaseFactory;
 
-class Article {
+class Annonce {
     /**
      * @var \PDO
      **/
@@ -23,13 +23,23 @@ class Article {
         $this->dbAdapter = $dbFactory->getDbAdapter();
         $this->hydrator = new \Product\Hydrator\Product();
     }
-    
+
+    public function findAll() : array
+    {
+        $sql='SELECT * FROM annonce';
+        foreach ($this->dbAdapter->query($sql) as $articleData) {
+            $entity = new \Annonce\Entity\News();
+            $articles[] = $this->hydrator->hydrate($articleData, clone $entity);
+        }
+        return $articles;
+    }
+
     /**
      * @param int $number
      * @return array
      * @throws \Exception
      */
-    public function fetchTop($number)
+    public function findLast($number)
     {
         $rows = $this->connection->query('SELECT TOP $number * FROM annonce')->fetchAll(\PDO::FETCH_OBJ);
         $articles = [];

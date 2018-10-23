@@ -1,12 +1,12 @@
 <?php
 
-namespace Article\Hydrator;
+namespace Annonce\Hydrator;
 /**
- * Class Article
- * @package Article\Hydrator
+ * Class Annonce
+ * @package Annonce\Hydrator
  */
-class Article{
-    public function extract(\Article\Entity\Article $object): array
+class Annonce{
+    public function extract(\Annonce\Entity\Annonce $object): array
     {
         $data = [];
         if ($object->getId()) {
@@ -23,7 +23,7 @@ class Article{
         }
         return $data;
     }
-    public function hydrate(array $data, \Article\Entity\Article $emptyEntity): \Article\Entity\Article
+    public function hydrate(array $data, \Annonce\Entity\Annonce $emptyEntity): \Annonce\Entity\Annonce
     {
         return $emptyEntity
             ->setId($data['idannonce'] ?? null)
