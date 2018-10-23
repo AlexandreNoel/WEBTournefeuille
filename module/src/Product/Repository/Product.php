@@ -71,14 +71,14 @@ class Product
     public function create (\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
-        return $this->hydrator->extract($product);
-        $statement = $this->dbAdapter->prepare('INSERT INTO produit (libelle,prix,reduction,quantitestock,idcategorie) values (:libelle, :prix,:reduction,:idcategorie,:quantitestock)');
+        $statement = $this->dbAdapter->prepare('INSERT INTO produit (libelle,prix,reduction,quantitestock,idcategorie) values (:libelle, :prix,:reduction,:quantitestock,:idcategorie)');
         $statement->bindParam(':libelle', $productArray['libelle']);
         $statement->bindParam(':prix', $productArray['prix']);
         $statement->bindParam(':reduction', $productArray['reduction']);
         $statement->bindParam(':quantitestock', $productArray['quantitestock']);
         $statement->bindParam(':idcategorie', $productArray['idcategorie']);
         $statement->execute();
+        return $statement;
 
 
     }

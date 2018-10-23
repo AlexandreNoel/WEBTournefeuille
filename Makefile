@@ -47,6 +47,7 @@ db.connect:
 	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
 
 db.install:
+	sleep 10
 	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/db.sql'
 
 php.connect:

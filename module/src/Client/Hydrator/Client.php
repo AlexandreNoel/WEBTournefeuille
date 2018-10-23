@@ -24,10 +24,16 @@ class Client{
         if ($object->getSolde()) {
             $data['solde'] = $object->getSolde();
         }
+<<<<<<< HEAD
         if ($object->getRole()) {
             $data['idrole'] = $object->getRole();
         }
 
+=======
+        if ($object->getCodebarmen()) {
+            $data['codebarmen'] = $object->getSolde();
+        }
+>>>>>>> e4d5b5b6e7ad5135796919d8ca131f4d5c5693da
         return $data;
     }
     public function hydrate(array $data, \Client\Entity\Client $emptyEntity): \Client\Entity\Client
@@ -38,7 +44,11 @@ class Client{
             ->setLastname($data['nom'] ?? null)
             ->setFirstname($data['prenom'] ?? null)
             ->setSolde($data['solde'] ?? null)
+<<<<<<< HEAD
             ->setIdrole($date['idrole'] ?? null);
+=======
+            ->setCodebarmen($data['codebarmen'] ?? null);
+>>>>>>> e4d5b5b6e7ad5135796919d8ca131f4d5c5693da
     }
 }
 ?>

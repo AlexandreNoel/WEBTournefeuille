@@ -6,6 +6,7 @@
         "psr-4": {
             "Client\\": "module/src/Client/",
             "Product\\": "module/src/Product",
+            "News\\": "module/src/News",
             "Adapter\\": "module/Application/src/Adapter"
         }
     },
@@ -13,6 +14,7 @@
         "psr-4": {
             "User\\": "test/unit/User/",
             "Product\\": "test/unit/Product/",
+            "News\\": "test/unit/News/",
             "Adapter\\": "module/Application/src/Adapter/"
         }
     }

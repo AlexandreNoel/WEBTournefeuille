@@ -1,12 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sphinx06
- * Date: 21/10/18
- * Time: 12:00
- */
-namespace Article\Entity;
-class Article {
+
+namespace News\Entity;
+class News{
     /**
      * @var int
      */
@@ -28,6 +23,11 @@ class Article {
     private $idauteur;
 
     /**
+     * @var date
+     */
+    private $dateCreation;
+
+    /**
      * @return int
      */
     public function getId()
@@ -41,6 +41,7 @@ class Article {
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -57,6 +58,7 @@ class Article {
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -73,6 +75,7 @@ class Article {
     public function setContenu($contenu)
     {
         $this->contenu = $contenu;
+        return $this;
     }
 
     /**
@@ -89,7 +92,24 @@ class Article {
     public function setIdauteur($idauteur)
     {
         $this->idauteur = $idauteur;
+        return $this;
     }
 
+    /**
+     * @return date
+     */
+    public function getDateCreation(): date
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * @param date $dateCreation
+     */
+    public function setDateCreation(date $dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+        return $this;
+    }
 
 }

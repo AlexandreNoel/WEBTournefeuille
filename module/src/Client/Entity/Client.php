@@ -28,9 +28,15 @@ class Client
     private $solde;
 
     /**
+<<<<<<< HEAD
      * @var int
      */
     private $idrole;
+=======
+     * @var string
+     */
+    private $codebarmen;
+>>>>>>> e4d5b5b6e7ad5135796919d8ca131f4d5c5693da
 
     /**
      * @return string
@@ -118,6 +124,7 @@ class Client
     }
 
     /**
+<<<<<<< HEAD
      * @return int
      */
     public function getIdrole(): int
@@ -134,6 +141,25 @@ class Client
         return $this;
     }
 
+=======
+     * @return string
+     */
+    public function getCodebarmen(): string
+    {
+        return $this->codebarmen;
+    }
+
+    /**
+     * @param string $codebarmen
+     */
+    public function setCodebarmen(?string $codebarmen): Client
+    {
+        $this->codebarmen = $codebarmen;
+        return $this;
+    }
+
+
+>>>>>>> e4d5b5b6e7ad5135796919d8ca131f4d5c5693da
 
 }
 
