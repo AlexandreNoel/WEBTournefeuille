@@ -49,6 +49,7 @@
             <input type="submit" value="Log in">
         </form>
     </div>
+     <button onclick="location.href = 'forgotten-password.php';">Forgot Password</button>
 </div>
 </body>
 </html>
