@@ -86,7 +86,19 @@ class User
         $statement->bindParam(':promo_user', $userArray['promo_user']);
         $statement->bindParam(':isadmin', $userArray['isadmin']);
         $statement->bindParam(':secret_user', $userArray['secret_user']);
+        return $statement->execute();
+      }
 
+     /**
+     * @param \Entity\User $user
+     */
+    public function updatePassword(\Entity\User $user)
+    {
+        $userArray = $this->hydrator->extract($user);
+        $statement = $this->connection->prepare('UPDATE persons set secret_user = :secret_user where id = :id');
+        $statement->bindParam(':id', $userArray['id']);
+        $statement->bindParam(':secret_user', $userArray['secret_user']);
         $statement->execute();
     }
+
 }
