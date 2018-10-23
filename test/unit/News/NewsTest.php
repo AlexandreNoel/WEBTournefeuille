@@ -6,7 +6,7 @@ use Product\Entity\Product;
 
 //use Product\Entity\Product;
 
-class ProductTest extends TestCase
+class NewsTest extends TestCase
 {
 
     /**
