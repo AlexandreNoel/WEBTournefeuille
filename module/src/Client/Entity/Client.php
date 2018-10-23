@@ -1,5 +1,5 @@
 <?php
-namespace Client;
+namespace Client\Entity;
 
 class Client
 {
@@ -23,11 +23,6 @@ class Client
     private $lastname;
 
     /**
-     * @var \DateTimeInterface
-     */
-    private $createdAt;
-
-    /**
      * @var int
      */
     private $solde;
@@ -43,9 +38,10 @@ class Client
     /**
      * @param string $firstname
      */
-    public function setFirstname(string $firstname): void
+    public function setFirstname(string $firstname): Client
     {
         $this->firstname = $firstname;
+        return $this;
     }
 
     /**
@@ -59,9 +55,10 @@ class Client
     /**
      * @param string $nickname
      */
-    public function setNickname(string $nickname): void
+    public function setNickname(string $nickname): Client
     {
         $this->nickname = $nickname;
+        return $this;
     }
 
     /**
@@ -75,25 +72,10 @@ class Client
     /**
      * @param string $lastname
      */
-    public function setLastname(string $lastname): void
+    public function setLastname(string $lastname): Client
     {
         $this->lastname = $lastname;
-    }
-
-    /**
-     * @return \DateTimeInterface
-     */
-    public function getCreatedAt(): \DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTimeInterface $createdAt
-     */
-    public function setCreatedAt(\DateTimeInterface $createdAt): void
-    {
-        $this->createdAt = $createdAt;
+        return $this;
     }
 
     /**
@@ -107,9 +89,27 @@ class Client
     /**
      * @param int $solde
      */
-    public function setSolde(int $solde): void
+    public function setSolde(int $solde): Client
     {
         $this->solde = $solde;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(?int $id): Client
+    {
+        $this->id = $id;
+        return $this;
     }
 
 

@@ -1,6 +1,7 @@
 <?php
 namespace Client;
 
+use Adapter\DatabaseFactory;
 use PHPUnit\Framework\TestCase;
 
 class ClientTest extends TestCase
@@ -8,31 +9,27 @@ class ClientTest extends TestCase
     /**
      * @test
      */
-    public function ageWhenBirthdayInThePast()
-    {
-        $user = new Client();
-        $user->setBirthday(new \DateTime('-10 years'));
-        self::assertSame(10, $user->getAge());
-    }
 
-    /**
-     * @test
-     */
-    public function ageWhenBirthdayNow()
+    public function getFirstUser()
     {
-        $user = new Client();
-        $user->setBirthday(new \DateTime());
-        self::assertSame(0, $user->getAge());
-    }
-
-    /**
-     * @test
-     * @expectedException \OutOfRangeException
-     */
-    public function ageWhenBirthdayInTheFuture()
-    {
-        $user = new Client();
-        $user->setBirthday(new \DateTime('+10 years'));
-        $user->getAge();
+        $dbfactory = new DatabaseFactory();
+        $dbconnector = $dbfactory->getDbAdapter();
+        $hydrator = new \Client\Hydrator\Client();
+        $userRepository = new \Client\Repository\Client($dbconnector);
+        $gefclic = $hydrator->hydrate(
+            [
+                'idutilisateur' => 1,
+                'prenom' => "Benoit",
+                'pseudo' => "Gefclic",
+                'nom' => "SCHOLL",
+                'solde' => 25
+            ],
+            new \Client\Entity\Client()
+        );
+        $retrieved = $userRepository->findById(1);
+        self::assertSame($gefclic->getFirstname(), $retrieved->getFirstname());
+        self::assertSame($gefclic->getLastname(), $retrieved->getLastname());
+        self::assertSame($gefclic->getSolde(), $retrieved->getSolde());
+        self::assertSame($gefclic->getId(), $retrieved->getId());
     }
 }
