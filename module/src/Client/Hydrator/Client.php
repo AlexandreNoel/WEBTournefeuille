@@ -21,12 +21,13 @@ class Client{
         if ($object->getLastname()) {
             $data['lastname'] = $object->getLastname();
         }
-        if ($object->getCreatedAt()) {
-            $data['createdat'] = $object->getCreatedAt();
-        }
         if ($object->getSolde()) {
             $data['solde'] = $object->getSolde();
         }
+        if ($object->getRole()) {
+            $data['idrole'] = $object->getRole();
+        }
+
         return $data;
     }
     public function hydrate(array $data, \Client\Entity\Client $emptyEntity): \Client\Entity\Client
@@ -36,7 +37,8 @@ class Client{
             ->setNickname($data['pseudo'] ?? null)
             ->setLastname($data['nom'] ?? null)
             ->setFirstname($data['prenom'] ?? null)
-            ->setSolde($data['solde'] ?? null);
+            ->setSolde($data['solde'] ?? null)
+            ->setIdrole($date['idrole'] ?? null);
     }
 }
 ?>

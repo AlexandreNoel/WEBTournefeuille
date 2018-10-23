@@ -11,9 +11,8 @@ class Client
 
     /**
      * Client constructor.
-     * @param \PDO $connection
      */
-    public function __construct(\PDO $connection)
+    public function __construct()
     {
         $dbFactory = new DatabaseFactory();
         $this->dbAdapter = $dbFactory->getDbAdapter();
@@ -45,5 +44,30 @@ class Client
         return $user;
     }
 
+    public function findByNickname($nickname)
+    {
+        $users = [];
+        $statement = $this->dbAdapter->prepare('select * from Utilisateur where (lower(nickname) LIKE lower(%:nickname%))');
+        $statement->bindParam(':nickname', $nickname);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $row){
+            $entity = new \Client\Entity\Client();
+            $user[] = $this->hydrator->hydrate($row, clone $entity);
+        }
+        return $users;
+    }
+
+    public function create (\Client\Entity\Client $product)
+    {
+        $clientarray = $this->hydrator->extract($product);
+        $statement = $this->dbAdapter->prepare('INSERT INTO Utilisateur (idUtilisateur,pseudo,prenom,solde,idRole) values (:idclient, :nickname,:firstname,:lastname,:solde,:idrole)');
+        $statement->bindParam(':idclient', $clientarray['idclient']);
+        $statement->bindParam(':nickname', $clientarray['nickname']);
+        $statement->bindParam(':firstname', $clientarray['firstname']);
+        $statement->bindParam(':lastname', $clientarray['lastname']);
+        $statement->bindParam(':solde', $clientarray['solde']);
+        $statement->bindParam(':idrole', $clientarray['idrole']);
+        $statement->execute();
+    }
 
 }
