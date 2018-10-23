@@ -4,7 +4,7 @@
 --        Script Postgre 
 ------------------------------------------------------------
 
-
+CREATE EXTENSION pgcrypto;
 
 ------------------------------------------------------------
 -- Table: Persons
@@ -106,5 +106,5 @@ VALUES (
 ---------------------------
 -- Insertion des utilisateurs
 ---------------------------
-INSERT INTO persons VALUES (DEFAULT,'admin_lastname','admin_firstname','admin@mail.com',2020,'1',md5('admin_secret'));
-INSERT INTO persons VALUES (DEFAULT,'user_lastname','user_firstname','user@mail.com',2021,'0',md5('user_secret'));
+INSERT INTO persons VALUES (DEFAULT,'admin_lastname','admin_firstname','admin@mail.com',2020,'1',crypt('admin_secret',gen_salt('bf',8)));
+INSERT INTO persons VALUES (DEFAULT,'user_lastname','user_firstname','user@mail.com',2021,'0',crypt('user_secret',gen_salt('bf',8)));
