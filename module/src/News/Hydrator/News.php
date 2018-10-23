@@ -1,19 +1,19 @@
 <?php
 
-namespace Annonce\Hydrator;
+namespace News\Hydrator;
 /**
- * Class Annonce
- * @package Annonce\Hydrator
+ * Class News
+ * @package News\Hydrator
  */
-class Annonce{
-    public function extract(\Annonce\Entity\Annonce $object): array
+class News{
+    public function extract(\News\Entity\News $object): array
     {
         $data = [];
         if ($object->getId()) {
             $data['idannonce'] = $object->getId();
         }
-        if ($object->getTitre()) {
-            $data['titre'] = $object->getName();
+        if ($object->getTitle()) {
+            $data['titre'] = $object->getTitle();
         }
         if ($object->getContenu()) {
             $data['contenu'] = $object->getContenu();
@@ -21,15 +21,22 @@ class Annonce{
         if ($object->getIdauteur()) {
             $data['idauteur'] = $object->getIdauteur();
         }
+        if ($object->getIdauteur()) {
+            $data['idauteur'] = $object->getIdauteur();
+        }
+        if ($object->getDateCreation()) {
+            $data['dateCreation'] = $object->getDateCreation();
+        }
         return $data;
     }
-    public function hydrate(array $data, \Annonce\Entity\Annonce $emptyEntity): \Annonce\Entity\Annonce
+    public function hydrate(array $data, \News\Entity\News $emptyEntity): \News\Entity\News
     {
         return $emptyEntity
             ->setId($data['idannonce'] ?? null)
-            ->setTitre($data['titre'] ?? null)
+            ->setTitle($data['titre'] ?? null)
             ->setContenu($data['contenu'] ?? null)
-            ->setIdAuteur($data['idauteur'] ?? null);
+            ->setIdAuteur($data['idauteur'] ?? null)
+            ->setDateCreation($data['dateCreation'] ?? null);
     }
 }
 ?>

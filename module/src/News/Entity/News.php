@@ -1,7 +1,7 @@
 <?php
 
-namespace Annonce\Entity;
-class Annonce {
+namespace News\Entity;
+class News{
     /**
      * @var int
      */
@@ -23,6 +23,11 @@ class Annonce {
     private $idauteur;
 
     /**
+     * @var date
+     */
+    private $dateCreation;
+
+    /**
      * @return int
      */
     public function getId()
@@ -36,6 +41,7 @@ class Annonce {
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -52,6 +58,7 @@ class Annonce {
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -68,6 +75,7 @@ class Annonce {
     public function setContenu($contenu)
     {
         $this->contenu = $contenu;
+        return $this;
     }
 
     /**
@@ -84,7 +92,24 @@ class Annonce {
     public function setIdauteur($idauteur)
     {
         $this->idauteur = $idauteur;
+        return $this;
     }
 
+    /**
+     * @return date
+     */
+    public function getDateCreation(): date
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * @param date $dateCreation
+     */
+    public function setDateCreation(date $dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+        return $this;
+    }
 
 }

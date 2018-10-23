@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sphinx06
- * Date: 21/10/18
- * Time: 12:25
- */
-namespace Annonce\Repository;
+
+namespace News\Repository;
 use \Adapter\DatabaseFactory;
 
-class Annonce {
+class News {
     /**
      * @var \PDO
      **/
@@ -21,14 +16,14 @@ class Annonce {
     {
         $dbFactory = new DatabaseFactory();
         $this->dbAdapter = $dbFactory->getDbAdapter();
-        $this->hydrator = new \Product\Hydrator\Product();
+        $this->hydrator = new \News\Hydrator\News();
     }
 
     public function findAll() : array
     {
         $sql='SELECT * FROM annonce';
         foreach ($this->dbAdapter->query($sql) as $articleData) {
-            $entity = new \Annonce\Entity\News();
+            $entity = new \News\Entity\News();
             $articles[] = $this->hydrator->hydrate($articleData, clone $entity);
         }
         return $articles;
@@ -44,10 +39,10 @@ class Annonce {
         $rows = $this->connection->query('SELECT TOP $number * FROM annonce')->fetchAll(\PDO::FETCH_OBJ);
         $articles = [];
         foreach ($rows as $row) {
-            $article = new Article\Entity\Article();
+            $article = new News\Entity\News();
             $article
                 ->setId($row->id)
-                ->setTitre($row->titre)
+                ->setTitle($row->titre)
                 ->setContenu($row->contenu)
                 ->setIdauteur($row->Idauteur);
 
