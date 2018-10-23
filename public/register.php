@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'isadmin' => $isadmin,
                 'promo_user' => $promo,
                 'mail_user' => $mail,
-                'secret_user' => password_hash($password, PASSWORD_DEFAULT)
+                'secret_user' => password_hash($password, PASSWORD_BCRYPT)
             ],
             new \Entity\User()
         );
