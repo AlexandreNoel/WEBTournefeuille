@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         header('Location: index.php');
 
-    }else {
-    echo $error;
+    }else{
+        echo $error;
+        require_once('view/register.php');
     }
-    echo "  --- now just add the object 'user' in the database ! :)";
 }
