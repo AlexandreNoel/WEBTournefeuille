@@ -52,7 +52,7 @@ class Client
         $statement->execute();
         foreach ($statement->fetchAll() as $row){
             $entity = new \Client\Entity\Client();
-            $user[] = $this->hydrator->hydrate($row, clone $entity);
+            $users[] = $this->hydrator->hydrate($row, clone $entity);
         }
         return $users;
     }
