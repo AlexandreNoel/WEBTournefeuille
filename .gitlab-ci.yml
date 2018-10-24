@@ -18,3 +18,5 @@ deployToAWS:
   script:
     - cd /builds/ProjetsEnsiie/lebard/
     - bash data/deploy.sh
+  only:
+    - master
