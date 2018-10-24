@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: theo
- * Date: 21/10/18
- * Time: 17:48
- */
+
 namespace Adapter;
 
 /**

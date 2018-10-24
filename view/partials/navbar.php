@@ -19,8 +19,8 @@
                     <li class="nav-item">
                         <a class="nav-link fixed-nav-text" href="/gestion.php"> Gestion du bar <i class="fa fa-cog"></i></a>
                     </li>
-                    <li id="<?php print $username ?>" class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="#"><?php print $username ?> <i class="far fa-user"></i></a>
+                    <li id="<?php print $nickname ?>" class="nav-item">
+                        <a class="nav-link fixed-nav-text" href="#"><?php print $nickname ?> <i class="far fa-user"></i></a>
                     </li>
                 <?php } else{ ?>
                     <li class="nav-item">
@@ -34,7 +34,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link fixed-nav-text dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?php print $username ?>
+                            <?php print $nickname ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="/logout.php">Déconnexion</a>

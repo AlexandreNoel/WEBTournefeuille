@@ -106,7 +106,7 @@ class Client
     /**
      * @param int $id
      */
-    public function setId(?int $id): Client
+    public function setId(int $id): Client
     {
         $this->id = $id;
         return $this;
