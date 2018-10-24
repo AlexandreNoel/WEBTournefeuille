@@ -5,38 +5,49 @@ use  \Adapter\DatabaseFactory;
 
 class User
 {
-        /**
+    function verify($data,$condition,$errorMsg,$dataname,$length_min,$length_max){
+        if(isset($data) && !is_null($data) && $data != ''){
+            if ($condition){
+                return $errorMsg;
+            }
+        }else{
+           return "Error: ". $dataname ." is required";
+        }
+        if(strlen($data) > $length_max){
+            return "Error: ". $dataname ." is too long (".$length_max." max)";
+        }
+        if(strlen($data) < $length_min){
+            return "Error: ". $dataname ." is too short (".$length_min." min)";
+        }
+    }
+
+
+     /**
      * @param \Repository\User $userRepository
      * @param array
-     * @return string
+     * @return array
      */
        function verify_registration($userRepository, $data){
+        $error = [];
 
-        if(is_null($data['prenom_user']) || $data['prenom_user'] == ''){
-        return 'name is required or data type is incorrect';
-       }
-       if(is_null($data['nom_user']) || $data['nom_user'] == ''){
-        return 'lastname is required or data type is incorrect';
-       }
-       if(is_null($data['isadmin']) ){
-        return 'isadmin is required, internal error or data type is incorrect';
-       }
-       if(is_null($data['promo_user']) || $data['promo_user'] == '' || !(is_numeric($data['promo_user']))){
-        return 'Promo is required or data type is incorrect';
-       }
-        if(is_null($data['mail_user']) || $data['mail_user'] == '' || !(filter_var($data['mail_user'], FILTER_VALIDATE_EMAIL))){
-        return 'Mail is required or data type is incorrect';
-        }else{
-        $user = $userRepository->findOneByMail($data['mail_user']);
-       if ($user) {
-                return 'user already exist';
-            }
-       }
+        $name = $data['prenom_user'];
+        $lastname = $data['nom_user'];
+        $promo = $data['promo_user'];
+        $mail= $data['mail_user'];
+        $password = $data['secret_user'];
+
+        $error['prenom_user'] = $this->verify($name,preg_match('#[0-9]#',$name),'Error: name must not contain digit','prenom_user',2,25);
+        $error['nom_user'] = $this->verify($lastname,preg_match('#[0-9]#',$lastname),'Error: lastname must not contain digit','nom_user',2,25);
+        $error['promo_user'] = $this->verify($promo,!is_numeric($promo),'Error: promotion must be a number','promo_user',4,4);
+        $error['mail_user'] = $this->verify($mail,!(filter_var($mail, FILTER_VALIDATE_EMAIL)),'Error: mail format error','mail_user',5,40);
+
+        if($userRepository->findOneByMail($mail)){
+            $error['mail_user'] = 'user already exist';
+        }
+
+        $error['secret_user'] = $this->verify($password,false,'','secret_user',4,100);
         
-        if(is_null($data['secret_user']) || $data['secret_user'] == ''){
-        return 'Password is required';
-       }
-            return 'ok';
+        return $error;
     }
 
 

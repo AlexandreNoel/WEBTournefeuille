@@ -25,12 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'promo_user' => $promo ?? null,
             'mail_user' => $mail ?? null,
             'secret_user' => $password ?? null,
-        ]
+        ],
+        'errors',
     ];
     $userService = new \Service\User();
-    $error = $userService->verify_registration($userRepository, $view['user']);
+    $view['errors'] = $userService->verify_registration($userRepository, $view['user']);
 
-    if ($error == 'ok') {
+    if (count(array_filter($view['errors'])) === 0) {
 
         $newUser = $userHydrator->hydrate(
             [
@@ -44,12 +45,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             new \Entity\User()
         );
         $userRepository->create($newUser);
+        
         $_SESSION['uniqid'] = uniqid();
-        $_SESSION['mail'] = $mail;
+        $_SESSION['name'] = $firstname." ".$lastname;
+
+       
         header('Location: index.php');
 
     }else{
-        $error = json_encode($error);
         require_once('view/register.php');
     }
 }
