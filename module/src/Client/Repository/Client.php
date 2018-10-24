@@ -84,15 +84,16 @@ class Client
     public function create(\Client\Entity\Client $client)
     {
         $taskArray = $this->hydrator->extract($client);
-        $statement = $this->dbAdapter->prepare("INSERT INTO utilisateur (idrole,nom, prenom, pseudo, solde) values (:idrole,:lastname, :firstname,:nickname,:solde)");
+        $statement = $this->dbAdapter->prepare("INSERT INTO utilisateur (idrole,nom, prenom, pseudo, solde) values(:idrole,:lastname,:firstname,:nickname,:solde)");
         $firstname = strtolower($taskArray['prenom']);
         $lastname = strtolower($taskArray['nom']);
         $nickname = strtolower($taskArray['pseudo']);
+        $solde=0;
+        $statement->bindParam(':idrole', $taskArray['idrole']);
         $statement->bindParam(':lastname', $lastname);
         $statement->bindParam(':firstname', $firstname);
         $statement->bindParam(':nickname', $nickname);
-        $statement->bindParam(':solde', $taskArray['solde']);
-        $statement->bindParam(':idrole', $taskArray['idrole']);
+        $statement->bindParam(':solde', $solde);
         $statement->execute();
 
     }

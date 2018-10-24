@@ -37,7 +37,7 @@ if ($consumer->is_authenticated()) {
     $userRepository = new \Client\Repository\Client();
     $userHydrator = new \Client\Hydrator\Client();
 
-    try {
+
         /* Récupération des informations cliens (AriseId) */
         $results = $consumer->api()->begin()
             ->get_identifiant()
@@ -45,7 +45,7 @@ if ($consumer->is_authenticated()) {
             ->get_nom()
             ->get_surnom()
             ->done();
-
+    try {
         $firstname= $results[1]();
         $lastname = $results[2]();
         $nickname = $results[3]();
@@ -54,11 +54,13 @@ if ($consumer->is_authenticated()) {
             $user = $userRepository->findByAriseData($lastname,$firstname,$nickname);
 
             if(!isset($user)){
+                $solde=0;
                 $newUser = $userHydrator->hydrate(
                     [
                         'pseudo' => $nickname ?? null,
                         'nom' => $lastname ?? null,
                         'prenom' => $firstname ?? null,
+                        'solde' => $solde ?? 0,
                     ],
                     new \Client\Entity\Client()
                 );
@@ -69,13 +71,13 @@ if ($consumer->is_authenticated()) {
             }
 
         }
-    } catch (Exception $e) {
+    } catch (OAuthException $e) {
         $error = true;
         $_SESSION["oAuth_error"] = $e->getMessage();
     }
 
     if($error){
-        header('Location: welcome.php');
+        header('Location: /');
     }
     else if($_SESSION["superAdmin"]===true){
         header('Location: console.php');

@@ -36,12 +36,12 @@ class Client{
     {
         return $emptyEntity
             ->setId($data['idutilisateur'] ?? 0)
-            ->setNickname(strtolower($data['pseudo']) ?? null)
-            ->setLastname(strtolower($data['nom']) ?? null)
-            ->setFirstname(strtolower($data['prenom']) ?? null)
+            ->setNickname(strtolower($data['pseudo']) ?? "")
+            ->setLastname(strtolower($data['nom']) ?? "")
+            ->setFirstname(strtolower($data['prenom']) ?? "")
             ->setSolde($data['solde'] ?? 0)
             ->setIdrole($date['idrole'] ?? 1)
-            ->setCodebarmen($data['codebarmen'] ?? null);
+            ->setCodebarmen($data['codebarmen'] ?? "");
     }
 }
 ?>
