@@ -22,6 +22,14 @@ h1,h2,h3,h4,h5,h6{
 	text-transform:uppercase;
 	font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive;
 }
+.content-container{
+	margin-top:125px;
+}
+
+.body{
+	font-family: 'Gothic A1', sans-serif;
+	font-size:16px;
+}
 
 .content-container{
 	margin-top:100px;
@@ -93,6 +101,12 @@ nav{
 /* NAVBAR LOGGED*/
 #collapsibleNavbar .active{
 	text-decoration: underline red;
+}
+
+/* NAVBAR LOGGED*/
+#collapsibleNavbar .active{
+	text-decoration: underline red;
+	text-decoration-style: dashed;
 }
 
 .fixed-nav {
