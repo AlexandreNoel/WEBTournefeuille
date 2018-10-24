@@ -43,5 +43,5 @@
                 </font></p>
             <?php endif; ?>
             
-<input onclick="location.href = 'register.php';" type="submit"/>
+<input onclick="location.href = 'register.php';" type="submit" value="register" />
 </form>
