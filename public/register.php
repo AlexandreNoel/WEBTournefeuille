@@ -2,6 +2,8 @@
 
 require '../vendor/autoload.php';
 
+session_start();
+
 $userRepository = new \Repository\User();
 $userHydrator = new \Hydrator\User();
 
