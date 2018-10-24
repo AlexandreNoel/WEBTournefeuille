@@ -4,12 +4,18 @@
     },
     "autoload": {
         "psr-4": {
-            "User\\": "src/User/"
+            "Client\\": "module/src/Client/",
+            "Product\\": "module/src/Product",
+            "News\\": "module/src/News",
+            "Adapter\\": "module/Application/src/Adapter"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "User\\": "test/unit/User/"
+            "User\\": "test/unit/User/",
+            "Product\\": "test/unit/Product/",
+            "News\\": "test/unit/News/",
+            "Adapter\\": "module/Application/src/Adapter/"
         }
     }
 }

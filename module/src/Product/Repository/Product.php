@@ -6,13 +6,12 @@
  * Time: 17:48
  */
 namespace Product\Repository;
-use Application\Adapter\DatabaseFactory;
-
+use \Adapter\DatabaseFactory;
 class Product
 {
     /**
      * @var \PDO
-     Product
+     **/
     private $connection;
     /**
      * UserRepository constructor.
@@ -24,42 +23,68 @@ class Product
         $this->dbAdapter = $dbFactory->getDbAdapter();
         $this->hydrator = new \Product\Hydrator\Product();
     }
+
     public function findAll() : array
     {
-        $sql='SELECT * FROM utilisateur';
+        $sql='SELECT * FROM produit';
         foreach ($this->dbAdapter->query($sql) as $productData) {
             $entity = new \Product\Entity\Product();
             $products[] = $this->hydrator->hydrate($productData, clone $entity);
         }
         return $products;
     }
-    public function update(\Product\Hydrator\Product $product)
+    public function findById($id)
+    {
+        $product = null;
+        $statement = $this->dbAdapter->prepare('select * from produit where idproduit = :id');
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $productData) {
+            $entity = new \Product\Entity\Product();
+            $product = $this->hydrator->hydrate($productData, clone $entity);
+        }
+        return $product;
+    }
+    public function findByName($libelle)
+    {
+        $product = null;
+        $statement = $this->dbAdapter->prepare('select * from produit where libelle = :libelle');
+        $statement->bindParam(':libelle', $libelle);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $productData) {
+            $entity = new \Product\Entity\Product();
+            $product = $this->hydrator->hydrate($productData, clone $entity);
+        }
+        return $product;
+    }
+    public function update(\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
-        $statement = $this->dbAdapter->prepare('update product set libelle = :name,prix = :price,reduction = :reduction,quantite = :quantity,idFamille = :idfamilly where id = :id');
-        $statement->bindParam(':id', $productArray['id']);
-        $statement->bindParam(':name', $productArray['name']);
-        $statement->bindParam(':price', $productArray['price']);
+        $statement = $this->dbAdapter->prepare('update produit set libelle = :name,prix = :price,reduction = :reduction,quantite = :quantity,idFamille = :idfamilly where id = :id');
+        $statement->bindParam(':libelle', $productArray['libelle']);
+        $statement->bindParam(':prix', $productArray['prix']);
         $statement->bindParam(':reduction', $productArray['reduction']);
-        $statement->bindParam(':quantity', $productArray['quantity']);
-        $statement->bindParam(':idfamilly', $productArray['idfamilly']);
+        $statement->bindParam(':quantitestock', $productArray['quantitestock']);
+        $statement->bindParam(':idcategorie', $productArray['idcategorie']);
         $statement->execute();
     }
-    public function create (\Product\Hydrator\Product $product)
+    public function create (\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
-        $statement = $this->dbAdapter->prepare('INSERT INTO product (idProduit, libelle,prix,reduction,quantite,idFamille) values (:id, :name,:price,:reduction,:idfamilly,:quantity)');
-        $statement->bindParam(':id', $productArray['id']);
-        $statement->bindParam(':name', $productArray['name']);
-        $statement->bindParam(':price', $productArray['price']);
+        $statement = $this->dbAdapter->prepare('INSERT INTO produit (libelle,prix,reduction,quantitestock,idcategorie) values (:libelle, :prix,:reduction,:quantitestock,:idcategorie)');
+        $statement->bindParam(':libelle', $productArray['libelle']);
+        $statement->bindParam(':prix', $productArray['prix']);
         $statement->bindParam(':reduction', $productArray['reduction']);
-        $statement->bindParam(':quantity', $productArray['quantity']);
-        $statement->bindParam(':idfamilly', $productArray['idfamilly']);
+        $statement->bindParam(':quantitestock', $productArray['quantitestock']);
+        $statement->bindParam(':idcategorie', $productArray['idcategorie']);
         $statement->execute();
+        return $statement;
+
+
     }
     public function delete($productId)
     {
-        $statement = $this->dbAdapter->prepare('DELETE FROM product where id = :id');
+        $statement = $this->dbAdapter->prepare('DELETE FROM produit where id = :id');
         $statement->bindParam(':id', $productId);
         $statement->execute();
     }

@@ -45,7 +45,7 @@ Class Product{
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -53,7 +53,7 @@ Class Product{
     /**
      * @param int $id
      */
-    public function setId(int $id): Product
+    public function setId(?int $id): Product
     {
         $this->id = $id;
         return $this;

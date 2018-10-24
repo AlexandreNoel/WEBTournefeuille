@@ -11,3 +11,4 @@ touch ~/.ssh/config
 echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config
 
 ssh ec2-user@${server} 'bash' < ./data/updateMaster.sh
+ssh ec2-user@${server} 'bash' < ./data/updateDev.sh

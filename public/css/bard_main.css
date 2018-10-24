@@ -31,24 +31,43 @@ h1,h2,h3,h4,h5,h6{
 	font-size:16px;
 }
 
+.content-container{
+	margin-top:100px;
+}
+
+.body{
+	font-family: 'Gothic A1', sans-serif;
+	font-size:16px;
+}
+
 .main-body{
 	background-image: url("../assets/images/background.jpg");
 }
 
 /* NAVBAR GLOBAL*/
+
+nav{
+	-webkit-transition: padding-top .3s,padding-bottom .3s;
+	-moz-transition: padding-top .3s,padding-bottom .3s;
+	transition: padding-top .3s,padding-bottom .3s;
+	border: none;
+}
+
 .navbar-brand {
 	color:black;
 	font-size:25px;
     font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive;
 	font-weight:700;
 	letter-spacing:0.1em;
-	padding: 0px;
+	padding: 0;
 }
 
-.navbar-brand  span{
+.navbar-brand span {
 	color: rgb(255, 0, 0);
-	font-size:25px;font-weight:700;letter-spacing:0.1em;
-  font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive;
+	font-size:25px;
+	font-weight:700;
+	letter-spacing:0.1em;
+	font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive;
 }
 
 .navbar-brand img{
@@ -78,17 +97,11 @@ h1,h2,h3,h4,h5,h6{
 	color:#af0202;
 	font-weight: bold;
 }
-.navbar-expand-md .navbar-nav .dropdown-menu{
-	border-top:3px solid #fed136;
-}
-.dropdown-item:hover{background-color:#fed136;color:#af0202;}
 
-nav{
-	-webkit-transition: padding-top .3s,padding-bottom .3s;
-    -moz-transition: padding-top .3s,padding-bottom .3s;
-    transition: padding-top .3s,padding-bottom .3s;
-    border: none;
-	}
+/* NAVBAR LOGGED*/
+#collapsibleNavbar .active{
+	text-decoration: underline red;
+}
 
 /* NAVBAR LOGGED*/
 #collapsibleNavbar .active{
@@ -108,7 +121,15 @@ nav{
 
 .fixed-nav-text:hover{
 	color:#af0202 !important;
-	font-weight: bold;	
+	font-weight: bold;
+}
+
+/* NAVBAR CONSOLE */
+.barconsole {
+	max-width: 100%;
+	mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
+	margin: 0 auto;
+	background-color: #323233;
 }
 
 /* BANNIERE */
@@ -321,6 +342,12 @@ nav{
 
 }
 
+/*************/
+/* NAVTAB    */
+/*************/
+
+
+
 
 /*************/
 /* ANIMATION */
@@ -410,13 +437,12 @@ nav{
 {
 	.navbar-nav{
 		background-color:#000;
-		border-top:3px solid #fed136;
 		color:#fff;
 		z-index:1;
 		margin-top:5px;
 	}
 	.navbar-nav .nav-item .nav-link{
-		padding: 0.7em 1em!important;
+		padding: 0.7em 1em !important;
 		font-size: 100%;
 		font-weight: 500;
     }
@@ -462,4 +488,177 @@ nav{
 		line-height: 23px;
 		margin-bottom: 40px;
 	}
+}
+
+
+
+
+
+
+/****************/
+/* TAB SELECTOR */
+/****************/
+.tabConsole *, *:after, *:before {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.tabConsole * {
+    margin:0;padding:0;border: 0 none;position: relative;
+}
+[class="fa"]:before {font-family: 'fontawesome', sans-serif;}
+
+.tabConsole {
+    position: relative;
+    width: 100%;
+    height: 25rem;
+    margin: 4rem auto;
+}
+.tabConsole article {
+    position: absolute;
+    left: 0;
+    top: 5rem;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 2rem 0;
+    overflow: auto;
+    transition: .7s;
+    transform: scale(0);
+    transform-origin: center right;
+    transition-delay: .1s;
+}
+.tabConsole article:before {
+    color: rgba(0,0,0,.2);
+    font-size: 4rem;
+    font-weight: 100;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+h2 img {
+    width: 120px;
+    height: auto;
+    background: #f9f9f9;
+    border: 5px solid rgba(0,0,0,.7);
+    border-radius: 50%;
+    padding: 5px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 0 7px rgba(0,0,0,.5);
+}
+h2 span {
+    font-family: Great Vibes;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 1rem;
+}
+.tabConsole nav {
+    background: #fff;
+    width: 100%;
+    height: 5rem;
+    box-shadow: 0 0 6px rgba(0,0,0,.4);
+}
+.tabConsole nav:after {
+    content:'';
+    width: 25%;
+    height: 5rem;
+    background: #670300;
+    position: absolute;
+    transition: .5s;
+}
+
+.tabConsole label {
+    width: 25%;
+    float: left;
+    color: #BEE3D1;
+    text-align: center;
+    cursor: pointer;
+    transition: .5s;
+    z-index: 2;
+}
+.tabConsole label:hover {color: #670300;}
+.tabConsole label:before {
+    display: block;
+    font-size: 3rem;
+    line-height: 5rem;
+    z-index: 2;
+}
+#search:checked ~ nav [for='search'],
+#profile:checked ~ nav [for='profile'],
+#command:checked ~ nav [for='command']{
+    color: #cddfcd;
+    font-weight: 600;
+}
+
+#search:checked ~ nav:after {
+    left: 0;
+}
+#profile:checked ~ nav:after {
+    left:25%;
+    border-top: 0 none;
+}
+#command:checked ~ nav:after {
+    left: 50%;
+}
+
+#search:checked ~ .searchTab,
+#profile:checked ~ .userTab,
+#command:checked ~ .commandTab{
+    display: block;
+    transform: scale(1);
+    transition-delay: .5s;
+}
+
+.tabConsoleInput{
+    display:none;
+}
+.tabConsole a {color: rgba(0,0,0,.4)}
+.tabConsole a:hover {color: rgba(0,0,0,.2)}
+
+/* SEARCH SELECTOR */
+
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+.searchAC input {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+}
+.searchAC input[type=text] {
+    background-color: #f1f1f1;
+    width: 100%;
+}
+.searchAC input[type=submit] {
+    background-color: DodgerBlue;
+    color: #fff;
+}
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+}
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
 }

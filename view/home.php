@@ -1,19 +1,3 @@
-<?php
-    require '../vendor/autoload.php';
-    include '../module/src/User/Repository/UserRepository.php';
-
-//postgres
-    $dbName = getenv('DB_NAME');
-    $dbUser = getenv('DB_USER');
-    $dbPassword = getenv('DB_PASSWORD');
-    $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
-
-    $userRepository = new \User\UserRepository($connection);
-    $users = $userRepository->fetchAll();
-    $username = "Sphinx06";
-    $userFullName = "Xavier GRIMALDI";
-?>
-
 <!DOCTYPE html>
 <html>  
 
@@ -25,10 +9,10 @@
         <title>Le Bar D - Accueil</title>
 
         <!-- Ressources -->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <!-- Font Awesome JS -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
         <!-- Css -->
@@ -37,8 +21,9 @@
 
     <body>
         <!-- NAVBAR !-->
-        <?php include_once('./view/navbar.php'); ?>
-        
+        <?php require_once(__DIR__ . '/partials/navbar.php'); ?>
+
+
         <!-- CONTENU !-->
         <div class="content-container">
 
@@ -52,7 +37,6 @@
                                 <li data-target="#newsCarousel" data-slide-to="1" class="active"></li>
                                 <li data-target="#newsCarousel" data-slide-to="2" class=""></li>
                             </ol>
-
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item">
                                     <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
@@ -99,15 +83,15 @@
                                 <div class="card-base">
                                     <div class="card-icon"><a href="#" title="Widgets" id="widgetCardIcon" class="imagecard"><span class="fa fa-user"></span></a>
                                         <div class="card-data widgetCardData">
-                                            <h2 class="box-title pb-0" style="color: #bb7824;"><?php echo $username?> </h2>
-                                            <h6 class="box-title pt-0" style="color: #bb7824;"><?php echo $userFullName?></h6>
+                                            <h2 class="box-title pb-0" style="color: #bb7824;"><?php print $nickname?> </h2>
+                                            <h6 class="box-title pt-0" style="color: #bb7824;"><?php print $firstname ." ". $lastname?></h6>
                                             <p class="card-block text-center">
                                                 Mon compte
                                                 <br>
-                                                Solde: 25€
+                                                Solde: <?php print $solde ?> €
                                             </p>
-                                            <a href="stats.php" title="Mes statistiques" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i>Mes statistiques </a>
-                                            <a href="transactions.php" title="Mes transactions" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i> Mes transactions </a>
+                                            <a href="/stats.php" title="Mes statistiques" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i>Mes statistiques </a>
+                                            <a href="/transactions.php" title="Mes transactions" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i> Mes transactions </a>
                                         </div>
                                     </div>
                                     <div class="space"></div>
@@ -122,7 +106,7 @@
         </div>
 
         <div class="footer">
-
+            <?php print_r($_SESSION["authenticated_user"]); ?>
         </div>
 
     </body>

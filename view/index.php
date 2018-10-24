@@ -1,7 +1,3 @@
-<?php
-    require '../vendor/autoload.php';
-?>
-
 <!DOCTYPE html>
 <html>  
     <head>
@@ -12,9 +8,10 @@
         <title>Le Bar D - Accueil</title>
 
         <!-- Ressources -->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <!-- Font Awesome JS -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
         <!-- Css -->
@@ -37,14 +34,11 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="home.php">Accueil</a>
+                            <a class="nav-link" href="/redirect.php">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Catalogue</a>
+                            <a class="nav-link" name="login" >Catalogue</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Se connecter</a>
-                        </li> 
                     </ul>
                 </div>
             </div>
@@ -53,15 +47,17 @@
         <!-- BANNIERE ACCUEIL !-->
         <div class="banner">
             <div class="container">
-                <div class="banner-text">
-                    <div class="banner-heading">
-                        Le bar digital vous ouvre ses portes
+                <form method="POST" action="/login.php">
+                    <div class="banner-text">
+                        <div class="banner-heading">
+                            Le bar digital vous ouvre ses portes
+                        </div>
+                        <div class="banner-sub-heading">
+                            ENSIIE - EVRY
+                        </div>
+                        <button type="submit" name="login" class="btn text-dark btn-banner hvr-wobble-horizontal">Connecte toi</button>
                     </div>
-                    <div class="banner-sub-heading">
-                        ENSIIE - EVRY
-                    </div>
-                    <button type="button" class="btn text-dark btn-banner hvr-wobble-horizontal">Connecte toi</button>
-                </div>
+                </form>
             </div>
         </div>
 

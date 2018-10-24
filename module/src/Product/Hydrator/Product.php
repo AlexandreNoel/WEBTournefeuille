@@ -15,34 +15,34 @@ class Product{
     {
         $data = [];
         if ($object->getId()) {
-            $data['id'] = $object->getId();
+            $data['idproduit'] = $object->getId();
         }
         if ($object->getName()) {
-            $data['nickname'] = $object->getName();
+            $data['libelle'] = $object->getName();
         }
-        if ($object->getPrice()) {
-            $data['password'] = $object->getPrice();
+        if ($object->getPrice()>=0) {
+            $data['prix'] = $object->getPrice();
         }
         if ($object->getReduction()) {
-            $data['created_at'] = $object->getReduction();
+            $data['reduction'] = $object->getReduction();
         }
         if ($object->getIdfamilly()) {
-            $data['updated_at'] = $object->getIdfamilly();
+            $data['idcategorie'] = $object->getIdfamilly();
         }
         if ($object->getQuantity()) {
-            $data['updated_at'] = $object->getQuantity();
+            $data['quantitestock'] = $object->getQuantity();
         }
         return $data;
     }
     public function hydrate(array $data, \Product\Entity\Product $emptyEntity): \Product\Entity\Product
     {
         return $emptyEntity
-            ->setId($data['id'] ?? null)
-            ->setName($data['name'] ?? null)
-            ->setPrice($data['price'] ?? null)
+            ->setId($data['idproduit'] ?? null)
+            ->setName($data['libelle'] ?? null)
+            ->setPrice($data['prix'] ?? null )
             ->setReduction($data['reduction'] ?? null)
-            ->setIdfamilly($data['idfamilly'] ?? null)
-            ->setQuantity($data['quantity'] ?? null);
+            ->setQuantity($data['quantitestock'] ?? null)
+            ->setIdfamilly($data['idcategorie'] ?? null);
     }
 }
 ?>
