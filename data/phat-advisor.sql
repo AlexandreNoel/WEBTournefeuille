@@ -63,14 +63,12 @@ CREATE TABLE public.Comments(
 ------------------------------------------------------------
 CREATE TABLE public.Favoris(
 	id_Fav            SERIAL  ,
-	Id_Resto          INT  NOT NULL ,
-	Id_User           INT  NOT NULL ,
 	Id_User_Persons   INT  NOT NULL ,
 	Id_Resto_Restos   INT  NOT NULL  ,
 	CONSTRAINT Favoris_PK PRIMARY KEY (id_Fav)
 
 	,CONSTRAINT Favoris_Persons_FK FOREIGN KEY (Id_User_Persons) REFERENCES public.Persons(Id_User)
-	,CONSTRAINT Favoris_Restos0_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
+	,CONSTRAINT Favoris_Restos_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
 )WITHOUT OIDS;
 
 
