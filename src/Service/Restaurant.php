@@ -16,16 +16,16 @@ class Restaurant
         return 'name is required or data type is incorrect';
        }
        if(is_null($data['descr_resto']) || $data['descr_resto'] == ''){
-        return 'lastname is required or data type is incorrect';
+        return 'restaurant\'s description is required or data type is incorrect';
        }
        if(is_null($data['addr_resto']) || $data['addr_resto'] == ''){
-        return 'lastname is required or data type is incorrect';
+        return 'restaurant\'s adress is required or data type is incorrect';
        }
        if(is_null($data['cp_resto']) || $data['cp_resto'] == '' || !(is_numeric($data['cp_resto']))){
-        return 'Promo is required or data type is incorrect';
+        return 'restaurant\'s zip code is required or data type is incorrect';
        }
-       if(is_null($data['tel_resto']) || $data['cp_resto'] == '' || !(is_numeric($data['cp_resto']))){
-        return 'Promo is required or data type is incorrect';
+       if(is_null($data['tel_resto']) || $data['tel_resto'] == '' || !(is_numeric($data['tel_resto']))){
+        return 'phone_number is required or data type is incorrect';
        }
   
         $resto = $restaurantRepository->findOneByName($data['nom_resto']);
@@ -34,6 +34,4 @@ class Restaurant
             }        
             return 'ok';
        }
-    }
-
 }
