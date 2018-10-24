@@ -19,9 +19,9 @@ class Client
         $this->hydrator = new \Client\Hydrator\Client();
     }
 
-    public function fetchAll()
+    public function fetchAllUsers()
     {
-        $rows = $this->connection->query('SELECT * FROM Utilisateur')->fetchAll(\PDO::FETCH_OBJ);
+        $rows = $this->connection->query('SELECT u.*,b.codebarmen FROM Utilisateur left join barmen b on u.idutilisateur = b.idutilisateur ')->fetchAll(\PDO::FETCH_OBJ);
         $users = [];
         foreach ($rows as $row) {
             $entity = new User();
@@ -31,69 +31,84 @@ class Client
         return $users;
     }
 
-    public function findById($id)
+    public function findOneById($id)
     {
         $user = null;
-        $statement = $this->dbAdapter->prepare('select u.*,b.codebarmen from Utilisateur u left join barmen b on u.idutilisateur = b.idutilisateur where u.idUtilisateur = :id');
+        $statement = $this->dbAdapter->prepare(
+            'select u.*,b.codebarmen from Utilisateur u left join barmen b on u.idutilisateur = b.idutilisateur where u.idUtilisateur = :id');
         $statement->bindParam(':id', $id);
         $statement->execute();
-        foreach ($statement->fetchAll() as $row){
+        foreach ($statement->fetchAll() as $row) {
             $entity = new \Client\Entity\Client();
             $user = $this->hydrator->hydrate($row, clone $entity);
         }
         return $user;
     }
 
-    public function findByNickname($nickname)
+    public function findOneByNickname($nickname)
     {
-        $users = [];
-        $statement = $this->dbAdapter->prepare('select * from Utilisateur where (lower(pseudo) LIKE lower(%:nickname%))');
+        $nickname = strtolower($nickname);
+        $user = null;
+        $statement = $this->dbAdapter->prepare(
+            'select u.*,b.codebarmen from Utilisateur u left join barmen b on u.idutilisateur = b.idutilisateur where lower(u.pseudo) = :nickname');
         $statement->bindParam(':nickname', $nickname);
         $statement->execute();
-        foreach ($statement->fetchAll() as $row){
+        foreach ($statement->fetchAll() as $row) {
             $entity = new \Client\Entity\Client();
-            $users[] = $this->hydrator->hydrate($row, clone $entity);
+            $user = $this->hydrator->hydrate($row, clone $entity);
         }
-        return $users;
+        return $user;
     }
 
-    public function findByAriseData($lastname,$firstname,$nickname)
+    public function findByAriseData($lastname, $firstname, $nickname)
     {
         $user = null;
 
-        $statement = $this->dbAdapter->prepare('select * from Utilisateur
-                                                where lower(nom) LIKE lower(:lastname) 
-                                                AND lower(prenom) LIKE lower(:firstname) 
-                                                AND lower(pseudo) LIKE lower(:nickname)');
+        $statement = $this->dbAdapter->prepare('select u.*,b.codebarmen from Utilisateur u left join barmen b on u.idutilisateur = b.idutilisateur
+                                                where lower(u.nom) LIKE lower(:lastname) 
+                                                AND lower(u.prenom) LIKE lower(:firstname) 
+                                                AND lower(u.pseudo) LIKE lower(:nickname)');
         $statement->bindParam(':lastname', $lastname);
         $statement->bindParam(':firstname', $firstname);
         $statement->bindParam(':nickname', $nickname);
         $statement->execute();
-
-        foreach ($statement->fetchAll() as $row){
+        foreach ($statement->fetchAll() as $row) {
             $entity = new \Client\Entity\Client();
             $user = $this->hydrator->hydrate($row, clone $entity);
         }
         return $user;
+
     }
+
 
     public function create(\Client\Entity\Client $client)
     {
-        $idrole = 1;
-        $solde = 0;
         $taskArray = $this->hydrator->extract($client);
         $statement = $this->dbAdapter->prepare("INSERT INTO utilisateur (idrole,nom, prenom, pseudo, solde) values (:idrole,:lastname, :firstname,:nickname,:solde)");
-        $statement->bindParam(':lastname', $taskArray['nom']);
-        $statement->bindParam(':firstname', $taskArray['prenom']);
-        $statement->bindParam(':nickname', $taskArray['pseudo']);
-        $statement->bindParam(':solde', $solde);
-        $statement->bindParam(':idrole', $idrole);
+        $firstname = strtolower($taskArray['prenom']);
+        $lastname = strtolower($taskArray['nom']);
+        $nickname = strtolower($taskArray['pseudo']);
+        $statement->bindParam(':lastname', $lastname);
+        $statement->bindParam(':firstname', $firstname);
+        $statement->bindParam(':nickname', $nickname);
+        $statement->bindParam(':solde', $taskArray['solde']);
+        $statement->bindParam(':idrole', $taskArray['idrole']);
+        $statement->execute();
+
+    }
+    public function remove(\Client\Entity\Client $client)
+    {
+        $taskArray = $this->hydrator->extract($client);
+        $statement = $this->dbAdapter->prepare("DELETE from utilisateur where idutilisateur=:id ");
+        $statement->bindParam(':id', $taskArray['idutilisateur']);
+        $statement->execute();
+
     }
 
 
-    public function createBis(\Client\Entity\Client $product)
+    public function createBis(\Client\Entity\Client $client)
     {
-        $clientarray = $this->hydrator->extract($product);
+        $clientarray = $this->hydrator->extract($client);
         $statement = $this->dbAdapter->prepare('INSERT INTO Utilisateur (idUtilisateur,pseudo,prenom,solde,idRole) values (:idclient, :nickname,:firstname,:lastname,:solde,:idrole)');
         $statement->bindParam(':idclient', $clientarray['idclient']);
         $statement->bindParam(':nickname', $clientarray['nickname']);
@@ -104,4 +119,26 @@ class Client
         $statement->execute();
     }
 
+    public function grantBarmen(\Client\Entity\Client $client)
+    {
+        $clientarray = $this->hydrator->extract($client);
+        $statement = $this->dbAdapter->prepare('INSERT INTO Barmen(idutilisateur,codebarmen) values (:id,:codebarmen)');
+        $statement->bindParam(':id', $clientarray['idutilisateur']);
+        $statement->bindParam(':codebarmen', $clientarray['codebarmen']);
+        $statement->execute();
+//        $statement = $this->dbAdapter->prepare('UPDATE Utilisateur set  idrole=2 where id=:id');
+//        $statement->bindParam(':id', $clientarray['idutilisateur']);
+//        $statement->execute();
+
+
+    }
+    public function revokeBarmen(\Client\Entity\Client $client)
+    {
+        $clientarray = $this->hydrator->extract($client);
+        $statement = $this->dbAdapter->prepare('delete from barmen where idutilisateur=:id');
+        $statement->bindParam(':id', $clientarray['idutilisateur']);
+        $statement->execute();
+
+
+    }
 }

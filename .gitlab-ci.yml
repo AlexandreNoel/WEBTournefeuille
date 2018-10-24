@@ -1,0 +1,22 @@
+# This file is a template, and might need editing before it works on your project.
+# Select image from https://hub.docker.com/_/php/
+image: php:7.1.1
+
+# Run our tests
+# If Xdebug was installed you can generate a coverage report and see code coverage metrics.
+#test:
+#  script:
+#  - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never
+  
+before_script:
+    - apt-get update
+    - apt-get install -y openssh-client
+    
+
+deployToAWS:
+  stage: deploy
+  script:
+    - cd /builds/ProjetsEnsiie/lebard/
+    - bash data/deploy.sh
+  only:
+    - master

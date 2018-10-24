@@ -44,11 +44,11 @@ reinstall: install
 
 #Connects to the databatase
 db.connect:
-	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
+	docker-compose exec -T  postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
 
 db.install:
 	sleep 10
-	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/db.sql'
+	docker-compose exec -T postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/db.sql'
 
 php.connect:
 	docker-compose exec php /bin/bash
@@ -57,4 +57,4 @@ phpunit.run:
 	docker-compose exec php vendor/bin/phpunit --config=phpunit.xml
 
 composer.install:
-	docker-compose exec php composer install || exit 0
+	docker-compose exec -T  php composer install || exit 0
