@@ -76,6 +76,10 @@ class User
         return $user;
     }
 
+    /**
+     * @param \Entity\User $user
+     * @return bool
+     */
     public function create (\Entity\User $user)
     {
         $userArray = $this->hydrator->extract($user);
@@ -89,8 +93,9 @@ class User
         return $statement->execute();
       }
 
-     /**
+    /**
      * @param \Entity\User $user
+     * @return bool
      */
     public function updatePassword(\Entity\User $user)
     {
@@ -98,7 +103,8 @@ class User
         $statement = $this->connection->prepare('UPDATE persons set secret_user = :secret_user where id = :id');
         $statement->bindParam(':id', $userArray['id']);
         $statement->bindParam(':secret_user', $userArray['secret_user']);
-        $statement->execute();
+
+       return $statement->execute();
     }
 
 }

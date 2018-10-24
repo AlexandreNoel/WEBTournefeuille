@@ -46,6 +46,11 @@ class Restaurant
     private $url;
 
     /**
+     * @var bool
+     */
+    private $isDeleted;
+
+    /**
      * @return int
      */
     public function getId()
@@ -187,6 +192,24 @@ class Restaurant
     public function setUrl($url)
     {
         $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param bool $isDeleted
+     * @return Restaurant
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
         return $this;
     }
 }
