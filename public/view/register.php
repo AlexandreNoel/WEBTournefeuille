@@ -1,6 +1,6 @@
 <!--Todo replace with the real registerView-->
 
-
+<button type="button" onclick="location.href = '/index.php';">homepage</button>
 <h1> Register here : </h1>
 <form method="post" action="/register.php">
 <label>First name: <input type="text" name="prenom_user"/></label><br/>

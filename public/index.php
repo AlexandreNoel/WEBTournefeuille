@@ -22,9 +22,11 @@ $users = $userRepository->fetchAll();
 <body>
 <div class="container">
     <h3><?php echo 'Hello world from Docker! php' . PHP_VERSION; ?></h3>
+    <h4><?php if(isset($_SESSION['mail'])){echo $_SESSION['mail']; } else { echo "disconnected";} ?></h4>
     <button type="button" onclick="location.href = 'view/connect.php';">connect</button>
 
     <button type="button" onclick="location.href = 'view/register.php';">register</button>
+    <button style="<?php if(!isset($_SESSION['mail'])){echo "display:none";}else{echo "";} ?>" "" type="button" onclick="location.href = '/disconnect.php';">disconnect</button>
 
     <table class="table table-bordered table-hover table-striped">
         <thead style="font-weight: bold">

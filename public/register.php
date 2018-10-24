@@ -42,11 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             new \Entity\User()
         );
         $userRepository->create($newUser);
-
+        $_SESSION['uniqid'] = uniqid();
+        $_SESSION['mail'] = $mail;
         header('Location: index.php');
 
     }else{
-        echo $error;
+        $error = json_encode($error);
         require_once('view/register.php');
     }
 }
