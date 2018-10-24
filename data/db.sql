@@ -29,9 +29,9 @@ CREATE TABLE Utilisateur (
     idRole INTEGER NOT NULL REFERENCES Role (idRole)
 );
 
-CREATE TABLE Barman(
+CREATE TABLE Barmen(
     idUtilisateur SERIAL PRIMARY KEY REFERENCES Utilisateur(idUtilisateur),
-    MotDePasse VARCHAR NOT NULL UNIQUE
+    Codebarmen VARCHAR NOT NULL UNIQUE
 );
 
 CREATE TABLE Commande(
@@ -97,13 +97,14 @@ INSERT INTO Role(idRole,libelle) VALUES (2,'Barman');
 INSERT INTO Role(idRole,libelle) VALUES (3,'Client');
 
 -- Table Utilisateur
-INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (1,'Gefclic', 'Benoit','SCHOLL','25','3');
-INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (2,'Chap','Antoine','CHAPUZOT','25','2');
-INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (3,'Théo', 'Théo','PEUCKVERT','25','2');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (1,'GEFCLIC', 'Benoit','SCHOLL','25','3');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (2,'CHAP','Antoine','CHAPUSOT','25','2');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (3,'TOAST', 'Théo','PEUCKERT','25','2');
+
 SELECT setval('utilisateur_idutilisateur_seq', 3, true);
 
 --Table Barman
-INSERT INTO Barman(idUtilisateur,MotDePasse) VALUES(2,'LaGuinessCestLaBase');
+INSERT INTO Barmen(idUtilisateur,Codebarmen) VALUES(2,'LaGuinessCestLaBase');
 
 -- Table Categorie
 INSERT INTO Categorie(idCategorie,libelle) VALUES (1,'Boisson');

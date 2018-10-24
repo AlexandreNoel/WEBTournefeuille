@@ -28,6 +28,16 @@ class Client
     private $solde;
 
     /**
+     * @var int
+     */
+    private $idrole;
+
+    /**
+     * @var string
+     */
+    private $codebarmen;
+
+    /**
      * @return string
      */
     public function getFirstname(): string
@@ -111,6 +121,41 @@ class Client
         $this->id = $id;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getIdrole(): int
+    {
+        return $this->idrole;
+    }
+
+    /**
+     * @param int $idrole
+     */
+    public function setIdrole(int $idrole): Client
+    {
+        $this->idrole = $idrole;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCodebarmen(): string
+    {
+        return $this->codebarmen;
+    }
+
+    /**
+     * @param string $codebarmen
+     */
+    public function setCodebarmen(?string $codebarmen): Client
+    {
+        $this->codebarmen = $codebarmen;
+        return $this;
+    }
+
 
 
 }

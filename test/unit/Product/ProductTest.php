@@ -30,17 +30,16 @@ class ProductTest extends TestCase
         $productRepository = new \Product\Repository\Product();
         $newProduct = $productHydrator->hydrate(
             [
-                'libelle' => "tagada",
-                'prix' => 0,
+                'libelle' => 'tagada',
+                'prix' => 1,
                 'quantitestock' => 1,
                 'reduction' => 2,
                 'idcategorie' => 1,
             ],
             new \Product\Entity\Product()
         );
-        var_dump($productRepository->create($newProduct));
+        $productRepository->create($newProduct);
         $monproduct=$productRepository->findByName("tagada");
-
 
         self::assertSame(2, $monproduct->getReduction());
     }

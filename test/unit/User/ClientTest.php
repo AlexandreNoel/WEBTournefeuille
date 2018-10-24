@@ -32,4 +32,25 @@ class ClientTest extends TestCase
         self::assertSame($gefclic->getSolde(), $retrieved->getSolde());
         self::assertSame($gefclic->getId(), $retrieved->getId());
     }
+//    public function testBarmen(){
+//        $dbfactory = new DatabaseFactory();
+//        $dbconnector = $dbfactory->getDbAdapter();
+//        $hydrator = new \Client\Hydrator\Barmen();
+//        $userRepository = new \Client\Repository\Barmen($dbconnector);
+//        $chap = $hydrator->hydrate(
+//            [
+//                'idutilisateur' => 2,
+//                'prenom' => "Antoine",
+//                'pseudo' => "Chap",
+//                'nom' => "CHAPUZOT",
+//                'solde' => 25,
+//                'codebarmen' => 'LaGuinessCestLaBase'
+//            ],
+//            new \Client\Entity\Barmen()
+//        );
+//        $retrieved = $userRepository->findById(2);
+//        self::assertSame($chap->getFirstname(), $retrieved->getFirstname());
+//        self::assertSame($chap->get(), $retrieved->getFirstname());
+//
+//    }
 }
