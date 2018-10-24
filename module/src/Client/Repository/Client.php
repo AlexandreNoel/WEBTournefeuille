@@ -62,9 +62,9 @@ class Client
         $user = null;
 
         $statement = $this->dbAdapter->prepare('select * from Utilisateur
-                                                where (lower(nom) LIKE lower(%:lastname%)) 
-                                                AND (lower(prenom) LIKE lower(%:firstname%)) 
-                                                AND (lower(pseudo) LIKE lower(%:nickname%))');
+                                                where lower(nom) LIKE lower(:lastname) 
+                                                AND lower(prenom) LIKE lower(:firstname) 
+                                                AND lower(pseudo) LIKE lower(:nickname)');
         $statement->bindParam(':lastname', $lastname);
         $statement->bindParam(':firstname', $firstname);
         $statement->bindParam(':nickname', $nickname);

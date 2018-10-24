@@ -40,7 +40,7 @@ class Client{
             ->setLastname($data['nom'] ?? null)
             ->setFirstname($data['prenom'] ?? null)
             ->setSolde($data['solde'] ?? 0)
-            ->setIdrole($date['idrole'] ?? null)
+            ->setIdrole($date['idrole'] ?? 1)
             ->setCodebarmen($data['codebarmen'] ?? null);
     }
 }
