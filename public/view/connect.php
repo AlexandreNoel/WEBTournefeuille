@@ -9,7 +9,8 @@
 </head>
 
 <body class="background-neutral">
-
+<button type="button" onclick="location.href = '/index.php';">homepage</button>
+<h1> Connect here : </h1>
 <div class="section">
     <div class="section-container">
         <form action="/connect.php" method="post">

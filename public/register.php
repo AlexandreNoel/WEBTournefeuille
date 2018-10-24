@@ -2,6 +2,8 @@
 
 require '../vendor/autoload.php';
 
+session_start();
+
 $userRepository = new \Repository\User();
 $userHydrator = new \Hydrator\User();
 
@@ -23,12 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'promo_user' => $promo ?? null,
             'mail_user' => $mail ?? null,
             'secret_user' => $password ?? null,
-        ]
+        ],
+        'errors',
     ];
     $userService = new \Service\User();
-    $error = $userService->verify_registration($userRepository, $view['user']);
+    $view['errors'] = $userService->verify_registration($userRepository, $view['user']);
 
-    if ($error == 'ok') {
+    if (count(array_filter($view['errors'])) === 0) {
 
         $newUser = $userHydrator->hydrate(
             [
@@ -37,16 +40,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'isadmin' => $isadmin,
                 'promo_user' => $promo,
                 'mail_user' => $mail,
-                'secret_user' => password_hash($password, PASSWORD_DEFAULT)
+                'secret_user' => password_hash($password, PASSWORD_BCRYPT)
             ],
             new \Entity\User()
         );
         $userRepository->create($newUser);
+        
+        $_SESSION['uniqid'] = uniqid();
+        $_SESSION['name'] = $firstname." ".$lastname;
 
+       
         header('Location: index.php');
 
     }else{
-        echo $error;
         require_once('view/register.php');
     }
 }

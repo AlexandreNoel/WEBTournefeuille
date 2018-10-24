@@ -23,8 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $view['errors'] = $userService->verify_connection($userRepository, $mail, $password);
 
     if (count($view['errors']) === 0) {
+
+        $user->$userRepository->findOneByMail($mail);
         $_SESSION['uniqid'] = uniqid();
-        $_SESSION['mail'] = $mail;
+        $_SESSION['name'] = $user->getFirstname()." ".$user->getLastname();
 
         header('Location: index.php');
     }else{
