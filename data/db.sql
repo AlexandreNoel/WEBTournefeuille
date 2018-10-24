@@ -30,7 +30,7 @@ CREATE TABLE Utilisateur (
 );
 
 CREATE TABLE Barmen(
-    idUtilisateur SERIAL PRIMARY KEY REFERENCES Utilisateur(idUtilisateur),
+    idUtilisateur SERIAL PRIMARY KEY REFERENCES Utilisateur(idUtilisateur) ON DELETE CASCADE,
     Codebarmen VARCHAR NOT NULL UNIQUE
 );
 

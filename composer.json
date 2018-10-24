@@ -12,7 +12,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "User\\": "test/unit/User/",
+            "Client\\": "test/unit/Client/",
             "Product\\": "test/unit/Product/",
             "News\\": "test/unit/News/",
             "Adapter\\": "module/Application/src/Adapter/"

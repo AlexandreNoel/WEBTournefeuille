@@ -142,7 +142,7 @@ class Client
     /**
      * @return string
      */
-    public function getCodebarmen(): string
+    public function getCodebarmen(): ?string
     {
         return $this->codebarmen;
     }
