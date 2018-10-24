@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top fixed-nav" id="navbarD">
     <div class="container">
         <!-- Brand -->
-        <a class="navbar-brand" href="index.php"><img id="img-navbar" src="assets/images/logo_sf_blanc.png"></a>
+        <a class="navbar-brand" href="/"><img id="img-navbar" src="assets/images/logo_sf_blanc.png"></a>
 
         <!-- BANNIERE ACCUEIL !-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -14,23 +14,23 @@
 
                 <?php if ( isset($_SESSION["superAdmin"]) and  $_SESSION["superAdmin"]===true) { ?>
                     <li class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="/consoleHome.php">Accueil</a>
+                        <a class="nav-link fixed-nav-text" href="/console">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="/gestion.php"> Gestion du bar <i class="fa fa-cog"></i></a>
+                        <a class="nav-link fixed-nav-text" href="/gestionBar"> Gestion du bar <i class="fa fa-cog"></i></a>
                     </li>
                     <li id="<?php print $nickname ?>" class="nav-item">
                         <a class="nav-link fixed-nav-text" href="#"><?php print $nickname ?> <i class="far fa-user"></i></a>
                     </li>
                 <?php } else{ ?>
                     <li class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="/home.php">Accueil</a>
+                        <a class="nav-link fixed-nav-text" href="/home">Accueil</a>
                     </li>
                     <li id="Actualités" class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="/news.php">Actualités</a>
+                        <a class="nav-link fixed-nav-text" href="/news">Actualités</a>
                     </li>
                     <li id="Catalogue" class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="/catalogue.php">Catalogue</a>
+                        <a class="nav-link fixed-nav-text" href="/catalogue">Catalogue</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link fixed-nav-text dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

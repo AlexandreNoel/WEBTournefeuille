@@ -1,17 +1,16 @@
 <?php
-    //require '../vendor/autoload.php';
+    require '../vendor/autoload.php';
     require_once ("../module/src/Client/Repository/Client.php");
     require_once ("../module/src/Client/Hydrator/Client.php");
     require_once ("../module/src/Client/Entity/Client.php");
-
 
     // Initialisation de la session
     if(session_status()!=PHP_SESSION_ACTIVE)
         session_start();
 
-    // Vérification si utilisateur correctement connecté
-    if(!isset($_SESSION['authenticated_user'])){
-       header('Location: /');
+    // Vérification si Admin connecté
+    if(!isset($_SESSION['authenticated_admin'])){
+        header('Location: /');
     }
     else{
         /** @var \Client\Entity\Client $user */
@@ -21,8 +20,7 @@
         $lastname = $user->getLastName();
         $solde = $user->getSolde();
 
-        require_once('../view/home.php');
+        require_once('../view/console.php');
     }
-
 
 ?>

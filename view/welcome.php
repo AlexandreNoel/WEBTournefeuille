@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta   http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon.ico">
-        <title>Le Bar D - Accueil</title>
+        <title>Le Bar D - Bienvenu</title>
 
         <!-- Ressources -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-dark fixed-top" id="navbarD">
             <div class="container">
                 <!-- Brand -->
-                <a class="navbar-brand" href="index.php"><img id="img-navbar" src="assets/images/logo_sf.png"></a>
+                <a class="navbar-brand" href="/"><img id="img-navbar" src="assets/images/logo_sf.png"></a>
 
                 <!-- BANNIERE ACCUEIL !-->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -34,10 +34,10 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/redirect.php">Accueil</a>
+                            <a class="nav-link" href="#">Actualités</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" name="login" >Catalogue</a>
+                            <a class="nav-link" href="#" >Catalogue</a>
                         </li>
                     </ul>
                 </div>

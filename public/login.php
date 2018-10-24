@@ -1,20 +1,23 @@
 <?php
+
 require_once __DIR__.'./../vendor/autoload.php';
-require_once("../module/oAuth/auth/OAuthAriseClient.php");
-require_once("../module/oAuth/lib/config.inc.php");
+require_once ("../module/oAuth/auth/OAuthAriseClient.php");
+require_once ("../module/oAuth/lib/config.inc.php");
 require_once ("../module/src/Client/Repository/Client.php");
 require_once ("../module/src/Client/Hydrator/Client.php");
 require_once ("../module/src/Client/Entity/Client.php");
+
+
 /* Création de l'instance */
 $consumer = OAuthAriseClient::getInstance($consumer_key, $consumer_secret, $consumer_private_key);
+$error = false;
 
 // Gestion de la session
 if(session_status()!=PHP_SESSION_ACTIVE)
     session_start();
+
 // Temporisation de sortie
 ob_start();
-
-
 
 /* Vérification si demande de login effectué */
 if (isset($_POST['login'])) {
@@ -66,12 +69,16 @@ if ($consumer->is_authenticated()) {
             }
 
         }
-    } catch (OAuthAPIException $e) {
+    } catch (Exception $e) {
+        $error = true;
         $_SESSION["oAuth_error"] = $e->getMessage();
     }
 
-    if($_SESSION["superAdmin"]===true){
-        header('Location: consoleHome.php');
+    if($error){
+        header('Location: welcome.php');
+    }
+    else if($_SESSION["superAdmin"]===true){
+        header('Location: console.php');
     }
     else{
         header('Location: home.php');

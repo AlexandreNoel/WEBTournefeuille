@@ -648,3 +648,11 @@ h2 span {
     background-color: DodgerBlue !important;
     color: #ffffff;
 }
+
+.error-404{
+	text-align:center;
+}
+.error-404 img{
+	height:100vh;
+	text-align: center;
+}
