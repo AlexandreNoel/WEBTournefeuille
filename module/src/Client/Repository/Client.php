@@ -60,6 +60,16 @@ class Client
         return $user;
     }
 
+    public function giveMoney($id,$money)
+    {
+        $user = null;
+        $statement = $this->dbAdapter->prepare(
+            'update  Utilisateur set solde = solde+:money where idutilisateur=:id');
+        $statement->bindParam(':id', $id);
+        $statement->bindParam(':money', $money);
+        $statement->execute();
+    }
+
     public function findByAriseData($lastname, $firstname, $nickname)
     {
         $user = null;
