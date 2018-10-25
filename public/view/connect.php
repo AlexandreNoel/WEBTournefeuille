@@ -17,10 +17,10 @@
             <div>
                 <label>mail</label>
                 <input
-                    type="text"
-                    name="mail"
-                    placeholder="mail"
-                    value="<?php echo $view['user']['mail'] ?? null ?>"
+                        type="text"
+                        name="mail"
+                        placeholder="mail"
+                        value="<?php echo $view['user']['mail'] ?? null ?>"
                 >
             </div>
             <?php if (isset($view['errors']['mail']) && $view['errors']['mail']): ?>
@@ -31,10 +31,10 @@
             <div>
                 <label>Password</label>
                 <input
-                    type="text"
-                    name="password"
-                    placeholder="password"
-                    value="<?php echo $view['user']['password'] ?? null ?>"
+                        type="text"
+                        name="password"
+                        placeholder="password"
+                        value="<?php echo $view['user']['password'] ?? null ?>"
                 >
             </div>
             <?php if  (isset($view['errors']['password']) && $view['errors']['password']): ?>
@@ -47,15 +47,10 @@
                     <?php echo $view['errors']['mail-password'] ?>
                 </p>
             <?php endif; ?>
-            <?php if (isset($view['errors']['mail-password']) && $view['errors']['mail-password']): ?>
-                <p>
-                    <?php echo $view['errors']['mail-password'] ?>
-                </p>
-            <?php endif; ?>
             <input type="submit" value="Log in">
         </form>
     </div>
-     <button onclick="location.href = 'forgotten-password.php';">Forgot Password</button>
+    <button onclick="location.href = 'forgotten-password.php';">Forgot Password</button>
 </div>
 </body>
 </html>

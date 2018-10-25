@@ -140,7 +140,7 @@ class Restaurant
      */
     public function delete(\Entity\Restaurant $restaurant){
         $restoArray = $this->hydrator->extract($restaurant);
-        $statement = $this->connection->prepare('UPDATE restos SET isdeleted = :isdeleted WHERE id = :id');
+        $statement = $this->connection->prepare('UPDATE restos SET isdeleted = :isdeleted WHERE id_resto = :id');
         $statement->bindParam(':isdeleted', $restoArray['isdeleted']);
         $statement->bindParam(':id', $restoArray['id_resto']);
 

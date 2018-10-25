@@ -53,9 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         {
             $_SESSION['uniqid'] = uniqid();
             $_SESSION['name'] = $firstname . " " . $lastname;
-            $userRepository->getIdByMail($mail);
-            //$_SESSION['id'] = $user->isId();
-
+            $_SESSION['id'] = $userRepository->getIdByMail($mail);
+            $_SESSION['isadmin'] = boolval($isadmin);
         }
 
         header('Location: index.php');
