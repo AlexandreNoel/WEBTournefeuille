@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         {
             $_SESSION['uniqid'] = uniqid();
             $_SESSION['name'] = $firstname . " " . $lastname;
+            $_SESSION['id'] = $userRepository->getIdByMail($mail);
             $_SESSION['isadmin'] = boolval($isadmin);
         }
 

@@ -57,6 +57,16 @@ class User
         return $user;
     }
 
+    public function getIdByMail($mail){
+        
+        $statement = $this->connection->prepare('select id_user from "persons" where mail_user = :mail');
+        $statement->bindParam(':mail', $mail);
+        $statement->execute();
+        
+       return $statement->fetchColumn(0);
+
+    }
+
     /**
      * @param $userId
      * @return null|\Entity\User
