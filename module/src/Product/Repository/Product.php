@@ -24,6 +24,15 @@ class Product
         $this->hydrator = new \Product\Hydrator\Product();
     }
 
+    public function getCategories() : array
+    {
+        $categories[] = null;
+        $statement = $this->dbAdapter->prepare('SELECT * FROM categorie');
+        $statement->execute();
+        return $statement->fetchAll();
+
+    }
+
     public function findAll() : array
     {
         $sql='SELECT * FROM produit';
@@ -33,6 +42,20 @@ class Product
         }
         return $products;
     }
+
+    public function findByCategory($id) : array
+    {
+        $product[] = null;
+        $statement = $this->dbAdapter->prepare('SELECT * FROM produit WHERE idcategorie = :id');
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $productData) {
+            $entity = new \Product\Entity\Product();
+            $product[] = $this->hydrator->hydrate($productData, clone $entity);
+        }
+        return $product;
+    }
+
     public function findById($id)
     {
         $product = null;
@@ -45,6 +68,7 @@ class Product
         }
         return $product;
     }
+
     public function findByName($libelle)
     {
         $product = null;
@@ -57,6 +81,7 @@ class Product
         }
         return $product;
     }
+
     public function update(\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
@@ -68,6 +93,7 @@ class Product
         $statement->bindParam(':idcategorie', $productArray['idcategorie']);
         $statement->execute();
     }
+
     public function create (\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
@@ -82,10 +108,18 @@ class Product
 
 
     }
+
     public function delete($productId)
     {
         $statement = $this->dbAdapter->prepare('DELETE FROM produit where id = :id');
         $statement->bindParam(':id', $productId);
+        $statement->execute();
+    }
+
+    public function deleteByName($productName)
+    {
+        $statement = $this->dbAdapter->prepare('DELETE FROM produit where libelle = :libelle');
+        $statement->bindParam(':libelle', $productName);
         $statement->execute();
     }
 }

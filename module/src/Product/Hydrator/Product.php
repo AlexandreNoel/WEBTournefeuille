@@ -23,7 +23,7 @@ class Product{
         if ($object->getPrice()>=0) {
             $data['prix'] = $object->getPrice();
         }
-        if ($object->getReduction()) {
+        if ($object->getReduction()>=0) {
             $data['reduction'] = $object->getReduction();
         }
         if ($object->getIdfamilly()) {
@@ -40,7 +40,7 @@ class Product{
             ->setId($data['idproduit'] ?? null)
             ->setName(strtolower($data['libelle']) ?? null)
             ->setPrice($data['prix'] ?? null )
-            ->setReduction($data['reduction'] ?? null)
+            ->setReduction($data['reduction'] ?? 0)
             ->setQuantity($data['quantitestock'] ?? null)
             ->setIdfamilly($data['idcategorie'] ?? null);
     }

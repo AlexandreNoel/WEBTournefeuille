@@ -670,3 +670,8 @@ h2 span {
 	height:100vh;
 	text-align: center;
 }
+
+.table_products {
+    width:40%;
+    display: inline-block;
+}

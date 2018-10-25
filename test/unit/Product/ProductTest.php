@@ -44,4 +44,16 @@ class ProductTest extends TestCase
         self::assertSame(2, $monproduct->getReduction());
     }
 
+    /**
+     * @test
+     */
+    public function testDelete()
+    {
+        $productRepository = new \Product\Repository\Product();
+        $productRepository->deleteByName('tagada');
+        $tagada = $productRepository->findByName('tagada');
+        self::assertNull($tagada);
+
+    }
+
 }
