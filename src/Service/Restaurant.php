@@ -2,6 +2,7 @@
 namespace Service;
 
 use  \Adapter\DatabaseFactory;
+use \Service\DataCheck;
 
 class Restaurant
 {
@@ -11,27 +12,29 @@ class Restaurant
      * @return string
      */
        function verify_registration($restaurantRepository, $data){
+        $error = [];
 
-        if(is_null($data['nom_resto']) || $data['nom_resto'] == ''){
-        return 'name is required or data type is incorrect';
-       }
-       if(is_null($data['descr_resto']) || $data['descr_resto'] == ''){
-        return 'restaurant\'s description is required or data type is incorrect';
-       }
-       if(is_null($data['addr_resto']) || $data['addr_resto'] == ''){
-        return 'restaurant\'s adress is required or data type is incorrect';
-       }
-       if(is_null($data['cp_resto']) || $data['cp_resto'] == '' || !(is_numeric($data['cp_resto']))){
-        return 'restaurant\'s zip code is required or data type is incorrect';
-       }
-       if(is_null($data['tel_resto']) || $data['tel_resto'] == '' || !(is_numeric($data['tel_resto']))){
-        return 'phone_number is required or data type is incorrect';
-       }
-  
-        $resto = $restaurantRepository->findOneByName($data['nom_resto']);
+        $name = $data['nom_resto'];
+        $description = $data['descr_resto'];
+        $address = $data['addr_resto'];
+        $zipCode = $data['cp_resto'];
+        $city = $data['city_resto'];
+        $phoneNumber = $data['tel_resto'];
+        $website = $data['website_resto'];
+
+    $error['nom_resto'] = DataCheck::verify($name, null, null, 'nom_resto', 2, 25);
+    $error['descr_resto'] = DataCheck::verify($description, null, null, 'descr_resto', 1, 200);
+    $error['addr_resto'] = DataCheck::verify($address, null, null, 'addr_resto', 1, 100);
+    $error['cp_resto'] = DataCheck::verify($zipCode,!is_numeric($zipCode), 'Error: cp_resto must be a number', 'cp_resto', 5, 5);
+    $error['city_resto'] = DataCheck::verify($city, preg_match('#[0-9]#', $city), 'Error: city name must not contain digit', 'city_resto', 2, 50);
+    $error['website_resto'] = DataCheck::verify($website, null, null, 'website_resto', 2, 50);
+
+    $error['tel_resto'] = DataCheck::verifyNotRequired($phoneNumber, !is_numeric($phoneNumber), null, 'tel_resto', 10, 10);
+          
+        $resto = $restaurantRepository->findOneByName($name);
        if ($resto) {
-                return 'restaurant already exist';
+      $error['nom_resto']= 'restaurant already exist';
             }        
-            return 'ok';
+           return $error;
        }
 }
