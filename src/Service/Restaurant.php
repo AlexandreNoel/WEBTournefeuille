@@ -29,7 +29,7 @@ class Restaurant
     $error['city_resto'] = DataCheck::verify($city, preg_match('#[0-9]#', $city), 'Error: city name must not contain digit', 'city_resto', 2, 50);
     $error['website_resto'] = DataCheck::verify($website, null, null, 'website_resto', 2, 50);
 
-    $error['tel_resto'] = DataCheck::verifyNotRequired($phoneNumber, !is_numeric($phoneNumber), null, 'tel_resto', 10, 10);
+    $error['tel_resto'] = DataCheck::verifyNotRequired($phoneNumber, null, null, 'tel_resto', 10, 12);
           
         $resto = $restaurantRepository->findOneByName($name);
        if ($resto) {
