@@ -30,7 +30,7 @@ CREATE TABLE public.Restos(
 	Nom_Resto       VARCHAR (25) NOT NULL ,
 	Descr_Resto     VARCHAR (200) NOT NULL ,
 	Addr_Resto      VARCHAR (100) NOT NULL ,
-	CP_Resto        VARCHAR(5) NOT NULL ,
+	CP_Resto        INT  NOT NULL ,
 	city_resto		VARCHAR(50) NOT NULL,
 	Tel_Resto       VARCHAR(20) ,
 	Website_Resto   VARCHAR (50) NOT NULL  ,
