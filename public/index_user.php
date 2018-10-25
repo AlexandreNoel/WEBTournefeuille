@@ -1,0 +1,12 @@
+<?php
+
+session_start();
+require '../vendor/autoload.php';
+
+
+$userRepository = new \Repository\User();
+$userHydrator = new \Hydrator\User();
+
+$users = $userRepository->fetchAll();
+
+require_once("view/users.php");
