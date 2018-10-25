@@ -58,12 +58,12 @@ class User
     }
 
     public function getIdByMail($mail){
-        $id = null;
+        
         $statement = $this->connection->prepare('select id_user from "persons" where mail_user = :mail');
         $statement->bindParam(':mail', $mail);
         $statement->execute();
         
-       var_dump($statement->fetchColumn(0));
+       return $statement->fetchColumn(0);
 
     }
 

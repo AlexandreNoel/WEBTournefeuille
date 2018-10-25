@@ -1,7 +1,6 @@
 <?php
 require '../vendor/autoload.php';
 
-session_start();
 
 //postgres
 $dbName = getenv('DB_NAME');
@@ -12,8 +11,8 @@ $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=
 $userRepository = new Repository\User($connection);
 $restoRepository = new Repository\Restaurant($connection);
 
+include("index_restaurant.php");
 $users = $userRepository->fetchAll();
-$restos = $restoRepository->findAllNoDeleted();
 ?>
 
 <html>
@@ -84,7 +83,7 @@ $restos = $restoRepository->findAllNoDeleted();
                         <td><?php echo $resto->getPhoneNumber() ?></td>
                         <td><?php echo $resto->getUrl() ?></td>
                         <td>
-                            <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin']) :?>
+                            <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin'] && !$resto->isDeleted()) :?>
                                 <form action="delete-restaurant.php" method="post">
                                     <input type="hidden" name="id_resto" value="<?php echo $resto->getId() ?>">
                                     <input type="submit" value="Delete"/>
