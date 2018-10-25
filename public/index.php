@@ -30,6 +30,8 @@ $restos = $restoRepository->fetchAll();
     <button style="<?php if(isset($_SESSION['name'])){echo "display:none";}else{echo "";} ?>" type="button" onclick="location.href = 'view/register.php';">register</button>
     <button style="<?php if(!isset($_SESSION['name'])){echo "display:none";}else{echo "";} ?>" type="button" onclick="location.href = '/disconnect.php';">disconnect</button>
 
+    <button type="button" onclick="location.href = '/index_restaurant.php';">test</button>
+
     <table class="table table-bordered table-hover table-striped">
         <thead style="font-weight: bold">
             <td>id</td>

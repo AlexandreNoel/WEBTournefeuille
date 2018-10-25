@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $userRepository->findOneByMail($mail);
         $_SESSION['uniqid'] = uniqid();
         $_SESSION['name'] = $user->getFirstname()." ".$user->getLastname();
+        $_SESSION['id'] = $user->isId();
 
         header('Location: index.php');
     }else{
