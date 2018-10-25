@@ -13,7 +13,7 @@ $userRepository = new Repository\User($connection);
 $restoRepository = new Repository\Restaurant($connection);
 
 $users = $userRepository->fetchAll();
-$restos = $restoRepository->fetchAll();
+$restos = $restoRepository->findAllNoDeleted();
 ?>
 
 <html>
@@ -32,11 +32,11 @@ $restos = $restoRepository->fetchAll();
 
     <table class="table table-bordered table-hover table-striped">
         <thead style="font-weight: bold">
-            <td>id</td>
-            <td>Firstname</td>
-            <td>Lastname</td>
-            <td>mail</td>
-            <td>admin?</td>
+        <td>id</td>
+        <td>Firstname</td>
+        <td>Lastname</td>
+        <td>mail</td>
+        <td>admin?</td>
         </thead>
         <?php /** @var \User\User $user */
         foreach ($users as $user) : ?>
@@ -51,42 +51,50 @@ $restos = $restoRepository->fetchAll();
     </table>
 
 
-<?php if (isset($_SESSION['name'])) { ?>
-<div id="restos">
+    <?php if (isset($_SESSION['name'])) { ?>
+        <div id="restos">
 
-<button type="button" onclick="location.href = 'view/add-restaurant.php';">add resto</button>
+            <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin']) :?>
+                <button type="button" onclick="location.href = 'view/add-restaurant.php';">add resto</button>
+            <? endif?>
 
-     <table class="table table-bordered table-hover table-striped">
-        <thead style="font-weight: bold">
-            <td>id</td>
-            <td>resto name</td>
-            <td>resto descr</td>
-            <td>resto addr</td>
-            <td>cpp addr</td>
-            <td>resto city</td>
-            <td>resto tel</td>
-            <td>resto website</td>
-            <td>isDeleted</td>
-        </thead>
-        <?php 
-        /** @var \User\User $user */
-        foreach ($restos as $resto) : ?>
-            <tr>
-                <td><?php echo $resto->getId() ?></td>
-                <td><?php echo $resto->getName() ?></td>
-                <td><?php echo $resto->getDescription() ?></td>
-                <td><?php echo $resto->getAddress() ?></td>
-                <td><?php echo $resto->getZipCode() ?></td>
-                <td><?php echo $resto->getCity() ?></td>
-                <td><?php echo $resto->getPhoneNumber() ?></td>
-                <td><?php echo $resto->getUrl() ?></td>
-                <td><?php echo $resto->isDeleted() ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
+            <table class="table table-bordered table-hover table-striped">
+                <thead style="font-weight: bold">
+                <td>id</td>
+                <td>resto name</td>
+                <td>resto descr</td>
+                <td>resto addr</td>
+                <td>cpp addr</td>
+                <td>resto city</td>
+                <td>resto tel</td>
+                <td>resto website</td>
+                </thead>
+                <?php
+                /** @var \User\User $user */
+                foreach ($restos as $resto) : ?>
+                    <tr>
+                        <td><?php echo $resto->getId() ?></td>
+                        <td><?php echo $resto->getName() ?></td>
+                        <td><?php echo $resto->getDescription() ?></td>
+                        <td><?php echo $resto->getAddress() ?></td>
+                        <td><?php echo $resto->getZipCode() ?></td>
+                        <td><?php echo $resto->getCity() ?></td>
+                        <td><?php echo $resto->getPhoneNumber() ?></td>
+                        <td><?php echo $resto->getUrl() ?></td>
+                        <td>
+                            <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin']) :?>
+                                <form action="delete-restaurant.php" method="post">
+                                    <input type="hidden" name="id_resto" value="<?php echo $resto->getId() ?>">
+                                    <input type="submit" value="Delete"/>
+                                </form>
+                            <? endif?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
 
-    </div>
- <?php } ?>
+        </div>
+    <?php } ?>
 
 </div>
 </body>
