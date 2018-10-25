@@ -31,7 +31,7 @@ class Transaction
 
     public function findAll() : array
     {
-        $sql='SELECT c.*,f.prixvente,c.quantite FROM commande c join faitpartiecommande f on c.idcommande=f.idcommande';
+        $sql='SELECT c.*,f.prixvente,f.quantite FROM commande c join faitpartiecommande f on c.idcommande=f.idcommande';
         foreach ($this->dbAdapter->query($sql) as $productData) {
             $entity = new \Transaction\Entity\Transaction();
             $products[] = $this->hydrator->hydrate($productData, clone $entity);
@@ -68,5 +68,30 @@ class Transaction
         return $id;
 
 
+    }
+    public function findOneById($id){
+        $statement = $this->dbAdapter->prepare(
+            'SELECT idproduit,quantite FROM  faitpartiecommande f where f.idcommande=:idcommande');
+        $statement->bindParam(':idcommande', $id);
+        $statement->execute();
+        $productRepository = new \Product\Repository\Product();
+        $products = new \SplObjectStorage();
+        foreach ($statement->fetchAll() as $productData) {
+            $productid = $productData['idproduit'];
+            $ammount = $productData['quantite'];
+            $product=$productRepository->findById($productid);
+            $products->attach($product,$ammount);
+
+        }
+        $statement = $this->dbAdapter->prepare(
+            'SELECT * FROM commande  where idcommande=:idcommande');
+        $statement->bindParam(':idcommande', $id);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $productData) {
+            $entity = new \Transaction\Entity\Transaction();
+            $productData['products']=$products;
+            $product = $this->hydrator->hydrate($productData, clone $entity);
+        }
+        return $product;
     }
 }

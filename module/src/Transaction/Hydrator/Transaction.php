@@ -37,6 +37,8 @@ class Transaction
     }
     public function hydrate(array $data, \Transaction\Entity\Transaction $emptyEntity): \Transaction\Entity\Transaction
     {
+//        $madate=\DateTime::createFromFormat('Y-m-d h:i:s', $data['datecommande']);
+
         return $emptyEntity
             ->setId($data['idcommande'] ?? null)
             ->setDate($data['datecommande'] ?? null)

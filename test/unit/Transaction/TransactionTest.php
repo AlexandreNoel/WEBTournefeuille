@@ -18,17 +18,18 @@ class TransactionTest extends TestCase
         $productRepository = new \Product\Repository\Product();
         $clientRepository = new \Client\Repository\Client();
         $transacRepository = new \Transaction\Repository\Transaction();
-        var_dump(date("Y-m-d H:i:s"));
 //        new \DateTime()->format('Y-m-d H:i:s');
         $client=$clientRepository->findOneById(1);
         $barmen=$clientRepository->findOneById(2);
         $product=$productRepository->findById(1);
+        $product2=$productRepository->findById(2);
 
         $products = new \SplObjectStorage();
         $products->attach($product,4);
+        $products->attach($product2,4);
         $madate = new \DateTime();
         $madate->format('Y\-m\-d\ h:i:s');
-        var_dump($madate);
+//        $madate=$madate->getTimestamp();
         $newTransaction = $transacHydrator->hydrate(
             [
                 'datecommande' => $madate,
@@ -39,8 +40,9 @@ class TransactionTest extends TestCase
             ],
             new \Transaction\Entity\Transaction()
         );
-        $transacRepository->create($newTransaction);
-        self::assertSame(5, $transac->getId());
+        $id=$transacRepository->create($newTransaction);
+        $found=$transacRepository->findOneById($id);
+        self::assertSame($id, $found->getId());
     }
     /**
      * @test
