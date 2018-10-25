@@ -31,7 +31,9 @@ CREATE TABLE Barmen(
 CREATE TABLE Commande(
     idCommande SERIAL PRIMARY KEY,
     dateCommande TIMESTAMP default CURRENT_TIMESTAMP,
-    idUtilisateur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur)
+    idUtilisateur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
+    idBarmen INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
+    prixTotal FLOAT NOT NULL
 );
 
 CREATE TABLE Categorie(
@@ -120,3 +122,8 @@ INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Appli
 
 -- Table NouveauProduit
 INSERT INTO NouveauProduit(idNouveauProduit,libelle,Description,idAuteur) VALUES (1,'RedBull','Pour avoir des ailes en allant en cours',1);
+
+-- Table Commande
+INSERT INTO Commande ( dateCommande, idUtilisateur, idBarmen,prixTotal) VALUES (current_date,1,2,2);
+-- Table FaitPartieCommande
+INSERT INTO FaitPartieCommande (idProduit, idCommande, prixVente, quantite) VALUES (1,1,1,2);

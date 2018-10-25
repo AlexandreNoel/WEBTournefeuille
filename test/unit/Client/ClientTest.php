@@ -21,8 +21,7 @@ class ClientTest extends TestCase
                 'idutilisateur' => 1,
                 'prenom' => "Benoit",
                 'pseudo' => "Gefclic",
-                'nom' => "SCHOLL",
-                'solde' => 25
+                'nom' => "SCHOLL"
             ],
             new \Client\Entity\Client()
         );
@@ -31,7 +30,6 @@ class ClientTest extends TestCase
         self::assertSame($gefclic->getFirstname(), $retrieved2->getFirstname());
         self::assertSame($gefclic->getFirstname(), $retrieved->getFirstname());
         self::assertSame($gefclic->getLastname(), $retrieved->getLastname());
-        self::assertSame($gefclic->getSolde(), $retrieved->getSolde());
         self::assertSame($gefclic->getId(), $retrieved->getId());
     }
 
@@ -133,5 +131,16 @@ class ClientTest extends TestCase
         self::assertSame($chap->getFirstname(), $retrieved->getFirstname());
         self::assertSame($chap->getCodebarmen(), $retrieved->getCodebarmen());
 
+    }
+    public function testMoney(){
+        $dbfactory = new DatabaseFactory();
+        $dbconnector = $dbfactory->getDbAdapter();
+        $hydrator = new \Client\Hydrator\Client();
+        $userRepository = new \Client\Repository\Client($dbconnector);
+        $userRepository->giveMoney(1,100);
+        $retrieved = $userRepository->findOneById(1);
+        self::assertGreaterThanOrEqual(100,$retrieved->getSolde() );
+
+        $userRepository->giveMoney(1,-100);
     }
 }
