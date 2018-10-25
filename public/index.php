@@ -17,52 +17,50 @@ include("index_restaurant.php");
 
     <button style="<?php if(isset($_SESSION['name'])){echo "display:none";}else{echo "";} ?>" type="button" onclick="location.href = 'view/register.php';">register</button>
     <button style="<?php if(!isset($_SESSION['name'])){echo "display:none";}else{echo "";} ?>" type="button" onclick="location.href = '/disconnect.php';">disconnect</button>
-
+    <button style="<?php if(!isset($_SESSION['name'])){echo "display:none";}else{echo "";} ?>" type="button" onclick="location.href = '/account-user.php';">My account</button>
     <button style="<?php if (!isset($_SESSION['isadmin']) || !$_SESSION['isadmin']) {
-                        echo "display:none";
-                    } else {
-                        echo "";
-                    } ?>" type="button" onclick="location.href = '/index_user.php';">user list</button>
+        echo "display:none";
+    } else {
+        echo "";
+    } ?>" type="button" onclick="location.href = '/index_user.php';">user list</button>
 
-    
+    <div id="restos">
 
-        <div id="restos">
+        <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin']) :?>
+            <button type="button" onclick="location.href = 'view/add-restaurant.php';">add resto</button>
+        <? endif?>
 
-            <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin']) :?>
-                <button type="button" onclick="location.href = 'view/add-restaurant.php';">add resto</button>
-            <? endif?>
+        <table class="table table-bordered table-hover table-striped">
+            <thead style="font-weight: bold">
+            <td>resto name</td>
+            <td>resto addr</td>
+            <td>resto city</td>
+            </thead>
+            <?php
+            /** @var \User\User $user */
+            foreach ($restos as $resto) : ?>
+                <tr>
+                    <td><?php echo $resto->getName() ?></td>
+                    <td><?php echo $resto->getAddress() ?></td>
+                    <td><?php echo $resto->getCity() ?></td>
 
-            <table class="table table-bordered table-hover table-striped">
-                <thead style="font-weight: bold">
-                <td>resto name</td>
-                <td>resto addr</td>
-                <td>resto city</td>
-                </thead>
-                <?php
-                /** @var \User\User $user */
-                foreach ($restos as $resto) : ?>
-                    <tr>
-                        <td><?php echo $resto->getName() ?></td>
-                        <td><?php echo $resto->getAddress() ?></td>
-                        <td><?php echo $resto->getCity() ?></td>
-                
-                        <td>
-                            <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin'] && !$resto->isDeleted()) :?>
-                                <form action="delete-restaurant.php" method="post">
-                                    <input type="hidden" name="id_resto" value="<?php echo $resto->getId() ?>">
-                                    <input type="submit" value="Delete"/>
-                                </form>
-                            <? endif?>
-                                <form action="description-restaurant.php" method="post">
-                                    <input type="hidden" name="id_resto" value="<?php echo $resto->getId() ?>">
-                                    <input type="submit" value="description"/>
-                                </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+                    <td>
+                        <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin'] && !$resto->isDeleted()) :?>
+                            <form action="delete-restaurant.php" method="post">
+                                <input type="hidden" name="id_resto" value="<?php echo $resto->getId() ?>">
+                                <input type="submit" value="Delete"/>
+                            </form>
+                        <? endif?>
+                        <form action="description-restaurant.php" method="post">
+                            <input type="hidden" name="id_resto" value="<?php echo $resto->getId() ?>">
+                            <input type="submit" value="description"/>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
 
-        </div>
+    </div>
 
 </div>
 </body>
