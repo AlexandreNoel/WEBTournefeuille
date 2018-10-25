@@ -25,7 +25,7 @@ class News{
             $data['idauteur'] = $object->getIdauteur();
         }
         if ($object->getDateCreation()) {
-            $data['dateCreation'] = $object->getDateCreation();
+            $data['datecreation'] = $object->getDateCreation()->format(\DateTime::ATOM);
         }
         return $data;
     }
@@ -36,7 +36,7 @@ class News{
             ->setTitle($data['titre'] ?? null)
             ->setContenu($data['contenu'] ?? null)
             ->setIdAuteur($data['idauteur'] ?? null)
-            ->setDateCreation($data['dateCreation'] ?? null);
+            ->setDateCreation($data['datecreation'] ? new \DateTime($data['datecreation']) : null);
     }
 }
 ?>

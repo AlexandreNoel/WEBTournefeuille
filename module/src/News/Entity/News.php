@@ -23,7 +23,7 @@ class News{
     private $idauteur;
 
     /**
-     * @var date
+     * @var null|\DateTime
      */
     private $dateCreation;
 
@@ -96,17 +96,17 @@ class News{
     }
 
     /**
-     * @return date
+     * @return \DateTime|null
      */
-    public function getDateCreation(): date
+    public function getDateCreation(): ?\DateTime
     {
         return $this->dateCreation;
     }
 
     /**
-     * @param date $dateCreation
+     * @param \DateTime $dateCreation
      */
-    public function setDateCreation(date $dateCreation)
+    public function setDateCreation(\DateTime $dateCreation)
     {
         $this->dateCreation = $dateCreation;
         return $this;
