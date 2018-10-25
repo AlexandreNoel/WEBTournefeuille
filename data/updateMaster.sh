@@ -4,4 +4,4 @@ cd /www/master/
 
 git pull
 
-make install
+make install.silent

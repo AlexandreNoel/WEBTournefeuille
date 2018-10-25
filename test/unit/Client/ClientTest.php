@@ -79,7 +79,7 @@ class ClientTest extends TestCase
 
         $userRepository->revokeBarmen($moiEnBase);
         $moiEnBase=$userRepository->findOneByNickname('Swagozaure');
-        self::assertSame($moiEnBase->getCodebarmen(), null);
+        self::assertSame($moiEnBase->getCodebarmen(), '');
 
 
     }
