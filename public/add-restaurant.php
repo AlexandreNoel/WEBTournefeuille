@@ -53,6 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: index.php');
 
     } else {
-        require_once('view/register.php');
+        require_once('view/add-restaurant.php');
     }
 }
