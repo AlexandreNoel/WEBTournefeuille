@@ -34,27 +34,18 @@ include("index_restaurant.php");
 
             <table class="table table-bordered table-hover table-striped">
                 <thead style="font-weight: bold">
-                <td>id</td>
                 <td>resto name</td>
-                <td>resto descr</td>
                 <td>resto addr</td>
-                <td>cpp addr</td>
                 <td>resto city</td>
-                <td>resto tel</td>
-                <td>resto website</td>
                 </thead>
                 <?php
                 /** @var \User\User $user */
                 foreach ($restos as $resto) : ?>
                     <tr>
-                        <td><?php echo $resto->getId() ?></td>
                         <td><?php echo $resto->getName() ?></td>
-                        <td><?php echo $resto->getDescription() ?></td>
                         <td><?php echo $resto->getAddress() ?></td>
-                        <td><?php echo $resto->getZipCode() ?></td>
                         <td><?php echo $resto->getCity() ?></td>
-                        <td><?php echo $resto->getPhoneNumber() ?></td>
-                        <td><?php echo $resto->getUrl() ?></td>
+                
                         <td>
                             <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin'] && !$resto->isDeleted()) :?>
                                 <form action="delete-restaurant.php" method="post">
@@ -62,6 +53,10 @@ include("index_restaurant.php");
                                     <input type="submit" value="Delete"/>
                                 </form>
                             <? endif?>
+                                <form action="description-restaurant.php" method="post">
+                                    <input type="hidden" name="id_resto" value="<?php echo $resto->getId() ?>">
+                                    <input type="submit" value="description"/>
+                                </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
