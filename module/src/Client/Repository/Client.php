@@ -84,12 +84,11 @@ class Client
     public function create(\Client\Entity\Client $client)
     {
         $taskArray = $this->hydrator->extract($client);
-        $statement = $this->dbAdapter->prepare("INSERT INTO utilisateur (idrole,nom, prenom, pseudo, solde) values(:idrole,:lastname,:firstname,:nickname,:solde)");
+        $statement = $this->dbAdapter->prepare("INSERT INTO utilisateur (nom, prenom, pseudo, solde) values(:lastname,:firstname,:nickname,:solde)");
         $firstname = strtolower($taskArray['prenom']);
         $lastname = strtolower($taskArray['nom']);
         $nickname = strtolower($taskArray['pseudo']);
         $solde=0;
-        $statement->bindParam(':idrole', $taskArray['idrole']);
         $statement->bindParam(':lastname', $lastname);
         $statement->bindParam(':firstname', $firstname);
         $statement->bindParam(':nickname', $nickname);
@@ -106,20 +105,6 @@ class Client
 
     }
 
-
-    public function createBis(\Client\Entity\Client $client)
-    {
-        $clientarray = $this->hydrator->extract($client);
-        $statement = $this->dbAdapter->prepare('INSERT INTO Utilisateur (idUtilisateur,pseudo,prenom,solde,idRole) values (:idclient, :nickname,:firstname,:lastname,:solde,:idrole)');
-        $statement->bindParam(':idclient', $clientarray['idclient']);
-        $statement->bindParam(':nickname', $clientarray['nickname']);
-        $statement->bindParam(':firstname', $clientarray['firstname']);
-        $statement->bindParam(':lastname', $clientarray['lastname']);
-        $statement->bindParam(':solde', $clientarray['solde']);
-        $statement->bindParam(':idrole', $clientarray['idrole']);
-        $statement->execute();
-    }
-
     public function grantBarmen(\Client\Entity\Client $client)
     {
         $clientarray = $this->hydrator->extract($client);
@@ -127,9 +112,6 @@ class Client
         $statement->bindParam(':id', $clientarray['idutilisateur']);
         $statement->bindParam(':codebarmen', $clientarray['codebarmen']);
         $statement->execute();
-//        $statement = $this->dbAdapter->prepare('UPDATE Utilisateur set  idrole=2 where id=:id');
-//        $statement->bindParam(':id', $clientarray['idutilisateur']);
-//        $statement->execute();
 
 
     }

@@ -6,27 +6,21 @@ DROP TABLE IF EXISTS Vote;
 DROP TABLE IF EXISTS NouveauProduit;
 DROP TABLE IF EXISTS FaitPartieCommande;
 DROP TABLE IF EXISTS Produit;
-DROP TABLE IF EXISTS Barman;
+DROP TABLE IF EXISTS Barmen;
 DROP TABLE IF EXISTS Categorie;
 DROP TABLE IF EXISTS Commande;
 DROP TABLE IF EXISTS Utilisateur;
-DROP TABLE IF EXISTS Role;
 
 ------------------------------------
 -- Création des rôles
 ------------------------------------
-CREATE TABLE Role (
-    idRole SERIAL PRIMARY KEY ,
-    libelle VARCHAR NOT NULL
-);
 
 CREATE TABLE Utilisateur (
     idUtilisateur SERIAL PRIMARY KEY ,
     pseudo VARCHAR NOT NULL UNIQUE,
     prenom VARCHAR NOT NULL ,
     nom VARCHAR NOT NULL ,
-    solde INTEGER NOT NULL ,
-    idRole INTEGER NOT NULL REFERENCES Role (idRole)
+    solde INTEGER NOT NULL
 );
 
 CREATE TABLE Barmen(
@@ -90,16 +84,11 @@ CREATE TABLE Annonce (
 -- INSERTION DES DONNEES
 --------------------------------------------------
 
--- Table Role
-
-INSERT INTO Role(idRole,libelle) VALUES (1,'Admin');
-INSERT INTO Role(idRole,libelle) VALUES (2,'Barman');
-INSERT INTO Role(idRole,libelle) VALUES (3,'Client');
 
 -- Table Utilisateur
-INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (1,'GEFCLIC', 'Benoit','SCHOLL','25','3');
-INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (2,'CHAP','Antoine','CHAPUSOT','25','2');
-INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde,idRole ) VALUES (3,'TOAST', 'Théo','PEUCKERT','25','2');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (1,'GEFCLIC', 'Benoit','SCHOLL','25');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (2,'CHAP','Antoine','CHAPUSOT','25');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (3,'TOAST', 'Théo','PEUCKERT','25');
 
 SELECT setval('utilisateur_idutilisateur_seq', 3, true);
 
@@ -125,9 +114,9 @@ INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('C
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Thé',0.40,0,20,4);
 
 -- Table Annonce
-INSERT INTO Annonce(idAnnonce,titre,contenu,idAuteur,dateCreation) VALUES (1,'Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
-INSERT INTO Annonce(idAnnonce,titre,contenu,idAuteur,dateCreation) VALUES (2,'Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
-INSERT INTO Annonce(idAnnonce,titre,contenu,idAuteur,dateCreation) VALUES (3,'Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
+INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
+INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
+INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
 
 -- Table NouveauProduit
 INSERT INTO NouveauProduit(idNouveauProduit,libelle,Description,idAuteur) VALUES (1,'RedBull','Pour avoir des ailes en allant en cours',1);
