@@ -114,6 +114,24 @@ class Restaurant
         return $resto;
     }
 
+    public function findAllByCategorie($idCategorie){
+        $statement = $this->connection->prepare('SELECT * FROM "restos" NATURAL JOIN cat_resto WHERE id_cat = :id_cat');
+        $statement->bindParam(':id_cat', $idCategorie);
+        $statement->execute();
+
+        $rows = $statement->fetchAll();
+
+        $restos = [];
+        foreach ($rows as $restoData) {
+            $entity = new \Entity\Restaurant();
+            $resto = $this->hydrator->hydrate($restoData, clone $entity);
+
+            $restos[] = $resto;
+        }
+
+        return $restos;
+    }
+
     /**
      * @param \Entity\Restaurant $restaurant
      * @return bool
