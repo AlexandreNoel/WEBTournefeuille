@@ -10,8 +10,10 @@ $dbPassword = getenv('DB_PASSWORD');
 $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
 
 $userRepository = new Repository\User($connection);
+$restoRepository = new Repository\Restaurant($connection);
 
 $users = $userRepository->fetchAll();
+$restos = $restoRepository->fetchAll();
 ?>
 
 <html>
@@ -47,6 +49,45 @@ $users = $userRepository->fetchAll();
             </tr>
         <?php endforeach; ?>
     </table>
+
+
+<?php if (isset($_SESSION['name'])) { ?>
+<div id="restos">
+
+<button type="button" onclick="location.href = 'view/add-restaurant.php';">add resto</button>
+
+     <table class="table table-bordered table-hover table-striped">
+        <thead style="font-weight: bold">
+            <td>id</td>
+            <td>resto name</td>
+            <td>resto descr</td>
+            <td>resto addr</td>
+            <td>cpp addr</td>
+            <td>resto city</td>
+            <td>resto tel</td>
+            <td>resto website</td>
+            <td>isDeleted</td>
+        </thead>
+        <?php 
+        /** @var \User\User $user */
+        foreach ($restos as $resto) : ?>
+            <tr>
+                <td><?php echo $resto->getId() ?></td>
+                <td><?php echo $resto->getName() ?></td>
+                <td><?php echo $resto->getDescription() ?></td>
+                <td><?php echo $resto->getAddress() ?></td>
+                <td><?php echo $resto->getZipCode() ?></td>
+                <td><?php echo $resto->getCity() ?></td>
+                <td><?php echo $resto->getPhoneNumber() ?></td>
+                <td><?php echo $resto->getUrl() ?></td>
+                <td><?php echo $resto->isDeleted() ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+    </div>
+ <?php } ?>
+
 </div>
 </body>
 </html>

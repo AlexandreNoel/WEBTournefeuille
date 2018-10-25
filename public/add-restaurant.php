@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $restaurantService = new \Service\Restaurant();
     $view['errors'] = $restaurantService->verify_registration($restaurantRepository, $view['restaurant']);
 
-    if (count($view['errors']) === 0) {
+    if (count(array_filter($view['errors'])) === 0) {
         $newRestaurant = $restaurantHydrator->hydrate(
             [
                 'nom_resto' => $name,
