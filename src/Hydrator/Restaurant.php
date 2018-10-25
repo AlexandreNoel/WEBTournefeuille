@@ -41,6 +41,8 @@ class Restaurant
             $data['website_resto'] = $object->getUrl();
         }
 
+        $data['isdeleted'] = $object -> isDeleted() ? 'TRUE' : 'FALSE';
+
         return $data;
     }
 
@@ -54,7 +56,8 @@ class Restaurant
             ->setZipCode($data['cp_resto'] ?? null)
             ->setCity($data['city_resto'] ?? null)
             ->setPhoneNumber($data['tel_resto'] ?? null)
-            ->setUrl($data['website_resto'] ?? null);
+            ->setUrl($data['website_resto'] ?? null)
+            ->setIsDeleted($data['isdeleted'] ?? null);
     }
 
 }

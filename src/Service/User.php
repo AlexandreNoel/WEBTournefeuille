@@ -2,25 +2,11 @@
 namespace Service;
 
 use  \Adapter\DatabaseFactory;
+use \Service\DataCheck;
 
 class User
 {
-    function verify($data,$condition,$errorMsg,$dataname,$length_min,$length_max){
-        if(isset($data) && !is_null($data) && $data != ''){
-            if ($condition){
-                return $errorMsg;
-            }
-        }else{
-           return "Error: ". $dataname ." is required";
-        }
-        if(strlen($data) > $length_max){
-            return "Error: ". $dataname ." is too long (".$length_max." max)";
-        }
-        if(strlen($data) < $length_min){
-            return "Error: ". $dataname ." is too short (".$length_min." min)";
-        }
-    }
-
+  
 
      /**
      * @param \Repository\User $userRepository
@@ -36,16 +22,16 @@ class User
         $mail= $data['mail_user'];
         $password = $data['secret_user'];
 
-        $error['prenom_user'] = $this->verify($name,preg_match('#[0-9]#',$name),'Error: name must not contain digit','prenom_user',2,25);
-        $error['nom_user'] = $this->verify($lastname,preg_match('#[0-9]#',$lastname),'Error: lastname must not contain digit','nom_user',2,25);
-        $error['promo_user'] = $this->verify($promo,!is_numeric($promo),'Error: promotion must be a number','promo_user',4,4);
-        $error['mail_user'] = $this->verify($mail,!(filter_var($mail, FILTER_VALIDATE_EMAIL)),'Error: mail format error','mail_user',5,40);
+$error['prenom_user'] = DataCheck::verify($name,preg_match('#[0-9]#',$name),'Error: name must not contain digit','prenom_user',2,25);  
+        $error['nom_user'] = DataCheck::verify($lastname,preg_match('#[0-9]#',$lastname),'Error: lastname must not contain digit','nom_user',2,25);
+        $error['promo_user'] = DataCheck::verify($promo,!is_numeric($promo),'Error: promotion must be a number','promo_user',4,4);
+        $error['mail_user'] = DataCheck::verify($mail,!(filter_var($mail, FILTER_VALIDATE_EMAIL)),'Error: mail format error','mail_user',5,40);
 
         if($userRepository->findOneByMail($mail)){
             $error['mail_user'] = 'user already exist';
         }
 
-        $error['secret_user'] = $this->verify($password,false,'','secret_user',4,100);
+        $error['secret_user'] = DataCheck::verify($password,false,'','secret_user',4,100);
         
         return $error;
     }

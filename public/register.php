@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail = $_POST['mail_user'];
     $password = $_POST['secret_user'];
 
-  
+
     $view = [
         'user' => [
             'prenom_user' => $firstname ?? null,
@@ -44,12 +44,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ],
             new \Entity\User()
         );
-        $userRepository->create($newUser);
-        
-        $_SESSION['uniqid'] = uniqid();
-        $_SESSION['name'] = $firstname." ".$lastname;
 
-       
+        if( ! $userRepository->create($newUser))
+        {
+            $view['errors']['database'] = 'Error when registering';
+        }
+        else
+        {
+            $_SESSION['uniqid'] = uniqid();
+            $_SESSION['name'] = $firstname . " " . $lastname;
+        }
+
         header('Location: index.php');
 
     }else{

@@ -47,6 +47,11 @@
                     <?php echo $view['errors']['mail-password'] ?>
                 </p>
             <?php endif; ?>
+            <?php if (isset($view['errors']['mail-password']) && $view['errors']['mail-password']): ?>
+                <p>
+                    <?php echo $view['errors']['mail-password'] ?>
+                </p>
+            <?php endif; ?>
             <input type="submit" value="Log in">
         </form>
     </div>

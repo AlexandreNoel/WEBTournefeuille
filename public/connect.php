@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (count($view['errors']) === 0) {
 
-        $user->$userRepository->findOneByMail($mail);
+        $user = $userRepository->findOneByMail($mail);
         $_SESSION['uniqid'] = uniqid();
         $_SESSION['name'] = $user->getFirstname()." ".$user->getLastname();
 
