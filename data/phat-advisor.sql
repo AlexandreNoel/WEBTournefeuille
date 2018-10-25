@@ -30,7 +30,7 @@ CREATE TABLE public.Restos(
 	Nom_Resto       VARCHAR (25) NOT NULL ,
 	Descr_Resto     VARCHAR (200) NOT NULL ,
 	Addr_Resto      VARCHAR (100) NOT NULL ,
-	CP_Resto        VARCHAR(5) NOT NULL ,
+	CP_Resto        INT  NOT NULL ,
 	city_resto		VARCHAR(50) NOT NULL,
 	Tel_Resto       VARCHAR(20) ,
 	Website_Resto   VARCHAR (50) NOT NULL  ,
@@ -63,14 +63,12 @@ CREATE TABLE public.Comments(
 ------------------------------------------------------------
 CREATE TABLE public.Favoris(
 	id_Fav            SERIAL  ,
-	Id_Resto          INT  NOT NULL ,
-	Id_User           INT  NOT NULL ,
 	Id_User_Persons   INT  NOT NULL ,
 	Id_Resto_Restos   INT  NOT NULL  ,
 	CONSTRAINT Favoris_PK PRIMARY KEY (id_Fav)
 
 	,CONSTRAINT Favoris_Persons_FK FOREIGN KEY (Id_User_Persons) REFERENCES public.Persons(Id_User)
-	,CONSTRAINT Favoris_Restos0_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
+	,CONSTRAINT Favoris_Restos_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
 )WITHOUT OIDS;
 
 
