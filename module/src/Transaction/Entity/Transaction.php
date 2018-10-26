@@ -29,13 +29,13 @@ class Transaction
      */
     private $product;
     /**
-     * @var \Client\Entity\Client
+     * @var int
      */
-    private $client;
+    private $idclient;
     /**
-     * @var \Client\Entity\Client
+     * @var int
      */
-    private $barmen;
+    private $idbarmen;
 
     /**
      * @return int
@@ -122,34 +122,34 @@ class Transaction
     /**
      * @return \Client\Entity\Client
      */
-    public function getClient(): \Client\Entity\Client
+    public function getIdClient(): ?int
     {
-        return $this->client;
+        return $this->idclient;
     }
 
     /**
      * @param \Client\Entity\Client $client
      */
-    public function setClient(\Client\Entity\Client $client): Transaction
+    public function setIdClient(int $client): Transaction
     {
-        $this->client = $client;
+        $this->idclient = $client;
         return $this;
     }
 
     /**
      * @return \Client\Entity\Client
      */
-    public function getBarmen(): \Client\Entity\Client
+    public function getIdBarmen(): int
     {
-        return $this->barmen;
+        return $this->idbarmen;
     }
 
     /**
      * @param \Client\Entity\Client $Barmen
      */
-    public function setBarmen(\Client\Entity\Client $Barmen): Transaction
+    public function setIdBarmen(int $Barmen): Transaction
     {
-        $this->barmen = $Barmen;
+        $this->idbarmen = $Barmen;
         return $this;
     }
 
