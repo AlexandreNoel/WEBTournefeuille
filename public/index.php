@@ -29,6 +29,7 @@ include("index_restaurant.php");
         echo "";
     } ?>" type="button" onclick="location.href = '/index_user.php';">user list</button>
 
+
     <div id="restos">
 
         <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin']) :?>
