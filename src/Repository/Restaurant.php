@@ -132,6 +132,25 @@ class Restaurant
         return $restos;
     }
 
+    public function findAllByUser($idUser) // favorites
+    {
+        $statement = $this->connection->prepare('SELECT * FROM "favoris" WHERE id_user_persons = :id_user_persons');
+        $statement->bindParam(':id_user_persons', $idUser);
+        $statement->execute();
+
+        $rows = $statement->fetchAll();
+
+        var_dump($rows);
+        $restos = [];
+        foreach ($rows as $restoData) {
+            $entity = new \Entity\Restaurant();
+            $resto = $this->hydrator->hydrate($restoData, clone $entity);
+
+            $restos[] = $resto;
+        }
+
+        return $restos;
+    }
     /**
      * @param \Entity\Restaurant $restaurant
      * @return bool
@@ -148,6 +167,19 @@ class Restaurant
         $statement->bindParam(':tel_resto', $restoArray['tel_resto']);
         $statement->bindParam(':website_resto', $restoArray['website_resto']);
         $statement->bindParam(':isdeleted', $restoArray['isdeleted']);
+
+        return $statement->execute();
+    }
+
+    /**
+     * @param int,int
+     * @return bool
+     */
+    public function addFavorite($userId ,$restaurantId)
+    {
+        $statement = $this->connection->prepare('INSERT INTO favoris values (DEFAULT, :id_user_persons, :id_resto_restos)');
+        $statement->bindParam(':id_user_persons', $userId);
+        $statement->bindParam(':id_resto_restos', $restaurantId);
 
         return $statement->execute();
     }
