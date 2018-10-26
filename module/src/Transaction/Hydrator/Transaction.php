@@ -24,11 +24,11 @@ class Transaction
         if ($object->getPrice()>=0) {
             $data['prixtotal'] = $object->getPrice();
         }
-        if ($object->getBarmen()) {
-            $data['idbarmen'] = $object->getBarmen()->getId();
+        if ($object->getIdBarmen()) {
+            $data['idbarmen'] = $object->getIdBarmen();
         }
-        if ($object->getClient()) {
-            $data['idutilisateur'] = $object->getClient()->getId();
+        if ($object->getIdClient()) {
+            $data['idutilisateur'] = $object->getIdClient();
         }
         if ($object->getProduct()) {
             $data['products'] = $object->getProduct();
@@ -41,10 +41,10 @@ class Transaction
 
         return $emptyEntity
             ->setId($data['idcommande'] ?? null)
-            ->setDate($data['datecommande'] ?? null)
+            ->setDate($data['datecommande'] ? new \DateTime($data['datecommande']) : null)
             ->setPrice($data['prixtotal'] ?? null)
-            ->setBarmen($data['idbarmen'] ?? null)
-            ->setClient($data['idutilisateur'] ?? null)
+            ->setIdBarmen($data['idbarmen'] ?? null)
+            ->setIdClient($data['idutilisateur'] ?? null)
             ->setProduct($data['products'] ?? null);
     }
 }
