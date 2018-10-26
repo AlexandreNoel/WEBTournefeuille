@@ -95,12 +95,13 @@ class Product
     public function update(\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
-        $statement = $this->dbAdapter->prepare('update produit set libelle = :name,prix = :price,reduction = :reduction,quantite = :quantity,idFamille = :idfamilly where id = :id');
-        $statement->bindParam(':libelle', $productArray['libelle']);
-        $statement->bindParam(':prix', $productArray['prix']);
+        $statement = $this->dbAdapter->prepare('update produit set libelle = :name,prix = :price,reduction = :reduction,quantitestock = :quantity,idcategorie = :idfamilly where idproduit = :id');
+        $statement->bindParam(':name', $productArray['libelle']);
+        $statement->bindParam(':price', $productArray['prix']);
         $statement->bindParam(':reduction', $productArray['reduction']);
-        $statement->bindParam(':quantitestock', $productArray['quantitestock']);
-        $statement->bindParam(':idcategorie', $productArray['idcategorie']);
+        $statement->bindParam(':quantity', $productArray['quantitestock']);
+        $statement->bindParam(':idfamilly', $productArray['idcategorie']);
+        $statement->bindParam(':id', $productArray["idproduit"]);
         $statement->execute();
     }
 

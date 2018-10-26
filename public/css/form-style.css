@@ -81,6 +81,22 @@
 }
 
 #products-tables{
-    display:flex;
+    display:inline-flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+#table-tile{
+    text-align: center;
+    font-size: xx-large;
+    font-family: sans-serif;
+}
+
+#add{
+    text-align: center;
+}
+
+.icon{
+    height: 16px;
+    width: 16px;
 }

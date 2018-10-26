@@ -14,7 +14,7 @@ class Product{
     public function extract(\Product\Entity\Product $object): array
     {
         $data = [];
-        if ($object->getId()) {
+        if ($object->getId()>=0) {
             $data['idproduit'] = $object->getId();
         }
         if ($object->getName()) {

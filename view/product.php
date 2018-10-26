@@ -25,7 +25,7 @@
 
 <div class="content-container">
     <div id="form-div">
-        <form class="form-product" action="add-product.php" method="post">
+        <form id="form-product" class="form-product" action="add-product.php" method="post">
             <div>
                 <label>Product Name</label>
                 <input
@@ -43,6 +43,7 @@
                     type="number"
                     name="prix"
                     value=0
+                    min=O
                     step=0.05
                 >
             </div>
@@ -53,6 +54,7 @@
                     type="number"
                     name="reduction"
                     value=0
+                    min=O
                 >
             </div>
             <div>
@@ -62,12 +64,13 @@
                     type="number"
                     name="quantitestock"
                     value=0
+                    min=O
                 >
             </div>
             <input
                 id="id-input"
                 type="hidden"
-                name="id"
+                name="idproduit"
                 value="0"
             >
             <div>
@@ -84,9 +87,9 @@
             <button type="button" id="cancel-button"> BACK </button>
         </form>
     </div>
-    <span>
+    <div id="add">
           <button id="add-button">Ajout nouveau produit</button>
-    </span>
+    </div>
     <div id="products-tables">
     <?php foreach ($productslist as $category => $values):?>
             <div id="single-table">
@@ -117,14 +120,14 @@
                                                                                             $product->getQuantity() . "," .
                                                                                             $product->getId()  . "," .
                                                                                             $product->getIdfamilly();?>)" >
-                                    <img src="assets/images/edit.png">
+                                    <img class="icon" src="assets/images/edit.png">
                                 </button>
                             </td>
                             <td>
                                 <form action="del-product.php" method="post">
                                     <input type="hidden" name="id_product" value="<?php echo $product->getId() ?>">
                                     <button class="remove-button">
-                                        <img src="assets/images/cross.png">
+                                        <img class="icon" src="assets/images/cross.png">
                                     </button>
                                 </form>
                             </td>
@@ -174,7 +177,7 @@
         $("#id-input").val(id),
         $("#idcategorie").val(categorie),
         $("#submit-form").val("Modifier"),
-        $("#form-product").attr('action','update-produit.php'),
+        $("#form-product").attr('action','update-product.php'),
         $("#form-div").show()
     }
 </script>
