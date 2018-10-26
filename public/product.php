@@ -17,11 +17,8 @@
     }
 
 
-    $productslist = [];
+    $productslist = $repoproducts->findAllByCategory();
     $categories = $repoproducts->getCategories();
-    foreach ($categories as $category) {
-        $productslist[$category["libelle"]] = $repoproducts->findByCategory($category["idcategorie"]);
-    }
     require_once '../view/product.php';
 
 

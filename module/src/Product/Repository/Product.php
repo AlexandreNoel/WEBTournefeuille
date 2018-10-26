@@ -56,6 +56,16 @@ class Product
         return $product;
     }
 
+    public function findAllByCategory() : array
+    {
+        $productslist = [];
+        $categories = $this->getCategories();
+        foreach ($categories as $category) {
+            $productslist[$category["libelle"]] = $this->findByCategory($category["idcategorie"]);
+        }
+        return $productslist;
+    }
+
     public function findById($id)
     {
         $product = null;
@@ -111,8 +121,8 @@ class Product
 
     public function delete($productId)
     {
-        $statement = $this->dbAdapter->prepare('DELETE FROM produit where id = :id');
-        $statement->bindParam(':id', $productId);
+        $statement = $this->dbAdapter->prepare('DELETE FROM produit where idproduit = :idproduit');
+        $statement->bindParam(':idproduit', $productId);
         $statement->execute();
     }
 

@@ -16,13 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_POST["quantitestock"],
         $_POST["reduction"],
         $_POST["idcategorie"])){
-        $product = $repoproducts->findById($_POST["id"]);
-        $product->setIdfamilly($_POST["idcategorie"])
-            ->setPrice($_POST["prix"])
-            ->setName($_POST["libelle"])
-            ->setQuantity($_POST["quantitestock"])
-            ->setReduction($_POST["reduction"]);
-        $repoproducts->update($product);
+            $hydrator = new Product\Hydrator\Product();
+            $repoproducts->update($hydrator->hydrate($_POST, new \Product\Entity\Product()));
     }
 } else {
     throw new \HttpInvalidParamException('Method not allowed', 405);
