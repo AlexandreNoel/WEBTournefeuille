@@ -18,6 +18,11 @@ include("index_restaurant.php");
     <button style="<?php if(isset($_SESSION['name'])){echo "display:none";}else{echo "";} ?>" type="button" onclick="location.href = 'view/register.php';">register</button>
     <button style="<?php if(!isset($_SESSION['name'])){echo "display:none";}else{echo "";} ?>" type="button" onclick="location.href = '/disconnect.php';">disconnect</button>
     <button style="<?php if(!isset($_SESSION['name'])){echo "display:none";}else{echo "";} ?>" type="button" onclick="location.href = '/account-user.php';">My account</button>
+    <button style="<?php if (!isset($_SESSION['id'])) {
+                        echo "display:none";
+                    } else {
+                        echo "";
+                    } ?>" type="button" onclick="location.href = '/favorites-user.php';">My favorites</button>
     <button style="<?php if (!isset($_SESSION['isadmin']) || !$_SESSION['isadmin']) {
         echo "display:none";
     } else {
@@ -55,6 +60,12 @@ include("index_restaurant.php");
                             <input type="hidden" name="id_resto" value="<?php echo $resto->getId() ?>">
                             <input type="submit" value="description"/>
                         </form>
+                        <? if (isset($_SESSION['id']) && $_SESSION['id']) : ?>
+                        <form action="add-favorite-restaurant.php" method="post">
+                            <input type="hidden" name="id_resto" value="<?php echo $resto->getId() ?>">
+                            <input type="submit" value="add favorite"/>
+                        </form>
+                        <? endif ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
