@@ -15,7 +15,6 @@ class User
 
     /**
      * User constructor.
-     * @param \PDO $connection
      */
     public function __construct()
     {
@@ -110,7 +109,7 @@ class User
     public function updatePassword(\Entity\User $user)
     {
         $userArray = $this->hydrator->extract($user);
-        $statement = $this->connection->prepare('UPDATE persons SET secret_user = :secret_user WHERE id = :id');
+        $statement = $this->connection->prepare('UPDATE persons SET secret_user = :secret_user WHERE id_user = :id');
         $statement->bindParam(':id', $userArray['id']);
         $statement->bindParam(':secret_user', $userArray['secret_user']);
 
@@ -129,7 +128,7 @@ class User
                     mail_user = :mail_user,
                     promo_user = :promo_user,
                     secret_user = :secret_user
-                WHERE id = :id';
+                WHERE id_user = :id';
         $statement = $this->connection->prepare($sql);
 
         $statement->bindParam(':nom_user', $userArray['nom_user']);

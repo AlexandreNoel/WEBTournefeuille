@@ -19,7 +19,6 @@ class Restaurant
 
     /**
      * Restaurant constructor.
-     * @param \PDO $connection
      */
     public function __construct()
     {
@@ -172,7 +171,8 @@ class Restaurant
     }
 
     /**
-     * @param int,int
+     * @param $userId
+     * @param $restaurantId
      * @return bool
      */
     public function addFavorite($userId ,$restaurantId)
