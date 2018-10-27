@@ -37,7 +37,6 @@ class News {
         $statement->bindParam(':contenu',$data['contenu']);
         $statement->bindParam(':idauteur',$data['idauteur']);
         $statement->execute();
-        $statement->execute();
         $id="";
         foreach ($statement->fetchAll() as $productData) {
             $id=$productData['idannonce'];
@@ -68,6 +67,21 @@ class News {
         }
         return $news;
     }
+    /**
+     * @param int $number
+     * @return \News\Entity\News
+     */
+    public function findById($id) : \News\Entity\News
+    {
+        $statement = $this->dbAdapter->prepare('SELECT  * FROM annonce where idannonce= :id');
+        $statement->bindParam(":id",$id);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $row) {
+            $entity = new \News\Entity\News();
+            $news = $this->hydrator->hydrate($row, clone $entity);
+        }
+        return $news;
+    }
 
     /**
      * @param int $number
@@ -80,5 +94,20 @@ class News {
             return $newsentry;
         }
         return null;
+    }
+    /**
+     * @param int $number
+     * @return array
+     */
+    public function update(\News\Entity\News $news) : void
+    {
+        $data = $this->hydrator->extract($news);
+        $statement = $this->dbAdapter->prepare('update annonce set titre=:titre, contenu=:contenu, idauteur=:idauteur where idAnnonce=:id');
+        $statement->bindParam(':id', $data['idannonce']);
+        $statement->bindParam(':titre', $data['titre']);
+        $statement->bindParam(':contenu',$data['contenu']);
+        $statement->bindParam(':idauteur',$data['idauteur']);
+        $statement->execute();
+
     }
 }

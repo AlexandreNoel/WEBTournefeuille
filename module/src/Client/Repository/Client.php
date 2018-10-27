@@ -95,13 +95,10 @@ class Client
     {
         $taskArray = $this->hydrator->extract($client);
         $statement = $this->dbAdapter->prepare("INSERT INTO utilisateur (nom, prenom, pseudo, solde) values(:lastname,:firstname,:nickname,:solde) RETURNING Idutilisateur");
-        $firstname = strtolower($taskArray['prenom']);
-        $lastname = strtolower($taskArray['nom']);
-        $nickname = strtolower($taskArray['pseudo']);
         $solde=0;
-        $statement->bindParam(':lastname', $lastname);
-        $statement->bindParam(':firstname', $firstname);
-        $statement->bindParam(':nickname', $nickname);
+        $statement->bindParam(':lastname', $taskArray['nom']);
+        $statement->bindParam(':firstname', $taskArray['prenom']);
+        $statement->bindParam(':nickname', $taskArray['pseudo']);
         $statement->bindParam(':solde', $solde);
         $statement->execute();
         $id="";
@@ -109,6 +106,21 @@ class Client
             $id=$productData['idutilisateur'];
         }
         return $id;
+
+    }
+    public function update(\Client\Entity\Client $client)
+    {
+        $clientkArray = $this->hydrator->extract($client);
+        $statement = $this->dbAdapter->prepare('update utilisateur set nom=:lastname, prenom=:firstname, pseudo=:nickname, solde=:solde where Idutilisateur=:id');
+
+        $solde=0;
+        $statement->bindParam(':lastname', $clientkArray['nom']);
+        $statement->bindParam(':firstname', $clientkArray['prenom']);
+        $statement->bindParam(':nickname', $clientkArray['pseudo']);
+        $statement->bindParam(':solde', $clientkArray['solde']);
+        $statement->bindParam(':id', $clientkArray['idutilisateur']);
+        $statement->execute();
+
 
     }
     public function remove(\Client\Entity\Client $client)
