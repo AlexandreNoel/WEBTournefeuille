@@ -11,7 +11,7 @@ $error = [];
 if (isset($_SESSION['id'])) {
     $id_user = $_SESSION['id'];
 
-    $restos = $restoRepository->findAllByUser($id_user);
+    $restos = $restoRepository->findAllFavoritesByUser($id_user);
     if($restos) {
         $error['add-favorite-restaurant'] = "cant find favorites";
     }
