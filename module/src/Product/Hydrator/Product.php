@@ -32,7 +32,7 @@ class Product{
         if ($object->getQuantity()) {
             $data['quantitestock'] = $object->getQuantity();
         }
-        if ($object->getEstDisponible()>=0) {
+        if ($object->getEstDisponible() === True) {
             $data['estdisponible'] = $object->getEstDisponible();
         }
         return $data;
@@ -45,7 +45,7 @@ class Product{
             ->setPrice($data['prix'] ?? null )
             ->setReduction($data['reduction'] ?? 0)
             ->setQuantity($data['quantitestock'] ?? null)
-            ->setEstDisponible($data['estdisponible'] ?? null)
+            ->setEstDisponible($data['estdisponible'] ?? False)
             ->setIdfamilly($data['idcategorie'] ?? null);
     }
 }

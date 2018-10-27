@@ -46,8 +46,20 @@ class Product
     public function findByCategory($id) : array
     {
         $product[] = null;
-        $statement = $this->dbAdapter->prepare('SELECT * FROM produit WHERE idcategorie = :id');
+        $statement = $this->dbAdapter->prepare('SELECT * FROM produit WHERE idcategorie = :id AND estdisponible = True');
         $statement->bindParam(':id', $id);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $productData) {
+            $entity = new \Product\Entity\Product();
+            $product[] = $this->hydrator->hydrate($productData, clone $entity);
+        }
+        return $product;
+    }
+
+    public function findDeletedItems() : array
+    {
+        $product = [];
+        $statement = $this->dbAdapter->prepare('SELECT * FROM produit WHERE estdisponible = 1');
         $statement->execute();
         foreach ($statement->fetchAll() as $productData) {
             $entity = new \Product\Entity\Product();
@@ -130,7 +142,7 @@ class Product
 
     public function delete($productId)
     {
-        $statement = $this->dbAdapter->prepare('DELETE FROM produit where idproduit = :idproduit');
+        $statement = $this->dbAdapter->prepare('UPDATE produit SET estdisponible = False WHERE idproduit = :idproduit');
         $statement->bindParam(':idproduit', $productId);
         $statement->execute();
     }
