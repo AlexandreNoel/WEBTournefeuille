@@ -35,6 +35,7 @@ class ProductTest extends TestCase
                 'quantitestock' => 1,
                 'reduction' => 2,
                 'idcategorie' => 1,
+                'estdisponible' => 1,
             ],
             new \Product\Entity\Product()
         );
@@ -44,6 +45,42 @@ class ProductTest extends TestCase
 
         self::assertSame(2, $monproduct->getReduction());
         self::assertEquals($monproduct, $monproduct2);
+    }
+
+    /**
+     * @test
+     */
+    public function testUpdate(){
+
+
+        $productHydrator = new \Product\Hydrator\Product();
+        $productRepository = new \Product\Repository\Product();
+        $newProduct = $productHydrator->hydrate(
+            [
+                'libelle' => 'tagada',
+                'prix' => 1,
+                'quantitestock' => 1,
+                'reduction' => 2,
+                'idcategorie' => 1,
+                'estdisponible' => 1,
+            ],
+            new \Product\Entity\Product()
+        );
+        $id=$productRepository->create($newProduct);
+        self::assertSame(1, $newProduct->getQuantity());
+        self::assertSame(2, $newProduct->getReduction());
+        $newProduct->setId($id);
+        $newProduct->addQuantity(20);
+        $newProduct->setReduction(20);
+        $productRepository->update($newProduct);
+
+        self::assertSame(21, $newProduct->getQuantity());
+        self::assertSame(20, $newProduct->getReduction());
+        $monproduct=$productRepository->findByName("tagada");
+
+        self::assertSame(21, $monproduct->getQuantity());
+        self::assertSame(20, $monproduct->getReduction());
+
     }
 
     /**
