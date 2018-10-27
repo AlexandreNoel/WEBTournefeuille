@@ -1,0 +1,60 @@
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+body,
+html {
+    height: 100%;
+    background: #fafafa; 
+}
+
+#header {
+    height: 3.7em;
+    background: #ffffff;
+    border-bottom: solid #e0e0e0 0.2em;
+    margin-bottom: 2em;
+}
+#header>span {
+    font-size: 2.4em;
+    font-weight: bold;
+}
+
+#wrapper {
+}
+
+/*Offset after icon*/
+.navbar i {
+    margin-right: 1em;
+}
+
+a, a:hover, a:visited {
+    color: inherit;
+}
+
+.rest-preview {
+    padding: 1em;
+}
+
+.rest-preview>div {
+    height: 8em;
+    padding: inherit;
+}
+
+.rest-preview img {
+    max-width: 8em;
+    max-height: 8em;
+}
+
+.rest-preview i {
+    color: gold;
+}
+
+.rest-preview #rest-name {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.rest-preview #favorite {
+    /*font-weight: bold;*/
+    font-size: 2em;
+}
