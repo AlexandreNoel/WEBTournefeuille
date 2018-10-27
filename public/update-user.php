@@ -1,11 +1,14 @@
 <?php
 require '../vendor/autoload.php';
 
+session_start();
+
 $userRepository = new \Repository\User();
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $id = $_POST['id_user'] ?? null;
+    $id = $_SESSION['id'] ?? null;
     $firstname = $_POST['prenom_user'] ?? null;
     $lastname = $_POST['nom_user'] ?? null;
     $promo = $_POST['promo_user'] ?? null;
