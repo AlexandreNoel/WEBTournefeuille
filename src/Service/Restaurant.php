@@ -9,7 +9,7 @@ class Restaurant
         /**
      * @param \Repository\Restaurant $userRepository
      * @param array
-     * @return string
+     * @return array
      */
        function verify_registration($restaurantRepository, $data){
         $error = [];
