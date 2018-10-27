@@ -8,7 +8,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_id">NOM</label>
             <div class="col-md-4">
-                <input id="product_id" name="product_id" placeholder="Nom du restaurant" class="form-control input-md" required="" type="text">
+                <input id="product_id" name="nom_resto" placeholder="Nom du restaurant" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -18,6 +18,12 @@
             <label class="col-md-4 control-label" for="product_categorie">TYPE</label>
             <div class="col-md-4">
                 <select id="product_categorie" name="product_categorie" class="form-control">
+                    <option>Fast food (Burger)</option>
+                    <option>Pizzeria</option>
+                    <option>Brasserie</option>
+                    <option>Cafétériat</option>
+                    <option>Kebab</option>
+                    <option>Tacos</option>
                 </select>
             </div>
         </div>
@@ -26,7 +32,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_description">DESCRIPTION</label>
             <div class="col-md-4">
-                <textarea class="form-control" id="product_description" name="product_description"></textarea>
+                <textarea class="form-control" id="product_description" name="descr_resto"></textarea>
             </div>
         </div>
 
@@ -35,6 +41,9 @@
             <label class="col-md-4 control-label" for="product_categorie">BADGES</label>
             <div class="col-md-4">
                 <select id="product_categorie" name="product_categorie" class="form-control">
+                    <option>Halal</option>
+                    <option>Partenariat BDE</option>
+                    <option>Végétarien</option>
                 </select>
             </div>
         </div>
@@ -43,7 +52,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name">ADRESSE</label>
             <div class="col-md-4">
-                <input id="product_name" name="product_name" placeholder="Adresse du restaurant" class="form-control input-md" required="" type="text">
+                <input id="product_name" name="addr_resto" placeholder="Adresse du restaurant" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -52,7 +61,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name_fr">CODE POSTALE</label>
             <div class="col-md-4">
-                <input id="product_name_fr" name="product_name_fr" placeholder="Code postale" class="form-control input-md" required="" type="text">
+                <input id="product_name_fr" name="cp_resto" placeholder="Code postale" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -61,7 +70,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name_fr">VILLE</label>
             <div class="col-md-4">
-                <input id="product_name_fr" name="product_name_fr" placeholder="Ville" class="form-control input-md" required="" type="text">
+                <input id="product_name_fr" name="city_resto" placeholder="Ville" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -70,7 +79,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name_fr">TELEPHONE</label>
             <div class="col-md-4">
-                <input id="product_name_fr" name="product_name_fr" placeholder="0102030405" class="form-control input-md" required="" type="text">
+                <input id="product_name_fr" name="tel_resto" placeholder="0102030405" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -79,24 +88,16 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name_fr">SITE WEB</label>
             <div class="col-md-4">
-                <input id="product_name_fr" name="product_name_fr" placeholder="https://phatadvisor.fr" class="form-control input-md" required="" type="text">
+                <input id="product_name_fr" name="website_resto" placeholder="https://phatadvisor.fr" class="form-control input-md" required="" type="url">
 
             </div>
         </div>
 
         <!-- File Button -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="filebutton">IMAGE</label>
+            <label class="col-md-4 control-label" for="filebutton">IMAGE (LIEN URL)</label>
             <div class="col-md-4">
-                <input id="filebutton" name="filebutton" class="input-file" type="file">
-            </div>
-        </div>
-
-        <!-- File Button -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="filebutton">MENU</label>
-            <div class="col-md-4">
-                <input id="filebutton" name="filebutton" class="input-file" type="file">
+                <input id="filebutton" name="filebutton" class="form-control input-md" placeholder="https://phatadvisor.fr" type="url">
             </div>
         </div>
 
@@ -106,12 +107,12 @@
                 <div class="col-md-12">
                     <div class="btn-group">
                         <div class="col-md-4">
-                            <button id="singlebutton" name="singlebutton" class="btn btn-primary">ENREGISTRER</button>
+                            <button onclick="" name="validate" class="btn btn-primary">ENREGISTRER</button>
                         </div>
                     </div>
                     <div class="btn-group">
                         <div class="col-md-4">
-                            <button id="singlebutton" name="singlebutton" class="btn btn-primary">ANNULER</button>
+                            <button onclick="" name="cancel" class="btn btn-primary">ANNULER</button>
                         </div>
                     </div>
                 </div>
