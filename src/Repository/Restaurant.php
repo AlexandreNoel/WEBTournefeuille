@@ -224,12 +224,8 @@ class Restaurant
     }
 
     /**
-<<<<<<< HEAD
      * @param $userId
      * @param $restaurantId
-=======
-     * @param int,int
->>>>>>> 1a254e6... favorites implemented
      * @return bool
      */
     public function addFavorite($userId ,$restaurantId)

@@ -66,6 +66,33 @@ class User
 
     }
 
+    public function checkRightById($id)
+    {
+
+        $statement = $this->connection->prepare('select isadmin from "persons" where id_user = :id');
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        return $statement->fetchColumn(0);
+
+    }
+
+    /**
+     * @param \Entity\User $user
+     * @return bool
+     */
+    public function updateRight($isadmin,$id)
+    {
+        $isadminStr =(!$isadmin) ? 'true' : 'false';
+
+
+        $statement = $this->connection->prepare('UPDATE persons SET isadmin = :isadmingiven WHERE id_user = :id');
+        $statement->bindParam(':isadmingiven', $isadminStr);
+        $statement->bindParam(':id', $id);
+
+        $statement->execute();
+    }
+   
+
     /**
      * @param $userId
      * @return null|\Entity\User
