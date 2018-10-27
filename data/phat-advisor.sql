@@ -1,7 +1,7 @@
 --CREATE DATABASE phatadvisor;
 
 ------------------------------------------------------------
---        Script Postgre 
+--        Script Postgres
 ------------------------------------------------------------
 
 CREATE EXTENSION pgcrypto;
@@ -11,7 +11,7 @@ CREATE EXTENSION pgcrypto;
 ------------------------------------------------------------
 CREATE TABLE public.Persons(
 
-	Id_User       SERIAL ,
+	Id_User       SERIAL NOT NULL,
 	Nom_User      VARCHAR (25) NOT NULL ,
 	Prenom_User   VARCHAR (25) NOT NULL ,
 	mail_User	  VARCHAR(40) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE public.Persons(
 -- Table: Restos
 ------------------------------------------------------------
 CREATE TABLE public.Restos(
-	Id_Resto        SERIAL ,
+	Id_Resto        SERIAL NOT NULL,
 	Nom_Resto       VARCHAR (25) NOT NULL ,
 	Descr_Resto     VARCHAR (200) NOT NULL ,
 	Addr_Resto      VARCHAR (100) NOT NULL ,
@@ -45,7 +45,7 @@ CREATE TABLE public.Restos(
 -- Table: Comments
 ------------------------------------------------------------
 CREATE TABLE public.Comments(
-	id_Comment        SERIAL ,
+	id_Comment        SERIAL NOT NULL,
 	Text_comment      VARCHAR (500) NOT NULL ,
 	Date_comment      DATE  NOT NULL ,
 	Id_User_Persons   INT  NOT NULL ,
@@ -61,7 +61,7 @@ CREATE TABLE public.Comments(
 -- Table: Favoris
 ------------------------------------------------------------
 CREATE TABLE public.Favoris(
-	id_Fav            SERIAL  ,
+	id_Fav            SERIAL NOT NULL ,
 	Id_User_Persons   INT  NOT NULL ,
 	Id_Resto_Restos   INT  NOT NULL  ,
 	CONSTRAINT Favoris_PK PRIMARY KEY (id_Fav)
@@ -85,7 +85,7 @@ CREATE TABLE public.Categories(
 -- Table: Cat_Resto
 ------------------------------------------------------------
 CREATE TABLE public.Cat_Resto(
-	Id_Resto   INT  NOT NULL  ,
+	Id_Resto   INT  NOT NULL ,
 	id_Cat     INT  NOT NULL ,
 	CONSTRAINT Cat_Resto_PK PRIMARY KEY (id_Cat,Id_Resto)
 
@@ -130,7 +130,7 @@ VALUES (
 ---------------------------
 
 INSERT INTO Categories VALUES (DEFAULT,'Bio');
-INSERT INTO Categories VALUES (DEFAULT,'Hallal');
+INSERT INTO Categories VALUES (DEFAULT,'Halal');
 INSERT INTO Categories VALUES (DEFAULT,'Vegan');
 INSERT INTO Categories VALUES (DEFAULT,'Fast Food');
 INSERT INTO Categories VALUES (DEFAULT,'Asiatique');

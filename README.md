@@ -4,7 +4,7 @@
 
 * Change the parameters in .env file by your own values.
 * To install and start the application run `make install`
-* Your web site is running here [http://localhost:8080](http://localhost:8080)
+* Your web site is running here [https://localhost:8080](https://localhost:8080)
 
 ## Start you application
 
