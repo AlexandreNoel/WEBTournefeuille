@@ -19,7 +19,6 @@ class Restaurant
 
     /**
      * Restaurant constructor.
-     * @param \PDO $connection
      */
     public function __construct()
     {
@@ -132,15 +131,14 @@ class Restaurant
         return $restos;
     }
 
-    public function findAllByUser($idUser) // favorites
+    public function findAllFavoritesByUser($idUser) // favorites
     {
-        $statement = $this->connection->prepare('SELECT * FROM "favoris" WHERE id_user_persons = :id_user_persons');
-        $statement->bindParam(':id_user_persons', $idUser);
+        $statement = $this->connection->prepare('SELECT distinct nom_resto, addr_resto, city_resto FROM favoris JOIN restos ON favoris.id_resto_restos = restos.id_resto JOIN persons ON favoris.id_user_persons = persons.id_user WHERE id_user_persons = :id_user_given');
+        $statement->bindParam(':id_user_given', $idUser);
         $statement->execute();
 
         $rows = $statement->fetchAll();
 
-        var_dump($rows);
         $restos = [];
         foreach ($rows as $restoData) {
             $entity = new \Entity\Restaurant();
@@ -151,6 +149,60 @@ class Restaurant
 
         return $restos;
     }
+
+
+    public function isAlreadyFavorite($idUser, $idResto) // favorites
+    {
+        $statement = $this->connection->prepare('SELECT count(id_fav) FROM favoris WHERE id_user_persons = :id_user and id_resto_restos = :id_resto');
+        $statement->bindParam(':id_user', $idUser);
+        $statement->bindParam(':id_resto', $idResto);
+        $statement->execute();
+
+        $val = $statement->fetchColumn(0);
+        return $val;
+
+    }
+
+    public function deleteFavoriteById($idUser, $idResto) // favorites
+    {
+        $statement = $this->connection->prepare('DELETE FROM favoris WHERE id_user_persons = :id_user and id_resto_restos = :id_resto');
+        $statement->bindParam(':id_user', $idUser);
+        $statement->bindParam(':id_resto', $idResto);
+        return  $statement->execute();
+    }
+
+    /**
+     * @param $categorie
+     * @return bool
+     */
+    public function addCategorie($categorie){
+        $statement = $this->connection->prepare('INSERT INTO categories VALUES (default, :categorie)');
+        $statement->bindParam(':categorie', $categorie);
+        return $statement->execute();
+    }
+
+    /**
+     * @param $id_restaurant
+     * @param $partnership
+     * @return bool
+     */
+    public function addPartnership($id_restaurant, $partnership)
+    {
+        //Add the partnership
+        $succes = $this->addCategorie($partnership);
+        if (! $succes) return false;
+
+        //Link the partnership with the restaurant
+        $statement = $this->connection->prepare('SELECT MAX(id_cat) FROM categories');
+        $id_cat = $statement->execute() ? $statement->fetchColumn():-1;
+
+        $statement = $this->connection->prepare('INSERT INTO cat_resto VALUES(:id_resto, :id_cat)');
+        $statement->bindParam(':id_cat', $id_cat);
+        $statement->bindParam(':id_resto', $id_restaurant);
+
+        return  $statement->execute();
+    }
+
     /**
      * @param \Entity\Restaurant $restaurant
      * @return bool
@@ -172,7 +224,8 @@ class Restaurant
     }
 
     /**
-     * @param int,int
+     * @param $userId
+     * @param $restaurantId
      * @return bool
      */
     public function addFavorite($userId ,$restaurantId)
@@ -222,5 +275,4 @@ class Restaurant
 
         return $statement->execute();
     }
-
 }
