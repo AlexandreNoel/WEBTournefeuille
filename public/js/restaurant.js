@@ -16,7 +16,7 @@ function addRestaurant() {
                 website_resto: $('#web').val(),
                 thumbnail: $('#filebutton').val() }
     }).done(function (res) {
-        window.location = '/restaurant';
+        window.location = '/restaurants';
         }).fail(function (error) {
             alert("Erreur");
         });
