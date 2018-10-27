@@ -63,6 +63,22 @@ class Categorie
 
         return $cat;
     }
+
+    /**
+     * @param int,int
+     * @return bool
+     */
+    public function associateBadges($restaurantId, $ids)
+    {
+        for ($i=0; $i < count($ids) ; $i++) {
+            $statement = $this->connection->prepare('INSERT INTO cat_resto values (DEFAULT, :id_resto, :id_cat)');
+            $statement->bindParam(':id_resto', $restaurantId);
+            $statement->bindParam(':id_cat', $ids[$i]);
+
+            return $statement->execute();
+        }
+        
+    }
     
     /**
      * @param $id
