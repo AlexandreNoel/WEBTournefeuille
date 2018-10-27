@@ -21,6 +21,7 @@ class User
         $promo = $data['promo_user'];
         $mail= $data['mail_user'];
         $password = $data['secret_user'];
+        $confirm_password = $data['confirm_secret_user'];
 
         $error['prenom_user'] = DataCheck::verify($name,preg_match('#[0-9]#',$name),'Error: name must not contain digit','prenom_user',2,25);
         $error['nom_user'] = DataCheck::verify($lastname,preg_match('#[0-9]#',$lastname),'Error: lastname must not contain digit','nom_user',2,25);
@@ -29,6 +30,10 @@ class User
 
         if($userRepository->findOneByMail($mail)){
             $error['mail_user_exist'] = 'user already exist';
+        }
+
+        if ($confirm_password != $password){
+            $error['confirm_secret_user'] = 'Password does not match the confirm password.';
         }
 
         $error['secret_user'] = DataCheck::verify($password,false,'','secret_user',4,100);

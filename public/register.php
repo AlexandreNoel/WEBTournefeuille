@@ -12,10 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstname = $_POST['prenom_user'] ?? null;
     $lastname = $_POST['nom_user'] ?? null;
     $isadmin =false;
-    $promo = $_POST['promo_user'] ? null;
+    $promo = $_POST['promo_user'] ?? null;
     $mail = $_POST['mail_user'] ?? null;
     $password = $_POST['secret_user'] ?? null;
-
+    $confirm_password = $_POST['confir_secret_user'] ?? null;
 
     $view = [
         'user' => [
@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'promo_user' => $promo,
             'mail_user' => $mail,
             'secret_user' => $password,
+            'confirm_secret_user' => $confirm_password,
         ],
         'errors',
     ];

@@ -8,13 +8,13 @@ $userRepository = new \Repository\User();
 $userHydrator = new \Hydrator\User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $mail = $_POST['mail'] ?? null;
-    $password = $_POST['password'] ?? null;
+    $mail = $_POST['mail_user'] ?? null;
+    $password = $_POST['secret_user'] ?? null;
 
     $view = [
         'user' => [
             'mail' => $mail,
-            'password' => $password,
+            'secret_user' => $password,
         ],
         'errors',
     ];
