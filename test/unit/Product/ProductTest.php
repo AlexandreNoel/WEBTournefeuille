@@ -22,7 +22,7 @@ class ProductTest extends TestCase
     /**
      * @test
      */
-    public function testCreate()
+    public function testCreateAndFind()
     {
 
 
@@ -38,10 +38,12 @@ class ProductTest extends TestCase
             ],
             new \Product\Entity\Product()
         );
-        $productRepository->create($newProduct);
+        $id=$productRepository->create($newProduct);
         $monproduct=$productRepository->findByName("tagada");
+        $monproduct2=$productRepository->findById($id);
 
         self::assertSame(2, $monproduct->getReduction());
+        self::assertEquals($monproduct, $monproduct2);
     }
 
     /**
