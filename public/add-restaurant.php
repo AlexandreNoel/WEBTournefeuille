@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $city = $_POST['city_resto'];
     $phoneNumber = $_POST['tel_resto'];
     $website = $_POST['website_resto'];
+    $thumbnail = $_POST['thumbnail'];
 
 
     $view = [
@@ -25,7 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'cp_resto' => $zipCode ?? null,
             'city_resto' => $city ?? null,
             'tel_resto' => $phoneNumber ?? null,
-            'website_resto' => $website ?? null
+            'website_resto' => $website ?? null,
+            'thumbnail' => $thumbnail ?? null
+
         ],
         'errors',
     ];
@@ -42,7 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'cp_resto' => $zipCode,
                 'city_resto' => $city,
                 'tel_resto' => $phoneNumber,
-                'website_resto' => $website
+                'website_resto' => $website,
+                'thumbnail' => $thumbnail,
             ],
             new \Entity\Restaurant()
         );
