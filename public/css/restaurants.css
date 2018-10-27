@@ -1,3 +1,15 @@
+/**************/
+/* Search bar */
+/**************/
+
+#rest-search i {
+    line-height: inherit;
+}
+
+/**********************/
+/* Preview restaurant */
+/**********************/
+
 .rest-preview {
     padding: 1em;
 }
