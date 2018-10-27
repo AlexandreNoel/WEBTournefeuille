@@ -8,7 +8,9 @@ if (preg_match('/^\/form\/?$/', $uri)) {
     $pagePath = 'burgers.html';
 } elseif (preg_match('/^\/add-restaurant\/?$/', $uri)) {
     $pagePath = 'add-restaurant.html';
-} else {
+} elseif (preg_match('/^\/update-user\/?$/', $uri)) {
+    $pagePath = 'update-user.html';
+}else {
     $pagePath = '404.html';
 } 
 include('template.php');

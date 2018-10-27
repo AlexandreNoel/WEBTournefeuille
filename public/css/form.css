@@ -71,16 +71,16 @@
 }
 .forgot-password {
     text-decoration: underline;
-    color: #888;
+    color: #ccc;
 }
 .forgot-password:hover,
 .forgot-password:focus {
     text-decoration: underline;
-    color: #666;
+    color: #FF9800;
 }
 
 .btn-register {
-    background-color: #1CB94E;
+    background-color: #59B2E0;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -88,11 +88,11 @@
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #1CB94A;
+    border-color: #59B2E0;
 }
 .btn-register:hover,
 .btn-register:focus {
     color: #fff;
     background-color: #00A79D;
-    border-color: #1CA347;
+    border-color: #00A79D;
 }
