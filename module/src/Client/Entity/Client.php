@@ -28,11 +28,6 @@ class Client
     private $solde;
 
     /**
-     * @var int
-     */
-    private $idrole;
-
-    /**
      * @var string
      */
     private $codebarmen;
@@ -122,27 +117,10 @@ class Client
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getIdrole(): int
-    {
-        return $this->idrole;
-    }
-
-    /**
-     * @param int $idrole
-     */
-    public function setIdrole(int $idrole): Client
-    {
-        $this->idrole = $idrole;
-        return $this;
-    }
-
-    /**
+     /**
      * @return string
      */
-    public function getCodebarmen(): string
+    public function getCodebarmen(): ?string
     {
         return $this->codebarmen;
     }

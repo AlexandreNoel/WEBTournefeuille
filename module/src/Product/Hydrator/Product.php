@@ -14,7 +14,7 @@ class Product{
     public function extract(\Product\Entity\Product $object): array
     {
         $data = [];
-        if ($object->getId()) {
+        if ($object->getId()>=0) {
             $data['idproduit'] = $object->getId();
         }
         if ($object->getName()) {
@@ -23,7 +23,7 @@ class Product{
         if ($object->getPrice()>=0) {
             $data['prix'] = $object->getPrice();
         }
-        if ($object->getReduction()) {
+        if ($object->getReduction()>=0) {
             $data['reduction'] = $object->getReduction();
         }
         if ($object->getIdfamilly()) {
@@ -32,16 +32,20 @@ class Product{
         if ($object->getQuantity()) {
             $data['quantitestock'] = $object->getQuantity();
         }
+        if ($object->getEstDisponible() === True) {
+            $data['estdisponible'] = $object->getEstDisponible();
+        }
         return $data;
     }
     public function hydrate(array $data, \Product\Entity\Product $emptyEntity): \Product\Entity\Product
     {
         return $emptyEntity
             ->setId($data['idproduit'] ?? null)
-            ->setName($data['libelle'] ?? null)
+            ->setName(strtolower($data['libelle']) ?? null)
             ->setPrice($data['prix'] ?? null )
-            ->setReduction($data['reduction'] ?? null)
+            ->setReduction($data['reduction'] ?? 0)
             ->setQuantity($data['quantitestock'] ?? null)
+            ->setEstDisponible($data['estdisponible'] ?? False)
             ->setIdfamilly($data['idcategorie'] ?? null);
     }
 }

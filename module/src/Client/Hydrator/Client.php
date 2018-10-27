@@ -24,9 +24,6 @@ class Client{
         if ($object->getSolde()) {
             $data['solde'] = $object->getSolde();
         }
-        if ($object->getRole()) {
-            $data['idrole'] = $object->getRole();
-        }
         if ($object->getCodebarmen()) {
             $data['codebarmen'] = $object->getCodebarmen();
         }
@@ -36,12 +33,11 @@ class Client{
     {
         return $emptyEntity
             ->setId($data['idutilisateur'] ?? 0)
-            ->setNickname($data['pseudo'] ?? null)
-            ->setLastname($data['nom'] ?? null)
-            ->setFirstname($data['prenom'] ?? null)
+            ->setNickname(strtolower($data['pseudo']) ?? "")
+            ->setLastname(strtolower($data['nom']) ?? "")
+            ->setFirstname(strtolower($data['prenom']) ?? "")
             ->setSolde($data['solde'] ?? 0)
-            ->setIdrole($date['idrole'] ?? 1)
-            ->setCodebarmen($data['codebarmen'] ?? null);
+            ->setCodebarmen($data['codebarmen'] ?? "");
     }
 }
 ?>

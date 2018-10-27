@@ -6,6 +6,7 @@
  * Time: 17:18
  */
 namespace Product\Entity;
+
 /**
  * Class Product
  * @package Product\Entity
@@ -23,7 +24,7 @@ Class Product{
     private $name;
 
     /**
-     * @var int
+     * @var float
      */
     private $price;
 
@@ -41,6 +42,10 @@ Class Product{
      * @var int
      */
     private $Quantity;
+    /**
+     * @var bool
+     */
+    private $estDisponible;
 
     /**
      * @return int
@@ -79,7 +84,7 @@ Class Product{
     /**
      * @return int
      */
-    public function getPrice(): int
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -87,7 +92,7 @@ Class Product{
     /**
      * @param int $price
      */
-    public function setPrice(int $price): Product
+    public function setPrice(float $price): Product
     {
         $this->price = $price;
         return $this;
@@ -174,6 +179,24 @@ Class Product{
             throwException(U_ILLEGAL_ARGUMENT_ERROR);
         }
     }
+
+    /**
+     * @return bool
+     */
+    public function getEstDisponible(): bool
+    {
+        return $this->estDisponible;
+    }
+
+    /**
+     * @param bool $estDisponible
+     */
+    public function setEstDisponible(bool $estDisponible): \Product\Entity\Product
+    {
+        $this->estDisponible = $estDisponible;
+        return $this;
+    }
+
 
 
 

@@ -1,20 +1,23 @@
 <?php
+
 require_once __DIR__.'./../vendor/autoload.php';
-require_once("../module/oAuth/auth/OAuthAriseClient.php");
-require_once("../module/oAuth/lib/config.inc.php");
+require_once ("../module/oAuth/auth/OAuthAriseClient.php");
+require_once ("../module/oAuth/lib/config.inc.php");
 require_once ("../module/src/Client/Repository/Client.php");
 require_once ("../module/src/Client/Hydrator/Client.php");
 require_once ("../module/src/Client/Entity/Client.php");
+
+
 /* Création de l'instance */
 $consumer = OAuthAriseClient::getInstance($consumer_key, $consumer_secret, $consumer_private_key);
+$error = false;
 
 // Gestion de la session
 if(session_status()!=PHP_SESSION_ACTIVE)
     session_start();
+
 // Temporisation de sortie
 ob_start();
-
-
 
 /* Vérification si demande de login effectué */
 if (isset($_POST['login'])) {
@@ -34,7 +37,7 @@ if ($consumer->is_authenticated()) {
     $userRepository = new \Client\Repository\Client();
     $userHydrator = new \Client\Hydrator\Client();
 
-    try {
+
         /* Récupération des informations cliens (AriseId) */
         $results = $consumer->api()->begin()
             ->get_identifiant()
@@ -42,7 +45,7 @@ if ($consumer->is_authenticated()) {
             ->get_nom()
             ->get_surnom()
             ->done();
-
+    try {
         $firstname= $results[1]();
         $lastname = $results[2]();
         $nickname = $results[3]();
@@ -51,11 +54,13 @@ if ($consumer->is_authenticated()) {
             $user = $userRepository->findByAriseData($lastname,$firstname,$nickname);
 
             if(!isset($user)){
+                $solde=0;
                 $newUser = $userHydrator->hydrate(
                     [
                         'pseudo' => $nickname ?? null,
                         'nom' => $lastname ?? null,
                         'prenom' => $firstname ?? null,
+                        'solde' => $solde ?? 0,
                     ],
                     new \Client\Entity\Client()
                 );
@@ -66,12 +71,16 @@ if ($consumer->is_authenticated()) {
             }
 
         }
-    } catch (OAuthAPIException $e) {
+    } catch (OAuthException $e) {
+        $error = true;
         $_SESSION["oAuth_error"] = $e->getMessage();
     }
 
-    if($_SESSION["superAdmin"]===true){
-        header('Location: consoleHome.php');
+    if($error){
+        header('Location: /');
+    }
+    else if($_SESSION["superAdmin"]===true){
+        header('Location: console.php');
     }
     else{
         header('Location: home.php');
