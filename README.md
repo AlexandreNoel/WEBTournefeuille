@@ -76,7 +76,7 @@ git checkout branch_name
 * Stage changes before commit:
 
 ```bash
-git add file1 file2`
+git add file1 file2
 ```
 
 * Commit changes:
@@ -102,7 +102,7 @@ git rebase master
 * Delete branch:
 
 ```bash
-git branch -d branch_name`
+git branch -d branch_name
 ```
 
 #### Create a merge request
