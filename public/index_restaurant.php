@@ -15,10 +15,6 @@ if (isset($_SESSION['isadmin'])  && $_SESSION['isadmin']){
     $restos = $restoRepository->findAllNoDeleted();
 }
 
-if (isset($_SESSION['name'])) {
-    // Todo: add favorite in array
-    //$favorites = getFavoriteByName();
-}
 
-$restos_encode = json_encode($restos);
+echo json_encode($restos);
 

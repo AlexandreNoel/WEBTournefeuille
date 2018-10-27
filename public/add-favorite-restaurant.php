@@ -3,8 +3,6 @@ require '../vendor/autoload.php';
 
 session_start();
 
-
-
 $userRepository = new \Repository\User();
 $restoRepository = new \Repository\Restaurant();
 
@@ -27,8 +25,8 @@ if($restoRepository->isAlreadyFavorite($id_user, $id_restaurant)){
 
 } 
 }else{
-    $error = "not connected";
+    http_response_code(400);
 }
 
-header('Location: index.php');
+echo json_encode($error);
 

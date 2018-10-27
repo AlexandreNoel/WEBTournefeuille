@@ -47,8 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (! $restaurantRepository->update($restaurant)){
                     $view['errors']['database'] = 'Error when updating new restaurant';
                 }
-
+               
+            }else {
+                http_response_code(400);
             }
+            echo json_encode($view); 
         }
     }
 }
