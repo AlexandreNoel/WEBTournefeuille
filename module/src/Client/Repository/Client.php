@@ -91,10 +91,10 @@ class Client
     }
 
 
-    public function create(\Client\Entity\Client $client)
+    public function create(\Client\Entity\Client $client) :int
     {
         $taskArray = $this->hydrator->extract($client);
-        $statement = $this->dbAdapter->prepare("INSERT INTO utilisateur (nom, prenom, pseudo, solde) values(:lastname,:firstname,:nickname,:solde)");
+        $statement = $this->dbAdapter->prepare("INSERT INTO utilisateur (nom, prenom, pseudo, solde) values(:lastname,:firstname,:nickname,:solde) RETURNING Idutilisateur");
         $firstname = strtolower($taskArray['prenom']);
         $lastname = strtolower($taskArray['nom']);
         $nickname = strtolower($taskArray['pseudo']);
@@ -104,6 +104,11 @@ class Client
         $statement->bindParam(':nickname', $nickname);
         $statement->bindParam(':solde', $solde);
         $statement->execute();
+        $id="";
+        foreach ($statement->fetchAll() as $productData) {
+            $id=$productData['idutilisateur'];
+        }
+        return $id;
 
     }
     public function remove(\Client\Entity\Client $client)

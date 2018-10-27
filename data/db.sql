@@ -124,6 +124,6 @@ INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Appli
 INSERT INTO NouveauProduit(idNouveauProduit,libelle,Description,idAuteur) VALUES (1,'RedBull','Pour avoir des ailes en allant en cours',1);
 
 -- Table Commande
-INSERT INTO Commande ( dateCommande, idUtilisateur, idBarmen,prixTotal) VALUES (current_date,1,2,2);
+INSERT INTO Commande ( dateCommande, idUtilisateur, idBarmen,prixTotal) VALUES (current_date,1,2,42);
 -- Table FaitPartieCommande
-INSERT INTO FaitPartieCommande (idProduit, idCommande, prixVente, quantite) VALUES (1,1,1,2);
+INSERT INTO FaitPartieCommande (idProduit, idCommande, prixVente, quantite) VALUES (1,1,1,84);

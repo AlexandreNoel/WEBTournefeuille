@@ -29,14 +29,20 @@ class News {
         return $articles;
     }
 
-    public function create(\News\Entity\News $news) : void
+    public function create(\News\Entity\News $news) : int
     {
         $data = $this->hydrator->extract($news);
-        $statement = $this->dbAdapter->prepare('INSERT INTO "annonce" (titre, contenu, idauteur) values (:titre, :contenu, :idauteur)');
+        $statement = $this->dbAdapter->prepare('INSERT INTO "annonce" (titre, contenu, idauteur) values (:titre, :contenu, :idauteur) RETURNING idAnnonce');
         $statement->bindParam(':titre', $data['titre']);
         $statement->bindParam(':contenu',$data['contenu']);
         $statement->bindParam(':idauteur',$data['idauteur']);
         $statement->execute();
+        $statement->execute();
+        $id="";
+        foreach ($statement->fetchAll() as $productData) {
+            $id=$productData['idannonce'];
+        }
+        return $id;
     }
 
     public function delete($newsid) : void

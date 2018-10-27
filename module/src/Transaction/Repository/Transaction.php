@@ -65,7 +65,7 @@ class Transaction
 
         return $commandes;
     }
-    public function create (\Transaction\Entity\Transaction $product)
+    public function create (\Transaction\Entity\Transaction $product) :int
     {
 
         $productArray = $this->hydrator->extract($product);
@@ -114,15 +114,53 @@ class Transaction
 
         }
         #Récupération de la commande
-        $statement = $this->dbAdapter->prepare(
+        $statement2 = $this->dbAdapter->prepare(
             'SELECT * FROM commande  where idcommande=:idcommande');
-        $statement->bindParam(':idcommande', $id);
-        $statement->execute();
-        foreach ($statement->fetchAll() as $productData) {
+        $statement2->bindParam(':idcommande', $id);
+        $statement2->execute();
+        $product=null;
+        foreach ($statement2->fetchAll() as $commandeData) {
             $entity = new \Transaction\Entity\Transaction();
-            $productData['products']=$products;
-            $product = $this->hydrator->hydrate($productData, clone $entity);
+            $commandeData['products']=$products;
+            $product = $this->hydrator->hydrate($commandeData, clone $entity);
         }
         return $product;
+    }
+
+    public function findByCriteria($criteria,$value){
+        $productRepository = new \Product\Repository\Product();
+        $products = new \SplObjectStorage();
+        $commandes=[];
+        #Récupération de chaque commande
+        $statement = $this->dbAdapter->prepare(
+            "SELECT * FROM commande where $criteria =:value");
+        $statement->bindParam(':value', $value);
+        $statement->execute();
+        #Pöur chaque commande il faut trouver tous les articles associés
+        foreach ($statement->fetchAll() as $commandData) {
+            $entity = new \Transaction\Entity\Transaction();
+            $idcommande = $commandData['idcommande'];
+            #récupération de chaque contenu de commande pour chaque commande
+            $statement2 = $this->dbAdapter->prepare(
+                'SELECT idproduit,quantite FROM  faitpartiecommande f where f.idcommande=:idcommande');
+            $statement2->bindParam(':idcommande', $idcommande);
+            $statement2->execute();
+            #construction du tableau produit->quanitte
+            foreach ($statement2->fetchAll() as $productsData) {
+                $productid = $productsData['idproduit'];
+                $ammount = $productsData['quantite'];
+                $product=$productRepository->findById($productid);
+                #on ajoute un produit et sa quantite au tableau "articles=>quantite'
+                $products->attach($product,$ammount);
+
+            }
+            #on ajoute le tableau de produits construit à la commande
+            $commandData['products']=$products;
+            $commandes[] = $this->hydrator->hydrate($commandData, clone $entity);
+
+
+        }
+
+        return $commandes;
     }
 }
