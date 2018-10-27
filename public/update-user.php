@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ->setPassword(password_hash($password, PASSWORD_BCRYPT));
 
                 if (! $userRepository->update($user)){
-                    $view['errors']['datbase'] = 'Error when updating new user';
+                    $view['errors']['database'] = 'Error when updating new user';
                 }
 
             }

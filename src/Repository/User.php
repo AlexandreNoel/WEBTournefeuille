@@ -15,7 +15,6 @@ class User
 
     /**
      * User constructor.
-     * @param \PDO $connection
      */
     public function __construct()
     {
@@ -67,6 +66,33 @@ class User
 
     }
 
+    public function checkRightById($id)
+    {
+
+        $statement = $this->connection->prepare('select isadmin from "persons" where id_user = :id');
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        return $statement->fetchColumn(0);
+
+    }
+
+    /**
+     * @param \Entity\User $user
+     * @return bool
+     */
+    public function updateRight($isadmin,$id)
+    {
+        $isadminStr =(!$isadmin) ? 'true' : 'false';
+
+
+        $statement = $this->connection->prepare('UPDATE persons SET isadmin = :isadmingiven WHERE id_user = :id');
+        $statement->bindParam(':isadmingiven', $isadminStr);
+        $statement->bindParam(':id', $id);
+
+        $statement->execute();
+    }
+   
+
     /**
      * @param $userId
      * @return null|\Entity\User
@@ -110,7 +136,7 @@ class User
     public function updatePassword(\Entity\User $user)
     {
         $userArray = $this->hydrator->extract($user);
-        $statement = $this->connection->prepare('UPDATE persons SET secret_user = :secret_user WHERE id = :id');
+        $statement = $this->connection->prepare('UPDATE persons SET secret_user = :secret_user WHERE id_user = :id');
         $statement->bindParam(':id', $userArray['id']);
         $statement->bindParam(':secret_user', $userArray['secret_user']);
 
@@ -129,7 +155,7 @@ class User
                     mail_user = :mail_user,
                     promo_user = :promo_user,
                     secret_user = :secret_user
-                WHERE id = :id';
+                WHERE id_user = :id';
         $statement = $this->connection->prepare($sql);
 
         $statement->bindParam(':nom_user', $userArray['nom_user']);

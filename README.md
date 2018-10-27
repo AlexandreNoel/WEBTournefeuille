@@ -4,7 +4,7 @@
 
 * Change the parameters in .env file by your own values.
 * To install and start the application run `make install`
-* Your web site is running here [http://localhost:8080](http://localhost:8080)
+* Your web site is running here [https://localhost:8080](https://localhost:8080)
 
 ## Start you application
 
@@ -76,7 +76,7 @@ git checkout branch_name
 * Stage changes before commit:
 
 ```bash
-git add file1 file2`
+git add file1 file2
 ```
 
 * Commit changes:
@@ -102,7 +102,7 @@ git rebase master
 * Delete branch:
 
 ```bash
-git branch -d branch_name`
+git branch -d branch_name
 ```
 
 #### Create a merge request

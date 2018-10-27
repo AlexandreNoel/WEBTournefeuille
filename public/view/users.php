@@ -24,6 +24,7 @@ require '../vendor/autoload.php';
     <td>Promo</td>
     <td>mail</td>
     <td>admin?</td>
+    <td>action</td>
     </thead>
     <?php
     /** @var \Entity\User $user */
@@ -35,6 +36,13 @@ require '../vendor/autoload.php';
             <td><?php echo $user->getPromo() ?></td>
             <td><?php echo $user->getMailAdress() ?></td>
             <td><?php echo $user->isAdmin() ?></td>
+            <td>
+            <? if (isset($_SESSION['isadmin']) && $_SESSION['isadmin']) : ?>
+                        <form action="user-updateright.php" method="post">
+                            <input type="hidden" name="id_user" value="<?php echo $user->getId() ?>">
+                            <input type="submit" value="change right"/>
+                        </form>
+                        <? endif ?> <td>
         </tr>
     <?php endforeach; ?>
 </table>

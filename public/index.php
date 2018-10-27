@@ -12,6 +12,6 @@ if (preg_match('/^\/form\/?$/', $uri)) {
     $pagePath = 'update-user.html';
 }else {
     $pagePath = '404.html';
-} 
+}
 include('template.php');
 ?>
