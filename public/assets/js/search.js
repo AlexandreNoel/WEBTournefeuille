@@ -1,34 +1,45 @@
-function autocomplete(inp, arr) {
-    /*the autocomplete function takes two arguments,
-    the text field element and an array of possible autocompleted values:*/
+
+/**
+ *Initialise l'autocompletion
+ * inp = Element input à focus
+ * arr = Array contenant les élements à autocompléter
+ * submit = Element de type submit
+ */
+function autocomplete(inp, arr,submit) {
     var currentFocus;
-    /*execute a function when someone writes in the text field:*/
+
+    // Déclencheur sur saise dans inp
     inp.addEventListener("input", function (e) {
         var a, b, i, val = this.value;
-        /*close any already open lists of autocompleted values*/
+
+        // Fermeture préventif des anciennes saisies
         closeAllLists();
         if (!val) {
             return false;
         }
         currentFocus = -1;
-        /*create a DIV element that will contain the items (values):*/
+
+        // Créationd d'un div contenant les users
         a = document.createElement("DIV");
         a.setAttribute("id", this.id + "autocomplete-list");
         a.setAttribute("class", "autocomplete-items");
-        /*append the DIV element as a child of the autocomplete container:*/
+
+        // Ajout au parent du div
         this.parentNode.appendChild(a);
-        /*for each item in the array...*/
+
+        // Pour chaque élément de l'arr
         for (i = 0; i < arr.length; i++) {
-            /*check if the item starts with the same letters as the text field value:*/
+            // Vérification si la valeur de l'arr contient la valeur saisie en début de chaine
             if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                /*create a DIV element for each matching element:*/
+                // Création d'un div pour ajout de la valeur à la liste
                 b = document.createElement("DIV");
-                /*make the matching letters bold:*/
+                // Lettres qui matchent en gras
                 b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                 b.innerHTML += arr[i].substr(val.length);
-                /*insert a input field that will hold the current array item's value:*/
+                // Insertion de la valeur
                 b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                /*execute a function when someone clicks on the item value (DIV element):*/
+
+                // Création de la fonction sur appui du bouton
                 b.addEventListener("click", function (e) {
                     /*insert the value for the autocomplete text field:*/
                     inp.value = this.getElementsByTagName("input")[0].value;
@@ -40,53 +51,52 @@ function autocomplete(inp, arr) {
             }
         }
     });
-    /*execute a function presses a key on the keyboard:*/
+
+    // Gestion des événements sur input
     inp.addEventListener("keydown", function (e) {
         var x = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
-            /*If the arrow DOWN key is pressed,
-            increase the currentFocus variable:*/
+            // Incrémentation du focus et activation du bouton
             currentFocus++;
-            /*and and make the current item more visible:*/
             addActive(x);
         } else if (e.keyCode == 38) { //up
-            /*If the arrow UP key is pressed,
-            decrease the currentFocus variable:*/
+            // Décrémentation du focus et activation du bouton
             currentFocus--;
-            /*and and make the current item more visible:*/
             addActive(x);
         } else if (e.keyCode == 13) {
-            /*If the ENTER key is pressed, prevent the form from being submitted,*/
+            // Prevent du form submit par défaut avec 'Entrée'
             e.preventDefault();
             if (currentFocus > -1) {
-                /*and simulate a click on the "active" item:*/
+                // Simulation du click sur le bouton focus
                 if (x) x[currentFocus].click();
+                currentFocus=-1;
+            }
+            else{
+                submit.click();
             }
         }
     });
 
     function addActive(x) {
-        /*a function to classify an item as "active":*/
         if (!x) return false;
-        /*start by removing the "active" class on all items:*/
+        // Restauration
         removeActive(x);
         if (currentFocus >= x.length) currentFocus = 0;
         if (currentFocus < 0) currentFocus = (x.length - 1);
-        /*add class "autocomplete-active":*/
+        // Ajout de la classe active
         x[currentFocus].classList.add("autocomplete-active");
     }
 
     function removeActive(x) {
-        /*a function to remove the "active" class from all autocomplete items:*/
+        // Suppression de la classe active
         for (var i = 0; i < x.length; i++) {
             x[i].classList.remove("autocomplete-active");
         }
     }
 
     function closeAllLists(elmnt) {
-        /*close all autocomplete lists in the document,
-        except the one passed as an argument:*/
+        // Fermeture des listes possiblement affichées
         var x = document.getElementsByClassName("autocomplete-items");
         for (var i = 0; i < x.length; i++) {
             if (elmnt != x[i] && elmnt != inp) {
@@ -95,7 +105,6 @@ function autocomplete(inp, arr) {
         }
     }
 
-    /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
