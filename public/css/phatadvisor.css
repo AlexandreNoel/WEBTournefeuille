@@ -27,7 +27,34 @@ html {
     margin-right: 1em;
 }
 
+a, a:hover, a:visited {
+    color: inherit;
+}
+
+.rest-preview {
+    padding: 1em;
+}
+
+.rest-preview>div {
+    height: 8em;
+    padding: inherit;
+}
+
 .rest-preview img {
     max-width: 8em;
     max-height: 8em;
+}
+
+.rest-preview i {
+    color: gold;
+}
+
+.rest-preview #rest-name {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.rest-preview #favorite {
+    /*font-weight: bold;*/
+    font-size: 2em;
 }
