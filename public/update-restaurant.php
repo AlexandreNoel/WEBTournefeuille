@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ->setUrl($website);
 
                 if (! $restaurantRepository->update($restaurant)){
-                    $view['errors']['datbase'] = 'Error when updating new restaurant';
+                    $view['errors']['database'] = 'Error when updating new restaurant';
                 }
 
             }
