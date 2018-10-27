@@ -59,3 +59,28 @@ a, a:hover, a:visited {
     /*font-weight: bold;*/
     font-size: 2em;
 }
+
+
+/***********************/
+/* Phat'Advisor colors */
+/***********************/
+
+.pa-pink {
+    color: #f45b69;
+    background: #f45b69;
+}
+
+.pa-cyan {
+    color: #00a79d;
+    background: #00a79d;
+}
+
+.pa-light-blue {
+    color: #59b2e0;
+    background: #59b2e0;
+}
+
+.pa-yellow {
+    color: #ff9800;
+    background: #ff9800;
+}
