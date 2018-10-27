@@ -32,6 +32,9 @@ class Product{
         if ($object->getQuantity()) {
             $data['quantitestock'] = $object->getQuantity();
         }
+        if ($object->getEstDisponible()>=0) {
+            $data['estdisponible'] = $object->getEstDisponible();
+        }
         return $data;
     }
     public function hydrate(array $data, \Product\Entity\Product $emptyEntity): \Product\Entity\Product
@@ -42,6 +45,7 @@ class Product{
             ->setPrice($data['prix'] ?? null )
             ->setReduction($data['reduction'] ?? 0)
             ->setQuantity($data['quantitestock'] ?? null)
+            ->setEstDisponible($data['estdisponible'] ?? null)
             ->setIdfamilly($data['idcategorie'] ?? null);
     }
 }

@@ -95,24 +95,27 @@ class Product
     public function update(\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
-        $statement = $this->dbAdapter->prepare('update produit set libelle = :name,prix = :price,reduction = :reduction,quantitestock = :quantity,idcategorie = :idfamilly where idproduit = :id');
+        $statement = $this->dbAdapter->prepare('update produit set libelle = :name,prix = :price,reduction = :reduction,quantitestock = :quantity,idcategorie = :idfamilly,estdisponible=:estdisponible where idproduit = :id');
         $statement->bindParam(':name', $productArray['libelle']);
         $statement->bindParam(':price', $productArray['prix']);
         $statement->bindParam(':reduction', $productArray['reduction']);
         $statement->bindParam(':quantity', $productArray['quantitestock']);
         $statement->bindParam(':idfamilly', $productArray['idcategorie']);
+        $statement->bindParam(':estdisponible', $productArray['estdisponible']);
         $statement->bindParam(':id', $productArray["idproduit"]);
         $statement->execute();
+        return $statement;
     }
 
     public function create (\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);
-        $statement = $this->dbAdapter->prepare('INSERT INTO produit (libelle,prix,reduction,quantitestock,idcategorie) values (:libelle, :prix,:reduction,:quantitestock,:idcategorie) RETURNING Idproduit');
+        $statement = $this->dbAdapter->prepare('INSERT INTO produit (libelle,prix,reduction,quantitestock,idcategorie,estdisponible) values (:libelle, :prix,:reduction,:quantitestock,:idcategorie,:estdisponible) RETURNING Idproduit');
         $statement->bindParam(':libelle', $productArray['libelle']);
         $statement->bindParam(':prix', $productArray['prix']);
         $statement->bindParam(':reduction', $productArray['reduction']);
         $statement->bindParam(':quantitestock', $productArray['quantitestock']);
+        $statement->bindParam(':estdisponible', $productArray['estdisponible']);
         $statement->bindParam(':idcategorie', $productArray['idcategorie']);
         $statement->execute();
         $statement->execute();

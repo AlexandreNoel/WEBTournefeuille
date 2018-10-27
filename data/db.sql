@@ -47,6 +47,7 @@ CREATE TABLE Produit(
     prix FLOAT NOT NULL,
     reduction FLOAT NOT NULL,
     quantiteStock INTEGER NOT NULL,
+    estDisponible Bool NOT NULL,
     idCategorie INTEGER NOT NULL REFERENCES Categorie (idCategorie)
 );
 
@@ -104,16 +105,16 @@ INSERT INTO Categorie(idCategorie,libelle) VALUES (3,'Snack');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (4,'Boissons Chaudes');
 
 -- Table Produit
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Coca',0.50,0,4,1);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Fanta',0.50,0,2,1);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Sprite',0.50,0,5,1);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Pizza ChouFleur',1.60,0,2,3);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Buns Flageolet',1.50,0,2,3);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Mars',0.50,0,2,2);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Kinder Bueno',0.50,0,2,2);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Cafe Fort',0.40,0,20,4);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Cafe leger',0.40,0,20,4);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,idCategorie) VALUES ('Thé',0.40,0,20,4);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Coca',0.50,0,4,TRUE,1);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Fanta',0.50,0,2,TRUE,1);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Sprite',0.50,0,5,TRUE,1);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Pizza ChouFleur',1.60,0,2,TRUE,3);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Buns Flageolet',1.50,0,2,TRUE,3);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Mars',0.50,0,2,TRUE,2);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Kinder Bueno',0.50,0,2,TRUE,2);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Cafe Fort',0.40,0,20,TRUE,4);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Cafe leger',0.40,0,20,TRUE,4);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Thé',0.40,0,20,TRUE,4);
 
 -- Table Annonce
 INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
