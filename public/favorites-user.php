@@ -19,7 +19,5 @@ if (isset($_SESSION['id'])) {
     $error = "not connected";
 }
 
-var_dump($restos);
-
 require_once('view/favorites-resto.php');
 

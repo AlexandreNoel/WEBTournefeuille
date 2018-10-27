@@ -133,13 +133,12 @@ class Restaurant
 
     public function findAllByUser($idUser) // favorites
     {
-        $statement = $this->connection->prepare('SELECT * FROM "favoris" WHERE id_user_persons = :id_user_persons');
-        $statement->bindParam(':id_user_persons', $idUser);
+        $statement = $this->connection->prepare('SELECT distinct nom_resto, addr_resto, city_resto FROM favoris JOIN restos ON favoris.id_resto_restos = restos.id_resto JOIN persons ON favoris.id_user_persons = persons.id_user WHERE id_user_persons = :id_user_given');
+        $statement->bindParam(':id_user_given', $idUser);
         $statement->execute();
 
         $rows = $statement->fetchAll();
 
-        var_dump($rows);
         $restos = [];
         foreach ($rows as $restoData) {
             $entity = new \Entity\Restaurant();
@@ -150,6 +149,28 @@ class Restaurant
 
         return $restos;
     }
+
+
+    public function isAlreadyFavorite($idUser, $idResto) // favorites
+    {
+        $statement = $this->connection->prepare('SELECT count(id_fav) FROM favoris WHERE id_user_persons = :id_user and id_resto_restos = :id_resto');
+        $statement->bindParam(':id_user', $idUser);
+        $statement->bindParam(':id_resto', $idResto);
+        $statement->execute();
+
+        $val = $statement->fetchColumn(0);
+        return $val;
+
+    }
+
+    public function deleteById($idUser, $idResto) // favorites
+    {
+        $statement = $this->connection->prepare('DELETE FROM favoris WHERE id_user_persons = :id_user and id_resto_restos = :id_resto');
+        $statement->bindParam(':id_user', $idUser);
+        $statement->bindParam(':id_resto', $idResto);
+        return  $statement->execute();
+    }
+
     /**
      * @param \Entity\Restaurant $restaurant
      * @return bool

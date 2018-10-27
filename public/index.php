@@ -8,6 +8,6 @@ if (preg_match('/^\/form\/?$/', $uri)) {
     $pagePath = 'burgers.html';
 } else {
     $pagePath = '404.html';
-} 
+}
 include('template.php');
 ?>
