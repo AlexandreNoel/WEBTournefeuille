@@ -104,7 +104,7 @@ VALUES (
 	'The Noodles Shop',
 	'Pâtes et nouilles asiatiques de différentes variétés',
 	'3 Place Pierre Mendès France',	91000,'EVRY',
-	'01 69 36 42 44','http://thenoodlesshop.fr/','0','/data/noodles.png'
+	'01 69 36 42 44','http://thenoodlesshop.fr/','0','http://www.thenoodlesshop.fr/images/logo.png'
 	);
 
 INSERT INTO restos
@@ -112,7 +112,7 @@ VALUES (DEFAULT,
 	'Paul Evry 2',
 	'Pains traditionnels, sandwichs, pâtisseries et viennoiseries servis dans une chaîne française de boulangeries',
 	'Centre Commercial EVRY2 2 Boulevard de l''Europe',91000,'EVRY',
-	'01 64 97 86 62','http://thenoodlesshop.fr/','0','/data/paul.png'
+	'01 64 97 86 62','http://thenoodlesshop.fr/','0','https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Paul.png'
 	);
 
 INSERT INTO restos
@@ -122,7 +122,7 @@ VALUES (
 	'Chaîne réputée proposant hamburgers à la viande grillée, frites, 
 	milk-shakes et petits-déjeuners',
 	'172 Place des Terrasses de l''Agora',91000,'EVRY',
-	'01 82 93 00 31','https://restaurants.burgerking.fr/evry-2','0','/data/bk.png'
+	'01 82 93 00 31','https://restaurants.burgerking.fr/evry-2','0','https://upload.wikimedia.org/wikipedia/fr/d/d4/Burger_King.svg'
 	);
 
 ---------------------------
