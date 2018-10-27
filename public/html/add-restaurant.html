@@ -1,4 +1,6 @@
-<form method="post" action="/add-restaurant.php" class="form-horizontal">
+<script src="js/restaurant.js"></script>
+
+<div class="form-horizontal">
     <fieldset>
 
         <!-- Form Name -->
@@ -70,7 +72,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name_fr">VILLE</label>
             <div class="col-md-4">
-                <input id="product_name_fr" name="city_resto" placeholder="Ville" class="form-control input-md" required="" type="text">
+                <input id="city" name="city_resto" placeholder="Ville" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -79,7 +81,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name_fr">TELEPHONE</label>
             <div class="col-md-4">
-                <input id="product_name_fr" name="tel_resto" placeholder="0102030405" class="form-control input-md" required="" type="text">
+                <input id="tel" name="tel_resto" placeholder="0102030405" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -88,7 +90,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name_fr">SITE WEB</label>
             <div class="col-md-4">
-                <input id="product_name_fr" name="website_resto" placeholder="https://phatadvisor.fr" class="form-control input-md" required="" type="url">
+                <input id="web" name="website_resto" placeholder="https://phatadvisor.fr" class="form-control input-md" required="" type="url">
 
             </div>
         </div>
@@ -97,7 +99,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="filebutton">IMAGE (LIEN URL)</label>
             <div class="col-md-4">
-                <input id="filebutton" name="filebutton" class="form-control input-md" placeholder="https://phatadvisor.fr" type="url">
+                <input id="filebutton" name="thumbnail" class="form-control input-md" placeholder="https://phatadvisor.fr" type="url">
             </div>
         </div>
 
@@ -107,12 +109,12 @@
                 <div class="col-md-12">
                     <div class="btn-group">
                         <div class="col-md-4">
-                            <button name="validate" class="btn btn-primary">ENREGISTRER</button>
+                            <button id="add" onclick="addRestaurant();" name="validate" class="btn btn-primary">ENREGISTRER</button>
                         </div>
                     </div>
                     <div class="btn-group">
                         <div class="col-md-4">
-                            <button onclick="" name="cancel" class="btn btn-primary">ANNULER</button>
+                            <button name="cancel" class="btn btn-primary">ANNULER</button>
                         </div>
                     </div>
                 </div>
@@ -120,4 +122,4 @@
         </div>
 
     </fieldset>
-</form>
+</div>
