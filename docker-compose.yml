@@ -15,7 +15,7 @@ services:
       - "TZ=${TIMEZONE}"
     volumes:
       - ./public:/usr/share/nginx/html
-      - /etc/letsencrypt:/etc/letsencrypt
+      - ./certificates/letsencrypt:/etc/letsencrypt
     networks:
       - "ensiie"
 

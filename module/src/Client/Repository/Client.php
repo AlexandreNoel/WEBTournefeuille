@@ -60,6 +60,16 @@ class Client
         return $user;
     }
 
+    public function giveMoney($id,$money)
+    {
+        $user = null;
+        $statement = $this->dbAdapter->prepare(
+            'update  Utilisateur set solde = solde+:money where idutilisateur=:id');
+        $statement->bindParam(':id', $id);
+        $statement->bindParam(':money', $money);
+        $statement->execute();
+    }
+
     public function findByAriseData($lastname, $firstname, $nickname)
     {
         $user = null;
@@ -81,20 +91,36 @@ class Client
     }
 
 
-    public function create(\Client\Entity\Client $client)
+    public function create(\Client\Entity\Client $client) :int
     {
         $taskArray = $this->hydrator->extract($client);
-        $statement = $this->dbAdapter->prepare("INSERT INTO utilisateur (idrole,nom, prenom, pseudo, solde) values(:idrole,:lastname,:firstname,:nickname,:solde)");
-        $firstname = strtolower($taskArray['prenom']);
-        $lastname = strtolower($taskArray['nom']);
-        $nickname = strtolower($taskArray['pseudo']);
+        $statement = $this->dbAdapter->prepare("INSERT INTO utilisateur (nom, prenom, pseudo, solde) values(:lastname,:firstname,:nickname,:solde) RETURNING Idutilisateur");
         $solde=0;
-        $statement->bindParam(':idrole', $taskArray['idrole']);
-        $statement->bindParam(':lastname', $lastname);
-        $statement->bindParam(':firstname', $firstname);
-        $statement->bindParam(':nickname', $nickname);
+        $statement->bindParam(':lastname', $taskArray['nom']);
+        $statement->bindParam(':firstname', $taskArray['prenom']);
+        $statement->bindParam(':nickname', $taskArray['pseudo']);
         $statement->bindParam(':solde', $solde);
         $statement->execute();
+        $id="";
+        foreach ($statement->fetchAll() as $productData) {
+            $id=$productData['idutilisateur'];
+        }
+        return $id;
+
+    }
+    public function update(\Client\Entity\Client $client)
+    {
+        $clientkArray = $this->hydrator->extract($client);
+        $statement = $this->dbAdapter->prepare('update utilisateur set nom=:lastname, prenom=:firstname, pseudo=:nickname, solde=:solde where Idutilisateur=:id');
+
+        $solde=0;
+        $statement->bindParam(':lastname', $clientkArray['nom']);
+        $statement->bindParam(':firstname', $clientkArray['prenom']);
+        $statement->bindParam(':nickname', $clientkArray['pseudo']);
+        $statement->bindParam(':solde', $clientkArray['solde']);
+        $statement->bindParam(':id', $clientkArray['idutilisateur']);
+        $statement->execute();
+
 
     }
     public function remove(\Client\Entity\Client $client)
@@ -106,20 +132,6 @@ class Client
 
     }
 
-
-    public function createBis(\Client\Entity\Client $client)
-    {
-        $clientarray = $this->hydrator->extract($client);
-        $statement = $this->dbAdapter->prepare('INSERT INTO Utilisateur (idUtilisateur,pseudo,prenom,solde,idRole) values (:idclient, :nickname,:firstname,:lastname,:solde,:idrole)');
-        $statement->bindParam(':idclient', $clientarray['idclient']);
-        $statement->bindParam(':nickname', $clientarray['nickname']);
-        $statement->bindParam(':firstname', $clientarray['firstname']);
-        $statement->bindParam(':lastname', $clientarray['lastname']);
-        $statement->bindParam(':solde', $clientarray['solde']);
-        $statement->bindParam(':idrole', $clientarray['idrole']);
-        $statement->execute();
-    }
-
     public function grantBarmen(\Client\Entity\Client $client)
     {
         $clientarray = $this->hydrator->extract($client);
@@ -127,9 +139,6 @@ class Client
         $statement->bindParam(':id', $clientarray['idutilisateur']);
         $statement->bindParam(':codebarmen', $clientarray['codebarmen']);
         $statement->execute();
-//        $statement = $this->dbAdapter->prepare('UPDATE Utilisateur set  idrole=2 where id=:id');
-//        $statement->bindParam(':id', $clientarray['idutilisateur']);
-//        $statement->execute();
 
 
     }

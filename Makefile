@@ -22,6 +22,8 @@ stop:
 
 install: uninstall start composer.install db.install
 
+install.silent: uninstall start composer.install.silent db.install.silent
+
 depedencies: /usr/bin/docker /usr/local/bin/docker-compose
 
 /usr/bin/docker:
@@ -44,11 +46,14 @@ reinstall: install
 
 #Connects to the databatase
 db.connect:
-	docker-compose exec -T  postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
+	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
+
+db.save:
+	docker-compose exec postgres pg_dump -U $$POSTGRES_USER ensiie > data/dbexport-$(shell date "+%Y.%m.%d-%H.%M.%S").pgsql
 
 db.install:
 	sleep 10
-	docker-compose exec -T postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/db.sql'
+	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/db.sql'
 
 php.connect:
 	docker-compose exec php /bin/bash
@@ -57,4 +62,15 @@ phpunit.run:
 	docker-compose exec php vendor/bin/phpunit --config=phpunit.xml
 
 composer.install:
+	docker-compose exec php composer install || exit 0
+
+db.connect.silent:
+	docker-compose exec -T  postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
+
+db.install.silent:
+	sleep 10
+	docker-compose exec -T postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/db.sql'
+
+composer.install.silent:
 	docker-compose exec -T  php composer install || exit 0
+

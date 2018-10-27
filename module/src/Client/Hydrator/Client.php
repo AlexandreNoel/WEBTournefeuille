@@ -24,9 +24,6 @@ class Client{
         if ($object->getSolde()) {
             $data['solde'] = $object->getSolde();
         }
-        if ($object->getIdrole()) {
-            $data['idrole'] = $object->getIdRole();
-        }
         if ($object->getCodebarmen()) {
             $data['codebarmen'] = $object->getCodebarmen();
         }
@@ -40,7 +37,6 @@ class Client{
             ->setLastname(strtolower($data['nom']) ?? "")
             ->setFirstname(strtolower($data['prenom']) ?? "")
             ->setSolde($data['solde'] ?? 0)
-            ->setIdrole($date['idrole'] ?? 1)
             ->setCodebarmen($data['codebarmen'] ?? "");
     }
 }

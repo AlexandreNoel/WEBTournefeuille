@@ -3,6 +3,7 @@ namespace Client;
 
 use Adapter\DatabaseFactory;
 use PHPUnit\Framework\TestCase;
+use Webmozart\Assert\Assert;
 
 class ClientTest extends TestCase
 {
@@ -21,8 +22,7 @@ class ClientTest extends TestCase
                 'idutilisateur' => 1,
                 'prenom' => "Benoit",
                 'pseudo' => "Gefclic",
-                'nom' => "SCHOLL",
-                'solde' => 25
+                'nom' => "SCHOLL"
             ],
             new \Client\Entity\Client()
         );
@@ -31,7 +31,6 @@ class ClientTest extends TestCase
         self::assertSame($gefclic->getFirstname(), $retrieved2->getFirstname());
         self::assertSame($gefclic->getFirstname(), $retrieved->getFirstname());
         self::assertSame($gefclic->getLastname(), $retrieved->getLastname());
-        self::assertSame($gefclic->getSolde(), $retrieved->getSolde());
         self::assertSame($gefclic->getId(), $retrieved->getId());
     }
 
@@ -79,7 +78,7 @@ class ClientTest extends TestCase
 
         $userRepository->revokeBarmen($moiEnBase);
         $moiEnBase=$userRepository->findOneByNickname('Swagozaure');
-        self::assertSame($moiEnBase->getCodebarmen(), null);
+        self::assertSame($moiEnBase->getCodebarmen(), '');
 
 
     }
@@ -132,6 +131,32 @@ class ClientTest extends TestCase
         $retrieved = $userRepository->findOneById(2);
         self::assertSame($chap->getFirstname(), $retrieved->getFirstname());
         self::assertSame($chap->getCodebarmen(), $retrieved->getCodebarmen());
+
+    }
+    public function testMoney(){
+        $dbfactory = new DatabaseFactory();
+        $dbconnector = $dbfactory->getDbAdapter();
+        $hydrator = new \Client\Hydrator\Client();
+        $userRepository = new \Client\Repository\Client($dbconnector);
+        $userRepository->giveMoney(1,100);
+        $retrieved = $userRepository->findOneById(1);
+        self::assertGreaterThanOrEqual(100,$retrieved->getSolde() );
+
+        $userRepository->giveMoney(1,-100);
+    }
+    public function testUpdate(){
+        $dbfactory = new DatabaseFactory();
+        $dbconnector = $dbfactory->getDbAdapter();
+        $hydrator = new \Client\Hydrator\Client();
+        $userRepository = new \Client\Repository\Client($dbconnector);
+        $retrieved = $userRepository->findOneById(1);
+        self::assertSame("benoit",$retrieved->getFirstname());
+        $retrieved->setFirstname("Ne fait rien pour le projet");
+        $userRepository->update($retrieved);
+        $retrieved = $userRepository->findOneById(1);
+        self::assertSame("ne fait rien pour le projet",$retrieved->getFirstname() );
+        $retrieved->setFirstname("benoit");
+        $userRepository->update($retrieved);
 
     }
 }

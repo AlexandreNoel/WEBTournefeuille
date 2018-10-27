@@ -17,30 +17,30 @@ class Transaction
      */
     private $id;
     /**
-     * @var dateTime
+     * @var \DateTime
      */
     private $Date;
     /**
-     * @var int
+     * @var float
      */
     private $price;
     /**
-     * @var array(\Product\Entity\Product,int)
+     * @var \SplObjectStorage
      */
     private $product;
     /**
-     * @var \Client\Entity\Client
+     * @var int
      */
-    private $client;
+    private $idclient;
     /**
-     * @var \Client\Entity\Client
+     * @var int
      */
-    private $Barmen;
+    private $idbarmen;
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -48,33 +48,33 @@ class Transaction
     /**
      * @param int $id
      */
-    public function setId(int $id): Transaction
+    public function setId(?int $id): Transaction
     {
         $this->id = $id;
         return $this;
     }
 
     /**
-     * @return dateTime
+     * @return \DateTime
      */
-    public function getDate(): dateTime
+    public function getDate(): \DateTime
     {
         return $this->Date;
     }
 
     /**
-     * @param dateTime $Date
+     * @param \DateTime $Date
      */
-    public function setDate(dateTime $Date): Transaction
+    public function setDate(\DateTime $Date): Transaction
     {
         $this->Date = $Date;
         return $this;
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getPrice(): int
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -82,7 +82,20 @@ class Transaction
     /**
      * @param int $price
      */
-    public function setPrice(int $price): Transaction
+    public function computePrice(): Transaction
+    {
+
+        $price=0;
+        foreach ($this->product as $key)  {
+            $price+= $this->product->current()->getPrice()*intval($this->product->getInfo());
+        }
+        $this->price = $price;
+        return $this;
+    }
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price): Transaction
     {
         $this->price = $price;
         return $this;
@@ -91,7 +104,7 @@ class Transaction
     /**
      * @return array
      */
-    public function getProduct(): array
+    public function getProduct(): \SplObjectStorage
     {
         return $this->product;
     }
@@ -99,43 +112,44 @@ class Transaction
     /**
      * @param array $product
      */
-    public function setProduct(array $product): Transaction
+    public function setProduct(\SplObjectStorage $product): Transaction
     {
         $this->product = $product;
+        $this->computePrice();
         return $this;
     }
 
     /**
      * @return \Client\Entity\Client
      */
-    public function getClient(): \Client\Entity\Client
+    public function getIdClient(): ?int
     {
-        return $this->client;
+        return $this->idclient;
     }
 
     /**
      * @param \Client\Entity\Client $client
      */
-    public function setClient(\Client\Entity\Client $client): Transaction
+    public function setIdClient(int $client): Transaction
     {
-        $this->client = $client;
+        $this->idclient = $client;
         return $this;
     }
 
     /**
      * @return \Client\Entity\Client
      */
-    public function getBarmen(): \Client\Entity\Client
+    public function getIdBarmen(): int
     {
-        return $this->Barmen;
+        return $this->idbarmen;
     }
 
     /**
      * @param \Client\Entity\Client $Barmen
      */
-    public function setBarmen(\Client\Entity\Client $Barmen): Transaction
+    public function setIdBarmen(int $Barmen): Transaction
     {
-        $this->Barmen = $Barmen;
+        $this->idbarmen = $Barmen;
         return $this;
     }
 

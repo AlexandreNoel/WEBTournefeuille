@@ -19,31 +19,33 @@ class Transaction
             $data['idtransaction'] = $object->getId();
         }
         if ($object->getDate()) {
-            $data['date'] = $object->getDate();
+            $data['datecommande'] = $object->getDate()->format('Y\-m\-d\ h:i:s');
         }
         if ($object->getPrice()>=0) {
-            $data['price'] = $object->getPrice();
+            $data['prixtotal'] = $object->getPrice();
         }
-        if ($object->getReduction()) {
-            $data['barmen'] = $object->getBarmen();
+        if ($object->getIdBarmen()) {
+            $data['idbarmen'] = $object->getIdBarmen();
         }
-        if ($object->getIdfamilly()) {
-            $data['client'] = $object->getClient();
+        if ($object->getIdClient()) {
+            $data['idutilisateur'] = $object->getIdClient();
         }
-        if ($object->getQuantity()) {
-            $data['product'] = $object->getProduct();
+        if ($object->getProduct()) {
+            $data['products'] = $object->getProduct();
         }
         return $data;
     }
     public function hydrate(array $data, \Transaction\Entity\Transaction $emptyEntity): \Transaction\Entity\Transaction
     {
+//        $madate=\DateTime::createFromFormat('Y-m-d h:i:s', $data['datecommande']);
+
         return $emptyEntity
-            ->setId($data['idtransaction'] ?? null)
-            ->setDate($data['date'] ?? null)
-            ->setPrice($data['price'] ?? null )
-            ->setBarmen($data['barmen'] ?? null)
-            ->setClient($data['client'] ?? null)
-            ->setProduct($data['product'] ?? null);
+            ->setId($data['idcommande'] ?? null)
+            ->setDate($data['datecommande'] ? new \DateTime($data['datecommande']) : null)
+            ->setPrice($data['prixtotal'] ?? null)
+            ->setIdBarmen($data['idbarmen'] ?? null)
+            ->setIdClient($data['idutilisateur'] ?? null)
+            ->setProduct($data['products'] ?? null);
     }
 }
 ?>
