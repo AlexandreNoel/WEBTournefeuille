@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/css/sidebar.css">
         <link rel="stylesheet" href="/css/phatadvisor.css">
         <link rel="stylesheet" href="/css/form.css">
+        <link href="https://fonts.googleapis.com/css?family=Advent+Pro:600,700" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="/js/sidebar.js"></script>
