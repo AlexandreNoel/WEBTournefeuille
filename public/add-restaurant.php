@@ -51,12 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if( ! $restaurantRepository->create($newRestaurant)){
             $view['errors']['database'] = 'Error when creating new restaurant';
         }
-        
+
     }else{
         http_response_code(400);
     }
-        
-        echo json_encode($view['errors']);
 
-
+    echo json_encode($view['errors']);
 }

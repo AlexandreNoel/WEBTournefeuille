@@ -9,4 +9,4 @@ $userHydrator = new \Hydrator\User();
 
 $users = $userRepository->fetchAll();
 
-require_once("view/users.php");
+echo json_encode($users);

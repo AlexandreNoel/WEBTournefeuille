@@ -28,7 +28,7 @@ class User
         $error['mail_user'] = DataCheck::verify($mail,!(filter_var($mail, FILTER_VALIDATE_EMAIL)),'Error: mail format error','mail_user',5,40);
 
         if($userRepository->findOneByMail($mail)){
-            $error['mail_user'] = 'user already exist';
+            $error['mail_user_exist'] = 'user already exist';
         }
 
         $error['secret_user'] = DataCheck::verify($password,false,'','secret_user',4,100);
