@@ -10,6 +10,6 @@ if (preg_match('/^\/form\/?$/', $uri)) {
     $pagePath = 'add-restaurant.html';
 } else {
     $pagePath = '404.html';
-} 
+}
 include('template.php');
 ?>
