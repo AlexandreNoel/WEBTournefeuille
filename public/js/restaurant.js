@@ -99,6 +99,9 @@ function buildContent() {
         $('#rest-add-full').text(restaurant.addr_resto);
         $('#rest-add-code').text(restaurant.cp_resto);
         $('#rest-add-city').text(restaurant.city_resto);
+
+        $('#mapRestaurant').attr('src', 'https://maps.google.com/maps?q=' + restaurant.nom_resto + ' ' + restaurant.addr_resto +'&output=embed');
+
     }
 
     updateStars();
