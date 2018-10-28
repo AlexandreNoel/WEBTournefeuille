@@ -1,7 +1,3 @@
-$("#add").click(function () {
-    addRestaurant();
-});
-
 function addRestaurant() {
     //get data from the form
     $.ajax({

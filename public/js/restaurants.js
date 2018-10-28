@@ -38,57 +38,6 @@ function getRestaurants() {
     }).fail(function (error) {
         alert("Erreur");
     });
-
-    console.log(filters);
-    restaurants = [
-        {
-            id: 1,
-            score: 5,
-            name: 'Burger King',
-            description: 'Un bon gros phat bien connu',
-            category: 'Fast food',
-            address: '3 rue de la boustifaille',
-            postalCode: 91000,
-            city: 'Evry',
-            phone: '+331 23 45 67 89',
-            website: 'https://www.burgerking.fr/',
-            thumbnail: 'http://www.stickpng.com/assets/images/5842996fa6515b1e0ad75add.png',
-            favorite: false,
-            badges: [],
-        },
-        {
-            id: 2,
-            score: 2,
-            name: 'Mc Do',
-            description: 'Un peu moins bon',
-            category: 'Fast food',
-            address: '3 rue de la boustifaille',
-            postalCode: 91000,
-            city: 'Evry',
-            phone: '+331 23 45 67 89',
-            website: 'https://www.burgerking.fr/',
-            thumbnail: 'https://upload.wikimedia.org/wikipedia/fr/thumb/e/ea/Mcdonalds_France_2009_logo.svg/1138px-Mcdonalds_France_2009_logo.svg.png',
-            favorite: true,
-            badges: ['Bio', 'Vegan'],
-        },
-        {
-            id: 3,
-            score: 0,
-            name: 'Waffle',
-            description: 'Berk',
-            category: 'Chelou',
-            address: '3 rue de la boustifaille',
-            postalCode: 91000,
-            city: 'Evry',
-            phone: '+331 23 45 67 89',
-            website: 'https://www.burgerking.fr/',
-            thumbnail: 'https://content3.jdmagicbox.com/comp/delhi/s1/011pxx11.xx11.171205141322.i4s1/catalogue/the-waffle-factory-delhi-ht6if.jpg',
-            favorite: null,
-            badges: ['Bio', 'Halal', 'Vegan'],
-        }
-    ];
-
-    
 }
 
 function buildContent(restaurants) {
@@ -101,7 +50,7 @@ function buildContent(restaurants) {
         $('<option />', { value: cats[i], text: cats[i] }).appendTo($('#category-filter'));
     }
 
-    
+
 
     listRestos.empty();
     listRestos.append(restaurants.resto.map((restoData) => {
