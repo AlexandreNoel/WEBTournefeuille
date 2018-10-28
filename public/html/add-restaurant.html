@@ -1,22 +1,18 @@
-<div class="form-horizontal">
+<div id="rest-add" class="form-horizontal col-md-offset-3 col-md-6">
     <fieldset>
 
-        <!-- Form Name -->
         <legend>Nouveau Restaurant</legend>
 
-        <!-- Text input-->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="nom_resto">NOM</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <input id="nom_resto" name="nom_resto" placeholder="Nom du restaurant" class="form-control input-md" required="" type="text">
-
             </div>
         </div>
 
-        <!-- Select Basic -->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="type_resto">TYPE</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <select id="type_resto" name="type_resto" class="form-control">
                     <option>Choisir ...</option>
                     <option>Fast food (Burger)</option>
@@ -29,18 +25,16 @@
             </div>
         </div>
 
-        <!-- Textarea -->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="descr_resto">DESCRIPTION</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <textarea class="form-control" id="descr_resto" name="descr_resto"></textarea>
             </div>
         </div>
 
-        <!-- Select Basic -->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="badge_resto">BADGES</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <select id="badge_resto" name="badge_resto" class="form-control">
                     <option>Choisir ...</option>
                     <option>Halal</option>
@@ -50,69 +44,59 @@
             </div>
         </div>
 
-        <!-- Text input-->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="addr_resto">ADRESSE</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <input id="addr_resto" name="addr_resto" placeholder="Adresse du restaurant" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
 
-        <!-- Text input-->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="cp_resto">CODE POSTALE</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <input id="cp_resto" name="cp_resto" placeholder="Code postale" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
-        <!-- Text input-->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="city">VILLE</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <input id="city" name="city_resto" placeholder="Ville" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
-        <!-- Text input-->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="tel">TELEPHONE</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <input id="tel" name="tel_resto" placeholder="0102030405" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
-        <!-- URL Button -->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="web">SITE WEB</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <input id="web" name="website_resto" placeholder="https://phatadvisor.fr" class="form-control input-md" required="" type="url">
             </div>
         </div>
 
-        <!-- URL Button -->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="filebutton">IMAGE (LIEN URL)</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <input id="filebutton" name="thumbnail" class="form-control input-md" placeholder="https://phatadvisor.fr" type="url">
             </div>
         </div>
 
-        <!-- Button -->
         <div class="form-group">
-            <div class="text-center">
-                <div class="col-md-12">
-                    <div class="btn-group">
-                        <div class="col-md-4">
-                            <button id="add" onclick="addRestaurant();" name="validate" class="btn btn-login">ENREGISTRER</button>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <div class="col-md-4">
-                            <button name="cancel" class="btn btn-login">ANNULER</button>
-                        </div>
-                    </div>
+            <div class="col-md-offset-4 col-md-8">
+                <div class="btn-group">
+                    <button id="add" onclick="addRestaurant();" name="validate" class="btn btn-login">
+                        ENREGISTRER
+                        <i id="rest-add-spinner" class="fas fa-spinner fa-pulse hidden"></i>
+                    </button>
+                </div>
+                <div class="btn-group pull-right">
+                        <button name="cancel" class="btn btn-login">ANNULER</button>
                 </div>
             </div>
         </div>

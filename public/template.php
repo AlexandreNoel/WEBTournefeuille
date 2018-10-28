@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/css/form.css">
         <link rel="stylesheet" href="/css/restaurants.css">
         <link rel="stylesheet" href="/css/restaurant.css">
+        <link rel="stylesheet" href="/css/add-restaurant.css">
         <link rel="stylesheet" href="/css/users.css">
         <link href="https://fonts.googleapis.com/css?family=Advent+Pro:600,700" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
