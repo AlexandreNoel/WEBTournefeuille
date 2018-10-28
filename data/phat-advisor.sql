@@ -136,6 +136,15 @@ VALUES (
 	'172 Place des Terrasses de l''Agora',91000,'EVRY',
 	'01 82 93 00 31','https://restaurants.burgerking.fr/evry-2','0','https://upload.wikimedia.org/wikipedia/fr/d/d4/Burger_King.svg'
 	);
+	INSERT INTO restos
+VALUES
+	(
+		DEFAULT,
+		'The Waffle Factory',
+		'Waffle Factory réinvente la gaufre en proposant un concept innovant de restauration',
+		'2 Boulevard de l''Europe', 91000, 'EVRY',
+		'01 82 93 00 31', 'http://evry2.wafflefactory.com/', '0', 'http://evry2.wafflefactory.com/wp-content/uploads/2017/03/Capture-d’écran-2017-03-14-à-15.19.06.png'
+	);
 
 ---------------------------
 -- Insertion des catégories
@@ -146,6 +155,15 @@ INSERT INTO Categories VALUES (DEFAULT,'Halal');
 INSERT INTO Categories VALUES (DEFAULT,'Vegan');
 INSERT INTO Categories VALUES (DEFAULT,'Fast Food');
 INSERT INTO Categories VALUES (DEFAULT,'Asiatique');
+INSERT INTO Categories VALUES (DEFAULT,'Pizza');
+INSERT INTO Categories VALUES (DEFAULT,'Tacos');
+INSERT INTO Categories VALUES (DEFAULT,'Salade');
+INSERT INTO Categories VALUES (DEFAULT,'Japonaix');
+INSERT INTO Categories VALUES (DEFAULT,'Coreen');
+INSERT INTO Categories VALUES (DEFAULT,'Restaurant');
+INSERT INTO Categories VALUES (DEFAULT,'Burger');
+INSERT INTO Categories VALUES (DEFAULT,'Pates');
+INSERT INTO Categories VALUES (DEFAULT,'Sandwich');
 
 ---------------------------
 -- Insertion des catégories des restaurants
