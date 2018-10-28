@@ -16,9 +16,11 @@ start:
 	docker-compose up --build -d
 	sleep 3
 
-stop:
+stop: db.save
 	docker-compose down -v
 	docker-compose rm -v
+
+restart: stop start
 
 install: uninstall start composer.install db.install
 
@@ -52,7 +54,7 @@ db.save:
 	docker-compose exec postgres pg_dump -U $$POSTGRES_USER ensiie > data/dbexport-$(shell date "+%Y.%m.%d-%H.%M.%S").pgsql
 
 db.install:
-	sleep 10
+	sleep 15
 	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/db.sql'
 
 php.connect:
