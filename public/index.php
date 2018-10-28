@@ -20,7 +20,7 @@ if (preg_match('/^\/form\/?$/', $uri)) {
 } elseif (preg_match('/^\/restaurants\/[0-9]+\/?$/', $uri)) {
     $pagePath = 'restaurant.html';
 } elseif ($uri === "/") {
-    $pagePath = 'restaurants.html';
+    $pagePath = 'form.html';
 } else {
     $pagePath = '404.html';
 }
