@@ -158,6 +158,7 @@ function checkInputs(name = null) {
 
 function updateUser() {
     const userId = window.location.pathname.match(/users\/([0-9]+)/)[1];
+    $('#user-update-spinner').removeClass('hidden');
 
     //get data from the form
     $.ajax({
@@ -176,6 +177,8 @@ function updateUser() {
     }).done(function () {
         window.location = '/restaurants';
     }).fail(function () {
+    }).always(() => {
+        $('#user-update-spinner').addClass('hidden');
     });
 }
 
