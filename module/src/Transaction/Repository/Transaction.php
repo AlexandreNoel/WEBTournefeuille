@@ -127,9 +127,31 @@ class Transaction
         return $product;
     }
 
-    public function findByCriteria($criteria,$value){
+    public function findProductsByCommande($id){
+        #récupération de toules articles compris dans la commande
         $productRepository = new \Product\Repository\Product();
         $products = new \SplObjectStorage();
+
+        $entity = new \Transaction\Entity\Transaction();
+        #récupération de chaque contenu de commande pour chaque commande
+        $statement2 = $this->dbAdapter->prepare(
+            'SELECT idproduit,quantite FROM  faitpartiecommande f where f.idcommande=:idcommande');
+        $statement2->bindParam(':idcommande', $id);
+        $statement2->execute();
+        #construction du tableau produit->quanitte
+        foreach ($statement2->fetchAll() as $productsData) {
+            $productid = $productsData['idproduit'];
+            $ammount = $productsData['quantite'];
+            $product=$productRepository->findById($productid);
+            #on ajoute un produit et sa quantite au tableau "articles=>quantite'
+            $products->attach($product,$ammount);
+
+        }
+        #on ajoute le tableau de produits construit à la commande
+        return $products;
+    }
+    public function findByCriteria($criteria,$value){
+        $productRepository = new \Product\Repository\Product();
         $commandes=[];
         #Récupération de chaque commande
         $statement = $this->dbAdapter->prepare(
@@ -145,6 +167,7 @@ class Transaction
                 'SELECT idproduit,quantite FROM  faitpartiecommande f where f.idcommande=:idcommande');
             $statement2->bindParam(':idcommande', $idcommande);
             $statement2->execute();
+            $products = new \SplObjectStorage();
             #construction du tableau produit->quanitte
             foreach ($statement2->fetchAll() as $productsData) {
                 $productid = $productsData['idproduit'];

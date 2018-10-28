@@ -21,7 +21,6 @@
 
 
 <body class="main-body">
-
 <!-- CONTENU !-->
 <div>
     <table id="transaction-table" class="display" style="text-align:center">
@@ -46,7 +45,7 @@
                     <td><?php echo $transaction->getDate()->format('Y-m-d H:i:s')?></td>
                     <td><?php echo $transaction->getidBarmen()?></td>
                     <td><?php echo $transaction->GetPrice()." €"?></td>
-                    <td><button id="add-button" onclick="downloadFichier(<?php echo $transaction->getId();?>)"> Voir le contenu de la commande</button>
+                    <td><button id="add-button" onclick="fetchproductdata(<?php echo $transaction->getId();?>)"> Voir le contenu de la commande</button>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -82,7 +81,7 @@
 <script>
     var trHTML = '';
 
-    function downloadFichier(param1) {
+    function fetchproductdata(param1) {
 
         $.ajax({
             type: 'POST',
