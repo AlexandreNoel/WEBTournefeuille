@@ -11,6 +11,8 @@ if (preg_match('/^\/form\/?$/', $uri)) {
     $pagePath = 'users.html';
 } elseif (preg_match('/^\/users\/[0-9]+\/?$/', $uri)) {
     $pagePath = 'update-user.html';
+} elseif (preg_match ('/^\/restaurants\/update\/[0-9]+\/?$/', $uri)) {
+    $pagePath = 'update-restaurant.html';
 } elseif (preg_match('/^\/restaurants\/?$/', $uri)) {
     $pagePath = 'restaurants.html';
 } elseif (preg_match('/^\/restaurants\/add\/?$/', $uri)) {

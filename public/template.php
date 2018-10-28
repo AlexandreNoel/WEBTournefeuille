@@ -34,14 +34,20 @@
                     <li>
                         <a href="/form"><i class="fas fa-sign-in-alt"></i>Connexion/Inscription</a>
                     </li>
-                    <!--<li>
-                        <a href="/form"><i class="fas fa-sign-out-alt"></i>Déconnexion</a>
-                    </li>-->
+                    <li>
+                        <a href="/disconnect.php"><i class="fas fa-sign-out-alt"></i>Déconnexion</a>
+                    </li>
                     <li>
                         <a href="/users/1"><i class="fas fa-user"></i>Paramètres du compte</a>
                     </li>
                     <li>
                         <a href="/users"><i class="fas fa-users"></i>Liste des utilisateurs</a>
+                    </li>
+                        <li>               
+                        <a href="/restaurants/add"><i class="fas fa-plus-square"></i>Ajouter un restaurant</a>
+                    </li>
+                    <li>
+                        <a href="/delete"><i class="fas fa-user"></i>Paramètres du compte</a>
                     </li>
                 </ul>
             </nav>
