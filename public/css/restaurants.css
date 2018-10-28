@@ -19,6 +19,11 @@
     padding: inherit;
 }
 
+.rest-color{
+    background-color: #00BCD4;
+    border-radius: 2em;
+}
+
 .rest-preview #rest-thumb {
     max-width: 8em;
     max-height: 8em;

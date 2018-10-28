@@ -6,6 +6,7 @@ body, html {
     height: 100%;
     background: #fafafa;
     font-family: 'Advent Pro', sans-serif;
+
 }
 
 #header {
@@ -26,6 +27,14 @@ body, html {
 
 a, a:hover, a:visited {
     color: inherit;
+}
+
+.container-background{
+    background-image: url("../assets/images/icons_logo/fond.png");
+    background-position: center center;
+    background-repeat:no-repeat;
+    background-size: auto;
+    background-attachment: fixed;
 }
 
 /***********************/
@@ -53,7 +62,19 @@ a, a:hover, a:visited {
 }
 
 #label-form{
-    color: #F45B69;
+    background-color: #f45b69;
+    border-radius: 1em;
+    color: #00A79D;
+}
+
+#label-rest-list{
+    background-color: #f45b69;
+    padding: 0,5em;
+    text-align: center;
+    border-radius: 1em;
+    color: #00A79D;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 btn-form{
