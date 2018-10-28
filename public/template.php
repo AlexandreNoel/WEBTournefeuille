@@ -14,7 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/js/sidebar.js"></script>
 </head>
-<body>
+<body class="container-background">
 <div id="header" class="row">
     <div class="col-xs-1">
         <button type="button" class="hamburger" data-toggle="offcanvas">
@@ -32,10 +32,7 @@
                 <a href="/"><i class="fas fa-home"></i>Accueil</a>
             </li>
             <li>
-                <a href="/form"><i class="fas fa-sign-in-alt"></i>Connexion/Inscription</a>
-            </li>
-            <li>
-                <a href="/disconnect.php"><i class="fas fa-sign-out-alt"></i>Déconnexion</a>
+                <a href="/restaurants/add"><i class="fas fa-plus-square"></i>Ajouter un restaurant</a>
             </li>
             <li>
                 <a href="/users/1"><i class="fas fa-user"></i>Paramètres du compte</a>
@@ -44,10 +41,10 @@
                 <a href="/users"><i class="fas fa-users"></i>Liste des utilisateurs</a>
             </li>
             <li>
-                <a href="/restaurants/add"><i class="fas fa-plus-square"></i>Ajouter un restaurant</a>
+                <a href="/form"><i class="fas fa-sign-in-alt"></i>Connexion/Inscription</a>
             </li>
             <li>
-                <a href="/delete"><i class="fas fa-user"></i>Paramètres du compte</a>
+                <a href="/disconnect.php"><i class="fas fa-sign-out-alt"></i>Déconnexion</a>
             </li>
         </ul>
     </nav>
