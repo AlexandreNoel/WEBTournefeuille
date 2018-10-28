@@ -1,6 +1,22 @@
 $(document).ready(() => {
+    const restaurantId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
+    getRestaurant(restaurantId);
 
-    getRestaurant();
+    $('#delete').click(() => {
+        $.ajax({
+            url: 'https://localhost:8080/delete-restaurant.php',
+            type: 'DELETE',
+            data: { id_resto: restaurantId }
+        }).done(function (res) {
+            window.location = "/restaurants";
+        }).fail(function (error) {
+            alert("Erreur");
+        });
+
+    });
+    $('#edit').click(() => {
+        window.location = "/restaurants/update/"+restaurantId;
+    });
 
     $('#rest-favorite').click(() => {
         restaurant.favorite = !restaurant.favorite;
@@ -17,9 +33,7 @@ $(document).ready(() => {
 
 let restaurant = {};
 
-function getRestaurant() {
-    const restaurantId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
-
+function getRestaurant(restaurantId) {
     $.ajax({
         url: 'https://localhost:8080/description-restaurant.php',
         type: 'GET',

@@ -34,7 +34,7 @@ CREATE TABLE public.Restos(
 	CP_Resto        INT  NOT NULL ,
 	city_resto		VARCHAR(50) NOT NULL,
 	Tel_Resto       VARCHAR(20) ,
-	Website_Resto   VARCHAR(50) NOT NULL  ,
+	Website_Resto   VARCHAR(200) NOT NULL  ,
 	isDeleted       BOOL  NOT NULL  ,
 	thumbnail		VARCHAR(100) ,
 

@@ -9,10 +9,13 @@ $restaurantRepository = new \Repository\Restaurant();
 $error = "null";
 
 if ($_SERVER['REQUEST_METHOD'] !== "DELETE" /* || $_SESSION['isadmin'] */) {
+
     $error = "internal error";
     http_response_code(400);
 }else{
-    $id = $_POST['id_resto'];
+    parse_str(file_get_contents("php://input"), $post_vars);
+    $id = $post_vars['id_resto'] ?? null;
+
 
     if ($id) {
         $restaurant = $restaurantRepository->findOneById($id);
