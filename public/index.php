@@ -33,6 +33,11 @@ switch ($url) {
         require __DIR__ . '/console.php';
         break;
 
+    /* CONSOLE */
+    case '/transaction':
+        require __DIR__ . '/transaction.php';
+        break;
+
     /* AUTRES CAS NON GERE */
     default:
         require __DIR__ . '/../view/404.php';

@@ -37,7 +37,7 @@ if ($consumer->is_authenticated()) {
     $userRepository = new \Client\Repository\Client();
     $userHydrator = new \Client\Hydrator\Client();
 
-
+    try {
         /* Récupération des informations cliens (AriseId) */
         $results = $consumer->api()->begin()
             ->get_identifiant()
@@ -45,7 +45,7 @@ if ($consumer->is_authenticated()) {
             ->get_nom()
             ->get_surnom()
             ->done();
-    try {
+
         $firstname= $results[1]();
         $lastname = $results[2]();
         $nickname = $results[3]();
@@ -80,10 +80,10 @@ if ($consumer->is_authenticated()) {
         header('Location: /');
     }
     else if($_SESSION["superAdmin"]===true){
-        header('Location: console.php');
+        header('Location: console');
     }
     else{
-        header('Location: home.php');
+        header('Location: home');
     }
 }
 

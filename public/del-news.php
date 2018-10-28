@@ -10,13 +10,13 @@ require_once __DIR__.'./../vendor/autoload.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST["idannonce"]))
+    if (isset($_POST["id_annonce"]))
     {
         $repoproducts = new News\Repository\News();
-        $repoproducts->delete($_POST["idannonce"]);
+        $repoproducts->delete($_POST["id_annonce"]);
     }
 } else {
     throw new \HttpInvalidParamException('Method not allowed', 405);
 }
-header('Location: product.php');
+header('Location: news.php');
 exit();

@@ -69,6 +69,7 @@ class TransactionTest extends TestCase
         self::assertGreaterThanOrEqual(0,sizeof($allTransac));
         self::assertEquals(1,$test->getIdClient());
         self::assertEquals(2,$test->getIdBarmen());
+
         self::assertLessThanOrEqual(new \DateTime(),$firstelem->getDate());
     }
     /**

@@ -21,10 +21,10 @@ class Client
 
     public function fetchAllUsers()
     {
-        $rows = $this->connection->query('SELECT u.*,b.codebarmen FROM Utilisateur left join barmen b on u.idutilisateur = b.idutilisateur ')->fetchAll(\PDO::FETCH_OBJ);
+        $statement = $this->dbAdapter->query('SELECT u.*,b.codebarmen FROM Utilisateur u left join barmen b on u.idutilisateur = b.idutilisateur ');
         $users = [];
-        foreach ($rows as $row) {
-            $entity = new User();
+        foreach ($statement->fetchAll() as $row) {
+            $entity = new \Client\Entity\Client();
             $users[] = $this->hydrator->hydrate($row, clone $entity);
         }
 
