@@ -75,7 +75,7 @@
             >
             <div>
                 <label>Catégorie</label>
-                <select name="idcategorie">
+                <select name="idcategorie" id="idcategorie">
                 <?php foreach($categories as $categorie):?>
                     <option value=<?php echo $categorie["idcategorie"] ?>>
                         <?php echo $categorie["libelle"] ?>

@@ -130,7 +130,6 @@ class Product
         $statement->bindParam(':estdisponible', $productArray['estdisponible']);
         $statement->bindParam(':idcategorie', $productArray['idcategorie']);
         $statement->execute();
-        $statement->execute();
         $id="";
         foreach ($statement->fetchAll() as $productData) {
             $id=$productData['idproduit'];

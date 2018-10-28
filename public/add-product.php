@@ -16,7 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_POST["idcategorie"])){
         $hydrator = new \Product\Hydrator\Product();
         $repoproducts = new \Product\Repository\Product();
-        $repoproducts->create($hydrator->hydrate($_POST, new \Product\Entity\Product()));
+        $entity =$hydrator->hydrate($_POST, new \Product\Entity\Product());
+        $repoproducts->create($entity);
     }
 } else {
     throw new \HttpInvalidParamException('Method not allowed', 405);

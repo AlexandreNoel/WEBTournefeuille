@@ -102,7 +102,7 @@ class News {
     public function update(\News\Entity\News $news) : void
     {
         $data = $this->hydrator->extract($news);
-        $statement = $this->dbAdapter->prepare('update annonce set titre=:titre, contenu=:contenu, idauteur=:idauteur where idannonce=:id');
+        $statement = $this->dbAdapter->prepare('UPDATE "annonce" SET titre=:titre, contenu=:contenu, idauteur=:idauteur WHERE idannonce=:id');
         $statement->bindParam(':id', $data['idannonce']);
         $statement->bindParam(':titre', $data['titre']);
         $statement->bindParam(':contenu',$data['contenu']);
