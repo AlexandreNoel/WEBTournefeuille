@@ -1,12 +1,15 @@
 <?php
 
 require '../vendor/autoload.php';
+header("Access-Control-Allow-Origin: *");
+session_start();
 
 $restaurantRepository = new \Repository\Restaurant();
 $restaurantHydrator = new \Hydrator\Restaurant();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' /*|| !isset($_SESSION['id']) || !$_SESSION['isadmin']*/) {
+    $error = "internal error";
+    http_response_code(400);
+} else {
     $name = $_POST['nom_resto'] ?? null;
     $description = $_POST['descr_resto'] ?? null;
     $address = $_POST['addr_resto'] ?? null;
@@ -32,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'errors',
     ];
 
+
     $restaurantService = new \Service\Restaurant();
     $view['errors'] = $restaurantService->verify_registration($restaurantRepository, $view['restaurant']);
     if (count(array_filter($view['errors'])) === 0) {
@@ -48,13 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ],
             new \Entity\Restaurant()
         );
-        if( ! $restaurantRepository->create($newRestaurant)){
+        if (!$restaurantRepository->create($newRestaurant)) {
             $view['errors']['database'] = 'Error when creating new restaurant';
         }
 
-    }else{
+    } else {
         http_response_code(400);
     }
-
-    echo json_encode($view['errors']);
 }
+
+
+echo json_encode($view['errors']);

@@ -31,7 +31,7 @@ function getRestaurants() {
 
     $.ajax({
         url: 'https://localhost:8080/index_restaurant.php',
-        type: 'POST'
+        type: 'GET'
     }).done(function (res) {
         res = JSON.parse(res)
         buildContent(res);

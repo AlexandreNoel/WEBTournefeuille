@@ -1,4 +1,9 @@
 <?php
+
+require '../vendor/autoload.php';
+header("Access-Control-Allow-Origin: *");
+session_start();
+
 $uri = $_SERVER['REQUEST_URI'];
 if (preg_match('/^\/form\/?$/', $uri)) {
     $pagePath = 'form.html';

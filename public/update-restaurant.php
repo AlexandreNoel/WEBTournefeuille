@@ -1,5 +1,8 @@
 <?php
+
 require '../vendor/autoload.php';
+header("Access-Control-Allow-Origin: *");
+session_start();
 
 $restaurantRepository = new \Repository\Restaurant();
 

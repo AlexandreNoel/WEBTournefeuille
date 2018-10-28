@@ -1,12 +1,13 @@
 <?php
-require '../vendor/autoload.php';
 
+require '../vendor/autoload.php';
+header("Access-Control-Allow-Origin: *");
 session_start();
 
 $userRepository = new \Repository\User();
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
     $id = $_SESSION['id'] ?? null;
     $firstname = $_POST['prenom_user'] ?? null;

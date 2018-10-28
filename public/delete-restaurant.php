@@ -1,13 +1,17 @@
 <?php
-require '../vendor/autoload.php';
 
+require '../vendor/autoload.php';
+header("Access-Control-Allow-Origin: *");
 session_start();
 
 $restaurantRepository = new \Repository\Restaurant();
 
-$error = [];
+$error = "null";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] !== "DELETE" /* || $_SESSION['isadmin'] */) {
+    $error = "internal error";
+    http_response_code(400);
+}else{
     $id = $_POST['id_resto'];
 
     if ($id) {
@@ -15,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $restaurant->setIsDeleted(true);
         $isDeleted = $restaurantRepository->delete($restaurant);
 
-        $error = $isDeleted;
+        $error = "deleted";
     }else{
         $error = "not deletd";
         http_response_code(400);

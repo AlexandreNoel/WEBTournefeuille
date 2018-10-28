@@ -1,26 +1,23 @@
 <?php
 
-session_start();
-
 require '../vendor/autoload.php';
+header("Access-Control-Allow-Origin: *");
+session_start();
 
 $restoRepository = new \Repository\Restaurant();
 $restaurantService = new \Service\Restaurant();
 
-$error = ['errors'];
-
-if (isset($_SESSION['id']) && $_SESSION['isadmin']) {
+$error = "null";
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' /* || !isset($_SESSION['id']) || !$_SESSION['isadmin']*/) {
+    $error = "internal error";
+    http_response_code(400);
+}else{
     $id_restaurant = $_POST['id_resto'];
     $partnership = $_POST['partnership'];
-
     $error = $restaurantService->verify_partnership($partnership);
 
-    if(!$restoRepository->addPartnership($id_restaurant, $partnership)){
-        $error['add-partnership-restaurant'] = "cant add the partnership";
-    }
-}else{
-    $error = "not admin";
+    if (!$restoRepository->addPartnership($id_restaurant, $partnership)) {
+        $error = "cant add the partnership";
+    } 
 }
-
-header('Location: index.php');
-
+echo json_encode($error);
