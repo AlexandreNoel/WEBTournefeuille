@@ -37,6 +37,18 @@ a, a:hover, a:visited {
     background-attachment: fixed;
 }
 
+.separator {
+    border-top: solid 0.2em #e0e0e0;
+    margin-top: 1em;
+    padding-top: 1em;
+}
+
+.separator-thin {
+    border-top: solid 1px #e0e0e0;
+    margin-top: 1em;
+    padding-top: 1em;
+}
+
 /***********************/
 /* Phat'Advisor colors */
 /***********************/
