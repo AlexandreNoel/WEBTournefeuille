@@ -210,7 +210,7 @@ class Restaurant
     public function create (\Entity\Restaurant $restaurant)
     {
         $restoArray = $this->hydrator->extract($restaurant);
-        $statement = $this->connection->prepare('INSERT INTO restos values (DEFAULT, :nom_resto, :descr_resto, :addr_resto, :cp_resto, :city_resto, :tel_resto, :website_resto, :isdeleted)');
+        $statement = $this->connection->prepare('INSERT INTO restos values (DEFAULT, :nom_resto, :descr_resto, :addr_resto, :cp_resto, :city_resto, :tel_resto, :website_resto, :isdeleted, :thumbnail)');
         $statement->bindParam(':nom_resto', $restoArray['nom_resto']);
         $statement->bindParam(':descr_resto', $restoArray['descr_resto']);
         $statement->bindParam(':addr_resto', $restoArray['addr_resto']);
@@ -219,6 +219,7 @@ class Restaurant
         $statement->bindParam(':tel_resto', $restoArray['tel_resto']);
         $statement->bindParam(':website_resto', $restoArray['website_resto']);
         $statement->bindParam(':isdeleted', $restoArray['isdeleted']);
+        $statement->bindParam(':thumbnail', $restoArray['thumbnail']);
 
         return $statement->execute();
     }
@@ -260,6 +261,7 @@ class Restaurant
                   cp_resto = :cp_resto,
                   city_resto = :city_resto,
                   tel_resto = :tel_resto,
+                  thumbnail = :thumbnail,
                   website_resto = :website_resto
                 WHERE id_resto = :id_resto';
 
@@ -271,6 +273,7 @@ class Restaurant
         $statement->bindParam(':city_resto', $restoArray['city_resto']);
         $statement->bindParam(':tel_resto', $restoArray['tel_resto']);
         $statement->bindParam(':website_resto', $restoArray['website_resto']);
+        $statement->bindParam(':thumbnail', $restoArray['thumbnail']);
         $statement->bindParam(':id_resto', $restoArray['id_resto']);
 
         return $statement->execute();

@@ -10,14 +10,15 @@ $_POST['id_resto']=1;
 
 if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
     $error = "request is not in post";
-    require_once('view/users.php');
+    http_response_code(400);
 }
 if (isset($_SESSION['id']) && isset($_SESSION['isadmin']) && $_SESSION['isadmin']) {
-    $id_user = $_SESSION['id']; 
+    $id_user = $_SESSION['id'] || $_POST['id'];
     $ids = $_POST['ids'];
-    $idResto = $_POST[id_resto];
-    $restos = $restoRepository->associateBadges($idResto,$ids);
+    $idResto = $_POST['id_resto'];
+    $error = $restoRepository->associateBadges($idResto,$ids);
+}else{
+    http_response_code(400);
 }
 
-require_once('view/favorites-resto.php');
-
+echo json_encode($error);

@@ -4,16 +4,18 @@ require '../vendor/autoload.php';
 session_start();
 
 $restaurantRepository = new \Repository\Restaurant();
-
+$restaurantHydrator = new \Hydrator\Restaurant();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id_resto'];
 
     if ($id) {
-        $resto = $restaurantRepository->findOneById($id);
+        $error = $restaurantRepository->findOneById($id);
+        $error = $restaurantHydrator->extract($error);
     }else{
-        $resto = "error";
+        http_response_code(400);
+        $error = "error";
     }
 }
 
-require_once('view/description-restaurant.php');
+echo json_encode($error);

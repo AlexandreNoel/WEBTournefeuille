@@ -16,7 +16,6 @@ class Restaurant
             $data['nom_resto'] = $object->getName();
         }
 
-
         if ($object->getDescription()) {
             $data['descr_resto'] = $object->getDescription();
         }
@@ -41,6 +40,10 @@ class Restaurant
             $data['website_resto'] = $object->getUrl();
         }
 
+        if ($object->getThumbnail()){
+            $data['thumbnail'] = $object->getThumbnail();
+        }
+
         $data['isdeleted'] = $object -> isDeleted() ? 'TRUE' : 'FALSE';
 
         return $data;
@@ -57,6 +60,7 @@ class Restaurant
             ->setCity($data['city_resto'] ?? null)
             ->setPhoneNumber($data['tel_resto'] ?? null)
             ->setUrl($data['website_resto'] ?? null)
+            ->setThumbnail($data['thumbnail'] ?? null)
             ->setIsDeleted($data['isdeleted'] ?? null);
     }
 

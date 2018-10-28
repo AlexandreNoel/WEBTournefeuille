@@ -10,7 +10,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'POST')) {
     require_once('view/connect.php'); 
     return;
 }
-$mail= $_POST['mail'];
+$mail= $_POST['mail'] ?? null;
 $user = $userRepository->findOneByMail($mail);
 if(!isset($user)){
   echo "error";

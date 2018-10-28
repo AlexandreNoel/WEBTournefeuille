@@ -1,4 +1,4 @@
-<form method="post" action="/add-restaurant.php" class="form-horizontal">
+<div class="form-horizontal">
     <fieldset>
 
         <!-- Form Name -->
@@ -35,8 +35,7 @@
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="mail_user">MAIL</label>
             <div class="col-md-4">
-                <input id="mail_user" name="mail_user" placeholder="Adresse mail" class="form-control input-md" required="" type="email">
-
+                <input id="mail_user" name="mail_user" placeholder="phat_advisor@gmail.com" class="form-control input-md" required="" type="text">
             </div>
         </div>
 
@@ -54,7 +53,7 @@
                 <div class="col-md-12">
                     <div class="btn-group">
                         <div class="col-md-4">
-                            <button name="validate" class="btn btn-login">ENREGISTRER</button>
+                            <button onclick="updateUser()" name="validate" class="btn btn-login">ENREGISTRER</button>
                         </div>
                     </div>
                     <div class="btn-group">
@@ -66,4 +65,5 @@
             </div>
         </div>
     </fieldset>
-</form>
+</div>
+<script src="js/user.js"></script>

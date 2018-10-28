@@ -1,0 +1,64 @@
+<script src="/js/restaurants.js"></script>
+<div id="rest-search" class="col-xs-8 col-xs-offset-2">
+    <form class="row">
+    <div class="form-group col-md-2">
+        <label for="score-filter">Note</label>
+        <select id="score-filter" class="form-control">
+                <option value="-1"></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </optgroup>
+        </select>
+    </div>
+    <div class="form-group col-md-4">
+        <label for="badge-filter">Badge</label>
+        <select id="badge-filter" class="form-control">
+            <option></option>
+            <option value="Bio">Bio</option>
+            <option value="Halal">Halal</option>
+            <option value="Vegan">Vegan</option>
+        </select>
+    </div>
+    <div class="form-group col-md-4">
+        <label for="category-filter">Categorie</label>
+        <select id="category-filter" class="form-control">
+        </select>
+    </div>
+    <div class="form-group col-md-2">
+        <label for="favorites-filter">Favoris</label><br/>
+        <input type="checkbox" id="favorites-filter" class="form-check-input"/>
+    </div>
+    </form>
+</div>
+<div class="row" id="list-restaurants">
+</div>
+<div class="hidden" id="rest-template">
+    <a id="rest-link" href="">
+        <div class="col-md-6 row rest-preview">
+            <div class="col-xs-3">
+                <img id="rest-thumb" src=""/>
+            </div>
+            <div class="col-xs-9">
+                <div>
+                    <span id="rest-name"></span>
+                    <span id="rest-cat" class="text-muted"></span>
+                    <i id="rest-favorite" class="hidden fas fa-star pull-right"></i>
+                    <i id="rest-unfavorite" class="hidden far fa-star pull-right"></i>
+                </div>
+                <div class="col-xs-3">
+                    <p id="price"></p>
+                    <p id="distance"></p>
+                </div>
+                <div class="col-xs-9">
+                    <p id="rest-score">
+                    </p>
+                    <p id="rest-badges">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

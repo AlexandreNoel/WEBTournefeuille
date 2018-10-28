@@ -6,6 +6,8 @@
         <link rel="stylesheet" href="/css/sidebar.css">
         <link rel="stylesheet" href="/css/phatadvisor.css">
         <link rel="stylesheet" href="/css/form.css">
+        <link rel="stylesheet" href="/css/restaurants.css">
+        <link rel="stylesheet" href="/css/restaurant.css">
         <link href="https://fonts.googleapis.com/css?family=Advent+Pro:600,700" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -26,10 +28,10 @@
             <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                 <ul class="nav sidebar-nav">
                     <li class="selected">
-                        <a href="#"><i class="fas fa-home"></i>Home</a>
+                        <a href="/"><i class="fas fa-home"></i>Home</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fas fa-taxi"></i>Services</a>
+                        <a href="/form"><i class="fas fa-sign-in-alt"></i>Connect/Register</a>
                     </li>
                     <li>
                         <a href="#"><i class="fas fa-phone"></i>Contact</a>

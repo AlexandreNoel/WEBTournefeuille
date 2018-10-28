@@ -46,6 +46,11 @@ class Restaurant
     private $url;
 
     /**
+     * @var string
+     */
+    private $thumbnail;
+
+    /**
      * @var bool
      */
     private $isDeleted;
@@ -192,6 +197,24 @@ class Restaurant
     public function setUrl($url)
     {
         $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * @param string $thumbnail
+     * @return Restaurant
+     */
+    public function setThumbnail($thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
         return $this;
     }
 
