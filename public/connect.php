@@ -8,13 +8,13 @@ $userRepository = new \Repository\User();
 $userHydrator = new \Hydrator\User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $mail = $_POST['mail'];
-    $password = $_POST['password'];
+    $mail = $_POST['mail_user'] ?? null;
+    $password = $_POST['secret_user'] ?? null;
 
     $view = [
         'user' => [
-            'mail' => $mail ?? null,
-            'password' => $password ?? null,
+            'mail' => $mail,
+            'secret_user' => $password,
         ],
         'errors',
     ];
@@ -23,12 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $view['errors'] = $userService->verify_connection($userRepository, $mail, $password);
 
     if (count($view['errors']) === 0) {
-        $_SESSION['uniqid'] = uniqid();
-        $_SESSION['mail'] = $mail;
 
-        header('Location: index.php');
+        $user = $userRepository->findOneByMail($mail);
+        $_SESSION['uniqid'] = uniqid();
+        $_SESSION['name'] = $user->getFirstname()." ".$user->getLastname();
+        $_SESSION['id'] = $user->getId();
+        $_SESSION['isadmin'] = boolval($user->isAdmin());
     }else{
-        require_once('view/connect.php');
+        http_response_code(400);
     }
+
+    echo json_encode($view);
 }
+
 

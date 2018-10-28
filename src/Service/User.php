@@ -2,41 +2,43 @@
 namespace Service;
 
 use  \Adapter\DatabaseFactory;
+use \Service\DataCheck;
 
 class User
 {
-        /**
+
+
+    /**
      * @param \Repository\User $userRepository
      * @param array
-     * @return string
+     * @return array
      */
-       function verify_registration($userRepository, $data){
-       $error = "ok";
-        if(is_null($data['prenom_user']) || $data['prenom_user'] == ''){
-        $error = 'name is required';
-       }
-       if(is_null($data['nom_user']) || $data['nom_user'] == ''){
-        $error = 'lastname is required';
-       }
-       if(is_null($data['isadmin'])){
-        $error = 'isadmin is required, internal error';
-       }
-       if(is_null($data['promo_user']) || $data['promo_user'] == ''){
-        $error = 'Promo is required';
-       }
-        if(is_null($data['mail_user']) || $data['mail_user'] == ''){
-        $error = 'Mail is required';
-        }else{
-        $user = $userRepository->findOneByMail($data['mail_user']);
-       if ($user) {
-                $error = 'user already exist';
-            }
-       }
-        
-        if(is_null($data['secret_user']) || $data['secret_user'] == ''){
-        $error = 'Password is required';
-       }
-            return $error;
+    function verify_registration($userRepository, $data){
+        $error = [];
+
+        $name = $data['prenom_user'];
+        $lastname = $data['nom_user'];
+        $promo = $data['promo_user'];
+        $mail= $data['mail_user'];
+        $password = $data['secret_user'];
+        $confirm_password = $data['confirm_secret_user'];
+
+        $error['prenom_user'] = DataCheck::verify($name,preg_match('#[0-9]#',$name),'Error: name must not contain digit','prenom_user',2,25);
+        $error['nom_user'] = DataCheck::verify($lastname,preg_match('#[0-9]#',$lastname),'Error: lastname must not contain digit','nom_user',2,25);
+        $error['promo_user'] = DataCheck::verify($promo,!is_numeric($promo),'Error: promotion must be a number','promo_user',4,4);
+        $error['mail_user'] = DataCheck::verify($mail,!(filter_var($mail, FILTER_VALIDATE_EMAIL)),'Error: mail format error','mail_user',5,40);
+
+        if($userRepository->findOneByMail($mail)){
+            $error['mail_user_exist'] = 'user already exist';
+        }
+
+        if ($confirm_password != $password){
+            $error['confirm_secret_user'] = 'Password does not match the confirm password.';
+        }
+
+        $error['secret_user'] = DataCheck::verify($password,false,'','secret_user',4,100);
+
+        return $error;
     }
 
 

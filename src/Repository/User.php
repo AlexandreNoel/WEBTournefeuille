@@ -15,7 +15,6 @@ class User
 
     /**
      * User constructor.
-     * @param \PDO $connection
      */
     public function __construct()
     {
@@ -57,6 +56,43 @@ class User
         return $user;
     }
 
+    public function getIdByMail($mail){
+        
+        $statement = $this->connection->prepare('select id_user from "persons" where mail_user = :mail');
+        $statement->bindParam(':mail', $mail);
+        $statement->execute();
+        
+       return $statement->fetchColumn(0);
+
+    }
+
+    public function checkRightById($id)
+    {
+
+        $statement = $this->connection->prepare('select isadmin from "persons" where id_user = :id');
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        return $statement->fetchColumn(0);
+
+    }
+
+    /**
+     * @param \Entity\User $user
+     * @return bool
+     */
+    public function updateRight($isadmin,$id)
+    {
+        $isadminStr =(!$isadmin) ? 'true' : 'false';
+
+
+        $statement = $this->connection->prepare('UPDATE persons SET isadmin = :isadmingiven WHERE id_user = :id');
+        $statement->bindParam(':isadmingiven', $isadminStr);
+        $statement->bindParam(':id', $id);
+
+        $statement->execute();
+    }
+   
+
     /**
      * @param $userId
      * @return null|\Entity\User
@@ -76,6 +112,10 @@ class User
         return $user;
     }
 
+    /**
+     * @param \Entity\User $user
+     * @return bool
+     */
     public function create (\Entity\User $user)
     {
         $userArray = $this->hydrator->extract($user);
@@ -86,7 +126,47 @@ class User
         $statement->bindParam(':promo_user', $userArray['promo_user']);
         $statement->bindParam(':isadmin', $userArray['isadmin']);
         $statement->bindParam(':secret_user', $userArray['secret_user']);
+        return $statement->execute();
+      }
 
-        $statement->execute();
+    /**
+     * @param \Entity\User $user
+     * @return bool
+     */
+    public function updatePassword(\Entity\User $user)
+    {
+        $userArray = $this->hydrator->extract($user);
+        $statement = $this->connection->prepare('UPDATE persons SET secret_user = :secret_user WHERE id_user = :id');
+        $statement->bindParam(':id', $userArray['id']);
+        $statement->bindParam(':secret_user', $userArray['secret_user']);
+
+       return $statement->execute();
+    }
+
+    /**
+     * @param \Entity\User $user
+     * @return bool
+     */
+    public function update(\Entity\User $user){
+        $userArray = $this->hydrator->extract($user);
+
+        $sql = 'UPDATE "persons"
+                SET prenom_user = :prenom_user,
+                    nom_user = :nom_user,
+                    mail_user = :mail_user,
+                    promo_user = :promo_user,
+                    secret_user = :secret_user
+                WHERE id_user = :id';
+        $statement = $this->connection->prepare($sql);
+
+        $statement->bindParam(':prenom_user', $userArray['prenom_user']);
+        $statement->bindParam(':nom_user', $userArray['nom_user']);
+        $statement->bindParam(':mail_user', $userArray['mail_user']);
+        $statement->bindParam(':promo_user', $userArray['promo_user']);
+        $statement->bindParam(':secret_user', $userArray['secret_user']);
+        $statement->bindParam(':id', $userArray['id_user']);
+
+        return  $statement->execute();
+
     }
 }

@@ -1,0 +1,43 @@
+.rest-detail #rest-favorite,
+.rest-detail #rest-unfavorite,
+.rest-detail #rest-score {
+    color: gold;
+}
+
+.rest-detail #rest-name {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.rest-detail #rest-thumb {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.rest-detail #rest-score i,
+.rest-detail #rest-favorite, .rest-detail #rest-unfavorite {
+    font-size: 3em;
+    cursor: pointer;
+}
+
+.rest-detail #rest-badges img {
+    width: 3em;
+    height: 3em;
+}
+
+.separator {
+    border-top: solid 0.2em #e0e0e0;
+    margin-top: 1em;
+    padding-top: 1em;
+}
+
+.left-border {
+    border-left: solid 0.2em #e0e0e0;
+}
+
+.hover-hightlight {
+    background: #00000000;
+}
+.hover-hightlight:hover {
+    background: #0000001f;
+}
