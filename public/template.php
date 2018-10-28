@@ -45,7 +45,7 @@
                         <a href="/form"><i class="fas fa-sign-in-alt"></i>Connexion/Inscription</a>
                     </li>
                     <li>
-                        <a href="/disconnect.php"><i class="fas fa-sign-out-alt"></i>Déconnexion</a>
+                        <a href="/disconnected"><i class="fas fa-sign-out-alt"></i>Déconnexion</a>
                     </li>
                 </ul>
             </nav>

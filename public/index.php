@@ -24,7 +24,7 @@ if (preg_match('/^\/form\/?$/', $uri)) {
 } elseif  (preg_match('/^\/disconnected\/?$/', $uri)) {
     $pagePath = 'disconnected.html';
 }else {
-    $pagePath = '404.html';
+    $pagePath = 'form.html';
 }
 include('template.php');
 ?>

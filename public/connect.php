@@ -4,6 +4,7 @@ require '../vendor/autoload.php';
 header("Access-Control-Allow-Origin: *");
 session_start();
 
+$userRepository = new \Repository\User();
 $userHydrator = new \Hydrator\User();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -23,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
     $userService = new \Service\User();
     $view['errors'] = $userService->verify_connection($userRepository, $mail, $password);
+
     if (count($view['errors']) === 0) {
 
         $user = $userRepository->findOneByMail($mail);
