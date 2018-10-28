@@ -10,4 +10,9 @@ $userHydrator = new \Hydrator\User();
 
 $users = $userRepository->fetchAll();
 
-echo json_encode($users);
+$data = [];
+foreach ($users as $user) {
+    $data[] = $userHydrator->extract($user);
+}
+
+echo json_encode($data);
