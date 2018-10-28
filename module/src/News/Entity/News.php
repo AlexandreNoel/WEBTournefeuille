@@ -104,9 +104,9 @@ class News{
     }
 
     /**
-     * @param \DateTime $dateCreation
+     * @param \DateTime $dateCreation|null
      */
-    public function setDateCreation(\DateTime $dateCreation)
+    public function setDateCreation(?\DateTime $dateCreation)
     {
         $this->dateCreation = $dateCreation;
         return $this;

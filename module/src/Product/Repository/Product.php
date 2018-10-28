@@ -59,7 +59,7 @@ class Product
     public function findDeletedItems() : array
     {
         $product = [];
-        $statement = $this->dbAdapter->prepare('SELECT * FROM produit WHERE estdisponible = 1');
+        $statement = $this->dbAdapter->prepare('SELECT * FROM produit WHERE estdisponible = False');
         $statement->execute();
         foreach ($statement->fetchAll() as $productData) {
             $entity = new \Product\Entity\Product();
@@ -94,7 +94,7 @@ class Product
     public function findByName($libelle)
     {
         $product = null;
-        $statement = $this->dbAdapter->prepare('select * from produit where libelle = :libelle');
+        $statement = $this->dbAdapter->prepare('select * from produit where libelle = :libelle  and espdisponible = True');
         $statement->bindParam(':libelle', $libelle);
         $statement->execute();
         foreach ($statement->fetchAll() as $productData) {
