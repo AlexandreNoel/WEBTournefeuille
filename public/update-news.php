@@ -9,6 +9,10 @@
 require_once __DIR__.'./../vendor/autoload.php';
 session_start();
 
+if(!isset($_SESSION['authenticated_user'])){
+    header('Location: /');
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset(
         $_POST["idannonce"],

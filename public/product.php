@@ -2,8 +2,12 @@
 
     require_once __DIR__.'./../vendor/autoload.php';
 
-    $repoproducts = new \Product\Repository\Product();
+    session_start();
+    if(!isset($_SESSION['authenticated_user'])){
+        header('Location: /');
+    }
 
+    $repoproducts = new \Product\Repository\Product();
 
     if (isset(
         $_POST["id"],
