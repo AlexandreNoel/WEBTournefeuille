@@ -5,14 +5,14 @@ $restaurantRepository = new \Repository\Restaurant();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $id = $_POST['id_resto'];
-    $name = $_POST['nom_resto'];
-    $description = $_POST['descr_resto'];
-    $address = $_POST['addr_resto'];
-    $zipCode = $_POST['cp_resto'];
-    $city = $_POST['city_resto'];
-    $phoneNumber = $_POST['tel_resto'];
-    $website = $_POST['website_resto'];
+    $id = $_POST['id_resto'] ?? null;
+    $name = $_POST['nom_resto'] ?? null;
+    $description = $_POST['descr_resto'] ?? null;
+    $address = $_POST['addr_resto'] ?? null;
+    $zipCode = $_POST['cp_resto'] ?? null;
+    $city = $_POST['city_resto'] ?? null;
+    $phoneNumber = $_POST['tel_resto'] ?? null;
+    $website = $_POST['website_resto'] ?? null;
 
     if ($id) {
         $restaurant = $restaurantRepository->findOneById($id);
@@ -21,13 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $view = [
                 'restaurant' => [
-                    'nom_resto' => $name ?? null,
-                    'descr_resto' => $description ?? null,
-                    'addr_resto' => $address ?? null,
-                    'cp_resto' => $zipCode ?? null,
-                    'city_resto' => $city ?? null,
-                    'tel_resto' => $phoneNumber ?? null,
-                    'website_resto' => $website ?? null
+                    'nom_resto' => $name,
+                    'descr_resto' => $description,
+                    'addr_resto' => $address,
+                    'cp_resto' => $zipCode,
+                    'city_resto' => $city,
+                    'tel_resto' => $phoneNumber,
+                    'website_resto' => $website
                 ],
                 'errors',
             ];
@@ -49,6 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
             }
+            else{
+                http_response_code(400);
+            }
+
+            echo json_encode($view);
         }
     }
 }

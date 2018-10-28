@@ -6,6 +6,7 @@ let filters = {
 };
 
 $(document).ready(() => {
+
     getRestaurants();
 
     $('#score-filter').change(() => {
@@ -27,6 +28,17 @@ $(document).ready(() => {
 });
 
 function getRestaurants() {
+
+    $.ajax({
+        url: 'https://localhost:8080/index_restaurant.php',
+        type: 'POST'
+    }).done(function (res) {
+        res = JSON.parse(res)
+        buildContent(res);
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+
     console.log(filters);
     restaurants = [
         {
@@ -76,22 +88,30 @@ function getRestaurants() {
         }
     ];
 
-    buildContent(restaurants);
+    
 }
 
 function buildContent(restaurants) {
     const listRestos = $('#list-restaurants');
     const templateResto = $('#rest-template');
 
+    var cats = restaurants.cats
+
+    for (i=0;i<cats.length;i++) {
+        $('<option />', { value: cats[i], text: cats[i] }).appendTo($('#category-filter'));
+    }
+
+    
+
     listRestos.empty();
-    listRestos.append(restaurants.map((restoData) => {
+    listRestos.append(restaurants.resto.map((restoData) => {
         let restoDiv = templateResto.clone();
         restoDiv.removeClass('hidden');
 
 
-        restoDiv.find('#rest-link').attr('href', '/restaurants/' + restoData.id);
-        restoDiv.find('#rest-name').text(restoData.name);
-        restoDiv.find('#rest-cat').text(restoData.category);
+        restoDiv.find('#rest-link').attr('href', '/restaurants/' + restoData.id_resto);
+        restoDiv.find('#rest-name').text(restoData.nom_resto);
+        //restoDiv.find('#rest-cat').text(restoData.category);
         restoDiv.find('#rest-thumb').attr('src', restoData.thumbnail);
         if (restoData.favorite === true) {
             restoDiv.find('#rest-favorite').removeClass('hidden');
@@ -114,7 +134,7 @@ function buildContent(restaurants) {
         restoDiv.find('#rest-score').empty();
         restoDiv.find('#rest-score').append(stars);
 
-        let badges = restoData.badges.map((badge) => {
+        /*let badges = restoData.badges.map((badge) => {
             let imageName = '';
             switch (badge) {
                 case 'Bio':
@@ -130,9 +150,9 @@ function buildContent(restaurants) {
             return `<img alt='${badge}'
             title='${badge}'
             src='/assets/images/icons_logo/${imageName}'/>`
-        });
+        });*/
         restoDiv.find('#rest-badges').empty();
-        restoDiv.find('#rest-badges').append(badges);
+        //restoDiv.find('#rest-badges').append(badges);
 
         return restoDiv;
     }));

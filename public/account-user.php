@@ -9,5 +9,5 @@ if (isset($_SESSION['id'])){
     $id_user = $_SESSION['id'];
     $user = $userRepository->findOneById($id_user);
 
-    require_once('view/account-user.php');
+    echo json_encode($user);
 }

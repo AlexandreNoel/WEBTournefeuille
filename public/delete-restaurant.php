@@ -5,9 +5,7 @@ session_start();
 
 $restaurantRepository = new \Repository\Restaurant();
 
-$action = [
-    'success' => false,
-];
+$error = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id_resto'];
@@ -17,8 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $restaurant->setIsDeleted(true);
         $isDeleted = $restaurantRepository->delete($restaurant);
 
-        $data['success'] = $isDeleted;
+        $error = $isDeleted;
+    }else{
+        $error = "not deletd";
+        http_response_code(400);
     }
 }
-
-header('Location: index.php');
+echo json_encode($error);

@@ -149,7 +149,8 @@ class User
      */
     public function update(\Entity\User $user){
         $userArray = $this->hydrator->extract($user);
-        $sql = 'UPDATE persons
+
+        $sql = 'UPDATE "persons"
                 SET prenom_user = :prenom_user,
                     nom_user = :nom_user,
                     mail_user = :mail_user,
@@ -158,13 +159,14 @@ class User
                 WHERE id_user = :id';
         $statement = $this->connection->prepare($sql);
 
-        $statement->bindParam(':nom_user', $userArray['nom_user']);
         $statement->bindParam(':prenom_user', $userArray['prenom_user']);
+        $statement->bindParam(':nom_user', $userArray['nom_user']);
         $statement->bindParam(':mail_user', $userArray['mail_user']);
         $statement->bindParam(':promo_user', $userArray['promo_user']);
         $statement->bindParam(':secret_user', $userArray['secret_user']);
-        $statement->bindParam(':id', $userArray['id']);
+        $statement->bindParam(':id', $userArray['id_user']);
 
-        return $statement->execute();
+        return  $statement->execute();
+
     }
 }

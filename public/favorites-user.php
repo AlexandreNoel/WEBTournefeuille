@@ -7,17 +7,18 @@ $userRepository = new \Repository\User();
 $restoRepository = new \Repository\Restaurant();
 
 $error = [];
+$restos = null;
 
 if (isset($_SESSION['id'])) {
     $id_user = $_SESSION['id'];
 
-    $restos = $restoRepository->findAllFavoritesByUser($id_user);
+    $restoRepository->findAllFavoritesByUser($id_user);
     if($restos) {
         $error['add-favorite-restaurant'] = "cant find favorites";
+
+        http_response_code(400);
     }
-} else {
-    $error = "not connected";
 }
 
-require_once('view/favorites-resto.php');
+echo json_encode($restos);
 

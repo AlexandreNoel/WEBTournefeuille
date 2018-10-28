@@ -9,22 +9,23 @@ $userHydrator = new \Hydrator\User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $firstname = $_POST['prenom_user'];
-    $lastname = $_POST['nom_user'];
+    $firstname = $_POST['prenom_user'] ?? null;
+    $lastname = $_POST['nom_user'] ?? null;
     $isadmin =false;
-    $promo = $_POST['promo_user'];
-    $mail = $_POST['mail_user'];
-    $password = $_POST['secret_user'];
-
+    $promo = $_POST['promo_user'] ?? null;
+    $mail = $_POST['mail_user'] ?? null;
+    $password = $_POST['secret_user'] ?? null;
+    $confirm_password = $_POST['confir_secret_user'] ?? null;
 
     $view = [
         'user' => [
-            'prenom_user' => $firstname ?? null,
-            'nom_user' => $lastname ?? null,
-            'isadmin' => $isadmin ?? null,
-            'promo_user' => $promo ?? null,
-            'mail_user' => $mail ?? null,
-            'secret_user' => $password ?? null,
+            'prenom_user' => $firstname,
+            'nom_user' => $lastname ,
+            'isadmin' => $isadmin,
+            'promo_user' => $promo,
+            'mail_user' => $mail,
+            'secret_user' => $password,
+            'confirm_secret_user' => $confirm_password,
         ],
         'errors',
     ];
@@ -57,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['isadmin'] = boolval($isadmin);
         }
 
-        header('Location: index.php');
-
     }else{
-        require_once('view/register.php');
+        http_response_code(400);
     }
+
+    echo json_encode($view);
 }
