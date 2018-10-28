@@ -57,7 +57,7 @@ function buildContent(user) {
     $('#promo_user').val(user.promo_user);
     $('#mail_user').val(user.mail_user);
     checkInputs();
-});
+}
 
 function checkInputs(name = null) {
     let allOK = true;
