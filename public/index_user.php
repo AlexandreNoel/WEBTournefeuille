@@ -1,7 +1,8 @@
 <?php
 
-session_start();
 require '../vendor/autoload.php';
+header("Access-Control-Allow-Origin: *");
+session_start();
 
 
 $userRepository = new \Repository\User();

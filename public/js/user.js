@@ -2,7 +2,7 @@ function updateUser() {
     //get data from the form
     $.ajax({
         url: 'https://localhost:8080/update-user.php',
-        type: 'POST',
+        type: 'PUT',
         data: {
             nom_user: $('#nom_user').val(),
             prenom_user: $('#prenom_user').val(),

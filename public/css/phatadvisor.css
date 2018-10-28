@@ -51,3 +51,14 @@ a, a:hover, a:visited {
     color: #ff9800;
     background: #ff9800;
 }
+
+#label-form{
+    color: #F45B69;
+}
+
+btn-form{
+    font-weight: bold;
+    font-size: 20px;
+    vertical-align: center;
+    height: auto;
+}

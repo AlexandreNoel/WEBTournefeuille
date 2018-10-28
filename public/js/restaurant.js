@@ -22,7 +22,7 @@ function getRestaurant() {
 
     $.ajax({
         url: 'https://localhost:8080/description-restaurant.php',
-        type: 'POST',
+        type: 'GET',
         data: { id_resto: restaurantId }
     }).done(function (res) {
         console.log(res);
