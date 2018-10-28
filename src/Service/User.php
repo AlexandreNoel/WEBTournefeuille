@@ -6,8 +6,6 @@ use \Service\DataCheck;
 
 class User
 {
-
-
     /**
      * @param \Repository\User $userRepository
      * @param array
@@ -32,7 +30,7 @@ class User
             $error['mail_user_exist'] = 'user already exist';
         }
 
-        if ($confirm_password != $password){
+        if ($confirm_password !== $password){
             $error['confirm_secret_user'] = 'Password does not match the confirm password.';
         }
 
@@ -71,6 +69,29 @@ class User
         }
 
         return  $error;
+    }
+
+    /**
+     * @param $userRepository
+     * @param $data
+     * @return array
+     */
+    function verify_update($userRepository, $data){
+        $error = $this->verify_registration($userRepository, $data);
+
+        $idUser = $data['id_user'];
+        $password = $data['old_password'];
+
+        $userEntity = $userRepository->findOneById($idUser);
+        if(!$userEntity){
+            $error['user_not_exist'] = 'user not exist';
+        } else {
+            $error['password_not_match'] = DataCheck::verify($password, !password_verify($password, $userEntity->getPassword()), 'old password incorrect', 'secret_user', 4, 100);
+        }
+        //remove error mail_user_exist
+        unset($error['mail_user_exist']);
+
+        return$error;
     }
 
 }
