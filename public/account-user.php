@@ -4,15 +4,18 @@ header("Access-Control-Allow-Origin: *");
 session_start();
 
 $userRepository = new \Repository\User();
+$userHydrator = new \Hydrator\User();
+$data = [];
 
-$user = "null";
-
-if ($_SERVER['REQUEST_METHOD'] !== 'GET'/* || !isset($_SESSION['id'])*/) {
-    $id_user = $_SESSION['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET'/* || !isset($_SESSION['id'])*/) {
+    $id_user = $_GET['id_user'] ?? null;
     $user = $userRepository->findOneById($id_user);
+
+    $data = $userHydrator->extract($user);
+
 } else {
-    $user = "get error";
+    $data = "get error";
     http_response_code(400);
 }
 
-echo json_encode($user);
+echo json_encode($data);

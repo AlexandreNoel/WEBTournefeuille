@@ -1,70 +1,37 @@
 $(document).ready(() => {
     getUsers();
-    $('#users-list tbody tr').click(() => {
+
+    $('#users-list tbody').click(() => {
         window.location = event.target.parentElement.getAttribute('href');
     });
 });
-let users = [];
 
 function getUsers() {
-    users = [
-        {
-            id: 1,
-            firstName: 'Axel',
-            lastName: 'Morvan',
-            email: 'axel.morvan@ensiie.fr',
-            promo: 2020,
-            admin: false,
-        },
-        {
-            id: 2,
-            firstName: 'Axel',
-            lastName: 'Morvan',
-            email: 'axel.morvan@ensiie.fr',
-            promo: 2019,
-            admin: false,
-        },
-        {
-            id: 3,
-            firstName: 'Axel',
-            lastName: 'Morvan',
-            email: 'axel.morvan@ensiie.fr',
-            promo: 2020,
-            admin: true,
-        },
-        {
-            id: 4,
-            firstName: 'Axel',
-            lastName: 'Morvan',
-            email: 'axel.morvan@ensiie.fr',
-            promo: 2020,
-            admin: false,
-        },
-        {
-            id: 5,
-            firstName: 'Axel',
-            lastName: 'Morvan',
-            email: 'axel.morvan@ensiie.fr',
-            promo: 2020,
-            admin: true,
-        },
-    ];
 
-    buildContent();
+    $.ajax({
+        url: 'https://localhost:8080/index_user.php',
+        type: 'GET'
+    }).done(function (users) {
+        users = JSON.parse(users)
+        buildContent(users);
+    }).fail(function (error) {
+        alert("Erreur");
+    });
 }
 
-function buildContent() {
-    $('#users-list tbody').append(users.map((user) => {
+function buildContent(users) {
+    $('#users-list tbody').append(users.map((userData) => {
         const adminCheck = '<td><i class="fas fa-check text-success"></i></td>';
         const adminUncheck = '<td><i class="fas fa-times text-danger"></i></td>';
+
         return `
-            <tr href="/users/${user.id}">
-            <td>${user.id}</th>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.email}</td>
-            <td>${user.promo}</td>
-            ${user.admin ? adminCheck : adminUncheck}
+            <tr href="/users/${userData.id_user}">
+            <td>${userData.id_user}</th>
+            <td>${userData.prenom_user}</td>
+            <td>${userData.nom_user}</td>
+            <td>${userData.mail_user}</td>
+            <td>${userData.promo_user}</td>
+            ${userData.isadmin == 'TRUE' ? adminCheck : adminUncheck}
             </tr>
         `;
     }));
