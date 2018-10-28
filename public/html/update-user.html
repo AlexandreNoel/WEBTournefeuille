@@ -1,74 +1,67 @@
-<div class="form-horizontal">
+<div class="form-horizontal col-md-6 col-md-offset-3">
     <fieldset>
 
-        <!-- Form Name -->
         <legend>Informations Personnelles</legend>
 
-        <!-- Text input-->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="nom_user">NOM</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <input id="nom_user" name="nom_user" placeholder="Nom" class="form-control input-md" required="" type="text">
-
             </div>
         </div>
 
-        <!-- Text input-->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="prenom_user">PRENOM</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <input id="prenom_user" name="prenom_user" placeholder="Prenom" class="form-control input-md" required="" type="text">
-
             </div>
         </div>
 
-        <!-- Text input-->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="promo_user">PROMO</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <input id="promo_user" name="promo_user" placeholder="Promotion" class="form-control input-md" required="" type="text">
-
             </div>
         </div>
 
-        <!-- Text input-->
         <div class="form-group">
             <label id="label-form" class="col-md-4 control-label" for="mail_user">MAIL</label>
-            <div class="col-md-4">
-                <input id="mail_user" name="mail_user" placeholder="phat_advisor@gmail.com" class="form-control input-md" required="" type="text">
+            <div class="col-md-8">
+                <input id="mail_user" name="mail_user" placeholder="phat_advisor@gmail.com" class="form-control input-md" required="" type="email">
             </div>
         </div>
 
-        <!-- Text input-->
+        <div class="separator-thin"></div> 
+
         <div class="form-group">
-            <label id="label-form" class="col-md-4 control-label" for="secret_user">MOT DE PASSE</label>
-            <div class="col-md-4">
-                <input id="secret_user" name="secret_user" placeholder="Mot de passe" class="form-control input-md" required="" type="password">
+            <label id="label-form" class="col-md-4 control-label" for="secret_user_old">ANCIEN MOT DE PASSE</label>
+            <div class="col-md-8">
+                <input id="secret_user_old" name="secret_user_old" placeholder="Mot de passe" class="form-control input-md" required="" type="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label id="label-form" class="col-md-4 control-label" for="secret_user_new">NOUVEAU MOT DE PASSE</label>
+            <div class="col-md-8">
+                <input id="secret_user_new" name="secret_user_new" placeholder="Mot de passe" class="form-control input-md" required="" type="password">
+            </div>
+            <small class="form-text text-muted col-md-offset-4 col-md-8">
+                Au moins 8 charactères avec majuscules, minuscules, chiffres et caractères spéciaux.
+            </small>
+        </div>
+        <div class="form-group">
+            <label id="label-form" class="col-md-4 control-label" for="secret_user_new2">CONFIRMATION</label>
+            <div class="col-md-8">
+                <input id="secret_user_new2" name="secret_user_new2" placeholder="Mot de passe" class="form-control input-md" required="" type="password">
             </div>
         </div>
 
-        <!-- Text input-->
         <div class="form-group">
-            <label id="label-form" class="col-md-4 control-label" for="secret_user">MOT DE PASSE</label>
-            <div class="col-md-4">
-                <input id="confirm_secret_user" name="confirm_secret_user" placeholder="Confirmation du Mot de passe" class="form-control input-md" required="" type="password">
-            </div>
-        </div>
-
-        <!-- Button -->
-        <div class="form-group">
-            <div class="text-center">
-                <div class="col-md-12">
-                    <div class="btn-group">
-                        <div class="col-md-4">
-                            <button onclick="updateUser()" name="validate" class="btn btn-login">ENREGISTRER</button>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <div class="col-md-4">
-                            <button name="cancel" class="btn btn-login">ANNULER</button>
-                        </div>
-                    </div>
+            <div class="col-md-offset-4 col-md-8">
+                <div class="btn-group">
+                    <button name="validate" class="btn btn-login">ENREGISTRER</button>
+                </div>
+                <div class="btn-group pull-right">
+                    <button name="cancel" class="btn btn-login">ANNULER</button>
                 </div>
             </div>
         </div>

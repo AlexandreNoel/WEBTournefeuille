@@ -25,12 +25,6 @@
     height: 3em;
 }
 
-.separator {
-    border-top: solid 0.2em #e0e0e0;
-    margin-top: 1em;
-    padding-top: 1em;
-}
-
 .left-border {
     border-left: solid 0.2em #e0e0e0;
 }
