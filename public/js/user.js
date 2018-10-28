@@ -1,3 +1,32 @@
+$(document).ready(() => {
+    getUser();
+});
+
+function getUser() {
+    const id = window.location.pathname.split(/[/]+/).pop();
+
+    $.ajax({
+        url: 'https://localhost:8080/account-user.php',
+        type: 'GET',
+        data: {
+            id_user: id,
+        }
+
+    }).done(function (user) {
+        user = JSON.parse(user)
+        buildContent(user);
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
+function buildContent(user) {
+    $('#nom_user').val(user.nom_user);
+    $('#prenom_user').val(user.prenom_user);
+    $('#promo_user').val(user.promo_user);
+    $('#mail_user').val(user.mail_user);
+}
+
 function updateUser() {
     //get data from the form
     $.ajax({
