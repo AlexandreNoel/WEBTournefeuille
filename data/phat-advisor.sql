@@ -50,7 +50,8 @@ CREATE TABLE public.Comments(
 	Text_comment      VARCHAR (500) NOT NULL ,
 	Date_comment      DATE  NOT NULL ,
 	Id_User_Persons   INT  NOT NULL ,
-	Id_Resto_Restos   INT  NOT NULL
+	Id_Resto_Restos   INT  NOT NULL ,
+	Note_Resto INT NOT NULL
 	,CONSTRAINT Comments_PK PRIMARY KEY (id_Comment)
 	,CONSTRAINT Comments_Persons_FK FOREIGN KEY (Id_User_Persons) REFERENCES public.Persons(Id_User)
 	,CONSTRAINT Comments_Restos_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
@@ -93,6 +94,17 @@ CREATE TABLE public.Cat_Resto(
 	,CONSTRAINT UC_Cat_Resto UNIQUE (Id_Resto,id_Cat)
 )WITHOUT OIDS;
 
+------------------------------------------------------------
+-- Table: Score
+------------------------------------------------------------
+CREATE TABLE public.Score(
+	id_Score          SERIAL NOT NULL ,
+	Id_Resto_Restos   INT  NOT NULL  ,
+	Score             INT  NOT NULL ,
+	CONSTRAINT Score_PK PRIMARY KEY (id_Score)
+	,CONSTRAINT Score_Restos_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
+	,CONSTRAINT Score_Restos_AK UNIQUE (Id_Resto_Restos)
+)WITHOUT OIDS;
 
 ---------------------------
 -- Insertion des données
