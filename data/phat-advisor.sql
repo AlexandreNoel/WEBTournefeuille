@@ -18,7 +18,8 @@ CREATE TABLE public.Persons(
 	Promo_User    INT  NOT NULL ,
 	isAdmin       BOOL  NOT NULL ,
 	Secret_User   VARCHAR (100) NOT NULL  ,
-	CONSTRAINT Persons_PK PRIMARY KEY (Id_User)
+	CONSTRAINT Persons_PK PRIMARY KEY (Id_User),
+	CONSTRAINT UC_Persons UNIQUE (mail_User)
 )WITHOUT OIDS;
 
 
@@ -49,9 +50,8 @@ CREATE TABLE public.Comments(
 	Text_comment      VARCHAR (500) NOT NULL ,
 	Date_comment      DATE  NOT NULL ,
 	Id_User_Persons   INT  NOT NULL ,
-	Id_Resto_Restos   INT  NOT NULL  ,
-	CONSTRAINT Comments_PK PRIMARY KEY (id_Comment)
-
+	Id_Resto_Restos   INT  NOT NULL
+	,CONSTRAINT Comments_PK PRIMARY KEY (id_Comment)
 	,CONSTRAINT Comments_Persons_FK FOREIGN KEY (Id_User_Persons) REFERENCES public.Persons(Id_User)
 	,CONSTRAINT Comments_Restos_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
 )WITHOUT OIDS;
@@ -63,11 +63,11 @@ CREATE TABLE public.Comments(
 CREATE TABLE public.Favoris(
 	id_Fav            SERIAL NOT NULL ,
 	Id_User_Persons   INT  NOT NULL ,
-	Id_Resto_Restos   INT  NOT NULL  ,
-	CONSTRAINT Favoris_PK PRIMARY KEY (id_Fav)
-
+	Id_Resto_Restos   INT  NOT NULL
+	,CONSTRAINT Favoris_PK PRIMARY KEY (id_Fav)
 	,CONSTRAINT Favoris_Persons_FK FOREIGN KEY (Id_User_Persons) REFERENCES public.Persons(Id_User)
 	,CONSTRAINT Favoris_Restos_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
+	,CONSTRAINT UC_Favoris UNIQUE (Id_User_Persons,Id_Resto_Restos)
 )WITHOUT OIDS;
 
 
@@ -88,9 +88,9 @@ CREATE TABLE public.Cat_Resto(
 	Id_Resto   INT  NOT NULL ,
 	id_Cat     INT  NOT NULL ,
 	CONSTRAINT Cat_Resto_PK PRIMARY KEY (id_Cat,Id_Resto)
-
 	,CONSTRAINT Cat_Resto_Categories_FK FOREIGN KEY (id_Cat) REFERENCES public.Categories(id_Cat)
 	,CONSTRAINT Cat_Resto_Restos_FK FOREIGN KEY (Id_Resto) REFERENCES public.Restos(Id_Resto)
+	,CONSTRAINT UC_Cat_Resto UNIQUE (Id_Resto,id_Cat)
 )WITHOUT OIDS;
 
 
