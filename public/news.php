@@ -14,8 +14,6 @@
     }
     $repositorynews = new \News\Repository\News();
     $repositoryclients = new \Client\Repository\Client();
-
-    var_dump($_SESSION);
     $news = $repositorynews->findAll();
     $auteurlist = array();
 
