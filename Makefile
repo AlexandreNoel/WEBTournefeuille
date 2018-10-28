@@ -16,7 +16,7 @@ start:
 	docker-compose up --build -d
 	sleep 3
 
-stop: db.save
+stop:
 	docker-compose down -v
 	docker-compose rm -v
 
