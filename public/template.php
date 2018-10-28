@@ -49,9 +49,9 @@
                     </li>
                 </ul>
             </nav>
-
-            <div class="container">
-                <?php include('./html/'.$pagePath);?>
-            </div>
+        </div>
+        <div class="container">
+            <?php include('./html/'.$pagePath);?>
+        </div>
     </body>
 </html>
