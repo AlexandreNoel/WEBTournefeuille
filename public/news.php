@@ -8,9 +8,12 @@
 
     require_once __DIR__.'./../vendor/autoload.php';
     session_start();
+
+    if(!isset($_SESSION['authenticated_user'])){
+        header('Location: /');
+    }
     $repositorynews = new \News\Repository\News();
     $repositoryclients = new \Client\Repository\Client();
-
     $news = $repositorynews->findAll();
     $auteurlist = array();
 
