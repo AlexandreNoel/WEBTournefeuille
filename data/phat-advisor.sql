@@ -18,7 +18,8 @@ CREATE TABLE public.Persons(
 	Promo_User    INT  NOT NULL ,
 	isAdmin       BOOL  NOT NULL ,
 	Secret_User   VARCHAR (100) NOT NULL  ,
-	CONSTRAINT Persons_PK PRIMARY KEY (Id_User)
+	CONSTRAINT Persons_PK PRIMARY KEY (Id_User),
+	CONSTRAINT UC_Persons UNIQUE (mail_User)
 )WITHOUT OIDS;
 
 
