@@ -14,7 +14,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="/js/sidebar.js"></script>
     </head>
-    <body>
+    <body class="container-background">
         <div id="header" class="row">
             <div class="col-xs-1">
                 <button type="button" class="hamburger" data-toggle="offcanvas">
