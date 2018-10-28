@@ -104,6 +104,16 @@ class Product
         return $product;
     }
 
+    public function modifyStock($id, $stock)
+    {
+        $statement = $this->dbAdapter->prepare('UPDATE produit SET quantitestock=quantitestock + :stock WHERE idproduit=:id');
+        $statement->bindParam(":stock", $stock);
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        return $this->findById($id)->getQuantity();
+    }
+
+
     public function update(\Product\Entity\Product $product)
     {
         $productArray = $this->hydrator->extract($product);

@@ -101,6 +101,7 @@
                         <th>Prix</th>
                         <th>Reduction</th>
                         <th>Stock</th>
+                        <th>Quick modify</th>
                         <th>Modify</th>
                         <th>Delete</th>
                     </tr>
@@ -108,11 +109,16 @@
                 <tbody>
                 <?php foreach($values as $product): ?>
                     <?php if (!is_null($product)):?>
-                        <tr>
+                        <tr id="tr-<?php echo $product->getId() ?>">
                             <td><?php echo $product->getName()?></td>
                             <td><?php echo $product->getPrice()?></td>
                             <td><?php echo $product->getReduction()?></td>
-                            <td><?php echo $product->getQuantity()?></td>
+                            <td id="stock"><?php echo $product->getQuantity()?></td>
+                            <td>
+                                <button class="quick-edit-buton" onclick="updateStock(<?php echo $product->getId()?>)">
+                                    <img class="icon" src="assets/images/quantity.png"
+                                </button>
+                            </td>
                             <td>
                                 <button class="edit-button" onclick="updateProduct(<?php echo "'" . $product->getName() . "'," .
                                                                                             $product->getPrice() . "," .
@@ -166,6 +172,23 @@
             $('table.display').DataTable();
         } );
     });
+
+    function updateStock(id) {
+        var ajout = parseInt(prompt("Quantité à ajouter"));
+
+        if (!isNaN(ajout)){
+            $.ajax({
+                url : 'stock-product.php',
+                type : 'post',
+                data : 'quantitestock=' + ajout + '&idproduit=' + id,
+                success : function (results) {
+                    if (!isNaN(results)){
+                        $("#tr-".concat(id)).find("#stock").html(results);
+                    }
+                }
+            });
+        }
+    }
 
     function updateProduct(libelle, price, reduction, quantitestock, id, categorie) {
         $("#add-button").css("display","none"),
