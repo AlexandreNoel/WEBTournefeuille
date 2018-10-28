@@ -3,13 +3,13 @@ $(document).ready(() => {
 });
 
 function getUser() {
-    const id = window.location.pathname.split(/[/]+/).pop();
+    const userId = window.location.pathname.match(/users\/([0-9]+)/)[1];
 
     $.ajax({
         url: 'https://localhost:8080/account-user.php',
         type: 'GET',
         data: {
-            id_user: id,
+            id_user: userId,
         }
 
     }).done(function (user) {
@@ -28,16 +28,20 @@ function buildContent(user) {
 }
 
 function updateUser() {
+    const userId = window.location.pathname.match(/users\/([0-9]+)/)[1];
+
     //get data from the form
     $.ajax({
         url: 'https://localhost:8080/update-user.php',
         type: 'PUT',
         data: {
+            id_user: userId,
             nom_user: $('#nom_user').val(),
             prenom_user: $('#prenom_user').val(),
             promo_user: $('#promo_user').val(),
             mail_user: $('#mail_user').val(),
             secret_user: $('#secret_user').val(),
+            confirm_secret_user: $('#confirm_secret_user').val(),
         }
     }).done(function () {
         window.location = '/restaurants';

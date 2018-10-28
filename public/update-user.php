@@ -9,12 +9,15 @@ $userRepository = new \Repository\User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
-    $id = $_SESSION['id'] ?? null;
-    $firstname = $_POST['prenom_user'] ?? null;
-    $lastname = $_POST['nom_user'] ?? null;
-    $promo = $_POST['promo_user'] ?? null;
-    $mail = $_POST['mail_user'] ?? null;
-    $password = $_POST['secret_user'] ?? null;
+    parse_str(file_get_contents("php://input"),$post_vars);
+
+    $id = $post_vars['id_user'] ?? null;
+    $firstname = $post_vars['prenom_user'] ?? null;
+    $lastname = $post_vars['nom_user'] ?? null;
+    $promo = $post_vars['promo_user'] ?? null;
+    $mail = $post_vars['mail_user'] ?? null;
+    $password = $post_vars['secret_user'] ?? null;
+    $confirm_password = $post_vars['secret_user'] ?? null;
 
     if ($id) {
         $user = $userRepository->findOneById($id);
@@ -28,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
                     'promo_user' => $promo ,
                     'mail_user' => $mail ,
                     'secret_user' => $password ,
+                    'confirm_secret_user' => $password ,
                 ],
                 'errors',
             ];
@@ -47,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
                 if (! $userRepository->update($user)){
                     $view['errors']['database'] = 'Error when updating new user';
+                    http_response_code(400);
                 }
 
             } else{
