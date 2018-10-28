@@ -6,16 +6,19 @@ session_start();
 
 $restaurantRepository = new \Repository\Restaurant();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
-    $id = $_POST['id_resto'] ?? null;
-    $name = $_POST['nom_resto'] ?? null;
-    $description = $_POST['descr_resto'] ?? null;
-    $address = $_POST['addr_resto'] ?? null;
-    $zipCode = $_POST['cp_resto'] ?? null;
-    $city = $_POST['city_resto'] ?? null;
-    $phoneNumber = $_POST['tel_resto'] ?? null;
-    $website = $_POST['website_resto'] ?? null;
+    parse_str(file_get_contents("php://input"),$post_vars);
+
+    $id = $post_vars['id_resto'] ?? null;
+    $name = $post_vars['nom_resto'] ?? null;
+    $description = $post_vars['descr_resto'] ?? null;
+    $address = $post_vars['addr_resto'] ?? null;
+    $zipCode = $post_vars['cp_resto'] ?? null;
+    $city = $post_vars['city_resto'] ?? null;
+    $phoneNumber = $post_vars['tel_resto'] ?? null;
+    $website = $post_vars['website_resto'] ?? null;
+    $thumbnail = $post_vars['thumbnail'] ?? null;
 
     if ($id) {
         $restaurant = $restaurantRepository->findOneById($id);
@@ -30,25 +33,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'cp_resto' => $zipCode,
                     'city_resto' => $city,
                     'tel_resto' => $phoneNumber,
-                    'website_resto' => $website
+                    'website_resto' => $website,
+                    'thumbnail' => $thumbnail
                 ],
                 'errors',
             ];
-
             $restaurantService = new \Service\Restaurant();
             $view['errors'] = $restaurantService->verify_registration($restaurantRepository, $view['restaurant']);
 
-            if (count($view['errors']) === 0) {
+            //remove error mail_user_exist
+            unset($view['errors']['nom_resto_exist']);
+
+            if (count(array_filter($view['errors'])) === 0) {
                 $restaurant->setName($name)
                     ->setDescription($description)
                     ->setAddress($address)
                     ->setZipCode($zipCode)
                     ->setCity($city)
                     ->setPhoneNumber($phoneNumber)
-                    ->setUrl($website);
+                    ->setUrl($website)
+                    ->setThumbnail($thumbnail);
 
                 if (! $restaurantRepository->update($restaurant)){
                     $view['errors']['database'] = 'Error when updating new restaurant';
+                    http_response_code(400);
                 }
 
             }
