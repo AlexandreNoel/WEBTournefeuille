@@ -51,6 +51,13 @@ CREATE TABLE Produit(
     idCategorie INTEGER NOT NULL REFERENCES Categorie (idCategorie)
 );
 
+CREATE TABLE PreferenceUtilisateur(
+    idUtilisateur SERIAL NOT NULL REFERENCES Utilisateur (idUtilisateur),
+    idProduit SERIAL NOT NULL REFERENCES Produit (idProduit),
+    indicePreference INTEGER NOT NULL,
+    PRIMARY KEY (idUtilisateur,idProduit)
+)
+
 CREATE TABLE FaitPartieCommande(
     idProduit SERIAL NOT NULL REFERENCES Produit (idProduit),
     idCommande SERIAL NOT NULL REFERENCES Commande (idCommande),
@@ -115,6 +122,9 @@ INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategor
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Cafe Fort',0.40,0,20,TRUE,4);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Cafe leger',0.40,0,20,TRUE,4);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Thé',0.40,0,20,TRUE,4);
+
+-- Table PreferenceUtilisateur
+INSERT INTO PreferenceUtilisateur (idUtilisateur,idProduit,indicePreference) VALUES (1,1,1);
 
 -- Table Annonce
 INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
