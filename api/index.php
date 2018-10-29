@@ -45,12 +45,12 @@ switch($httpMethod){
 
     case 'GET':
         if ($entityId !== null){
-            // GET     Récuperation un Element     /api/v1/contact/{id}
+            // GET Récuperation un Element     /api/v1/entity/{id}
             $methodName="findOneById";
             $resultData = $entityHydrator->extract($entityRepository->$methodName($entityId));
         }
         else{
-        // GET     Récupération Collection     /api/v1/contact
+        // GET  Récupération Collection     /api/v1/entity
             $methodName="fetchAll";
             $datas=$entityRepository->$methodName();
             $resultData=[];
@@ -60,14 +60,23 @@ switch($httpMethod){
         }
         break;
     case 'POST':
-        // POST     Creation d’Elements     /api/v1/contact
+        // POST     Creation d’Elements     /api/v1/entity
         break;
     case 'PUT':
-        // PUT     Modifier un Element     /api/v1/contact/{id}
+        // PUT     Modifier un Element     /api/v1/entity/{id}
         break;
     case "DELETE":
-        // DELETE     Effacer Element     /api/v1/contact/{id}
-        break;
+        // DELETE     Effacer Element     /api/v1/entity/{id}
+        if ($entityId !== null) {
+            $entityToDel = $entityRepository->findOneById($entityId);
+            $entityToDel->setIsDeleted(true);
+            $isDeleted = $entityRepository->delete($entityToDel);
+            $resultData = "deleted";
+        }else{
+            $resultData = "not deletd";
+            http_response_code(400);
+        }
+    break;
     default:
         echo json_encode(array("message"=>"Invalid HTTP VERB SPECIFIED"));
         exit;

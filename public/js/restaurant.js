@@ -4,9 +4,9 @@ $(document).ready(() => {
 
     $('#delete').click(() => {
         $.ajax({
-            url: 'https://localhost:8080/delete-restaurant.php',
-            type: 'DELETE',
-            data: { id_resto: restaurantId }
+            url: 'https://localhost:8080/api/restaurant/'+restaurantId,
+            type: 'DELETE'/*,
+            data: { id_restaurant: restaurantId }*/
         }).done(function (res) {
             window.location = "/restaurants";
         }).fail(function (error) {
