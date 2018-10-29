@@ -40,6 +40,11 @@ switch ($url) {
     case '/transaction':
         require __DIR__ . '/transaction.php';
         break;
+    
+    /* CONSOLE */
+    case '/catalogue':
+        require __DIR__ . '/catalogue.php';
+        break;
 
     /* AUTRES CAS NON GERE */
     default:

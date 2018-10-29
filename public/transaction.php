@@ -16,7 +16,13 @@ else {
     $nickname = $user->getNickname();
 
     $repositorytransac = new \Transaction\Repository\Transaction();
-
+    $repositorytclient = new \Client\Repository\Client();
+    $allusers=$repositorytclient->fetchAllUsers();
+    $nicknameforid=[];
+    #association de tous les userId à leur nickname
+    foreach ($allusers as $user){
+        $nicknameforid[$user->getId()]=$user->getNickname();
+    }
     $transactions = $repositorytransac->findByCriteria("idutilisateur", $id);
 
 
