@@ -41,7 +41,7 @@ class Transaction
         return $emptyEntity
             ->setId($data['idcommande'] ?? null)
             ->setDate($data['datecommande'] ? new \DateTime($data['datecommande']) : null)
-            ->setPrice($data['prixtotal'] ?? null)
+            ->setPrice($data['prixtotal'] ?? 1)
             ->setIdBarmen($data['idbarmen'] ?? null)
             ->setIdClient($data['idutilisateur'] ?? null)
             ->setProduct($data['products'] ?? null);

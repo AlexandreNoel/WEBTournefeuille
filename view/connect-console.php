@@ -49,21 +49,6 @@
             </div>
             <input class="mt-5" type="submit" value="Allez log toi, on est bien !">
 
-            <!-- <?php if ($view['errors']['login']): ?>
-                <p>
-                    <?php echo $view['errors']['login'] ?>
-                </p>
-            <?php endif; ?> -->
-            <!-- <?php if ($view['errors']['password']): ?>
-                <p>
-                    <?php echo $view['errors']['password'] ?>
-                </p>
-            <?php endif; ?> -->
-            <!-- <?php if ($view['errors']['login-password']): ?>
-                <p>
-                    <?php echo $view['errors']['login-password'] ?>
-                </p>
-            <?php endif; ?> -->
         </form>
     </div>
 </div>
