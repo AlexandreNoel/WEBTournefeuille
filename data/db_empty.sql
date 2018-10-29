@@ -34,7 +34,7 @@ CREATE TABLE Commande(
     idUtilisateur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
     idBarmen INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
     prixTotal FLOAT NOT NULL
-);
+);  
 
 CREATE TABLE Categorie(
     idCategorie SERIAL PRIMARY KEY,
