@@ -51,6 +51,13 @@ CREATE TABLE Produit(
     idCategorie INTEGER NOT NULL REFERENCES Categorie (idCategorie)
 );
 
+CREATE TABLE PreferenceUtilisateur(
+    idUtilisateur SERIAL NOT NULL REFERENCES Utilisateur (idUtilisateur),
+    idProduit SERIAL NOT NULL REFERENCES Produit (idProduit),
+    indicePreference INTEGER NOT NULL,
+    PRIMARY KEY (idUtilisateur,idProduit)
+)
+
 CREATE TABLE FaitPartieCommande(
     idProduit SERIAL NOT NULL REFERENCES Produit (idProduit),
     idCommande SERIAL NOT NULL REFERENCES Commande (idCommande),
