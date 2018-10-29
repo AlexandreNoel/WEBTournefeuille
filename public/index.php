@@ -36,6 +36,10 @@ switch ($url) {
     case '/services':
         require __DIR__ . '/services.php';
         break;
+    /* CONSOLE */
+    case '/transaction':
+        require __DIR__ . '/transaction.php';
+        break;
 
     /* AUTRES CAS NON GERE */
     default:

@@ -8,6 +8,11 @@
 require_once __DIR__.'./../vendor/autoload.php';
 session_start();
 
+if(!isset($_SESSION['authenticated_user'])){
+    header('Location: /');
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST["libelle"],
         $_POST["prix"],
@@ -16,7 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_POST["idcategorie"])){
         $hydrator = new \Product\Hydrator\Product();
         $repoproducts = new \Product\Repository\Product();
-        $repoproducts->create($hydrator->hydrate($_POST, new \Product\Entity\Product()));
+        $entity =$hydrator->hydrate($_POST, new \Product\Entity\Product());
+        $repoproducts->create($entity);
     }
 } else {
     throw new \HttpInvalidParamException('Method not allowed', 405);

@@ -10,7 +10,7 @@
 
 <div class="content-container">
     <div id="form-div">
-        <form id="form-product" class="form-product" action="add-product.php" method="post">
+        <form id="form-ajout" class="form-ajout" action="add-product.php" method="post">
             <div>
                 <label>Product Name</label>
                 <input
@@ -60,7 +60,7 @@
             >
             <div>
                 <label>Catégorie</label>
-                <select name="idcategorie">
+                <select name="idcategorie" id="idcategorie">
                 <?php foreach($categories as $categorie):?>
                     <option value=<?php echo $categorie["idcategorie"] ?>>
                         <?php echo $categorie["libelle"] ?>
@@ -75,7 +75,7 @@
     <div id="add">
           <button id="add-button">Ajout nouveau produit</button>
     </div>
-    <div id="products-tables">
+    <div id="tables">
     <?php foreach ($productslist as $category => $values):?>
             <div id="single-table">
             <label id="table-tile"><?php echo $category ?></label>
@@ -86,6 +86,7 @@
                         <th>Prix</th>
                         <th>Reduction</th>
                         <th>Stock</th>
+                        <th>Quick modify</th>
                         <th>Modify</th>
                         <th>Delete</th>
                     </tr>
@@ -93,11 +94,16 @@
                 <tbody>
                 <?php foreach($values as $product): ?>
                     <?php if (!is_null($product)):?>
-                        <tr>
+                        <tr id="tr-<?php echo $product->getId() ?>">
                             <td><?php echo $product->getName()?></td>
                             <td><?php echo $product->getPrice()?></td>
                             <td><?php echo $product->getReduction()?></td>
-                            <td><?php echo $product->getQuantity()?></td>
+                            <td id="stock"><?php echo $product->getQuantity()?></td>
+                            <td>
+                                <button class="quick-edit-buton" onclick="updateStock(<?php echo $product->getId()?>)">
+                                    <img class="icon" src="assets/images/quantity.png"
+                                </button>
+                            </td>
                             <td>
                                 <button class="edit-button" onclick="updateProduct(<?php echo "'" . $product->getName() . "'," .
                                                                                             $product->getPrice() . "," .
@@ -130,21 +136,21 @@
     $(document).ready(function () {
         $("#add-button").on("click",function(){
             $("#add-button").css("display","none"),
-            $("#products-tables").css("display", "none"),
+            $("#tables").css("display", "none"),
             $("#name-input").val(" "),
             $("#prix-input").val(0),
             $("#reduction-input").val(0),
             $("#stock-input").val(0),
             $("#idcategorie").val(1),
             $("#submit-form").val("Ajouter"),
-            $("#form-product").attr('action','add-product.php'),
+            $("#form-ajout").attr('action','add-product.php'),
             $("#form-div").show()
         });
 
         $("#cancel-button").on("click", function(){
             $("#form-div").css("display", "none"),
             $("#add-button").show(),
-            $("#products-tables").show()
+            $("#tables").show()
         });
 
         $(document).ready(function() {
@@ -152,9 +158,26 @@
         } );
     });
 
+    function updateStock(id) {
+        var ajout = parseInt(prompt("Quantité à ajouter"));
+
+        if (!isNaN(ajout)){
+            $.ajax({
+                url : 'stock-product.php',
+                type : 'post',
+                data : 'quantitestock=' + ajout + '&idproduit=' + id,
+                success : function (results) {
+                    if (!isNaN(results)){
+                        $("#tr-".concat(id)).find("#stock").html(results);
+                    }
+                }
+            });
+        }
+    }
+
     function updateProduct(libelle, price, reduction, quantitestock, id, categorie) {
         $("#add-button").css("display","none"),
-        $("#products-tables").css("display", "none"),
+        $("#tables").css("display", "none"),
         $("#name-input").val(libelle),
         $("#prix-input").val(price),
         $("#reduction-input").val(reduction),
@@ -162,7 +185,7 @@
         $("#id-input").val(id),
         $("#idcategorie").val(categorie),
         $("#submit-form").val("Modifier"),
-        $("#form-product").attr('action','update-product.php'),
+        $("#form-ajout").attr('action','update-product.php'),
         $("#form-div").show()
     }
 </script>

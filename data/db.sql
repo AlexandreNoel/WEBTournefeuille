@@ -126,5 +126,10 @@ INSERT INTO NouveauProduit(idNouveauProduit,libelle,Description,idAuteur) VALUES
 
 -- Table Commande
 INSERT INTO Commande ( dateCommande, idUtilisateur, idBarmen,prixTotal) VALUES (current_date,1,2,42);
+INSERT INTO Commande ( dateCommande, idUtilisateur, idBarmen,prixTotal) VALUES (current_date,3,2,42);
+INSERT INTO Commande ( dateCommande, idUtilisateur, idBarmen,prixTotal) VALUES (current_date,3,2,10);
 -- Table FaitPartieCommande
-INSERT INTO FaitPartieCommande (idProduit, idCommande, prixVente, quantite) VALUES (1,1,1,84);
+INSERT INTO FaitPartieCommande (idProduit, idCommande, prixVente, quantite) VALUES (1,1,0.50,84);
+INSERT INTO FaitPartieCommande (idProduit, idCommande, prixVente, quantite) VALUES (1,2,0.50,42);
+INSERT INTO FaitPartieCommande (idProduit, idCommande, prixVente, quantite) VALUES (2,2,0.50,42);
+INSERT INTO FaitPartieCommande (idProduit, idCommande, prixVente, quantite) VALUES (1,3,0.50,20);

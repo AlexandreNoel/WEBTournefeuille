@@ -10,6 +10,10 @@
 
     session_start();
 
+    if(!isset($_SESSION['authenticated_user'])){
+        header('Location: /');
+    }
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST["id_product"])){
             $repoproducts = new \Product\Repository\Product();

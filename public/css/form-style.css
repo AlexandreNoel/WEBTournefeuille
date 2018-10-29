@@ -1,4 +1,4 @@
-.form-product{
+.form-ajout{
     font-family: 'Open Sans Condensed', arial, sans;
     width: 500px;
     padding: 30px;
@@ -9,7 +9,7 @@
     -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
 
 }
-.form-product h2{
+.form-ajout h2{
     background: #4D4D4D;
     text-transform: uppercase;
     font-family: 'Open Sans Condensed', sans-serif;
@@ -19,17 +19,17 @@
     padding: 20px;
     margin: -30px -30px 30px -30px;
 }
-.form-product input[type="text"],
-.form-product input[type="date"],
-.form-product input[type="datetime"],
-.form-product input[type="email"],
-.form-product input[type="number"],
-.form-product input[type="search"],
-.form-product input[type="time"],
-.form-product input[type="url"],
-.form-product input[type="password"],
-.form-product textarea,
-.form-product select
+.form-ajout input[type="text"],
+.form-ajout input[type="date"],
+.form-ajout input[type="datetime"],
+.form-ajout input[type="email"],
+.form-ajout input[type="number"],
+.form-ajout input[type="search"],
+.form-ajout input[type="time"],
+.form-ajout input[type="url"],
+.form-ajout input[type="password"],
+.form-ajout textarea,
+.form-ajout select
 {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -45,12 +45,14 @@
     font: 16px Arial, Helvetica, sans-serif;
     height: 45px;
 }
-.form-product textarea{
+.form-ajout textarea{
     resize:none;
     overflow: hidden;
+    height: 400px;
 }
-.form-product input[type="button"],
-.form-product input[type="submit"]{
+.form-ajout input[type="button"],
+.form-ajout input[type="submit"],
+.form-ajout button[type="button"]{
     -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
     -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
     box-shadow: inset 0px 1px 0px 0px #45D6D6;
@@ -65,23 +67,30 @@
     text-decoration: none;
     text-transform: uppercase;
 }
-.form-product input[type="button"]:hover,
-.form-product input[type="submit"]:hover {
+.form-ajout input[type="button"]:hover,
+.form-ajout input[type="submit"]:hover {
     background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
     background-color:#34CACA;
 }
 
+#form-div{
+    display:none;
+}
+
 #cancel-button {
-    color:red;
+    background-color:red;
+    border: 1px solid red;
+    box-shadow: none;
 }
 
 #single-table{
     width:40%;
     display:inline-grid;
+    min-height: 400px;
 }
 
-#products-tables{
-    display:inline-flex;
+#tables{
+    display:flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
@@ -99,4 +108,8 @@
 .icon{
     height: 16px;
     width: 16px;
+}
+
+td{
+    text-align: center;
 }
