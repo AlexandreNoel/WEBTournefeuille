@@ -1,82 +1,83 @@
 
 <!DOCTYPE html>
 
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon.ico">
-    <title>Le Bar D - Console</title>
-    <!-- Ressources -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-
-    <!-- Font Awesome JS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="css/bard_main.css">
-    <link rel="stylesheet" href="css/form-style.css">
-</head>
+<!-- NAVBAR !-->
+<?php require_once(__DIR__ . '/partials/header.php'); ?>
 
 
 <body class="main-body">
+<!-- NAVBAR !-->
+<?php require_once(__DIR__ . '/partials/navbar.php'); ?>
+
 <!-- CONTENU !-->
-<div>
-    <table id="transaction-table" class="display" style="text-align:center">
-        <thead>
-        <tr>
-            <th>Id Commande</th>
-            <th>Date</th>
-            <th>Id Barmen</th>
-            <th>Prix Total</th>
-            <th>Détail</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
+<div  class="content-container">
+    <div id="transaction-table" class="container pt-3">
+        <div class="card">
+            <h5 class="card-header text-center">Liste des transactions</h5>
+            <div class="card-body">
+                <table class="display" style="text-align:center">
+                    <thead>
+                    <tr>
+                        <th>Id Commande</th>
+                        <th>Date</th>
+                        <th>Id Barmen</th>
+                        <th>Prix Total</th>
+                        <th>Détail</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
 
-        foreach($transactions as $transaction): ?>
-            <?php
-            ?>
-            <?php if (!is_null($transaction)):?>
-                <tr>
-                    <td><?php echo $transaction->getId()?></td>
-                    <td><?php echo $transaction->getDate()->format('Y-m-d H:i:s')?></td>
-                    <td><?php echo $transaction->getidBarmen()?></td>
-                    <td><?php echo $transaction->GetPrice()." €"?></td>
-                    <td><button id="add-button" onclick="fetchproductdata(<?php echo $transaction->getId();?>)"> Voir le contenu de la commande</button>
-                    </td>
-                </tr>
-            <?php endif; ?>
-        <?php endforeach; ?>
-        </tfoot>
-    </table>
+                    foreach($transactions as $transaction): ?>
+                        <?php
+                        ?>
+                        <?php if (!is_null($transaction)):?>
+                            <tr>
+                                <td><?php echo $transaction->getId()?></td>
+                                <td><?php echo $transaction->getDate()->format('Y-m-d H:i:s')?></td>
+                                <td><?php echo $transaction->getidBarmen()?></td>
+                                <td><?php echo $transaction->GetPrice()." €"?></td>
+                                <td><button class="btn btn-danger rounded" id="add-button" onclick="fetchproductdata(<?php echo $transaction->getId();?>)"> Voir le contenu de la commande</button>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="Products-div" class="container pt-3">
+        <div class="card">
+            <h5 class="card-header text-center">Détail de la transaction</h5>
+            <div class="card-body">
+
+                <table id="commande-table" class="display" style="text-align:center">
+                    <thead>
+                    <tr>
+                        <th>Id Commande</th>
+                        <th>Id Produit</th>
+                        <th>Nom Produit</th>
+                        <th>Prix Unitaire</th>
+                        <th>Quantite</th>
+                        <th>Reduction</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody id="mybody">
+
+
+                    </tfoot>
+                    <td>
+
+                </table>
+                <button id="back-button">Retour</button>
+            </div>
+        </div>
+    </div>
+
 </div>
-
-<div id="Products-div">
-    <table id="commande-table" class="display" style="text-align:center">
-        <thead>
-        <tr>
-            <th>Id Commande</th>
-            <th>Id Produit</th>
-            <th>Nom Produit</th>
-            <th>Prix Unitaire</th>
-            <th>Quantite</th>
-            <th>Reduction</th>
-            <th>Total</th>
-        </tr>
-        </thead>
-        <tbody id="mybody">
-
-
-        </tfoot>
-        <td>
-
-    </table>
-            <button id="back-button">Retour</button>
-</div>
-
 
 <script>
     var trHTML = '';
@@ -103,26 +104,25 @@
                 });
                 $('#mybody').children("tr").remove();
                 $('#mybody').append(trHTML);
-                $("#transaction-table").css("display", "none"),
-                    $("#Products-div").show()
+                $("#transaction-table").hide();
+                $("#Products-div").show()
             }
         });
     }
     $(document).ready(function () {
-        $("#Products-div").css("display", "none");
+        $("#Products-div").hide();
         $("#add-button").on("click",function() {
-        $("#transaction-table").css("display", "none"),
+            $("#transaction-table").hide();
             $("#Products-div").show()
-    }); $("#back-button").on("click",function() {
-        $("#Products-div").css("display", "none"),
+        });
+        $("#back-button").on("click",function() {
+            $("#Products-div").hide();
             $("#transaction-table").show()
-    });
-    $(document).ready(function() {
+        });
+
         $('table.display').DataTable();
-        $("#Products-div").css("display", "none");
+        $("#Products-div").hide();
 
-    } );
+    });
 
-
-});
 </script>
