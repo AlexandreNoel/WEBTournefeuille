@@ -179,6 +179,8 @@
                 success : function (results) {
                     if (!isNaN(results)){
                         $("#tr-".concat(id)).find("#stock").html(results);
+                    } else {
+                        console.log(results);
                     }
                 }
             });
