@@ -6,9 +6,9 @@ session_start();
 
 $restoRepository = new \Repository\Restaurant();
 
-$error = "null";
+$result = "null";
 if ($_SERVER['REQUEST_METHOD'] !== 'GET'/* || !isset($_SESSION['id'])*/) {
-    $error = "internal error";
+    $result = "internal error";
     http_response_code(400);
 }else{
     $id_user = $_SESSION['id'];
@@ -17,13 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET'/* || !isset($_SESSION['id'])*/) {
 
     if ($restoRepository->isAlreadyFavorite($id_user, $id_restaurant) && $is_favorite) {
         $restoRepository->deleteFavoriteById($id_user, $id_restaurant);
-        $error = "deleted";
+        $result = "deleted";
     } else {
         $restoRepository->addFavorite($id_user, $id_restaurant);
-        $error = "added";
+        $result = "added";
     }
 
 }
 
-echo json_encode($error);
+echo json_encode($result);
 

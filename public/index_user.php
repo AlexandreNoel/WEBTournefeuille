@@ -14,5 +14,5 @@ $data = [];
 foreach ($users as $user) {
     $data[] = $userHydrator->extract($user);
 }
-
-echo json_encode($data);
+$view = ['data' => $data,'session' => $_SESSION];
+echo json_encode($view);

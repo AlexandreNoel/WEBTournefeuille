@@ -1,3 +1,5 @@
+session = null;
+
 $(document).ready(() => {
     getUsers();
 
@@ -30,7 +32,8 @@ function getUsers() {
         type: 'GET'
     }).done(function (users) {
         users = JSON.parse(users)
-        buildContent(users);
+        session = users.session;
+        buildContent(users.data);
     }).fail(function (error) {
         alert("Erreur");
     });

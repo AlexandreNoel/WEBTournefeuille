@@ -47,7 +47,8 @@ function getRestaurant(restaurantId) {
         data: { id_resto: restaurantId }
     }).done(function (res) {
         console.log(res);
-        restaurant = JSON.parse(res)
+        res= JSON.parse(res)
+        restaurant = res.data; 
         buildContent();
     }).fail(function (error) {
         alert("Erreur");

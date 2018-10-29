@@ -21,5 +21,5 @@ if ($_SERVER['REQUEST_METHOD'] !== "GET") {
         $restaurant = "error";
     }
 }
-
-echo json_encode($restaurant);
+$view = ['data' => $restaurant, 'session' => $_SESSION];
+echo json_encode($view);
