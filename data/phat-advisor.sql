@@ -231,11 +231,9 @@ INSERT INTO persons VALUES (DEFAULT,'user_lastname','user_firstname','user@mail.
 CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS 
 '
   DECLARE
-    note integer;
-    nbnote integer;
-    notefin integer;
+    note INTEGER;
   BEGIN 
-    SELECT INTO note sum(Score) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
+    SELECT INTO note Score FROM Score WHERE Score.Id_Resto_Restos=NEW.Id_Resto_Restos;
     IF note ISNULL THEN
       note:=0;
     END IF;

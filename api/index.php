@@ -1,7 +1,9 @@
 <?php
 
-namespace api;
+//namespace api;
 require '../vendor/autoload.php';
+
+$config = include('config/module.config.php');
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -14,16 +16,8 @@ $params=array_slice($rawParams,2);
 $entity=$params[0];
 $entityId = count($params) > 1 ? $params[1] : null;
 
-
 // Construction de la liste des API (Correspond à la liste des repositories)
-$availableApiFiles=scandir("../src/Repository");
-$availableApis=[];
-
-foreach($availableApiFiles as $file){
-    if (!preg_match('/^\.(.*)$/', $file)){ //|| ($file !="..")){
-        $availableApis[]=strtolower(str_replace(".php","",$file));
-    }
-}
+$availableApis=array_keys($config);
 
 // Chech si l'entité voulue est disponible sur l'API
 $isRequestAvailable=in_array($entity,$availableApis);
@@ -31,26 +25,35 @@ if (!$isRequestAvailable){
     echo json_encode(array('message' => 'Requested API not available: '.$entity,
     'usage'=>array(
         '/api/entityName/id' => 'Returns a JSON of the entity with the specified id',
-        '/api/entityName' => 'Returns a JSON with all the entities designed by entityName'),
+        '/api/entityName'    => 'Returns a JSON with all the entities designed by entityName'),
     'available-apis' => $availableApis));
     exit;
 }
 
-$entityClassName= "\\Repository\\$entity";
-$entityHydratorName="\\Hydrator\\$entity";
-$entityRepository = new $entityClassName();
-$entityHydrator = new $entityHydratorName();    
+// Check si la methode http est autorisée pour l'entité
+$isHttpMethodAvailable=in_array($httpMethod,$config[$entity]['api-methods']);
+
+if (!$isHttpMethodAvailable){
+    echo json_encode(
+        array('message' => 'Invalid method API '.$httpMethod.' for entity '.$entity,
+              "available-methods" => $config[$entity]['api-methods']
+        )
+    );
+    exit;
+}
+
+$entityRepository = new $config[$entity]['repository']();
+$entityHydrator = new $config[$entity]['hydrator']();    
 
 switch($httpMethod){
-
     case 'GET':
         if ($entityId !== null){
-            // GET Récuperation un Element     /api/v1/entity/{id}
+            // GET Récuperation un Element     /api/entity/{id}
             $methodName="findOneById";
-            $resultData = $entityHydrator->extract($entityRepository->$methodName($entityId));
+            $resultData = array($entityHydrator->extract($entityRepository->$methodName($entityId)));
         }
         else{
-        // GET  Récupération Collection     /api/v1/entity
+        // GET  Récupération Collection     /api/entity
             $methodName="fetchAll";
             $datas=$entityRepository->$methodName();
             $resultData=[];
@@ -58,29 +61,38 @@ switch($httpMethod){
                 $resultData[]=$entityHydrator->extract($data);
             }
         }
+        
+        // On traite les datas qui ne doivent pas être publiées
+        foreach ($config[$entity]["api-get-hidden-fields"] as $unwantedKey){
+            for($i =0 ; $i < sizeof($resultData); $i++){
+                if(in_array($unwantedKey,array_keys($resultData[$i]))){
+                    unset($resultData[$i][$unwantedKey]);
+                }
+            } 
+        }
         break;
     case 'POST':
-        // POST     Creation d’Elements     /api/v1/entity
+        // POST     Creation d’Elements     /api/entity
+
         break;
     case 'PUT':
-        // PUT     Modifier un Element     /api/v1/entity/{id}
+        // PUT     Modifier un Element     /api/entity/{id}
         break;
     case "DELETE":
-        // DELETE     Effacer Element     /api/v1/entity/{id}
+        // DELETE     Effacer Element     /api/entity/{id}
         if ($entityId !== null) {
             $entityToDel = $entityRepository->findOneById($entityId);
             $entityToDel->setIsDeleted(true);
             $isDeleted = $entityRepository->delete($entityToDel);
-            $resultData = "deleted";
+            $resultData = array("status"=>"OK","message"=>"Entity ".$entity." id #".$entityId." deleted!");
         }else{
-            $resultData = "not deletd";
+            $resultData = array("status"=>"KO","message"=>" Error while trying to delete Entity ".$entity." id #".$entityId);
             http_response_code(400);
         }
     break;
     default:
         echo json_encode(array("message"=>"Invalid HTTP VERB SPECIFIED"));
         exit;
-
 }
 
 //var_dump($resultData);
