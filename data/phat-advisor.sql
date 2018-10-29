@@ -98,7 +98,8 @@ CREATE TABLE public.Cat_Resto(
 ------------------------------------------------------------
 CREATE TABLE public.Badge(
 	id_Badge    SERIAL NOT NULL ,
-	Nom_Badge   VARCHAR (30) NOT NULL  ,
+	Nom_Badge   VARCHAR (30) NOT NULL ,
+	Badge_link	VARCHAR (30) NOT NULL ,
 	CONSTRAINT Badge_PK PRIMARY KEY (id_Badge)
 )WITHOUT OIDS;
 
@@ -198,12 +199,12 @@ INSERT INTO Cat_Resto VALUES (4,9);
 -- Insertion des badges
 ---------------------------
 
-INSERT INTO Badge VALUES (DEFAULT,'Bio');
-INSERT INTO Badge VALUES (DEFAULT,'Halal');
-INSERT INTO Badge VALUES (DEFAULT,'Vegan');
-INSERT INTO Badge VALUES (DEFAULT,'Partenariat');
-INSERT INTO Badge VALUES (DEFAULT,'Sur Place');
-INSERT INTO Badge VALUES (DEFAULT,'A emporter');
+INSERT INTO Badge VALUES (DEFAULT,'Bio','data/bio.png');
+INSERT INTO Badge VALUES (DEFAULT,'Halal','data/halal.png');
+INSERT INTO Badge VALUES (DEFAULT,'Vegan','data/vegan.png');
+INSERT INTO Badge VALUES (DEFAULT,'Partenariat','data/partenariat.png');
+INSERT INTO Badge VALUES (DEFAULT,'Sur Place','data/place.png');
+INSERT INTO Badge VALUES (DEFAULT,'A emporter','data/emporter.png');
 
 ---------------------------
 -- Insertion des badges des restaurants
@@ -231,12 +232,16 @@ CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS
 '
   DECLARE
     note integer;
+    nbnote integer;
+    notefin integer;
   BEGIN 
-    select into note Score from Score where Score.Id_Resto_Restos=NEW.Id_Resto_Restos;
+    SELECT INTO note sum(Score) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
     IF note ISNULL THEN
       note:=0;
     END IF;
-    NEW.Note_Resto:=note+NEW.Note_Resto;
+    SELECT INTO nbnote count(*) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
+    notefin:=(note+NEW.Note_Resto)/(nbnote+1);
+    UPDATE Score SET Score.Score=notefin WHERE Score.Id_Resto_Restos=NEW.Id_Resto_Restos;
     RETURN NEW;
   END; 
 ' 
