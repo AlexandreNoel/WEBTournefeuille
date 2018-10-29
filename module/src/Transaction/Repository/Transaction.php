@@ -67,7 +67,6 @@ class Transaction
     }
     public function create (\Transaction\Entity\Transaction $product) :int
     {
-
         $productArray = $this->hydrator->extract($product);
         #insertions de la commande
         $statement = $this->dbAdapter->prepare('INSERT INTO commande (datecommande,idutilisateur,idbarmen,prixtotal) values (:datecommande,:idutilisateur,:idbarmen,:prixtotal) RETURNING idcommande');
@@ -93,9 +92,8 @@ class Transaction
             $statement->execute();
         }
         return intval($id);
-
-
     }
+
     public function findOneById($id){
         #récupération de toules articles compris dans la commande
         $statement = $this->dbAdapter->prepare(

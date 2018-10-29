@@ -21,7 +21,7 @@ class Client{
         if ($object->getLastname()) {
             $data['nom'] = $object->getLastname();
         }
-        if ($object->getSolde()) {
+        if ($object->getSolde()>=0){
             $data['solde'] = $object->getSolde();
         }
         if ($object->getCodebarmen()) {

@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon.ico">
-    <title>Le Bar D - Console</title>
-
-    <!-- Ressources -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <!-- Font Awesome JS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <!-- Css -->
-    <link rel="stylesheet" href="css/bard_main.css">
-</head>
+<!-- NAVBAR !-->
+<?php require_once(__DIR__ . '/partials/header.php'); ?>
 
 <body class="main-body">
+
+    <!--MODAL-->
+    <div class="modal fade" id="modalBarmen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Validation barmen</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <input type="password" id="password" name="password" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="defaultForm-email">   <i class="fa fa-user"></i> Mot de passe barmen</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button onclick="command()" class="btn btn-default">Confirmer</button>
+                </div>
+                <div id="error-modal" class="text-red font-weight-bold">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- NAVBAR !-->
-    <?php require_once(__DIR__ . '/partials/navbar.php'); ?>
+    <?php require_once(__DIR__ . '/partials/navbarAdmin.php'); ?>
 
     <!-- CONTENU !-->
 
@@ -36,6 +49,7 @@
                 <label for="command" class='fa fa-store'></label>
             </nav>
 
+            <!-- Onglet Recherche utilisateur -->
             <article class='searchTab mx-auto text-center'>
                 <h2>Recherche du client</h2>
                 <form class="searchAC form mt-5" autocomplete="off" action="">
@@ -45,8 +59,9 @@
 
             </article>
 
+            <!-- Onglet gestion utilisateur -->
             <article class='userTab mx-auto text-center '>
-                <form class="container">
+                <form class="container" method="POST" action="update-user-solde.php">
                     <div class="card">
                         <div class="card-header">
                             <h2 class="user-title-card"></h2>
@@ -55,6 +70,9 @@
                             <div class="row">
                                 <div class="col-sm-4"> <img class="img-fluid" src="assets/images/user_avatar.png" /></div>
                                 <div class="col-sm-4">
+                                    <div class="d-none">
+                                        <input id="id" name="id" type="text" value="" disabled/>
+                                    </div>
                                     <div class="row">
                                         <p>Pseudo:</p>
                                     </div>
@@ -76,13 +94,16 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="row">
-                                        <p>Solde :  </p>
+                                        <p>Solde : </p>
                                     </div>
                                     <div class="row">
+                                        <input id="solde" name="solde" type="text" value="" disabled/>
+                                    </div>
+                                    <div class="row mt-3">
                                         <input id="creditInput" name="creditInput" type="number" />
                                     </div>
                                     <div class="row text-center">
-                                        <button id="creditBtn" name="creditBtn" class="btn btn--primary btn--inside rounded uppercase" >Créditer</button>
+                                        <button type="button" id="creditBtn" name="creditBtn" onclick="credit()" class="btn btn--primary btn--inside rounded uppercase" >Créditer</button>
                                     </div>
                                 </div>
                             </div>
@@ -92,6 +113,8 @@
                 </form>
             </article>
 
+
+            <!-- Onglet commande -->
             <article class='commandTab mx-auto text-center '>
                 <form class="container">
                     <div class="card">
@@ -100,31 +123,88 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-4">
-                                        <UL>
-                                                <li class="var_nav rounded">
-                                                    <div class="link_bg"></div>
-                                                    <div class="link_title">
-                                                        <div class=icon>
-                                                            <i class="fa fa-beer"></i>
-                                                        </div>
-                                                        <a href="#"><span>Bières</span></a>
-                                                    </div>
-                                                </li>
-                                        </UL>
-                                </div>
-                                <div class="col-sm-4">
+                                <!-- Affichage des catégories -->
+                                <div id="productsCategories" class="col-sm-4">
+                                    <ul>
+                                        <?php foreach ($categories as $category){ ?>
 
+                                            <li class="var_nav rounded">
+                                                <div class="link_bg"></div>
+                                                <div class="link_title">
+                                                    <div class=icon>
+                                                        <i class="fa fa-beer"></i>
+                                                    </div>
+                                                    <a id="<?php echo $category['libelle'];?>">
+                                                        <span><?php echo $category["libelle"];?></span>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                        <?php }?>
+                                    </ul>
                                 </div>
+
+                                <!-- Affichage des produits -->
+                                <div id="productsByCategory" class="productsByCategory col-sm-4">
+                                    <!-- Pour chaque catégories de produits-->
+                                    <?php foreach ($productslist as $category => $values):?>
+
+                                        <!-- Produits de la catégorie courante-->
+                                        <ul id="<?php echo "prod".$category?>">
+                                            <?php foreach($values as $product): ?>
+                                                <?php if (!is_null($product)):?>
+                                                    <li class="var_nav rounded">
+                                                        <a class="add-row text-white bold" id="<?php echo "prod-".$product->getId();?>">
+                                                            <table class="table align-middle" style="height:100%; width:100%;">
+                                                                <tr>
+                                                                    <td data="<?php echo $product->getName()?>" class="pName font-weight-bold"><?php echo $product->getName()?></td>
+                                                                    <td data="<?php echo $product->getPrice()?>" class="pPrice"><?php echo $product->getPrice()." €";?></td>
+                                                                    <td data="<?php echo $product->getQuantity(); ?>" class="pStock">Stock: <?php echo $product->getQuantity(); ?></td>
+                                                                </tr>
+                                                            </table>
+                                                        </a>
+                                                    </li>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </ul>
+
+                                    <?php endforeach; ?>
+                                </div>
+
+                                <!-- Gestion des produits achetés -->
+                                <div class="col-sm-4">
+                                    <form id="command" >
+                                        <div id="totalAmount">
+                                            Montant des achats:
+                                        </div>
+                                        <button id="command" type="button" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalBarmen">Valider</button>
+                                        <div class="mt-2">
+                                            <table class="table" id="commandTable">
+                                                <thead>
+                                                    <th></th>
+                                                    <th>Produit</th>
+                                                    <th>Qté</th>
+                                                    <th>€/u</th>
+                                                    <th>Total</th>
+                                                </thead>
+                                                <tbody id="artCommand">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </form>
             </article>
+
         </section>
     </div>
 
-    <!--Script-->
+    <!--Script JS-->
     <script src="assets/js/search.js"></script>
     <script>
 
@@ -139,16 +219,14 @@
         autocomplete(document.getElementById("searchInput"),userArray,$('#searchSubmit'));
 
         $(document).ready(function() {
+            //========================
+            // INITIALISATION
+            //========================
             // Focus initiale de la page
             $('#searchInput').focus();
 
-            // Gestion des focus sur click
-            $('#profile').on('click',function(e){
-                $('#creditInput').focus();
-            });
-            $('#search').on('click',function(e){
-                $('#searchInput').focus();
-            });
+            $('#productsByCategory ul').hide();
+
 
             //========================
             // GESTION DES SHORTCUTS
@@ -171,7 +249,86 @@
                 }
             });
 
+            // Gestion des focus sur click
+            $('#profile').on('click',function(e){
+                $('#creditInput').focus();
+            });
+            $('#search').on('click',function(e){;
+                $('#searchInput').focus();
+            });
+
+
+            //========================
+            // GESTION DES COMMANDES
+            //========================
+            // Affichage/Masquage des produits sur click catégorie
+            $("#productsCategories a").on('click',function (e) {
+                var cat = $(e.currentTarget).attr('id');
+                var idProd = "prod"+cat;
+                var prodList = document.getElementById(idProd);
+                if($(prodList).is(":hidden")){
+                    $('#productsByCategory ul').hide(750);
+                    $(prodList).show(750);
+                }
+            });
+
+            // Ajout d'un article à la commande
+            $(".add-row").click(function(e){
+                var commandTable = $('#artCommand');
+                var id = $(this).attr('id');
+                var idNum =  id.replace('prod-','');
+                var product = $(this).find('.pName').attr("data");
+                var price = $(this).find('.pPrice').attr("data");
+                var stockTr =$(this).find('.pStock');
+                var stock = $(stockTr).attr("data");
+                var art = commandTable.find("#artCommand-"+id);
+                if(stock>0){
+                    // Si le produit est présent dans la liste de commande
+                    if(art.length>0)   {
+                        // Mise à jour de la commande
+                        var newqty = parseInt(art.find(".artCommandQty").text())+1;
+                        art.find(".artCommandQty").text(newqty);
+                        art.find(".artCommandTotal").text(newqty*price);
+                    }
+                    // Si le produit n'est pas présent dans la liste de commande
+                    else{
+                        var tr = "<tr id='artCommand-"+id+"'>"+
+                            "<td><button type='button' class='artRemove' onclick='artRemove(this,\""+id+"\")'><i class='fa fa-minus' /></button></td>"+
+                            "<td class='artCommandName'>"+ product +"</td>" +
+                            "<td class='artCommandQty'>" + 1 + "</td>" +
+                            "<td class='artCommandPrice'>" + price + "</td>" +
+                            "<td class='artCommandTotal'>" + price + "</td>" +
+                            "<td class='artCommandId d-none'>"+idNum+"</td>"+
+                        "</tr>";
+                        commandTable.append(tr);
+                    }
+
+                    // Simulation du stock final
+                    var newStock = parseInt(stock)-1;
+                    $(stockTr).text("Stock:"+ newStock);
+                    $(stockTr).attr("data",newStock);
+                }
+            });
+
+            $('#modalBarmen').on('hidden.bs.modal', function () {
+                $('#error-modal').empty();
+                $('#password').empty();
+            });
+
         });
+
+        // Effacement d'une ligne de commande
+        function artRemove(productBtn,productId){
+            var productStock = $('#productsByCategory').find('#'+productId).find('.pStock');
+            var stockQty = $(productStock).attr('data');
+            var qtyCommand = $(productBtn).closest("tr").find(".artCommandQty").text();
+            debugger;
+            var newStock = parseInt(stockQty)+parseInt(qtyCommand);
+            $(productStock).text("Stock:"+ newStock);
+            $(productStock).attr("data",newStock);
+            // Simulation du stock après suppression de ligne
+            $(productBtn).closest("tr").remove();
+        }
 
         /************************
          * AJAX
@@ -186,26 +343,100 @@
                     },
                     function(data, status){
                         if(status == 'success'){
+                            console.log(data);
                             var dataJson = JSON.parse(data);
                             $('#nickname').val(dataJson['pseudo']);
                             $('#firstname').val(dataJson['prenom']);
                             $('#lastname').val(dataJson['nom']);
                             $('#solde').val(dataJson['solde']);
+                            $('#id').val(dataJson['idutilisateur']);
                             $('.user-title-card').html(dataJson['pseudo']);
                             $('#profile').click();
                         }
                         else{
-
+                            alert("Veuillez sélectionner un utilisateur connu.");
                         }
                     }
                 );
             }
         }
 
+        function credit(){
+            var id = parseInt($('#id').val());
+            var credit = parseFloat($('#creditInput').val());
 
+            if(credit>0 && id>0){
+                $.post("services.php",
+                    {
+                        id: id,
+                        credit:credit
+                    },
+                    function(data, status){
+                        if(status == 'success'){
+                            var solde = parseFloat($('#solde').val());
+                            var newSolde = credit+solde;
+                            $('#solde').val(newSolde);
+                            $('#creditInput').val(0);
+                            alert("La mise à jour s'est bien effectué");
+                        }
+                        else{
+                            alert("Mise à jour non validé.");
+                        }
+                    }
+                );
+            }
+        }
 
+        function command(){
 
+            var products = [];
+            var idutilisateur = $('#id').val();
+            var password = $('#password').val();
 
+            if(parseInt(idutilisateur) > 0){
+                if($('#artCommand > tr').length > 0){
+                    $('#artCommand > tr').each(function() {
+                        product={};
+                        product['id']=$(this).find('.artCommandId').text();
+                        product['name']=$(this).find('.artCommandName').text();
+                        product['qty']=$(this).find('.artCommandQty').text();
+                        product['total']=$(this).find('.artCommandTotal').text();
+                        products.push(product);
+                    });
+
+                    $.post("services.php",
+                        {
+                            products: products,
+                            idutilisateur:idutilisateur,
+                            password:password,
+                            command: true
+                        },
+                        function (data, status) {
+                            if(status == 'success') {
+                                console.log(data);
+                                var response = JSON.parse(data);
+                                if (response.status == false){
+                                    $('#error-modal').text(response.error);
+
+                                }
+                                else{
+                                    $('#modalBarmen').modal('hide');
+                                    $('#password').val("");
+                                    $('#artCommand > tr').empty();
+                                    alert("La commande a été validée.");
+                                }
+                            }
+                            else {
+                                alert("Mise à jour non validé.");
+                            }
+                        }
+                    );
+                }
+                else{
+                    $('#error-modal').text("Pas de commande en cours.");
+                }
+            }
+        }
 
     </script>
 </body>

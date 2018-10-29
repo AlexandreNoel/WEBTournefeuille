@@ -4,7 +4,6 @@
 
     $repoproducts = new \Product\Repository\Product();
 
-
     if (isset(
         $_POST["id"],
         $_POST["libelle"],

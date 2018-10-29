@@ -1,17 +1,11 @@
 <?php
-    require '../vendor/autoload.php';
-    require_once ("../module/src/Client/Repository/Client.php");
-    require_once ("../module/src/Client/Hydrator/Client.php");
-    require_once ("../module/src/Client/Entity/Client.php");
-    require_once ("../module/src/Product/Repository/Product.php");
-    require_once ("../module/src/Product/Hydrator/Product.php");
-    require_once ("../module/src/Product/Entity/Product.php");
+    require_once __DIR__.'./../vendor/autoload.php';
 
     // Initialisation de la session
     if(session_status()!=PHP_SESSION_ACTIVE)
         session_start();
 
-    // Vérification si Admin connecté
+    // FORCAGE DE L'ADMIN
     $_SESSION['authenticated_admin']=true;
     // Vérification si Admin connecté
     if(!isset($_SESSION['authenticated_admin'])){
@@ -22,13 +16,6 @@
         //=======================================
         // Déclarations modules
         //=======================================
-
-        /* Déclaration des gestionnaires */
-        $userRepository = new \Client\Repository\Client();
-        $userHydrator = new \Client\Hydrator\Client();
-        $productRepository = new \Product\Repository\Product();
-        $productHydrator = new \Product\Hydrator\Product();
-
         /** @var \Client\Entity\Client $user */
         $user =  $_SESSION["authenticated_user"];
         // Récupèration des informations utilisateurs
@@ -40,17 +27,19 @@
         //========================================
         // Traitements
         //========================================
-        //Récupération des données utilisateurs
+        /* Clients */
+        $userRepository = new \Client\Repository\Client();
         $usersEntity = $userRepository->fetchAllUsers();
         $usersNickname = [];
         foreach ($usersEntity as $user) {
             $usersNickname[] = $user->getNickname();
         }
 
+        /* Produits/Catégories */
         //Récupération des produits disponibles
-        //$products = $productRepository->findAll();
-        //$productsObject = $productHydrator->extract($products);
-
+        $productRepository = new \Product\Repository\Product();
+        $productslist = $productRepository->findAllByCategory();
+        $categories = $productRepository->getCategories();
         require_once('../view/console.php');
     }
 

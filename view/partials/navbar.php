@@ -12,17 +12,6 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
 
-                <?php if ( isset($_SESSION["superAdmin"]) and  $_SESSION["superAdmin"]===true) { ?>
-                    <li class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="/console">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="/gestionBar"> Gestion du bar <i class="fa fa-cog"></i></a>
-                    </li>
-                    <li id="<?php print $nickname ?>" class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="#"><?php print $nickname ?> <i class="far fa-user"></i></a>
-                    </li>
-                <?php } else{ ?>
                     <li class="nav-item">
                         <a class="nav-link fixed-nav-text" href="/home">Accueil</a>
                     </li>
@@ -41,7 +30,6 @@
                             <a class="dropdown-item" href="/logout.php?logoutAriseId=true">Déconnexion AriseID</a>
                         </div>
                     </li>
-                <?php } ?>
             </ul>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <?php
-    require '../vendor/autoload.php';
+    require_once __DIR__.'./../vendor/autoload.php';
     require_once ("../module/src/Client/Repository/Client.php");
     require_once ("../module/src/Client/Hydrator/Client.php");
     require_once ("../module/src/Client/Entity/Client.php");
