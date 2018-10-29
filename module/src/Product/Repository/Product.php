@@ -94,7 +94,7 @@ class Product
     public function findByName($libelle)
     {
         $product = null;
-        $statement = $this->dbAdapter->prepare('select * from produit where libelle = :libelle  and espdisponible = True');
+        $statement = $this->dbAdapter->prepare('select * from produit where libelle = :libelle  and estdisponible = True');
         $statement->bindParam(':libelle', $libelle);
         $statement->execute();
         foreach ($statement->fetchAll() as $productData) {
