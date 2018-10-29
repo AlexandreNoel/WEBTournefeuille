@@ -56,7 +56,7 @@ CREATE TABLE PreferenceUtilisateur(
     idProduit SERIAL NOT NULL REFERENCES Produit (idProduit),
     indicePreference INTEGER NOT NULL,
     PRIMARY KEY (idUtilisateur,idProduit)
-)
+); 
 
 
 CREATE TABLE FaitPartieCommande(

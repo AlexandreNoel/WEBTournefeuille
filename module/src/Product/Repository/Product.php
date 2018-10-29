@@ -106,11 +106,16 @@ class Product
 
     public function modifyStock($id, $stock)
     {
-        $statement = $this->dbAdapter->prepare('UPDATE produit SET quantitestock=quantitestock + :stock WHERE idproduit=:id');
-        $statement->bindParam(":stock", $stock);
-        $statement->bindParam(":id", $id);
-        $statement->execute();
-        return $this->findById($id)->getQuantity();
+        $quantityProduct = $this->findById($id)->getQuantity();
+        if (($quantityProduct - $stock) > 0) {
+            $statement = $this->dbAdapter->prepare('UPDATE produit SET quantitestock=quantitestock + :stock WHERE idproduit=:id');
+            $statement->bindParam(":stock", $stock);
+            $statement->bindParam(":id", $id);
+            $statement->execute();
+            return $this->findById($id)->getQuantity();
+        } else {
+            throw new \Exception("Stock trop faible");
+        }
     }
 
 
