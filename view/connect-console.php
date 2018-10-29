@@ -1,62 +1,59 @@
 <!doctype html>
 <html lang="fr">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon.ico">
-    <title>Le Bar D - Connection console</title>    
+<!-- NAVBAR !-->
+<?php require_once(__DIR__ . '/partials/header.php'); ?>
 
-    <!-- Ressources -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <!-- Font Awesome JS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <!-- Css -->
-    <link rel="stylesheet" href="css/bard_main.css">
-</head>
-
-<body class="background-neutral">
+<body class="main-body">
 <div class="header white">
      <div class="header-container-left">
-         <a class="header-link">
-             Accueil
-         </a>
+         <button type="button" onclick="location.href = '/';" class="btn rounded header-link">
+             <i class="fa fa-home"></i> Accueil
+         </button>
      </div>
  </div>
 
-<div class="section">
+<div id="console-connect-form" class="section">
     <div class="section-header">
-        <h3 class="section-header-name">Console Access Login</h3>
+        <h3 class="section-header-name text-center">Console Access Login</h3>
+        <div class="card"></div><img src="assets/images/admin-barmen.jpg" class="border rounded border-danger" style="max-height:250px;">
     </div>
-    <div class="section-container">
+    <div class="section-container text-center pt-2">
         <form action="connect-console.php" method="post">
-            <div>
-                <label>Login</label>
-                <input
-                    type="text"
-                    name="login"
-                    placeholder="login"
-                    value="<?php echo $view['user']['login'] ?? null ?>"
-                >
+            <div class="row text-center">
+                <div class="col">
+                    <label><i class="fa fa-user"></i>Login</label>
+                </div>
+                <div class="col">
+                    <input
+                            type="text"
+                            name="login"
+                            placeholder="login"
+                            value="<?php echo $view['user']['login'] ?? null ?>"
+                    >
+                </div>
             </div>
+            <div class="row text-center">
+                <div class="col">
+                    <label><i class="fa fa-key"> </i> Password</label>
+                </div>
+                <div class="col">
+                    <input
+                            type="password"
+                            name="password"
+                            placeholder="password"
+                            value="<?php echo $view['user']['password'] ?? null ?>"
+                    >
+                </div>
+
+            </div>
+            <input class="mt-5" type="submit" value="Allez log toi, on est bien !">
+
             <!-- <?php if ($view['errors']['login']): ?>
                 <p>
                     <?php echo $view['errors']['login'] ?>
                 </p>
             <?php endif; ?> -->
-            <div>
-                <label>Password</label>
-                <input
-                    type="text"
-                    name="password"
-                    placeholder="password"
-                    value="<?php echo $view['user']['password'] ?? null ?>"
-                >
-            </div>
             <!-- <?php if ($view['errors']['password']): ?>
                 <p>
                     <?php echo $view['errors']['password'] ?>
@@ -67,7 +64,6 @@
                     <?php echo $view['errors']['login-password'] ?>
                 </p>
             <?php endif; ?> -->
-            <input type="submit" value="Log in">
         </form>
     </div>
 </div>
