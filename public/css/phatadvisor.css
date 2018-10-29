@@ -95,3 +95,81 @@ btn-form{
     vertical-align: center;
     height: auto;
 }
+
+/**********/
+/* COUCOU */
+/**********/
+
+#coucou {
+    position: fixed;
+    bottom: 0em;
+    left: 0px;
+    z-index: 1000;
+    width: -webkit-fill-available;
+}
+
+#coucou>* {
+    margin: 0em 1em;
+    -webkit-animation: ring 2s .7s ease-in-out infinite;
+    -webkit-transform-origin: 50% 4px;
+    -moz-animation: ring 2s .7s ease-in-out infinite;
+    -moz-transform-origin: 50% 4px;
+    animation: ring 2s .7s ease-in-out infinite;
+}
+
+@-webkit-keyframes ring {
+    0% { -webkit-transform: rotateZ(20deg); }
+    50% { -webkit-transform: rotateZ(-20deg); }
+    100% { -webkit-transform: rotateZ(20deg); }
+}
+
+@-moz-keyframes ring {
+    0% { -moz-transform: rotate(20deg); }
+    50% { -moz-transform: rotate(-20deg); }
+    100% { -moz-transform: rotate(20deg); }
+}
+
+@keyframes ring {
+    0% { transform: rotate(20deg); }
+    50% { transform: rotate(-20deg); }
+    100% { transform: rotate(20deg); }
+}
+
+#coucou-1 {
+    height: 12em;
+    top: 1.2em;
+    position: relative;
+    margin: 0em 0em;
+    transform-origin: 60% 70%;
+    animation-delay: -2s;
+}
+
+#coucou-2 {
+    height: 8.5em;
+    transform-origin: 50% 100%;
+    animation-delay: -0.2s;
+}
+
+#coucou-3 {
+    height: 8em;
+    transform-origin: 50% 100%;
+    animation-delay: -0.5s;
+}
+
+#coucou-4 {
+    height: 7.8em;
+    transform-origin: 50% 100%;
+    animation-delay: -0.8s;
+}
+
+#coucou-5 {
+    height: 7.8em;
+    transform-origin: 50% 100%;
+    animation-delay: -1.2s;
+}
+
+#coucou-6 {
+    height: 9em;
+    transform-origin: 50% 100%;
+    animation-delay: -1.7s;
+}

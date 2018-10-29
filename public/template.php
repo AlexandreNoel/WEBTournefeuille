@@ -49,9 +49,17 @@
                     </li>
                 </ul>
             </nav>
-        </div>
-        <div class="container">
-            <?php include('./html/'.$pagePath);?>
+            <div class="container">
+                <?php include('./html/'.$pagePath);?>
+            </div>
+            <div id="coucou" class="text-center hidden">
+                <img id="coucou-5" src="/assets/images/5.png"/>
+                <img id="coucou-3" src="/assets/images/3.png"/>
+                <img id="coucou-1" src="/assets/images/1.png"/>
+                <img id="coucou-2" src="/assets/images/2.png"/>
+                <img id="coucou-4" src="/assets/images/4.png"/>
+                <img id="coucou-6" src="/assets/images/6.png"/>
+            </div>
         </div>
     </body>
 </html>
