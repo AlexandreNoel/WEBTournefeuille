@@ -10,12 +10,13 @@ $(document).ready(() => {
 
         $('#rest-del-conf').click(() => {
             $.ajax({
-                url: 'https://localhost:8080/api/restaurant/' + restaurantId,
+                url: 'https://localhost:8080/delete-restaurant.php',
+                data: { id_resto: restaurantId },
                 type: 'DELETE',
             }).done(function (res) {
                 window.location = "/restaurants";
             }).fail(function (error) {
-                alert("Erreur");
+                alert("Erreur toto");
             });
         });
     });
@@ -51,7 +52,7 @@ function getRestaurant(restaurantId) {
         data: { id_resto: restaurantId }
     }).done(function (res) {
         res= JSON.parse(res)
-        restaurant = res.data; 
+        restaurant = res.data;
         buildContent();
     }).fail(function (error) {
         alert("Erreur");
