@@ -35,7 +35,7 @@ $(document).ready(() => {
     });
     $('#rest-score').mouseleave(() => { updateStars(); });
     $('#rest-score').click(() => { console.log(tempScore); });
-    $('#rest-score i').mouseenter(() => { updateStars(event.target.getAttribute('value')); });
+    $('#rest-score i').mouseenter((event) => { updateStars(event.target.getAttribute('value')); });
 });
 
 let restaurant = {};
