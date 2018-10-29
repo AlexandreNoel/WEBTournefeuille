@@ -1,5 +1,8 @@
 $(document).ready(() => {
-    getUser();
+    if (!window.location.pathname.match == "/form"){
+        getUser();
+    }
+
 
     $('[name="nom_user"]').focus();
 
