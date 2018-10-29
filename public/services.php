@@ -33,15 +33,19 @@
         //===================================
         // Créditation d'un client
         //===================================
-        else if(isset($_POST["id"]) && isset($_POST["credit"]) ){
+        else if(isset($_POST["id"]) && isset($_POST["credit"]) && isset($_POST["password"]) ){
 
             try{
-                $user = $userRepository->findOneByCodeBarmen($_POST['codebarmen']);
-                if(isset($user)) {
+                $userBarmen = $userRepository->findOneByCodeBarmen($_POST['password']);
+                if(isset($userBarmen)) {
                     $userRepository->giveMoney($_POST["id"],$_POST["credit"]);
+                    $arr = array(
+                        'status' => true,
+                    );
+                    echo json_encode($arr);
                 }
                 else{
-                    throw new Exception("Le barmen n'a pas été identifié !");
+                    throw new Exception("Barmen non valide !");
                 }
             }
             catch(Exception $e){
@@ -65,7 +69,6 @@
                     $idbarmen = $user->getId();
                     $idclient = $_POST['idutilisateur'];
                     $date = date("Y-m-d H:i:s");
-                    $price = 45;
                     $products = $_POST['products'];
 
                     $prodSpl = new SplObjectStorage();
@@ -82,7 +85,6 @@
                         ['products' => $prodSpl ?? null,
                             'datecommande' => $date ?? null,
                             'idutilisateur' => $idclient ?? null,
-                            'prixtotal' => $price ?? 1,
                             'idbarmen' => $idbarmen ?? null,
                         ], new \Transaction\Entity\Transaction()
                     );
