@@ -8,7 +8,7 @@ $restoRepository = new \Repository\Restaurant();
 $restaurantService = new \Service\Restaurant();
 
 $error = "null";
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' /* || !isset($_SESSION['id']) || !$_SESSION['isadmin']*/) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST'  || !isset($_SESSION['id']) || !$_SESSION['isadmin']) {
     $error = "internal error";
     http_response_code(400);
 }else{

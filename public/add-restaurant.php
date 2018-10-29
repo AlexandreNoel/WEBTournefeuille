@@ -6,7 +6,7 @@ session_start();
 
 $restaurantRepository = new \Repository\Restaurant();
 $restaurantHydrator = new \Hydrator\Restaurant();
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' /*|| !isset($_SESSION['id']) || !$_SESSION['isadmin']*/) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSION['isadmin']) {
     $error = "internal error";
     http_response_code(400);
 } else {

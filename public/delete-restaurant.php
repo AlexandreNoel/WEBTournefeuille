@@ -8,7 +8,7 @@ $restaurantRepository = new \Repository\Restaurant();
 
 $error = "null";
 
-if ($_SERVER['REQUEST_METHOD'] !== "DELETE" /* || $_SESSION['isadmin'] */) {
+if ($_SERVER['REQUEST_METHOD'] !== "DELETE"  || $_SESSION['isadmin']) {
 
     $error = "internal error";
     http_response_code(400);
