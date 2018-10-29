@@ -45,6 +45,11 @@ $(document).ready(() => {
     $('#rest-score').mouseleave(() => { updateStars(); });
     $('#rest-score').click(() => { console.log(tempScore); });
     $('#rest-score i').mouseenter((event) => { updateStars(event.target.getAttribute('value')); });
+    $('#rest-map-toggle span').click(() => {
+        $('#rest-comments').toggleClass('hidden');
+        $('#rest-map').toggleClass('hidden');
+        $('#rest-map-toggle span').toggleClass('hidden');
+    });
 });
 
 let restaurant = {};
