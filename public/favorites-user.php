@@ -19,6 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] !== "PUT" /*|| !isset($_SESSION['id'])*/) {
         http_response_code(400);
     }
 }
-$data = ['error' => $error, '$restos' => $restos];
+$data = ['error' => $error, '$restos' => $restos, 'session' => $_SESSION];
 echo json_encode($$data);
 
