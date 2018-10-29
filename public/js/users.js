@@ -4,7 +4,6 @@ $(document).ready(() => {
     getUsers();
 
     $('#users-list tbody').click((event) => {
-        console.log(event.target.parentElement.nodeName);
         if (event.target.parentElement.nodeName != 'TD'){
            window.location = event.target.parentElement.getAttribute('href');
         }else{

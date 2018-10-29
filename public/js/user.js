@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    if (!window.location.pathname.match == "/form"){
+    if (window.location.pathname != "/form"){
         getUser();
     }
 
@@ -197,7 +197,10 @@ function register() {
             secret_user: $('#password_register').val(),
             confir_secret_user: $('#confirm_password').val()
         }
-    }).done(function () {
+    }).done(function (res) {
+        res = JSON.parse(res)
+        SESSION = res.session;
+        setSession(SESSION);
         window.location = '/restaurants';
     }).fail(function () {
     });
@@ -211,7 +214,10 @@ function connect() {
             mail_user: $('#username_connect').val(),
             secret_user: $('#password_connect').val(),
         }
-    }).done(function () {
+    }).done(function (res) {
+        res = JSON.parse(res)
+        SESSION = res.session;
+        setSession(SESSION);
         window.location = '/restaurants';
     }).fail(function () {
     });

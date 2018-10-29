@@ -10,7 +10,6 @@ function getRestaurant() {
         type: 'GET',
         data: { id_resto: restaurantId }
     }).done(function (res) {
-        console.log(res);
         res = JSON.parse(res);
         buildContent(res.data);
     }).fail(function (error) {

@@ -14,6 +14,7 @@
         <link href="https://fonts.googleapis.com/css?family=Advent+Pro:600,700" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="/js/session.js"></script>
         <script src="/js/sidebar.js"></script>
     </head>
     <body>
@@ -29,23 +30,23 @@
         </div>
         <div id="wrapper">
             <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-                <ul class="nav sidebar-nav">
-                    <li class="selected">
+                <ul id="menu_list" class="nav sidebar-nav">
+                    <li id="menu_home" class="selected">
                         <a href="/"><i class="fas fa-home"></i>Accueil</a>
                     </li>
-                    <li>               
+                    <li id="menu_add_restaurant">               
                         <a href="/restaurants/add"><i class="fas fa-plus-square"></i>Ajouter un restaurant</a>
                     </li>
-                    <li>
+                    <li id="menu_user">
                         <a href="/users/1"><i class="fas fa-user"></i>Paramètres du compte</a>
                     </li>
-                    <li>
+                    <li id="menu_users">
                         <a href="/users"><i class="fas fa-users"></i>Liste des utilisateurs</a>
                     </li>
-                                        <li>
+                                        <li  id="menu_form">
                         <a href="/form"><i class="fas fa-sign-in-alt"></i>Connexion/Inscription</a>
                     </li>
-                    <li>
+                    <li id="menu_disconnect">
                         <a href="/disconnected"><i class="fas fa-sign-out-alt"></i>Déconnexion</a>
                     </li>
                 </ul>
@@ -63,5 +64,4 @@
             </div>
         </div>
     </body>
-    <script src="/js/main.js"></script>
 </html>
