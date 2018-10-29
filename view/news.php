@@ -12,89 +12,94 @@
 <!-- CONTENU !-->
 
 <div class="content-container">
-    <div id="form-div">
-        <form id="form-ajout" class="form-ajout" action="add-news.php" method="post">
-            <div>
-                <label>Titre</label>
+    <div class="card">
+        <h5 class="card-header text-center">Liste des news</h5>
+        <div class="card-body">
+        <div id="form-div">
+            <form id="form-ajout" class="form-ajout" action="add-news.php" method="post">
+                <div>
+                    <label>Titre</label>
+                    <input
+                        id="titre-input"
+                        type="text"
+                        name="titre"
+                        placeholder="Titre de la news"
+                        value=""
+                    >
+                </div>
+                <div>
+                    <label>Contenu</label>
+                    <textarea
+                        id="contenu-input"
+                        name="contenu"
+                        title="Contenu"
+                    ></textarea>
+                </div>
                 <input
-                    id="titre-input"
-                    type="text"
-                    name="titre"
-                    placeholder="Titre de la news"
-                    value=""
+                    id="idauteur-input"
+                    type="hidden"
+                    name="idauteur"
+                    value="0"
                 >
-            </div>
-            <div>
-                <label>Contenu</label>
-                <textarea
-                    id="contenu-input"
-                    name="contenu"
-                    title="Contenu"
-                ></textarea>
-            </div>
-            <input
-                id="idauteur-input"
-                type="hidden"
-                name="idauteur"
-                value="0"
-            >
-            <input
-                id="idannonce-input"
-                type="hidden"
-                name="idannonce"
-                value="0"
-            >
-            <input id="submit-form" type="submit" value="Ajouter">
-            <button type="button" id="cancel-button"> BACK </button>
-        </form>
-    </div>
-    <div id="add">
-        <button id="add-button">Ajouter une news</button>
-    </div>
-    <div id="tables">
-        <div id="single-table">
-                <label id="table-tile">News</label>
-                <table id="table_news" class="display">
-                    <thead>
-                    <tr>
-                        <th>Titre</th>
-                        <th>Contenu</th>
-                        <th>Auteur</th>
-                        <th>Date création</th>
-                        <th>Modify</th>
-                        <th>Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach($news as $newsentity): ?>
-                        <?php if (!is_null($newsentity)):?>
-                            <tr>
-                                <td><?php echo $newsentity->getTitle()?></td>
-                                <td><?php echo $newsentity->getContenu()?></td>
-                                <td><?php echo $auteurlist[$newsentity->getIdAuteur()]?></td>
-                                <td><?php echo $newsentity->getDateCreation()->format("d-m-Y")?></td>
-                                <td>
-                                    <button class="edit-button" onclick="updateNews(<?php echo "'" . $newsentity->getTitle() . "', '" .
-                                     $newsentity->getContenu() . "' ," .
-                                     $newsentity->getIdAuteur() . " ," .
-                                     $newsentity->getId();?>)" >
-                                    <img class="icon" src="assets/images/edit.png">
-                                    </button>
-                                </td>
-                                <td>
-                                    <form action="del-news.php" method="post">
-                                        <input type="hidden" name="id_annonce" value="<?php echo $newsentity->getId() ?>">
-                                        <button class="remove-button">
-                                            <img class="icon" src="assets/images/cross.png">
+                <input
+                    id="idannonce-input"
+                    type="hidden"
+                    name="idannonce"
+                    value="0"
+                >
+                <input id="submit-form" type="submit" value="Ajouter">
+                <button type="button" id="cancel-button"> BACK </button>
+            </form>
+        </div>
+        <div id="add">
+            <button id="add-button">Ajouter une news</button>
+        </div>
+        <div id="tables">
+            <div id="single-table">
+                    <label id="table-tile">News</label>
+                    <table id="table_news" class="display">
+                        <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Contenu</th>
+                            <th>Auteur</th>
+                            <th>Date création</th>
+                            <th>Modify</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($news as $newsentity): ?>
+                            <?php if (!is_null($newsentity)):?>
+                                <tr>
+                                    <td><?php echo $newsentity->getTitle()?></td>
+                                    <td><?php echo $newsentity->getContenu()?></td>
+                                    <td><?php echo $auteurlist[$newsentity->getIdAuteur()]?></td>
+                                    <td><?php echo $newsentity->getDateCreation()->format("d-m-Y")?></td>
+                                    <td>
+                                        <button class="edit-button" onclick="updateNews(<?php echo "'" . $newsentity->getTitle() . "', '" .
+                                         $newsentity->getContenu() . "' ," .
+                                         $newsentity->getIdAuteur() . " ," .
+                                         $newsentity->getId();?>)" >
+                                        <img class="icon" src="assets/images/edit.png">
                                         </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                                    </td>
+                                    <td>
+                                        <form action="del-news.php" method="post">
+                                            <input type="hidden" name="id_annonce" value="<?php echo $newsentity->getId() ?>">
+                                            <button class="remove-button">
+                                                <img class="icon" src="assets/images/cross.png">
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+        </div>
     </div>
 </div>
 </body>

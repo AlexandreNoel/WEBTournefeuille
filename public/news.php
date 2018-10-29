@@ -9,7 +9,7 @@
     require_once __DIR__.'./../vendor/autoload.php';
     session_start();
 
-    if(!isset($_SESSION['authenticated_user'])){
+    if(!isset($_SESSION['authenticated_admin'])){
         header('Location: /');
     }
     $repositorynews = new \News\Repository\News();

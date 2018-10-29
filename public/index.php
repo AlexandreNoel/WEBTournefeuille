@@ -47,6 +47,11 @@ switch ($url) {
         break;
 
     /* CONSOLE - GESTION - NEWS */
+    case '/gestionProduct':
+        require __DIR__ . '/product.php';
+        break;
+
+    /* CONSOLE - GESTION - NEWS */
     case '/gestionNews':
         require __DIR__ . '/news.php';
         break;
