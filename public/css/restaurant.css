@@ -16,7 +16,7 @@
 
 .rest-detail #rest-score i,
 .rest-detail #rest-favorite, .rest-detail #rest-unfavorite {
-    font-size: 3em;
+    font-size: 2.5em;
     cursor: pointer;
 }
 
