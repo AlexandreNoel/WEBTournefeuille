@@ -45,7 +45,7 @@ function getUser() {
 
     }).done(function (user) {
         user = JSON.parse(user)
-        buildContent(user);
+        buildContent(user.data);
     }).fail(function (error) {
         alert("Erreur");
     });

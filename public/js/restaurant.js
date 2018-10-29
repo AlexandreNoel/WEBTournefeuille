@@ -13,7 +13,23 @@ $(document).ready(() => {
             alert("Erreur");
         });
 
+        if (confirm("Delete?")) {
+
+            $.ajax({
+                url: 'https://localhost:8080/delete-restaurant.php',
+                type: 'DELETE',
+                data: { id_resto: restaurantId }
+            }).done(function (res) {
+                window.location = "/restaurants";
+            }).fail(function (error) {
+                alert("Erreur");
+            });
+
+        } else {
+            txt = "You pressed Cancel!";
+        }
     });
+
     $('#edit').click(() => {
         window.location = "/restaurants/update/"+restaurantId;
     });
@@ -28,7 +44,7 @@ $(document).ready(() => {
     });
     $('#rest-score').mouseleave(() => { updateStars(); });
     $('#rest-score').click(() => { console.log(tempScore); });
-    $('#rest-score i').mouseenter(() => { updateStars(event.target.getAttribute('value')); });
+    $('#rest-score i').mouseenter((event) => { updateStars(event.target.getAttribute('value')); });
 });
 
 let restaurant = {};
@@ -40,7 +56,8 @@ function getRestaurant(restaurantId) {
         data: { id_resto: restaurantId }
     }).done(function (res) {
         console.log(res);
-        restaurant = JSON.parse(res)
+        res= JSON.parse(res)
+        restaurant = res.data; 
         buildContent();
     }).fail(function (error) {
         alert("Erreur");

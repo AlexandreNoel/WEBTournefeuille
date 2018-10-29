@@ -17,5 +17,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'/* || !isset($_SESSION['id'])*/) {
     $data = "get error";
     http_response_code(400);
 }
-
-echo json_encode($data);
+$view = ['data' => $data, 'session' => $_SESSION];
+echo json_encode($view);

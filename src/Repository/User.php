@@ -89,7 +89,7 @@ class User
         $statement->bindParam(':isadmingiven', $isadminStr);
         $statement->bindParam(':id', $id);
 
-        $statement->execute();
+        return $statement->execute(); 
     }
    
 

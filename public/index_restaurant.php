@@ -21,7 +21,7 @@ $restos = [];
     foreach ($restos as $resto) {
         $data[] = $restoHydrator->extract($resto);
     }
-    $dat = ['resto' => $data, 'cats' => $dataCats];
+    $dat = ['resto' => $data, 'cats' => $dataCats,'session' => $_SESSION];
     
 
 echo json_encode($dat);
