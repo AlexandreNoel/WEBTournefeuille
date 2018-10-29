@@ -22,6 +22,8 @@ class Categorie
         if ($object->getName()) {
             $data['nom_cat'] = $object->getName();
         }
+
+        return $data;
     }
 
     public function hydrate(array $data, \Entity\Categorie $emptyEntity): \Entity\Categorie

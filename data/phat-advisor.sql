@@ -81,7 +81,6 @@ CREATE TABLE public.Categories(
 	CONSTRAINT Categories_PK PRIMARY KEY (id_Cat)
 )WITHOUT OIDS;
 
-
 ------------------------------------------------------------
 -- Table: Cat_Resto
 ------------------------------------------------------------
@@ -92,6 +91,28 @@ CREATE TABLE public.Cat_Resto(
 	,CONSTRAINT Cat_Resto_Categories_FK FOREIGN KEY (id_Cat) REFERENCES public.Categories(id_Cat)
 	,CONSTRAINT Cat_Resto_Restos_FK FOREIGN KEY (Id_Resto) REFERENCES public.Restos(Id_Resto)
 	,CONSTRAINT UC_Cat_Resto UNIQUE (Id_Resto,id_Cat)
+)WITHOUT OIDS;
+
+------------------------------------------------------------
+-- Table: Badge
+------------------------------------------------------------
+CREATE TABLE public.Badge(
+	id_Badge    SERIAL NOT NULL ,
+	Nom_Badge   VARCHAR (30) NOT NULL ,
+	Badge_link	VARCHAR (30) NOT NULL ,
+	CONSTRAINT Badge_PK PRIMARY KEY (id_Badge)
+)WITHOUT OIDS;
+
+------------------------------------------------------------
+-- Table: Badge_Resto
+------------------------------------------------------------
+CREATE TABLE public.Badge_Resto(
+	Id_Resto   INT  NOT NULL ,
+	id_Badge   INT  NOT NULL  ,
+	CONSTRAINT Badge_Resto_PK PRIMARY KEY (Id_Resto,id_Badge)
+	,CONSTRAINT UC_Cat_Resto UNIQUE (Id_Resto,id_Badge)
+	,CONSTRAINT Badge_Resto_Restos_FK FOREIGN KEY (Id_Resto) REFERENCES public.Restos(Id_Resto)
+	,CONSTRAINT Badge_Resto_Badge0_FK FOREIGN KEY (id_Badge) REFERENCES public.Badge(id_Badge)
 )WITHOUT OIDS;
 
 ------------------------------------------------------------
@@ -150,15 +171,12 @@ VALUES
 -- Insertion des catégories
 ---------------------------
 
-INSERT INTO Categories VALUES (DEFAULT,'Bio');
-INSERT INTO Categories VALUES (DEFAULT,'Halal');
-INSERT INTO Categories VALUES (DEFAULT,'Vegan');
 INSERT INTO Categories VALUES (DEFAULT,'Fast Food');
 INSERT INTO Categories VALUES (DEFAULT,'Asiatique');
 INSERT INTO Categories VALUES (DEFAULT,'Pizza');
 INSERT INTO Categories VALUES (DEFAULT,'Tacos');
 INSERT INTO Categories VALUES (DEFAULT,'Salade');
-INSERT INTO Categories VALUES (DEFAULT,'Japonaix');
+INSERT INTO Categories VALUES (DEFAULT,'Japonais');
 INSERT INTO Categories VALUES (DEFAULT,'Coreen');
 INSERT INTO Categories VALUES (DEFAULT,'Restaurant');
 INSERT INTO Categories VALUES (DEFAULT,'Burger');
@@ -169,15 +187,66 @@ INSERT INTO Categories VALUES (DEFAULT,'Sandwich');
 -- Insertion des catégories des restaurants
 ---------------------------
 
-INSERT INTO Cat_Resto VALUES (1,5);
 INSERT INTO Cat_Resto VALUES (1,2);
-INSERT INTO Cat_Resto VALUES (2,1);
-INSERT INTO Cat_Resto VALUES (2,3);
-INSERT INTO Cat_Resto VALUES (3,4);
+INSERT INTO Cat_Resto VALUES (1,6);
+INSERT INTO Cat_Resto VALUES (2,11);
+INSERT INTO Cat_Resto VALUES (2,5);
+INSERT INTO Cat_Resto VALUES (3,9);
+INSERT INTO Cat_Resto VALUES (3,1);
+INSERT INTO Cat_Resto VALUES (4,9);
 
+---------------------------
+-- Insertion des badges
+---------------------------
+
+INSERT INTO Badge VALUES (DEFAULT,'Bio','data/bio.png');
+INSERT INTO Badge VALUES (DEFAULT,'Halal','data/halal.png');
+INSERT INTO Badge VALUES (DEFAULT,'Vegan','data/vegan.png');
+INSERT INTO Badge VALUES (DEFAULT,'Partenariat','data/partenariat.png');
+INSERT INTO Badge VALUES (DEFAULT,'Sur Place','data/place.png');
+INSERT INTO Badge VALUES (DEFAULT,'A emporter','data/emporter.png');
+
+---------------------------
+-- Insertion des badges des restaurants
+---------------------------
+INSERT INTO Badge_Resto VALUES (1,4);
+INSERT INTO Badge_Resto VALUES (1,5);
+INSERT INTO Badge_Resto VALUES (1,6);
+INSERT INTO Badge_Resto VALUES (2,3);
+INSERT INTO Badge_Resto VALUES (2,6);
+INSERT INTO Badge_Resto VALUES (3,5);
+INSERT INTO Badge_Resto VALUES (3,6);
+INSERT INTO Badge_Resto VALUES (4,5);
+INSERT INTO Badge_Resto VALUES (4,6);
 
 ---------------------------
 -- Insertion des utilisateurs
 ---------------------------
 INSERT INTO persons VALUES (DEFAULT,'admin_lastname','admin_firstname','admin@mail.com',2020,'1',crypt('admin_secret',gen_salt('bf',8)));
 INSERT INTO persons VALUES (DEFAULT,'user_lastname','user_firstname','user@mail.com',2021,'0',crypt('user_secret',gen_salt('bf',8)));
+
+---------------------------
+-- Trigger de gestion des notes
+---------------------------
+CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS 
+'
+  DECLARE
+    note integer;
+    nbnote integer;
+    notefin integer;
+  BEGIN 
+    SELECT INTO note sum(Score) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
+    IF note ISNULL THEN
+      note:=0;
+    END IF;
+    SELECT INTO nbnote count(*) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
+    notefin:=(note+NEW.Note_Resto)/(nbnote+1);
+    UPDATE Score SET Score.Score=notefin WHERE Score.Id_Resto_Restos=NEW.Id_Resto_Restos;
+    RETURN NEW;
+  END; 
+' 
+LANGUAGE 'plpgsql'; 
+
+CREATE TRIGGER trig_ins_comment BEFORE INSERT ON Comments 
+  FOR EACH ROW 
+  EXECUTE PROCEDURE before_insert_comment();

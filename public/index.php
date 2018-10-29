@@ -23,6 +23,8 @@ if (preg_match('/^\/form\/?$/', $uri)) {
     $pagePath = 'restaurants.html';
 } elseif  (preg_match('/^\/disconnected\/?$/', $uri)) {
     $pagePath = 'disconnected.html';
+} elseif  (preg_match('/^\/caroussel\/?$/', $uri)) {
+    $pagePath = 'caroussel.html';
 }else {
     $pagePath = 'form.html';
 }

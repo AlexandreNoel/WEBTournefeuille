@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="/css/restaurant.css">
         <link rel="stylesheet" href="/css/add-restaurant.css">
         <link rel="stylesheet" href="/css/users.css">
+        <link rel="stylesheet" href="/css/caroussel.css">
         <link href="https://fonts.googleapis.com/css?family=Advent+Pro:600,700" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -24,7 +25,7 @@
                     <span class="hamb-bottom"></span>
                 </button>
             </div>
-            <span class="col-xs-3">Phat' Advisor</span>
+            <span id="title" class="col-xs-3">Phat' Advisor</span>
         </div>
         <div id="wrapper">
             <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">

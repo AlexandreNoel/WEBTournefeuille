@@ -12,7 +12,7 @@ function getRestaurant() {
     }).done(function (res) {
         console.log(res);
         res = JSON.parse(res);
-        buildContent(res);
+        buildContent(res.data);
     }).fail(function (error) {
         alert("Erreur");
     });
