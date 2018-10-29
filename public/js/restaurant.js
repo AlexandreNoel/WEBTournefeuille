@@ -3,31 +3,21 @@ $(document).ready(() => {
     getRestaurant(restaurantId);
 
     $('#delete').click(() => {
-        $.ajax({
-            url: 'https://localhost:8080/api/restaurant/'+restaurantId,
-            type: 'DELETE'/*,
-            data: { id_restaurant: restaurantId }*/
-        }).done(function (res) {
-            window.location = "/restaurants";
-        }).fail(function (error) {
-            alert("Erreur");
+        $('#rest-admin-buttons>*').toggleClass('hidden');
+        $('#rest-del-cancel').click(() => {
+            $('#rest-admin-buttons>*').toggleClass('hidden');
         });
 
-        if (confirm("Delete?")) {
-
+        $('#rest-del-conf').click(() => {
             $.ajax({
-                url: 'https://localhost:8080/delete-restaurant.php',
+                url: 'https://localhost:8080/api/restaurant/' + restaurantId,
                 type: 'DELETE',
-                data: { id_resto: restaurantId }
             }).done(function (res) {
                 window.location = "/restaurants";
             }).fail(function (error) {
                 alert("Erreur");
             });
-
-        } else {
-            txt = "You pressed Cancel!";
-        }
+        });
     });
 
     $('#edit').click(() => {
