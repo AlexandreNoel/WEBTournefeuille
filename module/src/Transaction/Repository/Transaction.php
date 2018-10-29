@@ -92,7 +92,7 @@ class Transaction
                     $productid = $productArray['products']->current()->getId();
                     $price = floatval($productArray['products']->current()->getPrice());
                     $ammount = $productArray['products']->getInfo();
-                    $productQte = $repoProduct->findById($productid)->getQuantity();
+                    $repoProduct->modifyStock($productid, -$ammount);
                     $statement = $this->dbAdapter->prepare('INSERT INTO faitpartiecommande (idproduit,idcommande,prixvente,quantite) values (:idproduit,:idcommande,:prixvente,:quantite)');
                     $statement->bindParam(':idproduit', $productid);
                     $statement->bindParam(':idcommande', $id);
