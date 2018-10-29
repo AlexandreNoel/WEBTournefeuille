@@ -24,8 +24,7 @@
 
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button id="action-credit" onclick="credit()" class="btn btn-default" >Confirmer</button>
-                    <button id="action-command" onclick="command()" class="btn btn-default" >Confirmer</button>
+                    <button id="action-modal" onclick="" class="btn btn-default" >Confirmer</button>
                 </div>
                 <div id="error-modal" class="text-red font-weight-bold">
 
@@ -305,13 +304,7 @@
                     }
 
                     // Simulation du coût final
-                    var montant = 0;
-
-                    // Récupération des articles commandés
-                    $('#artCommand > tr').each(function() {
-                        montant= montant + parseFloat($(this).find('.artCommandTotal').text());
-                    });
-                    $('#totalAmount').text("Montant commande:" +  parseFloat(montant).toFixed(2) +"€");
+                    calculateAmountTotal();
 
                     // Simulation du stock final
                     var newStock = parseInt(stock)-1;
@@ -327,6 +320,16 @@
 
         });
 
+        function calculateAmountTotal(){
+            var montant = 0;
+            // Récupération des articles commandés
+            $('#artCommand > tr').each(function() {
+                montant= montant + parseFloat($(this).find('.artCommandTotal').text());
+            });
+            $('#totalAmount').text("Montant commande:" +  parseFloat(montant).toFixed(2) +"€");
+        }
+
+
         // Effacement d'une ligne de commande
         function artRemove(productBtn,productId){
             var productStock = $('#productsByCategory').find('#'+productId).find('.pStock');
@@ -337,9 +340,17 @@
             $(productStock).attr("data",newStock);
             // Simulation du stock après suppression de ligne
             $(productBtn).closest("tr").remove();
+
+            calculateAmountTotal();
         }
 
+        // Action sur le modal
         function modalAdmin(action){
+            // Réinitialisation
+            $('#error-modal').text("");
+            $('#password').val("");
+
+            // Gestion des actions
             $('#action-modal').attr('onclick',action +"()");
             $('#modalBarmen').modal('show');
         }
@@ -465,8 +476,8 @@
                             else{
                                 $('#modalBarmen').modal('hide');
                                 $('#password').val("");
-                                $('#artCommand > tr').empty();
-                                $("#artCommand").find("tr:gt(0)").remove();
+                                $("#artCommand").empty();
+                                $('#totalAmount').text("Montant commande: 0€");
                                 alert("La commande a été validée.");
                             }
                         }
