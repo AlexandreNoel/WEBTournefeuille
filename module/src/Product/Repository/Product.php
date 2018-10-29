@@ -164,11 +164,11 @@ class Product
     }
     public function getMostSelled($top){
         $statement = $this->dbAdapter->prepare(
-            'select idproduit,sum(quantite) from faitpartiecommande group by idproduit limit :top;');
+            'select idproduit,sum(quantite) as quantite from faitpartiecommande group by idproduit limit :top;');
         $statement->bindParam(':top', $top);
         $statement->execute();
         foreach ($statement->fetchAll() as $productData) {
-            $res[]=$productData['idproduit'];
+            $res[]=$productData;
         }
         return $res;
 
