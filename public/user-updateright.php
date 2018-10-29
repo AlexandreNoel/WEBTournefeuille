@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT'/* && (isset($_SESSION['isadmin']))*/) {
     $id_user = $post_vars['id_user'] ?? null;
 
     $isadmin = $userRepository->checkRightById($id_user);
-    $userRepository->updateRight($isadmin,$id_user);
+    $result = $userRepository->updateRight($isadmin,$id_user);
 
+    echo json_encode($result);
 }
