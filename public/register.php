@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
         if (!$userRepository->create($newUser)) {
             $view['errors']['database'] = 'Error when registering';
+            http_response_code(400);
         } else {
             $_SESSION['uniqid'] = uniqid();
             $_SESSION['name'] = $firstname . " " . $lastname;
@@ -63,5 +64,5 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     }
 
 }
-
+$view['session'] = $_SESSION;
     echo json_encode($view);

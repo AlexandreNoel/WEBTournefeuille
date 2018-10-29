@@ -7,7 +7,7 @@ session_start();
 $userRepository = new \Repository\User();
 $restoRepository = new \Repository\Restaurant();
 
-if ($_SERVER['REQUEST_METHOD'] !== "PUT" /*|| !isset($_SESSION['id'])*/) {
+if ($_SERVER['REQUEST_METHOD'] !== "PUT" || !isset($_SESSION['id'])) {
     $error = "internal error";
     http_response_code(400);
 } else {

@@ -6,7 +6,7 @@ session_start();
 
 $restaurantRepository = new \Repository\Restaurant();
 
-if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+if ($_SERVER['REQUEST_METHOD'] === 'PUT' && (isset($_SESSION['isadmin']))) {
 
     parse_str(file_get_contents("php://input"),$post_vars);
 

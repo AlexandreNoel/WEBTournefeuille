@@ -35,7 +35,6 @@ function getRestaurants() {
         type: 'GET'
     }).done(function (res) {
         res = JSON.parse(res)
-        SESSION = res.session;
         buildContent(res);
     }).fail(function (error) {
         alert("Erreur");

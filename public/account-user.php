@@ -7,7 +7,7 @@ $userRepository = new \Repository\User();
 $userHydrator = new \Hydrator\User();
 $data = [];
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET'/* || !isset($_SESSION['id'])*/) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' || isset($_SESSION['id'])) {
     $id_user = $_GET['id_user'] ?? null;
     $user = $userRepository->findOneById($id_user);
 

@@ -7,7 +7,7 @@ session_start();
 $restoRepository = new \Repository\Restaurant();
 
 $result = "null";
-if ($_SERVER['REQUEST_METHOD'] !== 'GET'/* || !isset($_SESSION['id'])*/) {
+if ($_SERVER['REQUEST_METHOD'] !== 'GET' || !isset($_SESSION['id'])) {
     $result = "internal error";
     http_response_code(400);
 }else{

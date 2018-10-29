@@ -50,7 +50,6 @@ function getRestaurant(restaurantId) {
         type: 'GET',
         data: { id_resto: restaurantId }
     }).done(function (res) {
-        console.log(res);
         res= JSON.parse(res)
         restaurant = res.data; 
         buildContent();

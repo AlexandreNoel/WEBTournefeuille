@@ -1,4 +1,10 @@
+const admin_li = ['menu_add_restaurant', 'menu_users'];
+const co_li = ['menu_home', 'menu_user', 'menu_disconnect'];
+const deco_li = ['menu_form'];
+
+
 $(document).ready(() => {
+    reloadSideBar();
     var wrapper = $('#wrapper');
 
     wrapper.click(() => {
@@ -25,3 +31,45 @@ $(document).keydown(function (e) {
         n = 0;
     }
 });
+
+function hideIfNotAdmin() {
+
+    $('#menu_list li').each(function () {
+        if (admin_li.includes(this.id)) {
+            $($(this)[0]).hide();
+        };
+    });
+}
+
+function showDeconnected() {
+    $('#menu_list li').each(function () {
+        if (co_li.includes(this.id)) {
+            $($(this)[0]).hide();
+        };
+    });
+}
+
+function showConnected() {
+    $('#menu_list li').each(function () {
+        if (deco_li.includes(this.id)) {
+            $($(this)[0]).hide();
+        };
+    });
+}
+
+function reloadSideBar() {
+    $('#menu_list li').each(function () {
+            $($(this)[0]).show();
+    });
+
+    if (getSession()['uniqid']) {
+        showConnected();
+        if (getSession()['isadmin'] === "false") {
+            hideIfNotAdmin();
+        }
+
+    } else {
+        hideIfNotAdmin();
+        showDeconnected();
+    }
+}
