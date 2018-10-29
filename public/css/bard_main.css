@@ -33,7 +33,7 @@ h1,h2,h3,h4,h5,h6{
 
 .content-container{
 	margin-top:100px;
-	height:100%;
+	height:auto;
 }
 
 .body{
@@ -514,7 +514,6 @@ nav{
     right: 0;
     bottom: 0;
     padding: 1rem 2rem 0;
-    overflow: auto;
     transition: .7s;
     transform: scale(0);
     transform-origin: center top;
@@ -777,6 +776,13 @@ nav{
 {
 	margin-top:25px;
 	display:block;
+}
+
+#console-connect-form{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .error-404{

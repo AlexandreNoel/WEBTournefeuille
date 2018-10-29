@@ -34,7 +34,7 @@ CREATE TABLE Commande(
     idUtilisateur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
     idBarmen INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
     prixTotal FLOAT NOT NULL
-);
+);  
 
 CREATE TABLE Categorie(
     idCategorie SERIAL PRIMARY KEY,
@@ -49,6 +49,13 @@ CREATE TABLE Produit(
     quantiteStock INTEGER NOT NULL,
     estDisponible Bool NOT NULL,
     idCategorie INTEGER NOT NULL REFERENCES Categorie (idCategorie)
+);
+
+CREATE TABLE PreferenceUtilisateur(
+    idUtilisateur SERIAL NOT NULL REFERENCES Utilisateur (idUtilisateur),
+    idProduit SERIAL NOT NULL REFERENCES Produit (idProduit),
+    indicePreference INTEGER NOT NULL,
+    PRIMARY KEY (idUtilisateur,idProduit)
 );
 
 CREATE TABLE FaitPartieCommande(

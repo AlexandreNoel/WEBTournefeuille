@@ -3,9 +3,6 @@
 require_once __DIR__.'./../vendor/autoload.php';
 require_once ("../module/oAuth/auth/OAuthAriseClient.php");
 require_once ("../module/oAuth/lib/config.inc.php");
-require_once ("../module/src/Client/Repository/Client.php");
-require_once ("../module/src/Client/Hydrator/Client.php");
-require_once ("../module/src/Client/Entity/Client.php");
 
 
 /* Création de l'instance */

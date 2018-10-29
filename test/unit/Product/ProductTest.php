@@ -89,10 +89,8 @@ class ProductTest extends TestCase
     public function testDelete()
     {
         $productRepository = new \Product\Repository\Product();
-        $productRepository->deleteByName('tagada');
-        $tagada = $productRepository->findByName('tagada');
-        self::assertNull($tagada);
-
-    }
+        $coca = $productRepository->getMostSelled(1)[0];
+        self::assertEquals(1,$coca['idproduit']);
+        self::assertGreaterThanOrEqual(150,$coca['quantite']);    }
 
 }

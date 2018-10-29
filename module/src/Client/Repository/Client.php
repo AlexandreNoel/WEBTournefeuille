@@ -60,6 +60,20 @@ class Client
         return $user;
     }
 
+    public function findOneByCodeBarmen($code)
+    {
+        $user = null;
+        $statement = $this->dbAdapter->prepare(
+            'select u.*,b.codebarmen from Utilisateur u left join barmen b on u.idutilisateur = b.idutilisateur where b.codebarmen = :code');
+        $statement->bindParam(':code', $code);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $row) {
+            $entity = new \Client\Entity\Client();
+            $user = $this->hydrator->hydrate($row, clone $entity);
+        }
+        return $user;
+    }
+
     public function giveMoney($id,$money)
     {
         $user = null;
@@ -67,7 +81,8 @@ class Client
             'update  Utilisateur set solde = solde+:money where idutilisateur=:id');
         $statement->bindParam(':id', $id);
         $statement->bindParam(':money', $money);
-        $statement->execute();
+        $result = $statement->execute();
+        return $result;
     }
 
     public function findByAriseData($lastname, $firstname, $nickname)
@@ -108,6 +123,7 @@ class Client
         return $id;
 
     }
+
     public function update(\Client\Entity\Client $client)
     {
         $clientkArray = $this->hydrator->extract($client);
@@ -120,9 +136,8 @@ class Client
         $statement->bindParam(':solde', $clientkArray['solde']);
         $statement->bindParam(':id', $clientkArray['idutilisateur']);
         $statement->execute();
-
-
     }
+
     public function remove(\Client\Entity\Client $client)
     {
         $taskArray = $this->hydrator->extract($client);

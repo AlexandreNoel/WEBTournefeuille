@@ -1,3 +1,7 @@
+function productsShopHandler(divCategories,divProductsByCategories){
+    divCategories.addEventListener()
+}
+
 
 /**
  *Initialise l'autocompletion

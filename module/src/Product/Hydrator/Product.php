@@ -42,7 +42,7 @@ class Product{
         return $emptyEntity
             ->setId($data['idproduit'] ?? null)
             ->setName(strtolower($data['libelle']) ?? null)
-            ->setPrice($data['prix'] ?? null )
+            ->setPrice($data['prix'] ?? 0 )
             ->setReduction($data['reduction'] ?? 0)
             ->setQuantity($data['quantitestock'] ?? null)
             ->setEstDisponible($data['estdisponible'] ?? True)
