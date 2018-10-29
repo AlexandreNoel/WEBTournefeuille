@@ -20,8 +20,8 @@ class TransactionTest extends TestCase
         $product2=$productRepository->findById(2);
 
         $products = new \SplObjectStorage();
-        $products->attach($product,2);
-        $products->attach($product2,2);
+        $products->attach($product,4);
+        $products->attach($product2,4);
         $madate = new \DateTime();
         $madate->format('Y\-m\-d\ h:i:s');
 //        $madate=$madate->getTimestamp();
@@ -35,11 +35,7 @@ class TransactionTest extends TestCase
             ],
             new \Transaction\Entity\Transaction()
         );
-        try{
-            $id=$transacRepository->create($newTransaction);
-        } catch (\Exception $error) {
-            echo "Catch " . $error;
-        }
+        $id=$transacRepository->create($newTransaction);
         $found=$transacRepository->findOneById($id);
         self::assertSame(intval($id), $found->getId());
         self::assertEquals($found->getIdBarmen(), $newTransaction->getIdBarmen());
@@ -60,80 +56,6 @@ class TransactionTest extends TestCase
             $productsBase->next();
         }
     }
-
-    /**
-     * @test
-     */
-    public function testExceptionSolde(){
-        $transacHydrator = new \Transaction\Hydrator\Transaction();
-        $productRepository = new \Product\Repository\Product();
-        $transacRepository = new \Transaction\Repository\Transaction();
-
-        $product=$productRepository->findById(1);
-        $product2=$productRepository->findById(2);
-
-        $products = new \SplObjectStorage();
-        $products->attach($product,400);
-        $products->attach($product2,400);
-        $madate = new \DateTime();
-        $madate->format('Y\-m\-d\ h:i:s');
-//        $madate=$madate->getTimestamp();
-        $newTransaction = $transacHydrator->hydrate(
-            [
-                'datecommande' => '2018-10-27 12:00:00',
-                'prixtotal' => 2,
-                'products' =>$products,
-                'idutilisateur' => 3,
-                'idbarmen' => 2
-            ],
-            new \Transaction\Entity\Transaction()
-        );
-        try{
-            $id=$transacRepository->create($newTransaction);
-        } catch (\Exception $error) {
-            $craftederror = new \Exception("Solde client trop faible");
-            self::assertEquals($error, $craftederror);
-        }
-    }
-
-    /**
-     * @test
-     */
-    public function testClientDebiter()
-    {
-        $transacHydrator = new \Transaction\Hydrator\Transaction();
-        $productRepository = new \Product\Repository\Product();
-        $transacRepository = new \Transaction\Repository\Transaction();
-        $clientRepository = new \Client\Repository\Client();
-
-        $product=$productRepository->findById(1);
-        $product2=$productRepository->findById(2);
-
-        $thuneclient = $clientRepository->findOneById(3)->getSolde();
-        $products = new \SplObjectStorage();
-        $products->attach($product,1);
-        $products->attach($product2,1);
-        $madate = new \DateTime();
-        $madate->format('Y\-m\-d\ h:i:s');
-        $newTransaction = $transacHydrator->hydrate(
-            [
-                'datecommande' => '2018-10-27 12:00:00',
-                'products' =>$products,
-                'idutilisateur' => 3,
-                'idbarmen' => 2
-            ],
-            new \Transaction\Entity\Transaction()
-        );
-        try{
-            $id=$transacRepository->create($newTransaction);
-        } catch (\Exception $error) {
-            echo "Catch " . $error;
-        }
-        $prixcommande = $newTransaction->getPrice();
-        self::assertEquals($thuneclient - $prixcommande, $clientRepository->findOneById(3)->getSolde());
-    }
-
-
     /**
      * @test
      */

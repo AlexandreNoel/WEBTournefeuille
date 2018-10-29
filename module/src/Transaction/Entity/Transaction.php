@@ -87,11 +87,16 @@ class Transaction
 
         $price=0;
         foreach ($this->product as $key)  {
-            $productprice=$this->product->current()->getPrice();
-            $totalprice=$productprice*intval($this->product->getInfo());
-            $totalprice-=$totalprice*($this->product->current()->getReduction()/100);
-            $price+= $totalprice;
+            $price+= $this->product->current()->getPrice()*intval($this->product->getInfo());
         }
+        $this->price = $price;
+        return $this;
+    }
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price): Transaction
+    {
         $this->price = $price;
         return $this;
     }

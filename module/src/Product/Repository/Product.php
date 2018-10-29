@@ -94,7 +94,7 @@ class Product
     public function findByName($libelle)
     {
         $product = null;
-        $statement = $this->dbAdapter->prepare('select * from produit where libelle = :libelle  and estdisponible = True');
+        $statement = $this->dbAdapter->prepare('select * from produit where libelle = :libelle  and espdisponible = True');
         $statement->bindParam(':libelle', $libelle);
         $statement->execute();
         foreach ($statement->fetchAll() as $productData) {
@@ -106,16 +106,11 @@ class Product
 
     public function modifyStock($id, $stock)
     {
-        $quantityProduct = $this->findById($id)->getQuantity();
-        if (($quantityProduct - $stock) > 0) {
-            $statement = $this->dbAdapter->prepare('UPDATE produit SET quantitestock=quantitestock + :stock WHERE idproduit=:id');
-            $statement->bindParam(":stock", $stock);
-            $statement->bindParam(":id", $id);
-            $statement->execute();
-            return $this->findById($id)->getQuantity();
-        } else {
-            throw new \Exception("Stock trop faible");
-        }
+        $statement = $this->dbAdapter->prepare('UPDATE produit SET quantitestock=quantitestock + :stock WHERE idproduit=:id');
+        $statement->bindParam(":stock", $stock);
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        return $this->findById($id)->getQuantity();
     }
 
 
