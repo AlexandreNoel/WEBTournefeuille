@@ -95,14 +95,6 @@ class Transaction
         $this->price = $price;
         return $this;
     }
-    /**
-     * @param float $price
-     */
-    public function setPrice(float $price): Transaction
-    {
-        $this->price = $price;
-        return $this;
-    }
 
     /**
      * @return array

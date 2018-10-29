@@ -11,6 +11,7 @@ namespace Transaction\Repository;
  * @package \Transaction\Repository
  */
 use \Adapter\DatabaseFactory;
+use Client\Repository\Client;
 
 class Transaction
 {
@@ -67,32 +68,58 @@ class Transaction
     }
     public function create (\Transaction\Entity\Transaction $product) :int
     {
+        $repoclient = new \Client\Repository\Client();
+        $repoProduct = new \Product\Repository\Product();
         $productArray = $this->hydrator->extract($product);
-        #insertions de la commande
-        $statement = $this->dbAdapter->prepare('INSERT INTO commande (datecommande,idutilisateur,idbarmen,prixtotal) values (:datecommande,:idutilisateur,:idbarmen,:prixtotal) RETURNING idcommande');
-        $statement->bindParam(':datecommande', $productArray['datecommande']);
-        $statement->bindParam(':idutilisateur', $productArray['idutilisateur']);
-        $statement->bindParam(':idbarmen', $productArray['idbarmen']);
-        $statement->bindParam(':prixtotal', $productArray['prixtotal']);
-        $statement->execute();
-        $id="";
-        foreach ($statement->fetchAll() as $productData) {
-            $id=$productData['idcommande'];
+        $iduser = $productArray['idutilisateur'];
+        $prix = $productArray['prixtotal'];
+        $client = $repoclient->findOneById($iduser);
+        if (($client->getSolde() - $prix) > 0) {
+            if ($this->isPossible($productArray['products'])) {
+                #insertions de la commande
+                $statement = $this->dbAdapter->prepare('INSERT INTO commande (datecommande,idutilisateur,idbarmen,prixtotal) values (:datecommande,:idutilisateur,:idbarmen,:prixtotal) RETURNING idcommande');
+                $statement->bindParam(':datecommande', $productArray['datecommande']);
+                $statement->bindParam(':idutilisateur', $productArray['idutilisateur']);
+                $statement->bindParam(':idbarmen', $productArray['idbarmen']);
+                $statement->bindParam(':prixtotal', $productArray['prixtotal']);
+                $statement->execute();
+                $id = "";
+                foreach ($statement->fetchAll() as $productData) {
+                    $id = $productData['idcommande'];
+                }
+                #insertion de tous les produits de la commande
+                foreach ($productArray['products'] as $product) {
+                    $productid = $productArray['products']->current()->getId();
+                    $price = floatval($productArray['products']->current()->getPrice());
+                    $ammount = $productArray['products']->getInfo();
+                    $productQte = $repoProduct->findById($productid)->getQuantity();
+                    $statement = $this->dbAdapter->prepare('INSERT INTO faitpartiecommande (idproduit,idcommande,prixvente,quantite) values (:idproduit,:idcommande,:prixvente,:quantite)');
+                    $statement->bindParam(':idproduit', $productid);
+                    $statement->bindParam(':idcommande', $id);
+                    $statement->bindParam(':prixvente', $price);
+                    $statement->bindParam(':quantite', $ammount);
+                    $statement->execute();
+                }
+                $repoclient->giveMoney($iduser, -$prix);
+                return intval($id);
+            }
+        } else {
+            throw new \Exception("Solde client trop faible");
         }
-        #insertion de tous les produits de la commande
-        foreach ($productArray['products'] as $product){
-            $productid = $productArray['products']->current()->getId();
-            $price = floatval($productArray['products']->current()->getPrice());
-            $ammount = $productArray['products']->getInfo();
-            $statement = $this->dbAdapter->prepare('INSERT INTO faitpartiecommande (idproduit,idcommande,prixvente,quantite) values (:idproduit,:idcommande,:prixvente,:quantite)');
-            $statement->bindParam(':idproduit', $productid);
-            $statement->bindParam(':idcommande', $id);
-            $statement->bindParam(':prixvente', $price);
-            $statement->bindParam(':quantite', $ammount);
-            $statement->execute();
-        }
-        return intval($id);
     }
+
+    public function isPossible($productList){
+        $repoProduct = new \Product\Repository\Product();
+        $possible = True;
+        foreach ($productList as $product){
+            $quantityWanted = $productList->getInfo();
+            $id =$productList->current()->getId();
+            $quantiyAvailable = $repoProduct->findById($id)->getQuantity();
+            $possible = $possible and (($quantiyAvailable - $quantityWanted) > 0);
+        }
+        return $possible;
+    }
+
 
     public function findOneById($id){
         #récupération de toules articles compris dans la commande

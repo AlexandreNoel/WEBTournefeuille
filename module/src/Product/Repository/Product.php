@@ -94,7 +94,7 @@ class Product
     public function findByName($libelle)
     {
         $product = null;
-        $statement = $this->dbAdapter->prepare('select * from produit where libelle = :libelle  and espdisponible = True');
+        $statement = $this->dbAdapter->prepare('select * from produit where libelle = :libelle  and estdisponible = True');
         $statement->bindParam(':libelle', $libelle);
         $statement->execute();
         foreach ($statement->fetchAll() as $productData) {
@@ -106,11 +106,16 @@ class Product
 
     public function modifyStock($id, $stock)
     {
-        $statement = $this->dbAdapter->prepare('UPDATE produit SET quantitestock=quantitestock + :stock WHERE idproduit=:id');
-        $statement->bindParam(":stock", $stock);
-        $statement->bindParam(":id", $id);
-        $statement->execute();
-        return $this->findById($id)->getQuantity();
+        $quantityProduct = $this->findById($id)->getQuantity();
+        if (($quantityProduct - $stock) > 0) {
+            $statement = $this->dbAdapter->prepare('UPDATE produit SET quantitestock=quantitestock + :stock WHERE idproduit=:id');
+            $statement->bindParam(":stock", $stock);
+            $statement->bindParam(":id", $id);
+            $statement->execute();
+            return $this->findById($id)->getQuantity();
+        } else {
+            throw new \Exception("Stock trop faible");
+        }
     }
 
 
@@ -161,5 +166,16 @@ class Product
         $statement = $this->dbAdapter->prepare('DELETE FROM produit where libelle = :libelle');
         $statement->bindParam(':libelle', $productName);
         $statement->execute();
+    }
+    public function getMostSelled($top){
+        $statement = $this->dbAdapter->prepare(
+            'select idproduit,sum(quantite) as quantite from faitpartiecommande group by idproduit limit :top;');
+        $statement->bindParam(':top', $top);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $productData) {
+            $res[]=$productData;
+        }
+        return $res;
+
     }
 }
