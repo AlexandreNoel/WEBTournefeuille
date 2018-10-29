@@ -20,7 +20,7 @@
                     <tr>
                         <th>Id Commande</th>
                         <th>Date</th>
-                        <th>Id Barmen</th>
+                        <th>Barmen</th>
                         <th>Prix Total</th>
                         <th>Détail</th>
                     </tr>
@@ -35,7 +35,7 @@
                             <tr>
                                 <td><?php echo $transaction->getId()?></td>
                                 <td><?php echo $transaction->getDate()->format('Y-m-d H:i:s')?></td>
-                                <td><?php echo $transaction->getidBarmen()?></td>
+                                <td><?php echo $nicknameforid[$transaction->getidBarmen()]?></td>
                                 <td><?php echo $transaction->GetPrice()." €"?></td>
                                 <td><button class="btn btn-danger rounded" id="add-button" onclick="fetchproductdata(<?php echo $transaction->getId();?>)"> Voir le contenu de la commande</button>
                                 </td>
