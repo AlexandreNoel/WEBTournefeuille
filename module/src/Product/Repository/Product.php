@@ -162,4 +162,15 @@ class Product
         $statement->bindParam(':libelle', $productName);
         $statement->execute();
     }
+    public function getMostSelled($top){
+        $statement = $this->dbAdapter->prepare(
+            'select idproduit,sum(quantite) from faitpartiecommande group by idproduit limit :top;');
+        $statement->bindParam(':top', $top);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $productData) {
+            $res[]=$productData['idproduit'];
+        }
+        return $res;
+
+    }
 }
