@@ -1,5 +1,4 @@
 <script src="/js/restaurant.js"></script>
-<script src="/js/add-comment.js"></script>
 <div class="rest-detail row">
     <div class="col">
         <a href="#" onclick="history.back()">
@@ -59,18 +58,11 @@
             <button id="rest-del-conf" class="col-xs-5 pull-right btn btn-danger hidden"><i class="fas fa-trash-alt"></i></button>
         </div>
     </div>
-    <button id="rest-add-comment">Ajouter</button>
-    <div id="rest-text-comment" class="hidden">
-        <label>Your comment : </label>
-        <input  id="rest-input-comment" type="text" name="comment_text"/><br/>
-        <button id="rest-button-comment" type="text" name="add_comment"/><br/>
+    <div id="rest-comments" class="col-xs-10 left-border">
     </div>
-
-<div id="rest-comments" class="col-xs-10 left-border">
-</div>
-<div id="rest-map" class="col-xs-10 left-border hidden">
-    <iframe id="mapRestaurant" width="550" height="550" id="gmap_canvas" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-</div>
+    <div id="rest-map" class="col-xs-10 left-border hidden">
+        <iframe id="mapRestaurant" width="550" height="550" id="gmap_canvas" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+    </div>
 </div>
 <div id="rest-comm-template" class="row hidden">
     <div class="col-md-2">
@@ -81,4 +73,3 @@
         <p id="rest-comm-text"></p>
     </div>
 </div>
-

@@ -91,18 +91,46 @@ class Comment
     }
 
     /**
+     * @param $id
+     * @return \Entity\Comment|null
+     */
+    public function findOneById($id){
+        $comment = null;
+        $statement = $this->connection->prepare('select * from "comments" where id_comment = :id_comment');
+        $statement->bindParam(':id_comment', $id);
+        $statement->execute();
+
+        foreach ($statement->fetchAll() as $commentData) {
+            $entity = new \Entity\Comment();
+            $comment = $this->hydrator->hydrate($commentData, clone $entity);
+        }
+
+        return $comment;
+
+    }
+
+    /**
      * @param \Entity\Comment $comment
      * @return bool
      */
     public function create (\Entity\Comment $comment)
     {
         $commentArray = $this->hydrator->extract($comment);
-        $statement = $this->connection->prepare('INSERT INTO comments values (DEFAULT, :text_comment, :date_comment, :id_user_persons, :id_resto_restos, :note_resto)');
+        $statement = $this->connection->prepare('INSERT INTO comments VALUES   (DEFAULT, :text_comment, :date_comment, :id_user_persons, :id_resto_restos, :note_resto)');
         $statement->bindParam(':text_comment', $commentArray['text_comment']);
         $statement->bindParam(':date_comment', $commentArray['date_comment']);
         $statement->bindParam(':id_user_persons', $commentArray['id_user']);
         $statement->bindParam(':id_resto_restos', $commentArray['id_resto']);
         $statement->bindParam(':note_resto', $commentArray['score_comment']);
+
+        return $statement->execute();
+    }
+
+    public function delete (\Entity\Comment $comment){
+        $commentArray = $this->hydrator->extract($comment);
+        $statement = $this->connection->prepare('DELETE FROM "comments" WHERE id_comment = :id');
+        $statement->bindParam(':isdeleted', $commentArray['isdeleted']);
+        $statement->bindParam(':id', $commentArray['id_comment']);
 
         return $statement->execute();
     }
