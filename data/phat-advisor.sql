@@ -232,6 +232,8 @@ CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS
 '
   DECLARE
     note INTEGER;
+    notefin INTEGER;
+    nbnote INTEGER;
   BEGIN 
     SELECT INTO note Score FROM Score WHERE Score.Id_Resto_Restos=NEW.Id_Resto_Restos;
     IF note ISNULL THEN
@@ -239,7 +241,7 @@ CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS
     END IF;
     SELECT INTO nbnote count(*) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
     notefin:=(note+NEW.Note_Resto)/(nbnote+1);
-    UPDATE Score SET Score.Score=notefin WHERE Score.Id_Resto_Restos=NEW.Id_Resto_Restos;
+    INSERT INTO Score VALUES (DEFAULT,NEW.Id_Resto_Restos,notefin);
     RETURN NEW;
   END; 
 ' 
@@ -248,3 +250,5 @@ LANGUAGE 'plpgsql';
 CREATE TRIGGER trig_ins_comment BEFORE INSERT ON Comments 
   FOR EACH ROW 
   EXECUTE PROCEDURE before_insert_comment();
+
+INSERT INTO Comments VALUES (DEFAULT,'Commenntaire 1','05/10/2018',1,2,4);
