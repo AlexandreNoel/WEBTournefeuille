@@ -228,11 +228,11 @@ INSERT INTO persons VALUES (DEFAULT,'user_lastname','user_firstname','user@mail.
 ---------------------------
 -- Trigger de gestion des notes
 ---------------------------
-CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS 
+/* CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS
 '
   DECLARE
     note INTEGER;
-  BEGIN 
+  BEGIN
     SELECT INTO note Score FROM Score WHERE Score.Id_Resto_Restos=NEW.Id_Resto_Restos;
     IF note ISNULL THEN
       note:=0;
@@ -247,4 +247,9 @@ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER trig_ins_comment BEFORE INSERT ON Comments 
   FOR EACH ROW 
-  EXECUTE PROCEDURE before_insert_comment();
+  EXECUTE PROCEDURE before_insert_comment();*/
+
+insert into comments values(default, 'cest bon', '01/01/95',2,1,4);
+insert into comments values(default, 'cest bon2', '01/01/95',1,1,4);
+insert into comments values(default, 'cest bon3', '01/01/95',1,2,4);
+insert into comments values(default, 'cest bon4', '01/01/95',2,2,4);

@@ -43,7 +43,7 @@ function getUser() {
         url: 'https://localhost:8080/account-user.php',
         type: 'GET',
         data: {
-            id_user: userId,
+            id_user: getSession()['id'],
         }
 
     }).done(function (user) {
