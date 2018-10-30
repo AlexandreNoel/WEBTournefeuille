@@ -124,7 +124,6 @@ CREATE TABLE public.Score(
 	Score             INT  NOT NULL ,
 	CONSTRAINT Score_PK PRIMARY KEY (id_Score)
 	,CONSTRAINT Score_Restos_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
-	,CONSTRAINT Score_Restos_AK UNIQUE (Id_Resto_Restos)
 )WITHOUT OIDS;
 
 ---------------------------
@@ -251,4 +250,10 @@ CREATE TRIGGER trig_ins_comment BEFORE INSERT ON Comments
   FOR EACH ROW 
   EXECUTE PROCEDURE before_insert_comment();
 
+
+---------------------------
+-- Insertion des commentaires
+---------------------------
 INSERT INTO Comments VALUES (DEFAULT,'Commenntaire 1','05/10/2018',1,2,4);
+insert into comments values(default, 'cest bon3', '01/01/95',2,2,2);
+insert into comments values(default, 'cest bon4', '01/01/95',1,1,4);
