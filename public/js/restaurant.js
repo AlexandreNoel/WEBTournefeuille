@@ -16,7 +16,7 @@ $(document).ready(() => {
             }).done(function (res) {
                 window.location = "/restaurants";
             }).fail(function (error) {
-                alert("Erreur toto");
+                alert("Erreur");
             });
         });
     });
@@ -44,6 +44,7 @@ $(document).ready(() => {
 });
 
 let restaurant = {};
+let comments = {};
 
 function getRestaurant(restaurantId) {
     $.ajax({
@@ -53,6 +54,7 @@ function getRestaurant(restaurantId) {
     }).done(function (res) {
         res= JSON.parse(res)
         restaurant = res.data;
+        comments = res.comments;
         buildContent();
     }).fail(function (error) {
         alert("Erreur");
@@ -118,19 +120,19 @@ function buildContent() {
 
     updateStars();
 
-    const templateComm = $('#rest-comm-template'); //TODO
-    /* $('#rest-comments').append(restaurant.comments.map((comment) => {
+    const templateComm = $('#rest-comm-template');
+     $('#rest-comments').append(comments.map((comment) => {
          let commDiv = templateComm.clone();
          commDiv.removeClass('hidden');
 
          const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
-         commDiv.find('#rest-comm-username').text(comment.user.firstName + ' ' + comment.user.lastName);
-         commDiv.find('#rest-comm-date').text(new Date(comment.date).toLocaleDateString('fr-FR', dateOptions));
-         commDiv.find('#rest-comm-text').text(comment.text);
+         commDiv.find('#rest-comm-username').text(comment.prenom_user + ' ' + comment.nom_user);
+         commDiv.find('#rest-comm-date').text(new Date(comment.date_comment ).toLocaleDateString('fr-FR', dateOptions));
+         commDiv.find('#rest-comm-text').text(comment.text_comment);
 
          return commDiv;
-     }));*/
+     }));
 
     /* let badges = restaurant.badges.map((badge) => {
          let imageName = '';
