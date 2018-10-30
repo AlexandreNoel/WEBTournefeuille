@@ -63,7 +63,7 @@ switch($httpMethod){
         }
         
         // On traite les datas qui ne doivent pas être publiées
-        foreach ($config[$entity]["api-get-hidden-fields"] as $unwantedKey){
+        foreach ($config[$entity]["GET-hidden-fields"] as $unwantedKey){
             for($i =0 ; $i < sizeof($resultData); $i++){
                 if(in_array($unwantedKey,array_keys($resultData[$i]))){
                     unset($resultData[$i][$unwantedKey]);
@@ -73,10 +73,18 @@ switch($httpMethod){
         break;
     case 'POST':
         // POST     Creation d’Elements     /api/entity
-
+        include_once($config[$entity]['POST-action']);
+        $resultData = array("status"=>"OK","message"=>"New Entity ".$entity." Created!");
         break;
     case 'PUT':
         // PUT     Modifier un Element     /api/entity/{id}
+        if($entityId !== null){
+            include_once($config[$entity]['PUT-action']);
+            $resultData = array("status"=>"OK","message"=>$entity. "updated successfully");
+        }
+        else{
+            $resultData = array("status"=>"KO","message"=>"You must specify an id for updating entity".$entity);
+        }
         break;
     case "DELETE":
         // DELETE     Effacer Element     /api/entity/{id}

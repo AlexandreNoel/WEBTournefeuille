@@ -2,24 +2,32 @@
 
 return array(
     "restaurants" =>[
+        "entity"      => Entity\Restaurant::class,
         "hydrator"    => Hydrator\Restaurant::class,
         "repository"  => Repository\Restaurant::class,
+        "service"     => Service\Restaurant::class,
         "api-methods" => ['GET','POST','PUT','DELETE'],
-        "form-post-fields" => ['nom_resto','descr_resto','cp_resto','city_resto','tel_resto','website_resto','thumbnail'],
-        "api-get-hidden-fields" => []
+        "POST-action" => "../public/add-restaurant.php",
+        "PUT-action"  => "../public/update-restaurant.php",
+        "GET-hidden-fields" => []
     ],
     "users" =>[
+        "entity"           => Entity\User::class,
         "hydrator"         => Hydrator\User::class,
         "repository"       => Repository\User::class,
+        "service"          => Service\User::class,
         "api-methods"      => ['GET','POST','PUT','DELETE'],
-        "form-post-fields" => ['prenom_user','nom_user','isadmin','promo_user','mail_user','secret_user','confirm_secret_user'],
-        "api-get-hidden-fields" => ["secret_user"]
+        "POST-action"      => "../public/register.php",
+        "PUT-action"       => "../public/update-user.php",
+        "GET-hidden-fields" => ["secret_user"]
     ],
     "categories" =>[
+        "entity"           => Entity\Categorie::class,
         "hydrator"         => Hydrator\Categorie::class,
         "repository"       => Repository\Categorie::class,
-        "api-methods"      => ['GET'],
-        "form-post-fields" => [],
-        "api-get-hidden-fields" => []
+        "service"          => Service\Categorie::class,
+        "POST-action"      => "",
+        "PUT-action"       => "",
+        "GET-hidden-fields" => []
     ],
 );
