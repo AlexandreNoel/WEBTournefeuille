@@ -14,8 +14,15 @@
                 <li class="nav-item">
                     <a class="nav-link fixed-nav-text" href="/console">Accueil</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link fixed-nav-text" href="/gestionBar"> Gestion du bar <i class="fa fa-cog"></i></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link fixed-nav-text dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion du bar <i class="fa fa-cog"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/gestionProduct">Gestion produits</a>
+                        <a class="dropdown-item" href="/gestionNews">Gestion news</a>
+                        <a class="dropdown-item" href="#">Gestion utilisateurs</a>
+                    </div>
                 </li>
                 <li id="<?php print $_SESSION['authenticated_admin']['login'] ?>" class="nav-item">
                     <a class="nav-link fixed-nav-text" href="#"><?php print $_SESSION['authenticated_admin']['login'] ?> <i class="far fa-user"></i></a>

@@ -41,9 +41,19 @@ switch ($url) {
         require __DIR__ . '/transaction.php';
         break;
     
-    /* CONSOLE */
+    /* CATALOGUE */
     case '/catalogue':
         require __DIR__ . '/catalogue.php';
+        break;
+
+    /* CONSOLE - GESTION - NEWS */
+    case '/gestionProduct':
+        require __DIR__ . '/product.php';
+        break;
+
+    /* CONSOLE - GESTION - NEWS */
+    case '/gestionNews':
+        require __DIR__ . '/news.php';
         break;
 
     /* AUTRES CAS NON GERE */

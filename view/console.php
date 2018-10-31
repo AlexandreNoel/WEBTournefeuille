@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<!-- NAVBAR !-->
+<!-- HEADER !-->
 <?php require_once(__DIR__ . '/partials/header.php'); ?>
 
 <body class="main-body">
@@ -24,7 +24,7 @@
 
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button onclick="command()" class="btn btn-default">Confirmer</button>
+                    <button id="action-modal" onclick="" class="btn btn-default" >Confirmer</button>
                 </div>
                 <div id="error-modal" class="text-red font-weight-bold">
 
@@ -103,7 +103,7 @@
                                         <input id="creditInput" name="creditInput" type="number" />
                                     </div>
                                     <div class="row text-center">
-                                        <button type="button" id="creditBtn" name="creditBtn" onclick="credit()" class="btn btn--primary btn--inside rounded uppercase" >Créditer</button>
+                                        <button type="button" id="creditBtn" name="creditBtn" onclick="modalAdmin('credit')" class="btn btn--primary btn--inside rounded uppercase" >Créditer</button>
                                     </div>
                                 </div>
                             </div>
@@ -175,9 +175,9 @@
                                 <div class="col-sm-4">
                                     <form id="command" >
                                         <div id="totalAmount">
-                                            Montant des achats:
+                                            Montant des achats: 0€
                                         </div>
-                                        <button id="command" type="button" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalBarmen">Valider</button>
+                                        <button id="command" onclick="modalAdmin('command')" type="button" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalBarmen">Valider</button>
                                         <div class="mt-2">
                                             <table class="table" id="commandTable">
                                                 <thead>
@@ -288,7 +288,7 @@
                         // Mise à jour de la commande
                         var newqty = parseInt(art.find(".artCommandQty").text())+1;
                         art.find(".artCommandQty").text(newqty);
-                        art.find(".artCommandTotal").text(newqty*price);
+                        art.find(".artCommandTotal").text(parseFloat(newqty*price).toFixed(2));
                     }
                     // Si le produit n'est pas présent dans la liste de commande
                     else{
@@ -302,6 +302,9 @@
                         "</tr>";
                         commandTable.append(tr);
                     }
+
+                    // Simulation du coût final
+                    calculateAmountTotal();
 
                     // Simulation du stock final
                     var newStock = parseInt(stock)-1;
@@ -317,17 +320,39 @@
 
         });
 
+        function calculateAmountTotal(){
+            var montant = 0;
+            // Récupération des articles commandés
+            $('#artCommand > tr').each(function() {
+                montant= montant + parseFloat($(this).find('.artCommandTotal').text());
+            });
+            $('#totalAmount').text("Montant commande:" +  parseFloat(montant).toFixed(2) +"€");
+        }
+
+
         // Effacement d'une ligne de commande
         function artRemove(productBtn,productId){
             var productStock = $('#productsByCategory').find('#'+productId).find('.pStock');
             var stockQty = $(productStock).attr('data');
             var qtyCommand = $(productBtn).closest("tr").find(".artCommandQty").text();
-            debugger;
             var newStock = parseInt(stockQty)+parseInt(qtyCommand);
             $(productStock).text("Stock:"+ newStock);
             $(productStock).attr("data",newStock);
             // Simulation du stock après suppression de ligne
             $(productBtn).closest("tr").remove();
+
+            calculateAmountTotal();
+        }
+
+        // Action sur le modal
+        function modalAdmin(action){
+            // Réinitialisation
+            $('#error-modal').text("");
+            $('#password').val("");
+
+            // Gestion des actions
+            $('#action-modal').attr('onclick',action +"()");
+            $('#modalBarmen').modal('show');
         }
 
         /************************
@@ -362,22 +387,41 @@
         }
 
         function credit(){
-            var id = parseInt($('#id').val());
-            var credit = parseFloat($('#creditInput').val());
 
-            if(credit>0 && id>0){
+            // Déclaration des variables
+            var idutilisateur = $('#id').val();
+            var password = $('#password').val();
+            var credit = parseInt($('#creditInput').val());
+
+            // Si aucun utilisateur donné
+            if(!parseInt(idutilisateur) > 0) {
+                $('#error-modal').text("Aucun utilisateur saisie.");
+            }
+            //Valuer supérieur à 0
+            else if(!parseInt(credit)>0) {
+                $('#error-modal').text("La valeur crédité doit être supérieur à 0.");
+            }
+            else{
                 $.post("services.php",
                     {
-                        id: id,
+                        password:password,
+                        id: idutilisateur,
                         credit:credit
                     },
                     function(data, status){
                         if(status == 'success'){
-                            var solde = parseFloat($('#solde').val());
-                            var newSolde = credit+solde;
-                            $('#solde').val(newSolde);
-                            $('#creditInput').val(0);
-                            alert("La mise à jour s'est bien effectué");
+                            var response = JSON.parse(data);
+                            if (response.status == false){
+                                $('#error-modal').text(response.error);
+                            }
+                            else{
+                                var solde = parseInt($('#solde').val());
+                                var newSolde = credit+solde;
+                                $('#solde').val(newSolde);
+                                $('#creditInput').val(0);
+                                alert("La mise à jour s'est bien effectué");
+                            }
+
                         }
                         else{
                             alert("Mise à jour non validé.");
@@ -389,52 +433,59 @@
 
         function command(){
 
-            var products = [];
+            // Déclaration des variables
             var idutilisateur = $('#id').val();
             var password = $('#password').val();
 
-            if(parseInt(idutilisateur) > 0){
-                if($('#artCommand > tr').length > 0){
-                    $('#artCommand > tr').each(function() {
-                        product={};
-                        product['id']=$(this).find('.artCommandId').text();
-                        product['name']=$(this).find('.artCommandName').text();
-                        product['qty']=$(this).find('.artCommandQty').text();
-                        product['total']=$(this).find('.artCommandTotal').text();
-                        products.push(product);
-                    });
+            // Si aucun utilisateur donné
+            if(!parseInt(idutilisateur) > 0) {
+                $('#error-modal').text("Aucun utilisateur saisie.");
+            }
+            // Si aucun article commandé
+            else if(!($('#artCommand > tr').length > 0)){
+                $('#error-modal').text("Pas de commande en cours.");
+            }
+            // Création de la commande
+            else{
+                var products = [];
 
-                    $.post("services.php",
-                        {
-                            products: products,
-                            idutilisateur:idutilisateur,
-                            password:password,
-                            command: true
-                        },
-                        function (data, status) {
-                            if(status == 'success') {
-                                console.log(data);
-                                var response = JSON.parse(data);
-                                if (response.status == false){
-                                    $('#error-modal').text(response.error);
+                // Récupération des articles commandés
+                $('#artCommand > tr').each(function() {
+                    product={};
+                    product['id']=$(this).find('.artCommandId').text();
+                    product['name']=$(this).find('.artCommandName').text();
+                    product['qty']=$(this).find('.artCommandQty').text();
+                    product['total']=$(this).find('.artCommandTotal').text();
+                    products.push(product);
+                });
 
-                                }
-                                else{
-                                    $('#modalBarmen').modal('hide');
-                                    $('#password').val("");
-                                    $('#artCommand > tr').empty();
-                                    alert("La commande a été validée.");
-                                }
+                // Appel ajax
+                $.post("services.php",
+                    {
+                        products: products,
+                        idutilisateur:idutilisateur,
+                        password:password,
+                        command: true
+                    },
+                    function (data, status) {
+                        if(status == 'success') {
+                            var response = JSON.parse(data);
+                            if (response.status == false){
+                                $('#error-modal').text(response.error);
                             }
-                            else {
-                                alert("Mise à jour non validé.");
+                            else{
+                                $('#modalBarmen').modal('hide');
+                                $('#password').val("");
+                                $("#artCommand").empty();
+                                $('#totalAmount').text("Montant commande: 0€");
+                                alert("La commande a été validée.");
                             }
                         }
-                    );
-                }
-                else{
-                    $('#error-modal').text("Pas de commande en cours.");
-                }
+                        else {
+                            alert("Mise à jour non validé: une erreure est survenue.");
+                        }
+                    }
+                );
             }
         }
 

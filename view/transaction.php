@@ -120,7 +120,9 @@
             $("#transaction-table").show()
         });
 
-        $('table.display').DataTable();
+        $('table.display').DataTable({
+            "order": [[ 0, "desc" ]]
+        } );
         $("#Products-div").hide();
 
     });
