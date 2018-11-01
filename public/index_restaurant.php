@@ -11,18 +11,18 @@ $restoHydrator = new \Hydrator\Restaurant();
 
 $restos = [];
 
-    $restos = $restoRepository->findAllNoDeleted();
-    $dataCats = [];
-    $rowcats = $catRepository->fetchAll();
-    foreach ($rowcats as $cat) {
-        $dataCats[] = $cat->getName();
-    }
+$restos = $restoRepository->findAllNoDeleted();
+foreach ($restos as $resto) {
+    $data[] = $restoHydrator->extract($resto);
+}
 
-    foreach ($restos as $resto) {
-        $data[] = $restoHydrator->extract($resto);
-    }
-    $dat = ['resto' => $data, 'cats' => $dataCats,'session' => $_SESSION];
-    
+$dataCats = [];
+$cats = $catRepository->fetchAll();
+foreach ($cats as $cat) {
+    $dataCats[] = $cat->getName();
+}
+
+$dat = ['resto' => $data, 'cats' => $dataCats];
 
 echo json_encode($dat);
 

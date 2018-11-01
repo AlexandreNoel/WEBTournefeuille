@@ -6,19 +6,23 @@ session_start();
 
 $userRepository = new \Repository\User();
 $restoRepository = new \Repository\Restaurant();
+$userHydrator = new \Hydrator\Restaurant();
 
-if ($_SERVER['REQUEST_METHOD'] !== "PUT" || !isset($_SESSION['id'])) {
-    $error = "internal error";
+$dataRestos = [];
+$errors = [];
+
+if ($_SERVER['REQUEST_METHOD'] !== "GET" || ! isset($_SESSION['id'])) {
+    $errors = "internal error";
     http_response_code(400);
 } else {
     $id_user = $_SESSION['id'];
-    $restoRepository->findAllFavoritesByUser($id_user);
-    if($restos) {
-        $error = "cant find favorites";
+    $restos = $restoRepository->findAllFavoritesByUser($id_user);
 
-        http_response_code(400);
+    foreach ($restos as $resto){
+        $dataRestos [] = $userHydrator->extract($resto);
     }
 }
-$data = ['error' => $error, '$restos' => $restos, 'session' => $_SESSION];
-echo json_encode($$data);
+
+$data = ['errors' => $errors, 'resto' => $dataRestos];
+echo json_encode($data);
 

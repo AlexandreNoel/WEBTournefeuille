@@ -131,9 +131,16 @@ class Restaurant
         return $restos;
     }
 
-    public function findAllFavoritesByUser($idUser) // favorites
+    public function findAllFavoritesByUser($idUser)
     {
-        $statement = $this->connection->prepare('SELECT distinct nom_resto, addr_resto, city_resto FROM favoris JOIN restos ON favoris.id_resto_restos = restos.id_resto JOIN persons ON favoris.id_user_persons = persons.id_user WHERE id_user_persons = :id_user_given');
+
+        $sql = 'SELECT DISTINCT * 
+                FROM favoris 
+                JOIN restos ON favoris.id_resto_restos = restos.id_resto 
+                JOIN persons ON favoris.id_user_persons = persons.id_user
+                WHERE id_user_persons = :id_user_given';
+
+        $statement = $this->connection->prepare($sql);
         $statement->bindParam(':id_user_given', $idUser);
         $statement->execute();
 
