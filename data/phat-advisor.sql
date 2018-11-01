@@ -37,6 +37,7 @@ CREATE TABLE public.Restos(
 	Website_Resto   VARCHAR(200) NOT NULL  ,
 	isDeleted       BOOL  NOT NULL  ,
 	thumbnail		VARCHAR(100) ,
+	score         INT NOT NULL DEFAULT 0,
 
 	CONSTRAINT Restos_PK PRIMARY KEY (Id_Resto)
 )WITHOUT OIDS;
@@ -115,7 +116,7 @@ CREATE TABLE public.Badge_Resto(
 	,CONSTRAINT Badge_Resto_Badge0_FK FOREIGN KEY (id_Badge) REFERENCES public.Badge(id_Badge)
 )WITHOUT OIDS;
 
-------------------------------------------------------------
+/*------------------------------------------------------------
 -- Table: Score
 ------------------------------------------------------------
 CREATE TABLE public.Score(
@@ -124,7 +125,7 @@ CREATE TABLE public.Score(
 	Score             INT  NOT NULL ,
 	CONSTRAINT Score_PK PRIMARY KEY (id_Score)
 	,CONSTRAINT Score_Restos_FK FOREIGN KEY (Id_Resto_Restos) REFERENCES public.Restos(Id_Resto)
-)WITHOUT OIDS;
+)WITHOUT OIDS;*/
 
 ---------------------------
 -- Insertion des données
@@ -234,13 +235,13 @@ CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS
     notefin INTEGER;
     nbnote INTEGER;
   BEGIN
-    SELECT INTO note Score FROM Score WHERE Score.Id_Resto_Restos=NEW.Id_Resto_Restos;
+    SELECT INTO note score FROM restos WHERE restos.id_resto=NEW.Id_Resto_Restos;
     IF note ISNULL THEN
       note:=0;
     END IF;
     SELECT INTO nbnote count(*) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
     notefin:=(note+NEW.Note_Resto)/(nbnote+1);
-    INSERT INTO Score VALUES (DEFAULT,NEW.Id_Resto_Restos,notefin);
+    UPDATE restos SET score = notefin WHERE restos.id_resto = NEW.Id_Resto_Restos;
     RETURN NEW;
   END; 
 ' 

@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] !== "GET") {
     $errors = "internal error";
     http_response_code(400);
 } else {
-    $scoreResto = $_GET['score']        &&  !empty($_GET['score'])      ? $_GET['score']    : null;
-    $categorie  = $_GET['categorie']    &&  !empty($_GET['categorie'])  ? $_GET['categorie']: null;
-    $badge      = $_GET['badge']        &&  !empty($_GET['badge'])      ? $_GET['badge']    : null;
+    $scoreResto = isset($_GET['score'])        &&  "" !== ($_GET['score'])      ? $_GET['score']    : null;
+    $categorie  = isset($_GET['categorie'])    &&  "" !== ($_GET['categorie'])  ? $_GET['categorie']: null;
+    $badge      = isset($_GET['badge'])        &&  "" !== ($_GET['badge'])      ? $_GET['badge']    : null;
 
     $id_user    = $_GET['favorite'] && $_GET['favorite']==='true' &&  $_SESSION['id'] ? $_SESSION['id']: null;
 

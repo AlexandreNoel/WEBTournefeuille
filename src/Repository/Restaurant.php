@@ -264,17 +264,14 @@ class Restaurant
         $sql = 'SELECT * 
                 FROM restos ';
 
-        if($scoreResto){
-            // todo
-            /*   $sql.=      ' INTERSECT
-                           SELECT restos.*
+        if($scoreResto != null){
+            $sql.=      ' INTERSECT
+                           SELECT *
                            FROM restos
-                           JOIN cat_resto on restos.id_resto = cat_resto.id_resto
-                           JOIN categories  on categories.id_cat = cat_resto.id_cat
-                           WHERE categories.nom_cat  = :categorie ';*/
+                           WHERE score  = :score ';
         }
 
-        if ($badge) {
+        if ($badge != null) {
             $sql.=  ' INTERSECT
                      SELECT restos.* 
                      FROM restos 
@@ -283,7 +280,7 @@ class Restaurant
                      WHERE badge.nom_badge  = :badge ';
         }
 
-        if($categorie) {
+        if($categorie != null) {
             $sql.=      ' INTERSECT
                         SELECT restos.* 
                         FROM restos 
@@ -292,7 +289,7 @@ class Restaurant
                         WHERE categories.nom_cat  = :categorie ';
         }
 
-        if ($idUser) {
+        if ($idUser != null) {
             $sql.= ' INTERSECT
                 SELECT restos.* 
                 FROM favoris 
@@ -301,10 +298,12 @@ class Restaurant
                 WHERE id_user_persons = :id_user_given ';
         }
 
+
         $statement = $this->connection->prepare($sql);
-        if($badge) $statement->bindParam(':badge', $badge);
-        if($categorie) $statement->bindParam(':categorie', $categorie);
-        if($idUser) $statement->bindParam(':id_user_given', $idUser);
+        if($scoreResto  !=null) $statement->bindParam(':score', $scoreResto);
+        if($badge       !=null) $statement->bindParam(':badge', $badge);
+        if($categorie   !=null) $statement->bindParam(':categorie', $categorie);
+        if($idUser      !=null) $statement->bindParam(':id_user_given', $idUser);
 
         $statement->execute();
 

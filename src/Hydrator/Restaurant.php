@@ -44,6 +44,10 @@ class Restaurant
             $data['thumbnail'] = $object->getThumbnail();
         }
 
+        if ($object->getScore()){
+            $data['score'] = $object->getScore();
+        }
+
         $data['isdeleted'] = $object -> isDeleted() ? 'TRUE' : 'FALSE';
 
         return $data;
@@ -61,6 +65,7 @@ class Restaurant
             ->setPhoneNumber($data['tel_resto'] ?? null)
             ->setUrl($data['website_resto'] ?? null)
             ->setThumbnail($data['thumbnail'] ?? null)
+            ->setScore($data['score'] ?? null)
             ->setIsDeleted($data['isdeleted'] ?? null);
     }
 
