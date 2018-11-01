@@ -233,7 +233,7 @@ CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS
     note INTEGER;
     notefin INTEGER;
     nbnote INTEGER;
-  BEGIN 
+  BEGIN
     SELECT INTO note Score FROM Score WHERE Score.Id_Resto_Restos=NEW.Id_Resto_Restos;
     IF note ISNULL THEN
       note:=0;
