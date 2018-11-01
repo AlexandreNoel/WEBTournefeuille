@@ -131,33 +131,6 @@ class Restaurant
         return $restos;
     }
 
-    public function findAllFavoritesByUser($idUser)
-    {
-
-        $sql = 'SELECT DISTINCT * 
-                FROM favoris 
-                JOIN restos ON favoris.id_resto_restos = restos.id_resto 
-                JOIN persons ON favoris.id_user_persons = persons.id_user
-                WHERE id_user_persons = :id_user_given';
-
-        $statement = $this->connection->prepare($sql);
-        $statement->bindParam(':id_user_given', $idUser);
-        $statement->execute();
-
-        $rows = $statement->fetchAll();
-
-        $restos = [];
-        foreach ($rows as $restoData) {
-            $entity = new \Entity\Restaurant();
-            $resto = $this->hydrator->hydrate($restoData, clone $entity);
-
-            $restos[] = $resto;
-        }
-
-        return $restos;
-    }
-
-
     public function isAlreadyFavorite($idUser, $idResto) // favorites
     {
         $statement = $this->connection->prepare('SELECT count(id_fav) FROM favoris WHERE id_user_persons = :id_user and id_resto_restos = :id_resto');
@@ -284,5 +257,67 @@ class Restaurant
         $statement->bindParam(':id_resto', $restoArray['id_resto']);
 
         return $statement->execute();
+    }
+
+    public function filterRestaurants($scoreResto, $badge, $categorie, $idUser)
+    {
+        $sql = 'SELECT * 
+                FROM restos ';
+
+        if($scoreResto){
+            // todo
+            /*   $sql.=      ' INTERSECT
+                           SELECT restos.*
+                           FROM restos
+                           JOIN cat_resto on restos.id_resto = cat_resto.id_resto
+                           JOIN categories  on categories.id_cat = cat_resto.id_cat
+                           WHERE categories.nom_cat  = :categorie ';*/
+        }
+
+        if ($badge) {
+            $sql.=  ' INTERSECT
+                     SELECT restos.* 
+                     FROM restos 
+                     JOIN badge_resto ON restos.id_resto = badge_resto.id_resto
+                     JOIN badge ON badge_resto.id_badge = badge.id_badge
+                     WHERE badge.nom_badge  = :badge ';
+        }
+
+        if($categorie) {
+            $sql.=      ' INTERSECT
+                        SELECT restos.* 
+                        FROM restos 
+                        JOIN cat_resto on restos.id_resto = cat_resto.id_resto
+                        JOIN categories  on categories.id_cat = cat_resto.id_cat
+                        WHERE categories.nom_cat  = :categorie ';
+        }
+
+        if ($idUser) {
+            $sql.= ' INTERSECT
+                SELECT restos.* 
+                FROM favoris 
+                JOIN restos ON favoris.id_resto_restos = restos.id_resto 
+                JOIN persons ON favoris.id_user_persons = persons.id_user
+                WHERE id_user_persons = :id_user_given ';
+        }
+
+        $statement = $this->connection->prepare($sql);
+        if($badge) $statement->bindParam(':badge', $badge);
+        if($categorie) $statement->bindParam(':categorie', $categorie);
+        if($idUser) $statement->bindParam(':id_user_given', $idUser);
+
+        $statement->execute();
+
+        $rows = $statement->fetchAll();
+
+        $restos = [];
+        foreach ($rows as $restoData) {
+            $entity = new \Entity\Restaurant();
+            $resto = $this->hydrator->hydrate($restoData, clone $entity);
+
+            $restos[] = $resto;
+        }
+
+        return $restos;
     }
 }

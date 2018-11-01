@@ -6,100 +6,79 @@ let filters = {
     favorite: false
 };
 
-let allRestaurants;
-let favoriteRestaurants = null;
-let categoryRestaurants = null;
-let badgeRestaurants = null;
-let scoreRestaurant = null;
-
 $(document).ready(() => {
 
     getRestaurants();
 
     $('#score-filter').change(() => {
         filters.score = parseInt($('#score-filter').val());
-        buildContent();
+        filterRestos();
+
     });
     $('#badge-filter').change(() => {
         filters.badge = $('#badge-filter').val();
-        buildContent();
+        filterRestos();
     });
     $('#category-filter').change(() => {
         filters.category = $('#category-filter').val();
-        buildContent();
+        filterRestos();
+
     });
     $('#favorites-filter').change(() => {
         filters.favorite = $('#favorites-filter').is(':checked');
-        favoriteRestaurants = filters.favorite ? getFavorites() :  null;
-        buildContent();
+        filterRestos();
     });
 });
 
 function getRestaurants() {
-    let restaurants = null;
 
     $.ajax({
         url: 'https://localhost:8080/index_restaurant.php',
         type: 'GET'
     }).done(function (res) {
         res = JSON.parse(res);
-        allRestaurants = res.resto;
+
         addAllCategories(res);
         buildContent(res);
+
     }).fail(function (error) {
         alert("Erreur");
     });
 }
 
-function getFavorites() {
 
-    $.ajax({
-        url: 'https://localhost:8080/favorites-user.php',
-        type: 'GET'
-    }).done(function (res) {
-        res = JSON.parse(res);
+function addAllCategories(restaurants){
+    let cats = restaurants.cats
 
-        favoriteRestaurants = res.resto;
-        buildContent();
-    }).fail(function (error) {
-        alert("Erreur");
-    });
-}
-
-function getCommonRestos(array1, array2){
-    var arrayResult = [];
-
-    array1.forEach((element1) =>{
-        array2.forEach((element2) =>{
-            if(element1.id_resto == element2.id_resto){
-                arrayResult.push(element1);
-                return false;
-            }
-        })
-    });
-
-    return arrayResult;
+    for (let i=0;i<cats.length;i++) {
+        $('<option />', { value: cats[i], text: cats[i] }).appendTo($('#category-filter'));
+    }
 }
 
 function filterRestos(){
-    var listRestos = allRestaurants;
 
-    listRestos = favoriteRestaurants    != null?  getCommonRestos(favoriteRestaurants, listRestos)  : listRestos;
-    listRestos = badgeRestaurants       != null?  getCommonRestos(badgeRestaurants, listRestos)     : listRestos;
-    listRestos = categoryRestaurants    != null?  getCommonRestos(categoryRestaurants, listRestos)  : listRestos;
-    listRestos = scoreRestaurant        != null?  getCommonRestos(scoreRestaurant, listRestos)      : listRestos;
+    $.ajax({
+        url: 'https://localhost:8080/filter-restaurant.php',
+        type: 'GET',
+        data:{
+            score       : filters.score,
+            badge       : filters.badge,
+            categorie   : filters.category,
+            favorite       : filters.favorite,
+        }
+    }).done(function (res) {
+        res = JSON.parse(res);
+        buildContent(res);
+    }).fail(function (error) {
+        alert("Erreur");
+    });}
 
-    return listRestos;
-}
-
-function buildContent() {
-    const restoToDisplay = filterRestos();
-
+function buildContent(res) {
     const listRestos = $('#list-restaurants');
     const templateResto = $('#rest-template');
 
     listRestos.empty();
-    listRestos.append(restoToDisplay.map((restoData) => {
+    listRestos.append(res.resto.map((restoData) => {
         let restoDiv = templateResto.clone();
         restoDiv.removeClass('hidden');
 
@@ -151,12 +130,4 @@ function buildContent() {
 
         return restoDiv;
     }));
-}
-
-function addAllCategories(restaurants){
-    let cats = restaurants.cats
-
-    for (let i=0;i<cats.length;i++) {
-        $('<option />', { value: cats[i], text: cats[i] }).appendTo($('#category-filter'));
-    }
 }
