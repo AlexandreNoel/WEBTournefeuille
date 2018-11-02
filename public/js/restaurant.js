@@ -1,6 +1,7 @@
 $(document).ready(() => {
     const restaurantId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
     getRestaurant(restaurantId);
+    /* todo getComments(restaurantId);*/
 
     $('#delete').click(() => {
         $('#rest-admin-buttons>*').toggleClass('hidden');
@@ -10,8 +11,7 @@ $(document).ready(() => {
 
         $('#rest-del-conf').click(() => {
             $.ajax({
-                url: 'https://localhost:8080/delete-restaurant.php',
-                data: { id_resto: restaurantId },
+                url: 'https://localhost:8080/api/restaurants/' + restaurantId,
                 type: 'DELETE',
             }).done(function (res) {
                 window.location = "/restaurants";
@@ -47,19 +47,31 @@ let restaurant = {};
 let comments = {};
 
 function getRestaurant(restaurantId) {
+
     $.ajax({
-        url: 'https://localhost:8080/description-restaurant.php',
+        url: 'https://localhost:8080/api/restaurants/' + restaurantId,
         type: 'GET',
-        data: { id_resto: restaurantId }
     }).done(function (res) {
-        res= JSON.parse(res)
-        restaurant = res.data;
-        comments = res.comments;
+        restaurant = res;
         buildContent();
     }).fail(function (error) {
+
         alert("Erreur");
     });
 
+}
+
+function getComments(restaurantId) {
+    $.ajax({
+        url: 'https://localhost:8080/api/comments/' + restaurantId,
+        type: 'GET',
+    }).done(function (comment) {
+        comments = comment;
+        updateComment();
+
+    }).fail(function (error) {
+        alert("Erreur");
+    });
 }
 
 let tempScore = null;
@@ -89,17 +101,6 @@ function updateStars(num = null) {
     }
 }
 
-$(document).ready(() => {
-
-    $('#rest-add-comment').click( () =>{
-        $('#rest-text-comment').removeClass('hidden');
-    });
-
-    $('#rest-button-comment').click( () =>{
-        addComment();
-    });
-});
-
 function addComment() {
     const restoId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
 
@@ -114,7 +115,6 @@ function addComment() {
              *note_resto :
              */
         }
-
     }).done(function (restaurant) {
 
     }).fail(function (error) {
@@ -123,17 +123,37 @@ function addComment() {
 }
 
 function deleteComment(){
-            $.ajax({
-                url: 'https://localhost:8080/delete-comment.php',
-                type: 'DELETE',
-                data: {
-                    /* todo id_comment: restaurantId */
-                },
-            }).done(function (res) {
+    $.ajax({
+        url: 'https://localhost:8080/delete-comment.php',
+        type: 'DELETE',
+        data: {
+            /* todo id_comment: restaurantId */
+        },
+    }).done(function (res) {
 
-            }).fail(function (error) {
-                alert("Erreur");
-            });
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
+function updateComment(){
+    const templateComm = $('#rest-comm-template');
+
+    if  ( ! comments.isEmpty()) {
+        $('#rest-comments').append(comments.map((comment) => {
+            let commDiv = templateComm.clone();
+            commDiv.removeClass('hidden');
+
+            const dateOptions = {year: 'numeric', month: 'numeric', day: 'numeric'};
+
+            commDiv.find('#rest-comm-username').text(comment.prenom_user + ' ' + comment.nom_user);
+            commDiv.find('#rest-comm-date').text(new Date(comment.date_comment).toLocaleDateString('fr-FR', dateOptions));
+            commDiv.find('#rest-comm-text').text(comment.text_comment);
+
+            return commDiv;
+        }));
+    }
+
 }
 
 function buildContent() {
@@ -166,21 +186,6 @@ function buildContent() {
     }
 
     updateStars();
-
-    const templateComm = $('#rest-comm-template');
-    $('#rest-comments').append(comments.map((comment) => {
-        let commDiv = templateComm.clone();
-        commDiv.removeClass('hidden');
-
-        const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
-
-        commDiv.find('#rest-comm-username').text(comment.prenom_user + ' ' + comment.nom_user);
-        commDiv.find('#rest-comm-date').text(new Date(comment.date_comment ).toLocaleDateString('fr-FR', dateOptions));
-        commDiv.find('#rest-comm-text').text(comment.text_comment);
-
-        return commDiv;
-    }));
-
     /* let badges = restaurant.badges.map((badge) => {
          let imageName = '';
          switch (badge) {

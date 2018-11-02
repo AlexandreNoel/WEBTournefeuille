@@ -40,15 +40,11 @@ function getUser() {
     const userId = window.location.pathname.match(/users\/([0-9]+)/)[1];
 
     $.ajax({
-        url: 'https://localhost:8080/account-user.php',
+        url: 'https://localhost:8080/api/users/' + userId,
         type: 'GET',
-        data: {
-            id_user: userId,
-        }
 
     }).done(function (user) {
-        user = JSON.parse(user)
-        buildContent(user.data);
+        buildContent(user);
     }).fail(function (error) {
         alert("Erreur");
     });

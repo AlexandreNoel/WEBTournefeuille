@@ -6,12 +6,10 @@ function getRestaurant() {
     const restaurantId = window.location.pathname.match(/update\/([0-9]+)/)[1];
 
     $.ajax({
-        url: 'https://localhost:8080/description-restaurant.php',
+        url: 'https://localhost:8080/api/restaurants/' + restaurantId,
         type: 'GET',
-        data: { id_resto: restaurantId }
     }).done(function (res) {
-        res = JSON.parse(res);
-        buildContent(res.data);
+        buildContent(res);
     }).fail(function (error) {
         alert("Erreur");
     });
