@@ -161,7 +161,7 @@ function updateUser() {
 
     //get data from the form
     $.ajax({
-        url: 'https://localhost:8080/update-user.php',
+        url: 'https://localhost:8080/api/users/' + userId,
         type: 'PUT',
         data: {
             id_user: userId,
@@ -183,7 +183,7 @@ function updateUser() {
 
 function register() {
     $.ajax({
-        url: 'https://localhost:8080/register.php',
+        url: 'https://localhost:8080/api/users',
         type: 'POST',
         data: {
             nom_user: $('#firstname_register').val(),

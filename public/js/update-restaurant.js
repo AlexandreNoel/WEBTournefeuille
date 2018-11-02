@@ -33,7 +33,7 @@ function updateRestaurant(){
 
     //get data from the form
     $.ajax({
-        url: 'https://localhost:8080/update-restaurant.php',
+        url: 'https://localhost:8080/api/restaurants/' +restaurantId,
         type: 'PUT',
         data: {
             id_resto:restaurantId,
