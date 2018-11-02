@@ -1,7 +1,7 @@
 $(document).ready(() => {
     const restaurantId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
     getRestaurant(restaurantId);
-    /* todo getComments(restaurantId);*/
+    getComments(restaurantId);
 
     $('#delete').click(() => {
         $('#rest-admin-buttons>*').toggleClass('hidden');
@@ -63,10 +63,14 @@ function getRestaurant(restaurantId) {
 
 function getComments(restaurantId) {
     $.ajax({
-        url: 'https://localhost:8080/api/comments/' + restaurantId,
+        url: 'https://localhost:8080/get-comments.php',
         type: 'GET',
+        data :{
+            id_resto : restaurantId
+        }
     }).done(function (comment) {
-        comments = comment;
+        comment = JSON.parse(comment);
+        comments = comment.comments;
         updateComment();
 
     }).fail(function (error) {
@@ -105,7 +109,7 @@ function addComment() {
     const restoId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
 
     $.ajax({
-        url: 'https://localhost:8080/add-comment.php',
+        url: 'https://localhost:8080/api/comments/',
         type: 'POST',
         data: {
             id_user: getSession()['id'],
@@ -122,13 +126,10 @@ function addComment() {
     });
 }
 
-function deleteComment(){
+function deleteComment(commentId){
     $.ajax({
-        url: 'https://localhost:8080/delete-comment.php',
-        type: 'DELETE',
-        data: {
-            /* todo id_comment: restaurantId */
-        },
+        url: 'https://localhost:8080/api/comments/' + commentId,
+        type: 'DELETE'
     }).done(function (res) {
 
     }).fail(function (error) {
@@ -139,21 +140,18 @@ function deleteComment(){
 function updateComment(){
     const templateComm = $('#rest-comm-template');
 
-    if  ( ! comments.isEmpty()) {
-        $('#rest-comments').append(comments.map((comment) => {
-            let commDiv = templateComm.clone();
-            commDiv.removeClass('hidden');
+    $('#rest-comments').append(comments.map((comment) => {
+        let commDiv = templateComm.clone();
+        commDiv.removeClass('hidden');
 
-            const dateOptions = {year: 'numeric', month: 'numeric', day: 'numeric'};
+        const dateOptions = {year: 'numeric', month: 'numeric', day: 'numeric'};
 
-            commDiv.find('#rest-comm-username').text(comment.prenom_user + ' ' + comment.nom_user);
-            commDiv.find('#rest-comm-date').text(new Date(comment.date_comment).toLocaleDateString('fr-FR', dateOptions));
-            commDiv.find('#rest-comm-text').text(comment.text_comment);
+        commDiv.find('#rest-comm-username').text(comment.prenom_user + ' ' + comment.nom_user);
+        commDiv.find('#rest-comm-date').text(new Date(comment.date_comment).toLocaleDateString('fr-FR', dateOptions));
+        commDiv.find('#rest-comm-text').text(comment.text_comment);
 
-            return commDiv;
-        }));
-    }
-
+        return commDiv;
+    }));
 }
 
 function buildContent() {
