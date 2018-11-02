@@ -27,11 +27,7 @@ class Restaurant
         $this->hydrator = new \Hydrator\Restaurant();
     }
 
-    /**
-     * @return array
-     */
-    public function fetchAll()
-    {
+    public function findAll(){
         $rows = $this->connection->query('SELECT * FROM "restos"')->fetchAll();
         $restos = [];
         foreach ($rows as $restoData) {
@@ -40,11 +36,9 @@ class Restaurant
 
             $restos[] = $resto;
         }
-
-        return $restos;
     }
 
-    public function findAllNoDeleted()
+    public function findAllUnDeleted()
     {
         $rows = $this->connection->query('SELECT * FROM "restos" where isDeleted is FALSE ')->fetchAll();
         $restos = [];
@@ -72,6 +66,14 @@ class Restaurant
         return $restos;
     }
 
+    /**
+     * By default, returns all undeleted restaurants
+     * @return array
+     */
+    public function fetchAll()
+    {
+        return $this->findAllUnDeleted();
+    }
 
     /**
      * @param $name
@@ -223,6 +225,8 @@ class Restaurant
      * @return bool
      */
     public function delete(\Entity\Restaurant $restaurant){
+        $restaurant->setIsDeleted(true);
+
         $restoArray = $this->hydrator->extract($restaurant);
         $statement = $this->connection->prepare('UPDATE restos SET isdeleted = :isdeleted WHERE id_resto = :id');
         $statement->bindParam(':isdeleted', $restoArray['isdeleted']);

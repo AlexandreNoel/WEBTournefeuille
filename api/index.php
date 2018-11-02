@@ -81,23 +81,23 @@ switch($httpMethod){
     case 'POST':
         // POST     Creation d’Elements     /api/entity
         include_once($config[$entity]['POST-action']);
-        $resultData = array("status"=>"OK","message"=>"New Entity ".$entity." Created!");
-        break;
+        return;
+
     case 'PUT':
         // PUT     Modifier un Element     /api/entity/{id}
         if($entityId !== null){
             include_once($config[$entity]['PUT-action']);
-            $resultData = array("status"=>"OK","message"=>$entity. "updated successfully");
+            return;
         }
         else{
             $resultData = array("status"=>"KO","message"=>"You must specify an id for updating entity".$entity);
         }
+
         break;
     case "DELETE":
         // DELETE     Effacer Element     /api/entity/{id}
         if ($entityId !== null) {
             $entityToDel = $entityRepository->findOneById($entityId);
-            $entityToDel->setIsDeleted(true);
             $isDeleted = $entityRepository->delete($entityToDel);
             $resultData = array("status"=>"OK","message"=>"Entity ".$entity." id #".$entityId." deleted!");
         }else{
