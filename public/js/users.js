@@ -13,7 +13,7 @@ $(document).ready(() => {
 
 function updateUserRight(id){
     $.ajax({
-        url: 'https://localhost:8080/user-updateright.php',
+        url: 'https://localhost:8080/update-userRight.php',
         type: 'PUT',
         data: {id_user:id}
     }).done(function () {

@@ -19,6 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && (isset($_SESSION['isadmin']))) {
     }else{
         http_response_code(400);
     }
-    var_dump($result,$isadmin);
+
     echo json_encode($result);
 }
