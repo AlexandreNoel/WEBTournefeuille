@@ -15,11 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] !== "GET") {
     $errors = "internal error";
     http_response_code(400);
 } else {
-    $scoreResto = isset($_GET['score'])        &&  "" !== ($_GET['score'])      ? $_GET['score']    : null;
-    $categorie  = isset($_GET['categorie'])    &&  "" !== ($_GET['categorie'])  ? $_GET['categorie']: null;
-    $badge      = isset($_GET['badge'])        &&  "" !== ($_GET['badge'])      ? $_GET['badge']    : null;
+    $categorie  =$_GET['categorie']    && ! empty($_GET['categorie'])  ? $_GET['categorie']: null;
+    $badge      =$_GET['badge']        && ! empty($_GET['badge'])      ? $_GET['badge']    : null;
 
-    $id_user    = $_GET['favorite'] && $_GET['favorite']==='true' &&  $_SESSION['id'] ? $_SESSION['id']: null;
+    $scoreResto = isset($_GET['score']) &&  '' !== ($_GET['score']) && $_GET['score'] != -1 ? $_GET['score']: null; //scoreResto value can equal 0
+    $id_user    = $_GET['favorite']     &&  $_GET['favorite']==='true' &&  $_SESSION['id'] ? $_SESSION['id']: null;
 
     $restos = $restoRepository->filterRestaurants($scoreResto, $badge, $categorie, $id_user);
 

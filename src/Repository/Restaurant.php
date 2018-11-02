@@ -264,6 +264,7 @@ class Restaurant
         $sql = 'SELECT * 
                 FROM restos ';
 
+        //scoreResto value can equal 0
         if($scoreResto != null){
             $sql.=      ' INTERSECT
                            SELECT *
@@ -271,7 +272,7 @@ class Restaurant
                            WHERE score  = :score ';
         }
 
-        if ($badge != null) {
+        if ($badge) {
             $sql.=  ' INTERSECT
                      SELECT restos.* 
                      FROM restos 
@@ -280,7 +281,7 @@ class Restaurant
                      WHERE badge.nom_badge  = :badge ';
         }
 
-        if($categorie != null) {
+        if($categorie) {
             $sql.=      ' INTERSECT
                         SELECT restos.* 
                         FROM restos 
@@ -289,7 +290,7 @@ class Restaurant
                         WHERE categories.nom_cat  = :categorie ';
         }
 
-        if ($idUser != null) {
+        if ($idUser) {
             $sql.= ' INTERSECT
                 SELECT restos.* 
                 FROM favoris 
@@ -300,13 +301,12 @@ class Restaurant
 
 
         $statement = $this->connection->prepare($sql);
-        if($scoreResto  !=null) $statement->bindParam(':score', $scoreResto);
-        if($badge       !=null) $statement->bindParam(':badge', $badge);
-        if($categorie   !=null) $statement->bindParam(':categorie', $categorie);
-        if($idUser      !=null) $statement->bindParam(':id_user_given', $idUser);
+        if($scoreResto != null) $statement->bindParam(':score', $scoreResto);
+        if($badge)      $statement->bindParam(':badge', $badge);
+        if($categorie)  $statement->bindParam(':categorie', $categorie);
+        if($idUser)     $statement->bindParam(':id_user_given', $idUser);
 
         $statement->execute();
-
         $rows = $statement->fetchAll();
 
         $restos = [];
