@@ -29,11 +29,11 @@
 <div class="content-container">
 <div class="container">
 
-	<div class="row">
+
 
 		<section class="content">
 			<h1>Catégories</h1>
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-8  col-md-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="pull-right">
@@ -45,19 +45,20 @@
         					<button type="button" class="btn btn-default btn-filter" data-target="all">Tous</button>
 							</div>
 						</div>
+						</div>
 						<div class="table-container">
 							
-							<table class="table table-filter">
+							<table class="table table-filter" style="width: 90%;">
 								<tbody>
 								<!-- Début Article !-->
 								<?php foreach ($productslist as $category => $values):?>
 								<?php foreach($values as $product): ?>
                                                 <?php if (!is_null($product)):?>
-									<tr data-status="<?php echo $category?>">
+									<tr data-status="<?php echo $category?>" >
 									
 										<td>
 											<div class="media">
-												<a href="#" class="pull-left">
+												
 												<? switch ($category) { 
 													case 'Boisson':
 														?><img src="../assets/images/soda.jpg" class="media-photo"><?
@@ -72,20 +73,21 @@
 														?><img src="../assets/images/boisson_chaude.jpg" class="media-photo"><?
 														break;
 													default:
-														?><img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo"><?
+														?><img src="../assets/images/cross.png" class="media-photo"><?
        													break;
 													}
-?></td><td>
+												?></td><td>
 
 
 
 												
 													
 												<div class="media-body">
-													<span class="media-meta pull-right"><?php echo $category?></span>
+													<span class="media-meta pull-right"></span>
 													<h4 class="title">
-													<?php echo $product->getName()?>
-														<span class="pull-right pagado"><?php echo $product->getPrice()?></span>
+													<?php echo $product->getName()?> 
+													</td><td>
+														<span class="pull-right pagado"><?php echo $product->getPrice()?> €</span>
 													</h4>
 													<p class="summary">
 
@@ -96,27 +98,22 @@
 										</td>
 									</tr>
 										
-<?php endif; ?>
-	<?php endforeach; ?>
-	<?php endforeach; ?>
+									<?php endif; ?>
+									<?php endforeach; ?>
+									<?php endforeach; ?>	
 										<!-- fin Article !--> 
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				<div class="content-footer">
-					<p>
-						Page © - 2016 <br>
-						Powered By <a href="https://www.facebook.com/tavo.qiqe.lucero" target="_blank">TavoQiqe</a>
-					</p>
-				</div>
+				
 			</div>
 		</section>
 		
-	</div>
+	
 </div>
-    </div>
+   
 <script>
 $(document).ready(function () {
 
