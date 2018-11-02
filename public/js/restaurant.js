@@ -2,6 +2,7 @@ $(document).ready(() => {
     const restaurantId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
     getRestaurant(restaurantId);
     getComments(restaurantId);
+    getFavorites(restaurantId);
 
     $('#delete').click(() => {
         $('#rest-admin-buttons>*').toggleClass('hidden');
@@ -26,12 +27,10 @@ $(document).ready(() => {
     });
 
     $('#rest-favorite').click(() => {
-        restaurant.favorite = !restaurant.favorite;
-        updateFavorite();
+        changeFavorite(restaurantId);
     });
     $('#rest-unfavorite').click(() => {
-        restaurant.favorite = !restaurant.favorite;
-        updateFavorite();
+        changeFavorite(restaurantId);
     });
     $('#rest-score').mouseleave(() => { updateStars(); });
     $('#rest-score').click(() => { console.log(tempScore); });
@@ -53,6 +52,8 @@ function getRestaurant(restaurantId) {
         type: 'GET',
     }).done(function (res) {
         restaurant = res;
+        restaurant.favorite = false;
+        updateFavorite();
         buildContent();
     }).fail(function (error) {
 
@@ -78,31 +79,20 @@ function getComments(restaurantId) {
     });
 }
 
-let tempScore = null;
-function updateFavorite() {
-    if (restaurant.favorite === true) {
-        $('#rest-favorite').removeClass('hidden');
-        $('#rest-unfavorite').addClass('hidden');
-    } else if (restaurant.favorite === false) {
-        $('#rest-favorite').addClass('hidden');
-        $('#rest-unfavorite').removeClass('hidden');
-    } else {
-        $('#rest-favorite').addClass('hidden');
-        $('#rest-unfavorite').addClass('hidden');
-    }
-}
-
-function updateStars(num = null) {
-    tempScore = num;
-    for (let i = 0; i < 5; i++) {
-        let star = $(`#star-${i + 1}`);
-        star.removeClass('fas');
-        star.removeClass('far');
-        if (i < (num || restaurant.score))
-            star.addClass('fas');
-        else
-            star.addClass('far');
-    }
+function getFavorites(restaurantId) {
+    $.ajax({
+        url: 'https://localhost:8080/get-favorites.php',
+        type: 'GET',
+        data :{
+            id_resto : restaurantId
+        }
+    }).done(function (favorites) {
+       favorites = JSON.parse(favorites);
+       restaurant.favorite = favorites.isFavorite;
+       updateFavorite();
+    }).fail(function (error) {
+        alert("Erreur");
+    });
 }
 
 function addComment() {
@@ -135,6 +125,49 @@ function deleteComment(commentId){
     }).fail(function (error) {
         alert("Erreur");
     });
+}
+
+function changeFavorite(restaurantId){
+    $.ajax({
+        url: 'https://localhost:8080/change-favorite-restaurant.php',
+        type: 'POST',
+        data :{
+            id_resto : restaurantId
+        }
+    }).done(function (fav) {
+        fav = JSON.parse(fav);
+        restaurant.favorite = fav.isFavorite;
+        updateFavorite();
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
+let tempScore = null;
+function updateFavorite() {
+    if (restaurant.favorite === true) {
+        $('#rest-favorite').removeClass('hidden');
+        $('#rest-unfavorite').addClass('hidden');
+    } else if (restaurant.favorite === false) {
+        $('#rest-favorite').addClass('hidden');
+        $('#rest-unfavorite').removeClass('hidden');
+    } else {
+        $('#rest-favorite').addClass('hidden');
+        $('#rest-unfavorite').addClass('hidden');
+    }
+}
+
+function updateStars(num = null) {
+    tempScore = num;
+    for (let i = 0; i < 5; i++) {
+        let star = $(`#star-${i + 1}`);
+        star.removeClass('fas');
+        star.removeClass('far');
+        if (i < (num || restaurant.score))
+            star.addClass('fas');
+        else
+            star.addClass('far');
+    }
 }
 
 function updateComment(){

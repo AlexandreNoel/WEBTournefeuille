@@ -75,7 +75,7 @@ function filterRestos(){
         }
     }).done(function (res) {
         res = JSON.parse(res);
-        buildContent(res);
+        buildContent(res.resto);
     }).fail(function (error) {
         alert("Erreur");
     });}

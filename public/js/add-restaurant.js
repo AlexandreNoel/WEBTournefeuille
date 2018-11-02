@@ -172,11 +172,9 @@ function addRestaurant() {
             thumbnail: $('#filebutton').val()
         }
     }).done(function (res) {
-        console.log('in');
         window.location = '/restaurants';
-    }).fail(function (error) {console.log('ou');
+    }).fail(function (error) {
     }).always(() => {
-        console.log('inout');
         $('#rest-add-spinner').addClass('hidden');
     });
 }
