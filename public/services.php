@@ -6,7 +6,6 @@
         session_start();
 
 
-    $_SESSION['authenticated_admin']=true;
     // Vérification si Admin connecté
     if(!isset($_SESSION['authenticated_admin'])){
         header('Location: /');

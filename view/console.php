@@ -174,6 +174,9 @@
                                 <!-- Gestion des produits achetés -->
                                 <div class="col-sm-4">
                                     <form id="command" >
+                                        <div id="futurSolde">
+                                            Solde après commande: Na
+                                        </div>
                                         <div id="totalAmount">
                                             Montant des achats: 0€
                                         </div>
@@ -322,11 +325,14 @@
 
         function calculateAmountTotal(){
             var montant = 0;
+            var solde = Number($('#solde').val());
             // Récupération des articles commandés
             $('#artCommand > tr').each(function() {
                 montant= montant + parseFloat($(this).find('.artCommandTotal').text());
             });
             $('#totalAmount').text("Montant commande:" +  parseFloat(montant).toFixed(2) +"€");
+            $('#futurSolde').text("Solde après la commande: "+ parseFloat(solde-montant).toFixed(2));
+            return montant;
         }
 
 
@@ -370,14 +376,16 @@
                         if(status == 'success'){
                             console.log(data);
                             var dataJson = JSON.parse(data);
+                            var currentCommandeAmount = calculateAmountTotal();
+                            var futurSolde = Number(dataJson['solde']);
                             $('#nickname').val(dataJson['pseudo']);
                             $('#firstname').val(dataJson['prenom']);
                             $('#lastname').val(dataJson['nom']);
                             $('#solde').val(dataJson['solde']);
                             $('#id').val(dataJson['idutilisateur']);
                             $('.user-title-card').html(dataJson['pseudo']);
-                            $('#profile').click();
-                        }
+                            $('#futurSolde').html("Solde après commande: " + futurSolde);
+                            $('#profile').click();                        }
                         else{
                             alert("Veuillez sélectionner un utilisateur connu.");
                         }
@@ -391,14 +399,14 @@
             // Déclaration des variables
             var idutilisateur = $('#id').val();
             var password = $('#password').val();
-            var credit = parseInt($('#creditInput').val());
+            var credit = $('#creditInput').val();
 
             // Si aucun utilisateur donné
             if(!parseInt(idutilisateur) > 0) {
                 $('#error-modal').text("Aucun utilisateur saisie.");
             }
             //Valuer supérieur à 0
-            else if(!parseInt(credit)>0) {
+            else if(!parseFloat(credit)>0) {
                 $('#error-modal').text("La valeur crédité doit être supérieur à 0.");
             }
             else{
@@ -415,10 +423,12 @@
                                 $('#error-modal').text(response.error);
                             }
                             else{
-                                var solde = parseInt($('#solde').val());
-                                var newSolde = credit+solde;
+                                var solde = $('#solde').val();
+                                var newSolde = parseFloat(Number(credit)+Number(solde)).toFixed(2);
                                 $('#solde').val(newSolde);
                                 $('#creditInput').val(0);
+                                $('#modalBarmen').modal('hide');
+                                $('#password').val("");
                                 alert("La mise à jour s'est bien effectué");
                             }
 
@@ -482,7 +492,7 @@
                             }
                         }
                         else {
-                            alert("Mise à jour non validé: une erreure est survenue.");
+                            alert("Mise à jour non validé: une erreur est survenue.");
                         }
                     }
                 );

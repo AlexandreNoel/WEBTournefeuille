@@ -16,32 +16,28 @@
                     <div id="newsCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
-                            <li data-target="#newsCarousel" data-slide-to="0" class=""></li>
-                            <li data-target="#newsCarousel" data-slide-to="1" class="active"></li>
-                            <li data-target="#newsCarousel" data-slide-to="2" class=""></li>
+                            <?php for($i=0;$i<count($news);$i++): ?>
+                                <?php if($i==0): ?>
+                                    <li data-target="#newsCarousel" data-slide-to="<?php echo $i ?>" class="active"></li>
+                                <?php else: ?>
+                                    <li data-target="#newsCarousel" data-slide-to="<?php echo $i ?>" class=""></li>
+                                <?php endif; ?>
+                            <?php endfor; ?>
                         </ol>
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item">
-                                <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
-                                <div class="carousel-caption">
-                                    <h3>La pinte de Noel</h3>
-                                    <p>Papa noël</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item active">
-                                <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
-                                <div class="carousel-caption">
-                                    <h3>NJV BEUVERIE</h3>
-                                    <p>Soon</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
-                                <div class="carousel-caption">
-                                    <h3>Yes</h3>
-                                    <p>C'est beau</p>
-                                </div>
-                            </div>
+                        <div class="carou,<sel-inner" role="listbox">
+                            <?php $i =0; foreach ($news as $aNews):?>
+                                <?php if($i==0): ?>
+                                    <div class="carousel-item active">
+                                <?php else: ?>
+                                    <div class="carousel-item">
+                                <?php endif; ?>
+                                        <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
+                                        <div class="carousel-caption">
+                                            <h3><?php echo $aNews->getTitle();?></h3>
+                                            <p>Papa noël</p>
+                                        </div>
+                                    </div>
+                            <?php $i++; endforeach; ?>
                         </div>
 
                     </div>

@@ -20,7 +20,7 @@ CREATE TABLE Utilisateur (
     pseudo VARCHAR NOT NULL UNIQUE,
     prenom VARCHAR NOT NULL ,
     nom VARCHAR NOT NULL ,
-    solde INTEGER NOT NULL
+    solde NUMERIC(19,2) NOT NULL
 );
 
 CREATE TABLE Barmen(
@@ -33,7 +33,7 @@ CREATE TABLE Commande(
     dateCommande TIMESTAMP default CURRENT_TIMESTAMP,
     idUtilisateur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
     idBarmen INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
-    prixTotal FLOAT NOT NULL
+    prixTotal NUMERIC(19,2) NOT NULL
 );
 
 CREATE TABLE Categorie(
@@ -44,8 +44,8 @@ CREATE TABLE Categorie(
 CREATE TABLE Produit(
     idProduit SERIAL PRIMARY KEY,
     libelle VARCHAR NOT NULL,
-    prix FLOAT NOT NULL,
-    reduction FLOAT NOT NULL,
+    prix NUMERIC(19,2) NOT NULL,
+    reduction NUMERIC(19,2) NOT NULL,
     quantiteStock INTEGER NOT NULL,
     estDisponible Bool NOT NULL,
     idCategorie INTEGER NOT NULL REFERENCES Categorie (idCategorie)
@@ -54,7 +54,7 @@ CREATE TABLE Produit(
 CREATE TABLE FaitPartieCommande(
     idProduit SERIAL NOT NULL REFERENCES Produit (idProduit),
     idCommande SERIAL NOT NULL REFERENCES Commande (idCommande),
-    prixVente FLOAT NOT NULL,
+    prixVente NUMERIC(19,2) NOT NULL,
     quantite INTEGER NOT NULL,
     PRIMARY KEY (idProduit, idCommande)
 );
