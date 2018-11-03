@@ -4,27 +4,23 @@ require '../vendor/autoload.php';
 header("Access-Control-Allow-Origin: *");
 session_start();
 
-$restaurantRepository = new \Repository\Restaurant();
-$restaurantHydrator = new \Hydrator\Restaurant();
 $commentRepository = new \Repository\Comment();
 $commentHydrator = new \Hydrator\Comment();
 $userRepository = new \Repository\User();
 $userHydrator = new \Hydrator\User();
 
-$restaurant = null;
-$comments = null;
+
+$dataComment = null;
+$errors = null;
 
 if ($_SERVER['REQUEST_METHOD'] !== "GET") {
-    $restaurant = "internal error";
+    $errors = "internal error";
     http_response_code(400);
 } else {
-    $id = $_GET['id_resto'];
+    $idResto = $_GET['id_resto'];
 
-    if ($id) {
-        $restaurant = $restaurantRepository->findOneById($id);
-        $restaurant = $restaurantHydrator->extract($restaurant);
-
-        $comments = $commentRepository->findAllByResto($id);
+    if ($idResto) {
+        $comments = $commentRepository->findAllByResto($idResto);
         $dataComment = [];
 
         /** @var \Entity\Comment $comment */
@@ -43,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] !== "GET") {
 
     } else {
         http_response_code(400);
-        $restaurant = "error";
+        $errors = "error";
     }
 }
-$view = ['data' => $restaurant, 'comments' => $dataComment, 'session' => $_SESSION];
+$view = ['comments' => $dataComment, 'errors' => $errors];
 echo json_encode($view);

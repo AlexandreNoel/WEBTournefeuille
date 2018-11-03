@@ -37,7 +37,7 @@ $(document).ready(() => {
     });
     $('[name="validate"]').click(() => {
         if (checkInputs())
-            updateUser();
+           addRestaurant();
     });
 });
 
@@ -159,7 +159,7 @@ function addRestaurant() {
 
     //get data from the form
     $.ajax({
-        url: 'https://localhost:8080/add-restaurant.php',
+        url: 'https://localhost:8080/api/restaurants',
         type: 'POST',
         data: {
             nom_resto: $('#nom_resto').val(),

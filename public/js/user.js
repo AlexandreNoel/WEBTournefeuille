@@ -40,15 +40,11 @@ function getUser() {
     const userId = window.location.pathname.match(/users\/([0-9]+)/)[1];
 
     $.ajax({
-        url: 'https://localhost:8080/account-user.php',
+        url: 'https://localhost:8080/api/users/' + userId,
         type: 'GET',
-        data: {
-            id_user: userId,
-        }
 
     }).done(function (user) {
-        user = JSON.parse(user)
-        buildContent(user.data);
+        buildContent(user);
     }).fail(function (error) {
         alert("Erreur");
     });
@@ -165,7 +161,7 @@ function updateUser() {
 
     //get data from the form
     $.ajax({
-        url: 'https://localhost:8080/update-user.php',
+        url: 'https://localhost:8080/api/users/' + userId,
         type: 'PUT',
         data: {
             id_user: userId,
@@ -187,7 +183,7 @@ function updateUser() {
 
 function register() {
     $.ajax({
-        url: 'https://localhost:8080/register.php',
+        url: 'https://localhost:8080/api/users',
         type: 'POST',
         data: {
             nom_user: $('#firstname_register').val(),

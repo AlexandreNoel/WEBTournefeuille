@@ -1,5 +1,3 @@
-session = null;
-
 $(document).ready(() => {
     getUsers();
 
@@ -15,7 +13,7 @@ $(document).ready(() => {
 
 function updateUserRight(id){
     $.ajax({
-        url: 'https://localhost:8080/user-updateright.php',
+        url: 'https://localhost:8080/update-userRight.php',
         type: 'PUT',
         data: {id_user:id}
     }).done(function () {
@@ -27,12 +25,10 @@ function updateUserRight(id){
 function getUsers() {
 
     $.ajax({
-        url: 'https://localhost:8080/index_user.php',
+        url: 'https://localhost:8080/api/users',
         type: 'GET'
     }).done(function (users) {
-        users = JSON.parse(users)
-        session = users.session;
-        buildContent(users.data);
+        buildContent(users);
     }).fail(function (error) {
         alert("Erreur");
     });
@@ -42,7 +38,6 @@ function buildContent(users) {
     $('#users-list tbody').append(users.map((userData) => {
         const adminCheck = '<td class="admin"><i class="fas fa-check text-success"></i></td>';
         const adminUncheck = '<td class="admin"><i class="fas fa-times text-danger"></i></td>';
-       
 
         return `
             <tr id="${userData.id_user}" href="/users/${userData.id_user}">

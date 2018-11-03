@@ -1,6 +1,8 @@
 $(document).ready(() => {
     const restaurantId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
     getRestaurant(restaurantId);
+    getComments(restaurantId);
+    getFavorites(restaurantId);
 
     $('#delete').click(() => {
         $('#rest-admin-buttons>*').toggleClass('hidden');
@@ -10,8 +12,7 @@ $(document).ready(() => {
 
         $('#rest-del-conf').click(() => {
             $.ajax({
-                url: 'https://localhost:8080/delete-restaurant.php',
-                data: { id_resto: restaurantId },
+                url: 'https://localhost:8080/api/restaurants/' + restaurantId,
                 type: 'DELETE',
             }).done(function (res) {
                 window.location = "/restaurants";
@@ -26,12 +27,10 @@ $(document).ready(() => {
     });
 
     $('#rest-favorite').click(() => {
-        restaurant.favorite = !restaurant.favorite;
-        updateFavorite();
+        changeFavorite(restaurantId);
     });
     $('#rest-unfavorite').click(() => {
-        restaurant.favorite = !restaurant.favorite;
-        updateFavorite();
+        changeFavorite(restaurantId);
     });
     $('#rest-score').mouseleave(() => { updateStars(); });
     $('#rest-score').click(() => { console.log(tempScore); });
@@ -47,19 +46,101 @@ let restaurant = {};
 let comments = {};
 
 function getRestaurant(restaurantId) {
+
     $.ajax({
-        url: 'https://localhost:8080/description-restaurant.php',
+        url: 'https://localhost:8080/api/restaurants/' + restaurantId,
         type: 'GET',
-        data: { id_resto: restaurantId }
     }).done(function (res) {
-        res= JSON.parse(res)
-        restaurant = res.data;
-        comments = res.comments;
+        restaurant = res;
+        restaurant.favorite = false;
+        updateFavorite();
         buildContent();
     }).fail(function (error) {
+
         alert("Erreur");
     });
 
+}
+
+function getComments(restaurantId) {
+    $.ajax({
+        url: 'https://localhost:8080/get-comments.php',
+        type: 'GET',
+        data :{
+            id_resto : restaurantId
+        }
+    }).done(function (comment) {
+        comment = JSON.parse(comment);
+        comments = comment.comments;
+        updateComment();
+
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
+function getFavorites(restaurantId) {
+    $.ajax({
+        url: 'https://localhost:8080/get-favorites.php',
+        type: 'GET',
+        data :{
+            id_resto : restaurantId
+        }
+    }).done(function (favorites) {
+       favorites = JSON.parse(favorites);
+       restaurant.favorite = favorites.isFavorite;
+       updateFavorite();
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
+function addComment() {
+    const restoId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
+
+    $.ajax({
+        url: 'https://localhost:8080/api/comments/',
+        type: 'POST',
+        data: {
+            id_user: getSession()['id'],
+            id_resto: restoId
+            /* todo
+             *text_comment : ,
+             *note_resto :
+             */
+        }
+    }).done(function (restaurant) {
+
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
+function deleteComment(commentId){
+    $.ajax({
+        url: 'https://localhost:8080/api/comments/' + commentId,
+        type: 'DELETE'
+    }).done(function (res) {
+
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
+function changeFavorite(restaurantId){
+    $.ajax({
+        url: 'https://localhost:8080/change-favorite-restaurant.php',
+        type: 'POST',
+        data :{
+            id_resto : restaurantId
+        }
+    }).done(function (fav) {
+        fav = JSON.parse(fav);
+        restaurant.favorite = fav.isFavorite;
+        updateFavorite();
+    }).fail(function (error) {
+        alert("Erreur");
+    });
 }
 
 let tempScore = null;
@@ -89,51 +170,21 @@ function updateStars(num = null) {
     }
 }
 
-$(document).ready(() => {
+function updateComment(){
+    const templateComm = $('#rest-comm-template');
 
-    $('#rest-add-comment').click( () =>{
-        $('#rest-text-comment').removeClass('hidden');
-    });
+    $('#rest-comments').append(comments.map((comment) => {
+        let commDiv = templateComm.clone();
+        commDiv.removeClass('hidden');
 
-    $('#rest-button-comment').click( () =>{
-        addComment();
-    });
-});
+        const dateOptions = {year: 'numeric', month: 'numeric', day: 'numeric'};
 
-function addComment() {
-    const restoId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
+        commDiv.find('#rest-comm-username').text(comment.prenom_user + ' ' + comment.nom_user);
+        commDiv.find('#rest-comm-date').text(new Date(comment.date_comment).toLocaleDateString('fr-FR', dateOptions));
+        commDiv.find('#rest-comm-text').text(comment.text_comment);
 
-    $.ajax({
-        url: 'https://localhost:8080/add-comment.php',
-        type: 'POST',
-        data: {
-            id_user: getSession()['id'],
-            id_resto: restoId
-            /* todo
-             *text_comment : ,
-             *note_resto :
-             */
-        }
-
-    }).done(function (restaurant) {
-
-    }).fail(function (error) {
-        alert("Erreur");
-    });
-}
-
-function deleteComment(){
-            $.ajax({
-                url: 'https://localhost:8080/delete-comment.php',
-                type: 'DELETE',
-                data: {
-                    /* todo id_comment: restaurantId */
-                },
-            }).done(function (res) {
-
-            }).fail(function (error) {
-                alert("Erreur");
-            });
+        return commDiv;
+    }));
 }
 
 function buildContent() {
@@ -166,21 +217,6 @@ function buildContent() {
     }
 
     updateStars();
-
-    const templateComm = $('#rest-comm-template');
-    $('#rest-comments').append(comments.map((comment) => {
-        let commDiv = templateComm.clone();
-        commDiv.removeClass('hidden');
-
-        const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
-
-        commDiv.find('#rest-comm-username').text(comment.prenom_user + ' ' + comment.nom_user);
-        commDiv.find('#rest-comm-date').text(new Date(comment.date_comment ).toLocaleDateString('fr-FR', dateOptions));
-        commDiv.find('#rest-comm-text').text(comment.text_comment);
-
-        return commDiv;
-    }));
-
     /* let badges = restaurant.badges.map((badge) => {
          let imageName = '';
          switch (badge) {

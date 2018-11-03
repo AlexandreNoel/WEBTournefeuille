@@ -9,6 +9,7 @@ let filters = {
 $(document).ready(() => {
 
     getRestaurants();
+    getCategories();
 
     $('#score-filter').change(() => {
         filters.score = parseInt($('#score-filter').val());
@@ -33,25 +34,31 @@ $(document).ready(() => {
 function getRestaurants() {
 
     $.ajax({
-        url: 'https://localhost:8080/index_restaurant.php',
+        url: 'https://localhost:8080/api/restaurants',
         type: 'GET'
     }).done(function (res) {
-        res = JSON.parse(res);
-
-        addAllCategories(res);
         buildContent(res);
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
 
+function getCategories() {
+    $.ajax({
+        url: 'https://localhost:8080/api/categories',
+        type: 'GET'
+    }).done(function (res) {
+        addAllCategories(res);
     }).fail(function (error) {
         alert("Erreur");
     });
 }
 
 
-function addAllCategories(restaurants){
-    let cats = restaurants.cats
+function addAllCategories(categories){
 
-    for (let i=0;i<cats.length;i++) {
-        $('<option />', { value: cats[i], text: cats[i] }).appendTo($('#category-filter'));
+    for (let i=0;i<categories.length;i++) {
+        $('<option />', { value: categories[i].nom_cat, text: categories[i].nom_cat }).appendTo($('#category-filter'));
     }
 }
 
@@ -68,7 +75,7 @@ function filterRestos(){
         }
     }).done(function (res) {
         res = JSON.parse(res);
-        buildContent(res);
+        buildContent(res.resto);
     }).fail(function (error) {
         alert("Erreur");
     });}
@@ -78,7 +85,7 @@ function buildContent(res) {
     const templateResto = $('#rest-template');
 
     listRestos.empty();
-    listRestos.append(res.resto.map((restoData) => {
+    listRestos.append(res.map((restoData) => {
         let restoDiv = templateResto.clone();
         restoDiv.removeClass('hidden');
 

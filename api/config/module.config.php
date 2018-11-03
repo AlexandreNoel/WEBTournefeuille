@@ -26,7 +26,18 @@ return array(
         "hydrator"         => Hydrator\Categorie::class,
         "repository"       => Repository\Categorie::class,
         "service"          => Service\Categorie::class,
+        "api-methods"      => ['GET','POST','PUT','DELETE'],
         "POST-action"      => "",
+        "PUT-action"       => "",
+        "GET-hidden-fields" => []
+    ],
+
+    "comments" =>[
+        "entity"           => Entity\Comment::class,
+        "hydrator"         => Hydrator\Comment::class,
+        "repository"       => Repository\Comment::class,
+        "api-methods"      => ['GET','POST','DELETE'],
+        "POST-action"      => "../public/add-comment",
         "PUT-action"       => "",
         "GET-hidden-fields" => []
     ],
