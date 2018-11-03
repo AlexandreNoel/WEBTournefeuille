@@ -173,9 +173,22 @@ function addRestaurant() {
             categorie: $('#type_resto option:selected').text()
         }
     }).done(function (res) {
-        window.location = '/restaurants';
+        swal({
+            type: 'success',
+            title: 'Operation réussie',
+            text: "Le nouveau restaurant a été sauvegardé.",
+            footer: '<a href ="/restaurants">Je veux voir la liste des restaurants !</a>'
+        }).then((result) => {
+            if (result.value) {
+                window.location = '/restaurants/';
+            }});
     }).fail(function (error) {
-        console.log("error");
+        swal({
+            type: 'error',
+            title: 'Oops...',
+            text: "Une erreur est survenue lors de l'enregistrement du restaurant",
+            footer: "Contactez l'administrateur du site"
+        })
     }).always(() => {
         $('#rest-add-spinner').addClass('hidden');
     });

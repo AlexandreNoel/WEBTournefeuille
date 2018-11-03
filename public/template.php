@@ -3,6 +3,7 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.11/dist/sweetalert2.min.css">
         <link rel="stylesheet" href="/css/sidebar.css">
         <link rel="stylesheet" href="/css/phatadvisor.css">
         <link rel="stylesheet" href="/css/form.css">
@@ -14,6 +15,7 @@
         <link href="https://fonts.googleapis.com/css?family=Advent+Pro:600,700" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.11/dist/sweetalert2.all.min.js""></script>
         <script src="/js/session.js"></script>
         <script src="/js/sidebar.js"></script>
     </head>
