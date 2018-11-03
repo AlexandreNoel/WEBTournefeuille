@@ -194,7 +194,6 @@ function register() {
             confir_secret_user: $('#confirm_password').val()
         }
     }).done(function (res) {
-        res = JSON.parse(res)
         SESSION = res.session;
         setSession(SESSION);
         window.location = '/restaurants';
