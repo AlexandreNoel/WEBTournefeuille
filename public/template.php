@@ -38,7 +38,7 @@
                         <a href="/restaurants/add"><i class="fas fa-plus-square"></i>Ajouter un restaurant</a>
                     </li>
                     <li id="menu_user">
-                        <a href="/users/1"><i class="fas fa-user"></i>Paramètres du compte</a>
+                        <a id="user_acc" href=""><i class="fas fa-user"></i>Paramètres du compte</a>
                     </li>
                     <li id="menu_users">
                         <a href="/users"><i class="fas fa-users"></i>Liste des utilisateurs</a>
@@ -50,6 +50,7 @@
                         <a href="/disconnected"><i class="fas fa-sign-out-alt"></i>Déconnexion</a>
                     </li>
                 </ul>
+                 <div class="fas"><p id="user_info"></p></div>
             </nav>
             <div class="container">
                 <?php include('./html/'.$pagePath);?>

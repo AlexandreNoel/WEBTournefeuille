@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    getCategories();
     checkInputs();
     $('[name="nom_resto"]').focus();
 
@@ -156,7 +157,6 @@ function checkInputs() {
 
 function addRestaurant() {
     $('#rest-add-spinner').removeClass('hidden');
-
     //get data from the form
     $.ajax({
         url: 'https://localhost:8080/api/restaurants',
@@ -169,12 +169,32 @@ function addRestaurant() {
             city_resto: $('#city').val(),
             tel_resto: $('#tel').val(),
             website_resto: $('#web').val(),
-            thumbnail: $('#filebutton').val()
+            thumbnail: $('#filebutton').val(),
+            categorie: $('#type_resto option:selected').text()
         }
     }).done(function (res) {
         window.location = '/restaurants';
     }).fail(function (error) {
+        console.log("error");
     }).always(() => {
         $('#rest-add-spinner').addClass('hidden');
     });
+}
+
+function getCategories() {
+    $.ajax({
+        url: 'https://localhost:8080/api/categories',
+        type: 'GET'
+    }).done(function (res) {
+        addAllCategories(res);
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
+function addAllCategories(categories) {
+
+    for (let i = 0; i < categories.length; i++) {
+        $('<option />', { value: categories[i].nom_cat, text: categories[i].nom_cat }).appendTo($('#type_resto'));
+    }
 }

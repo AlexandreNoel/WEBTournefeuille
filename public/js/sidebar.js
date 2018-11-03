@@ -5,6 +5,10 @@ const deco_li = ['menu_form'];
 
 $(document).ready(() => {
     reloadSideBar();
+    if(getSession()['id']){
+        loadUserSideBar();
+        loadUserInfo();
+    }
     var wrapper = $('#wrapper');
 
     wrapper.click(() => {
@@ -32,6 +36,14 @@ $(document).keydown(function (e) {
     }
 });
 
+function loadUserSideBar(){
+    idUser = getSession()['id'];
+    $("#user_acc").attr("href", "/users/"+idUser); // Set herf value
+}
+function loadUserInfo(){
+    userInfo = getSession()['name'] + " ["+getSession()['id']+"]";
+    $("#user_info").text(userInfo);
+}
 function hideIfNotAdmin() {
 
     $('#menu_list li').each(function () {

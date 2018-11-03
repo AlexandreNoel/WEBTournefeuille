@@ -1,6 +1,7 @@
 $(document).ready(() => {
     const restaurantId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
     getRestaurant(restaurantId);
+    getCategory(restaurantId);
     getComments(restaurantId);
     getFavorites(restaurantId);
 
@@ -73,6 +74,22 @@ function getComments(restaurantId) {
         comment = JSON.parse(comment);
         comments = comment.comments;
         updateComment();
+
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
+function getCategory(restaurantId) {
+    $.ajax({
+        url: 'https://localhost:8080/get-category.php',
+        type: 'GET',
+        data: {
+            id_resto: restaurantId
+        }
+    }).done(function (cat) {
+        cat = JSON.parse(cat);
+        updateCategorie(cat.category);
 
     }).fail(function (error) {
         alert("Erreur");
@@ -157,6 +174,9 @@ function updateFavorite() {
     }
 }
 
+function updateCategorie(cat_name){
+    $('#rest-category').text(cat_name);
+}
 function updateStars(num = null) {
     tempScore = num;
     for (let i = 0; i < 5; i++) {

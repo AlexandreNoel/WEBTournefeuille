@@ -6,6 +6,7 @@ session_start();
 
 $restaurantRepository = new \Repository\Restaurant();
 $restaurantHydrator = new \Hydrator\Restaurant();
+$catRepository = new \Repository\Categorie();
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSION['isadmin']) {
     $error = "internal error";
     http_response_code(400);
@@ -18,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSI
     $phoneNumber = $_POST['tel_resto'] ?? null;
     $website = $_POST['website_resto'] ?? null;
     $thumbnail = $_POST['thumbnail'] ?? null;
+    $categorie = $_POST['categorie'] ?? null;
 
 
     $view = [
@@ -29,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSI
             'city_resto' => $city,
             'tel_resto' => $phoneNumber,
             'website_resto' => $website,
-            'thumbnail' => $thumbnail
+            'thumbnail' => $thumbnail,
+            'categorie' => $categorie
 
         ],
         'errors',
@@ -48,12 +51,24 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSI
                 'city_resto' => $city,
                 'tel_resto' => $phoneNumber,
                 'website_resto' => $website,
-                'thumbnail' => $thumbnail,
+                'thumbnail' => $thumbnail
             ],
             new \Entity\Restaurant()
         );
+
+
         if (!$restaurantRepository->create($newRestaurant)) {
             $view['errors']['database'] = 'Error when creating new restaurant';
+        }
+
+        $resto = $restaurantRepository->findOneByName($name);
+        $idResto = $resto->getId();
+
+        $cat = $catRepository->findOneByName($categorie);
+        $idCat  = $cat->getId();
+
+        if (!$catRepository->associateCategorie($idResto,$idCat)){
+            $view['errors']['database'] = 'Error when associating a categorie'; 
         }
 
     } else {
