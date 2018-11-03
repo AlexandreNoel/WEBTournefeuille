@@ -68,10 +68,23 @@ class Categorie
      * @param int,int
      * @return bool
      */
+    public function associateCategorie($restaurantId, $id)
+    {
+            $statement = $this->connection->prepare('INSERT INTO cat_resto values (:id_resto, :id_cat)');
+            $statement->bindParam(':id_resto', $restaurantId);
+            $statement->bindParam(':id_cat', $id);
+
+            return $statement->execute();
+    }
+
+    /**
+     * @param int,int
+     * @return bool
+     */
     public function associateBadges($restaurantId, $ids)
     {
         for ($i=0; $i < count($ids) ; $i++) {
-            $statement = $this->connection->prepare('INSERT INTO cat_resto values (DEFAULT, :id_resto, :id_cat)');
+            $statement = $this->connection->prepare('INSERT INTO badge values (DEFAULT, :id_resto, :id_cat)');
             $statement->bindParam(':id_resto', $restaurantId);
             $statement->bindParam(':id_cat', $ids[$i]);
 
@@ -103,22 +116,12 @@ class Categorie
      * @param $idResto
      * @return array
      */
-    public function findAllByResto($idResto){
-        $statement = $this->connection->prepare('SELECT * FROM "categories" NATURAL JOIN cat_resto WHERE id_resto = :id_resto');
-        $statement->bindParam(':nom_cat', $idResto);
+    public function findOneByResto($idResto){
+        $statement = $this->connection->prepare('SELECT nom_cat FROM "categories" NATURAL JOIN cat_resto WHERE id_resto = :id_resto');
+        $statement->bindParam(':id_resto', $idResto);
         $statement->execute();
-
-        $rows = $statement->fetchAll();
-
-        $cats = [];
-        foreach ($rows as $catData) {
-            $entity = new \Entity\Categorie();
-            $cat = $this->hydrator->hydrate($catData, clone $entity);
-
-            $cats[] = $cat;
-        }
-
-        return $cats;
+        $cat = $statement->fetchColumn(0);
+        return $cat;
     }
 
     /**

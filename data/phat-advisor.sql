@@ -188,11 +188,8 @@ INSERT INTO Categories VALUES (DEFAULT,'Sandwich');
 ---------------------------
 
 INSERT INTO Cat_Resto VALUES (1,2);
-INSERT INTO Cat_Resto VALUES (1,6);
 INSERT INTO Cat_Resto VALUES (2,11);
-INSERT INTO Cat_Resto VALUES (2,5);
 INSERT INTO Cat_Resto VALUES (3,9);
-INSERT INTO Cat_Resto VALUES (3,1);
 INSERT INTO Cat_Resto VALUES (4,9);
 
 ---------------------------
