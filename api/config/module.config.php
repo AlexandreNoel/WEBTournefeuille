@@ -31,6 +31,16 @@ return array(
         "PUT-action"       => "",
         "GET-hidden-fields" => []
     ],
+    "badges" => [
+        "entity" => Entity\Badge::class,
+        "hydrator" => Hydrator\Badge::class,
+        "repository" => Repository\Badge::class,
+        "service" => Service\Badge::class,
+        "api-methods" => ['GET', 'POST', 'PUT', 'DELETE'],
+        "POST-action" => "",
+        "PUT-action" => "",
+        "GET-hidden-fields" => []
+    ],
 
     "comments" =>[
         "entity"           => Entity\Comment::class,

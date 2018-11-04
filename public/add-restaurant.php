@@ -7,6 +7,8 @@ session_start();
 $restaurantRepository = new \Repository\Restaurant();
 $restaurantHydrator = new \Hydrator\Restaurant();
 $catRepository = new \Repository\Categorie();
+$badgeRepository = new \Repository\Badge();
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSION['isadmin']) {
     $error = "internal error";
     http_response_code(400);
@@ -20,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSI
     $website = $_POST['website_resto'] ?? null;
     $thumbnail = $_POST['thumbnail'] ?? null;
     $categorie = $_POST['categorie'] ?? null;
-
+    $badges = $_POST['badges'] ?? null;
 
     $view = [
         'restaurant' => [
@@ -32,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSI
             'tel_resto' => $phoneNumber,
             'website_resto' => $website,
             'thumbnail' => $thumbnail,
-            'categorie' => $categorie
-
+            'categorie' => $categorie,
+            'badges'=>$badges
         ],
         'errors',
     ];
@@ -67,8 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSI
         $cat = $catRepository->findOneByName($categorie);
         $idCat  = $cat->getId();
 
-        if (!$catRepository->associateCategorie($idResto,$idCat)){
-            $view['errors']['database'] = 'Error when associating a categorie'; 
+        $cat = $catRepository->findOneByName($categorie);
+
+        if (!$badgeRepository->associateBadges($idResto, $badges)){
+            $view['errors']['database'] = 'Error when associating badges'; 
         }
 
     } else {

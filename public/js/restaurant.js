@@ -2,6 +2,7 @@ $(document).ready(() => {
     const restaurantId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
     getRestaurant(restaurantId);
     getCategory(restaurantId);
+    getBadges(restaurantId);
     getComments(restaurantId);
     getFavorites(restaurantId);
 
@@ -96,6 +97,23 @@ function getCategory(restaurantId) {
     });
 }
 
+function getBadges(restaurantId) {
+    $.ajax({
+        url: 'https://localhost:8080/get-badges.php',
+        type: 'GET',
+        data: {
+            id_resto: restaurantId
+        }
+    }).done(function (badge) {
+        badge = JSON.parse(badge);
+        console.log(badge.badges);
+        updateBadges(badge.badges);
+
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
 function getFavorites(restaurantId) {
     $.ajax({
         url: 'https://localhost:8080/get-favorites.php',
@@ -176,6 +194,12 @@ function updateFavorite() {
 
 function updateCategorie(cat_name){
     $('#rest-category').text(cat_name);
+}
+
+function updateBadges(badges) {
+    for (let i = 0; i < badges.length; i++) {
+        $('#rest-badges').append("<img alt='" + badges[i].nom_badge +"' src='/assets/images/"+badges[i].badge_link+"'></img>");
+    }
 }
 function updateStars(num = null) {
     tempScore = num;
