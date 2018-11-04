@@ -32,6 +32,11 @@ switch ($url) {
         require __DIR__ . '/catalogue.php';
         break;
 
+    // UTILISATEUR - STATS 
+        case '/statistiques':
+        require __DIR__ . '/statistiques.php';
+        break;
+
     /*************************/
     /* PARTIE ADMINISTRATEUR */
     /*************************/

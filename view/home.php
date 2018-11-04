@@ -69,7 +69,7 @@
                                             <br>
                                             Solde: <?php print $solde ?> €
                                         </p>
-                                        <a href="#" title="Mes statistiques" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i>Mes statistiques </a>
+                                        <a href="statistiques" title="Mes statistiques" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i>Mes statistiques </a>
                                         <a href="transaction" title="Mes transactions" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i> Mes transactions </a>
                                     </div>
                                 </div>
