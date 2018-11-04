@@ -129,7 +129,6 @@ class Comment
     public function delete (\Entity\Comment $comment){
         $commentArray = $this->hydrator->extract($comment);
         $statement = $this->connection->prepare('DELETE FROM "comments" WHERE id_comment = :id');
-        $statement->bindParam(':isdeleted', $commentArray['isdeleted']);
         $statement->bindParam(':id', $commentArray['id_comment']);
 
         return $statement->execute();

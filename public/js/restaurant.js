@@ -33,6 +33,7 @@ $(document).ready(() => {
         $('#add-comment').addClass('hidden');
         $('#newComment').removeClass('hidden');
         tempCommentScore=0;
+        $('#comment_resto').val('');
         updateCommentScore();
     });
 
@@ -168,7 +169,7 @@ function deleteComment(commentId){
         url: 'https://localhost:8080/api/comments/' + commentId,
         type: 'DELETE'
     }).done(function (res) {
-
+        location.reload();
     }).fail(function (error) {
         alert("Erreur");
     });
@@ -248,9 +249,14 @@ function updateComment(){
 
         const dateOptions = {year: 'numeric', month: 'numeric', day: 'numeric'};
 
+        commDiv.find('#rest-comm-id').val(comment.id_comment);
         commDiv.find('#rest-comm-username').text(comment.prenom_user + ' ' + comment.nom_user);
         commDiv.find('#rest-comm-date').text(new Date(comment.date_comment).toLocaleDateString('fr-FR', dateOptions));
         commDiv.find('#rest-comm-text').text(comment.text_comment);
+        commDiv.find('#rest-com-delete').click( ()=>{
+            let idComment = commDiv.find('#rest-comm-id').val();
+            deleteComment(idComment);
+        });
 
         let stars = [];
         for (let i = 0; i < 5; i++) {

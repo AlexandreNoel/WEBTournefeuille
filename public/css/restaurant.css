@@ -34,6 +34,7 @@
     border-left: solid 0.2em #e0e0e0;
 }
 
+#rest-com-delete i,
 #rest-map-toggle span {
     cursor: pointer;
 }

@@ -225,33 +225,61 @@ INSERT INTO persons VALUES (DEFAULT,'user_lastname','user_firstname','user@mail.
 ---------------------------
 -- Trigger de gestion des notes
 ---------------------------
-CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS 
+CREATE FUNCTION after_insert_comment () RETURNS TRIGGER AS 
 '
   DECLARE
     noteSum INTEGER;
     notefin INTEGER;
     nbnote INTEGER;
   BEGIN
-    SELECT INTO noteSum sum(note_resto) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
-    IF noteSum ISNULL THEN
-      noteSum:=0;
-    END IF;
     SELECT INTO nbnote count(*) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
-    notefin:=(noteSum+NEW.Note_Resto)/(nbnote+1);
-    UPDATE restos SET score = notefin WHERE restos.id_resto = NEW.Id_Resto_Restos;
+    IF nbnote != 0 THEN
+      SELECT INTO noteSum sum(note_resto) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
+      notefin:=noteSum/nbnote;
+      UPDATE restos SET score = notefin WHERE restos.id_resto = NEW.Id_Resto_Restos;
+    END IF;
     RETURN NEW;
   END; 
 ' 
 LANGUAGE 'plpgsql'; 
 
-CREATE TRIGGER trig_ins_comment BEFORE INSERT ON Comments 
+CREATE TRIGGER trig_ins_comment AFTER INSERT ON Comments 
   FOR EACH ROW 
-  EXECUTE PROCEDURE before_insert_comment();
+  EXECUTE PROCEDURE after_insert_comment();
+  
+  
+CREATE FUNCTION after_delete_comment () RETURNS TRIGGER AS
+'
+  DECLARE
+    noteSum INTEGER;
+    notefin INTEGER;
+    nbnote INTEGER;
+  BEGIN
+    SELECT INTO nbnote count(*) FROM Comments WHERE Comments.Id_Resto_Restos=OLD.Id_Resto_Restos;
+
+    IF nbnote != 0 THEN
+     SELECT INTO noteSum sum(note_resto) FROM Comments WHERE Comments.Id_Resto_Restos=OLD.Id_Resto_Restos;
+      notefin:=noteSum/nbnote;
+    ELSE
+      notefin = 0;
+    END IF;
+
+    UPDATE restos SET score = notefin WHERE restos.id_resto = OLD.Id_Resto_Restos;
+
+    RETURN OLD;
+  END; 
+' 
+LANGUAGE 'plpgsql'; 
+
+CREATE TRIGGER trig_del_comment AFTER DELETE ON Comments
+  FOR EACH ROW 
+  EXECUTE PROCEDURE after_delete_comment();
+
 
 
 ---------------------------
 -- Insertion des commentaires
 ---------------------------
-INSERT INTO Comments VALUES (DEFAULT,'Commenntaire 1','05/10/2018',1,2,4);
-insert into comments values(default, 'cest bon3', '01/01/95',2,2,2);
-insert into comments values(default, 'cest bon4', '01/01/95',1,1,4);
+INSERT INTO Comments VALUES (DEFAULT,'Bon mais il y avait un peu d''attente....','05/10/2018',1,2,4);
+insert into comments values(default, 'De la merde, je n''ai pas l''intention de revenir', '01/01/95',2,2,2);
+insert into comments values(default, 'Excellent, meilleur repas de ma vie', '01/01/95',1,1,5);
