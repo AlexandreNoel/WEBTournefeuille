@@ -210,7 +210,7 @@ function updateCategorie(cat_name){
 
 function updateBadges(badges) {
     for (let i = 0; i < badges.length; i++) {
-        $('#rest-badges').append("<img alt='" + badges[i].nom_badge +"' src='/assets/images/"+badges[i].badge_link+"'></img>");
+        $('#rest-badges').append("<img alt='" + badges[i].nom_badge +"' src='/assets/images/badges/"+badges[i].badge_link+"'></img>");
     }
 }
 

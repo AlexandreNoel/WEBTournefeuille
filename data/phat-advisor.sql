@@ -197,11 +197,11 @@ INSERT INTO Cat_Resto VALUES (4,9);
 ---------------------------
 
 INSERT INTO Badge VALUES (DEFAULT,'Bio','data/bio.png');
-INSERT INTO Badge VALUES (DEFAULT,'Halal','data/halal.png');
-INSERT INTO Badge VALUES (DEFAULT,'Vegan','data/vegan.png');
-INSERT INTO Badge VALUES (DEFAULT,'Partenariat','data/partenariat.png');
-INSERT INTO Badge VALUES (DEFAULT,'Sur Place','data/place.png');
-INSERT INTO Badge VALUES (DEFAULT,'A emporter','data/emporter.png');
+INSERT INTO Badge VALUES (DEFAULT,'Halal','badge-halal.png');
+INSERT INTO Badge VALUES (DEFAULT,'Vegan','badge-vegetarien.png');
+INSERT INTO Badge VALUES (DEFAULT,'Partenariat','badge-partenariat.png');
+INSERT INTO Badge VALUES (DEFAULT,'Livraison','badge-livraison.png');
+INSERT INTO Badge VALUES (DEFAULT,'A emporter','badge-takeaway.png');
 
 ---------------------------
 -- Insertion des badges des restaurants
