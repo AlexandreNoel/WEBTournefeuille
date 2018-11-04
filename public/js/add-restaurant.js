@@ -18,8 +18,18 @@ $(document).ready(() => {
     $('[name="addr_resto"]').keyup(() => {
         checkInputs();
     });
-    $('[name="cp_resto"]').keyup(() => {
-        checkInputs();
+    $('[name="cp_resto"]').keyup((e) => {
+        // console.log(e);    
+        // if (e.which !== 0 && e.charCode !== 0 && !e.ctrlKey && !e.metaKey && !e.altKey){
+            checkInputs();
+            var typedZipCode = $('[name="cp_resto"]').val();
+            $("#city").val("");
+            $("#cityHint").text("");
+            if (typedZipCode.length > 4){
+                
+                cityFromzipCodeLookup(typedZipCode);
+            }
+        // }
     });
     $('[name="city_resto"]').keyup(() => {
         checkInputs();
@@ -103,7 +113,7 @@ function checkInputs() {
     }
 
     const city = $('[name="city_resto"]').val();
-    if (city.length >= 1) {
+    if (city.length > 0) {
         $('[name="city_resto"]').parent().addClass('has-success');
         $('[name="city_resto"]').parent().removeClass('has-error');
     } else {
@@ -155,6 +165,42 @@ function checkInputs() {
     return allOK;
 }
 
+/**
+ * 
+ * @param {} zipCode 
+ */
+function cityFromzipCodeLookup(zipCode){
+    $.ajax({
+        url: 'https://public.opendatasoft.com/api/records/1.0/search/?dataset=code-insee-postaux-geoflar&q='+zipCode+'&lang=FR',
+        type: 'GET',
+    }).done(function (res) {
+        $('#cityList > option').remove();
+        var result=[];
+        res.records.forEach( (data) =>{
+            //console.log(data.fields.code_postal+' - '+data.fields.nom_comm);
+            result.push(data.fields.nom_comm);
+        })
+
+        if (result.length === 1) {
+            var hintText = result.length + " ville trouvée";
+        }
+        else if (result.length > 1){
+            var hintText=result.length+" ville(s) trouvée(s). Double-cliquez sur le champ pour afficher la liste...";
+        }
+        else { var hintText = "Aucune ville trouvée"}
+        
+        result.sort();
+        $("#cityHint").text(hintText);
+        if (result.length === 1) { $("#city").val(result[0]);}
+        result.forEach(function(commune){
+            $("#cityList").append("<option value='" + commune + "'>" + commune + "</option>")
+        });
+        ;
+    }).fail(function (error) {
+        $("#cityList").after("<option selected value=''>Une erreur est survenue</option>")
+    });
+}
+
 function addRestaurant() {
     $('#rest-add-spinner').removeClass('hidden');
     //get data from the form
@@ -183,10 +229,12 @@ function addRestaurant() {
                 window.location = '/restaurants/';
             }});
     }).fail(function (error) {
+        var errorData=error.responseJSON;
+        console.log(errorData);
         swal({
             type: 'error',
             title: 'Oops...',
-            text: "Une erreur est survenue lors de l'enregistrement du restaurant",
+            text: "Une erreur est survenue lors de l'enregistrement du restaurant" + error.responseText,
             footer: "Contactez l'administrateur du site"
         })
     }).always(() => {

@@ -56,7 +56,9 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="city">VILLE</label>
             <div class="col-md-8">
-                <input id="city" name="city_resto" placeholder="Ville" class="form-control input-md" required="" type="text">
+                <input list="cityList" id="city" name="city_resto" placeholder="Ville" class="form-control input-md" required="">
+                <datalist id="cityList"></datalist>
+                <small id="cityHint" class="form - text text - muted"></small>
             </div>
         </div>
 
