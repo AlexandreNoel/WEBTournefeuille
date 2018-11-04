@@ -81,11 +81,13 @@
                 </form>
             </div>
             <div id="add">
-                  <button id="add-button">Ajout nouveau produit</button>
+                  <button id="add-button" class="btn btn-primary rounded">Ajout nouveau produit</button>
             </div>
             <div id="tables">
+                <div class="container text-center">
             <?php foreach ($productslist as $category => $values):?>
-                    <div id="single-table">
+
+                <div id="single-table" class="row">
                     <label id="table-tile"><?php echo $category ?></label>
                     <table id="table_products" class="display">
                         <thead>
@@ -136,7 +138,9 @@
                         </tbody>
                     </table>
                     </div>
+
             <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </div>

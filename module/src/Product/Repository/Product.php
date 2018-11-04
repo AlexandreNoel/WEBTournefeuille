@@ -107,14 +107,14 @@ class Product
     public function modifyStock($id, $stock)
     {
         $quantityProduct = $this->findById($id)->getQuantity();
-        if (($quantityProduct + $stock) > 0 or $stock > 0) {
+        if (($quantityProduct + $stock) >= 0 or $stock > 0) {
             $statement = $this->dbAdapter->prepare('UPDATE produit SET quantitestock=quantitestock + :stock WHERE idproduit=:id');
             $statement->bindParam(":stock", $stock);
             $statement->bindParam(":id", $id);
             $statement->execute();
             return $this->findById($id)->getQuantity();
         } else {
-            throw new \Exception("Stock trop faible");
+            throw new Exception("Stock trop faible");
         }
     }
 
@@ -166,6 +166,7 @@ class Product
         $statement->bindParam(':libelle', $productName);
         $statement->execute();
     }
+
     public function getMostSelled($top){
         $statement = $this->dbAdapter->prepare(
             'select idproduit,sum(quantite) as quantite from faitpartiecommande group by idproduit limit :top;');

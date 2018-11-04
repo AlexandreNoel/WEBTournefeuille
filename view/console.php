@@ -19,7 +19,7 @@
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                         <input type="password" id="password" name="password" class="form-control validate">
-                        <label data-error="wrong" data-success="right" for="defaultForm-email">   <i class="fa fa-user"></i> Mot de passe barmen</label>
+                        <label data-error="wrong" data-success="right" for="password"> <i class="fa fa-user"></i> Mot de passe barmen</label>
                     </div>
 
                 </div>
@@ -61,7 +61,7 @@
 
             <!-- Onglet gestion utilisateur -->
             <article class='userTab mx-auto text-center '>
-                <form class="container" method="POST" action="update-user-solde.php">
+                <form class="container" method="POST">
                     <div class="card">
                         <div class="card-header">
                             <h2 class="user-title-card"></h2>
@@ -71,22 +71,22 @@
                                 <div class="col-sm-4"> <img class="img-fluid" src="assets/images/user_avatar.png" /></div>
                                 <div class="col-sm-4">
                                     <div class="d-none">
-                                        <input id="id" name="id" type="text" value="" disabled/>
+                                        <label for="id"></label><input id="id" name="id" type="text" value="" disabled/>
                                     </div>
                                     <div class="row">
-                                        <p>Pseudo:</p>
+                                        <label for="nickname">Pseudo:</label>
                                     </div>
                                     <div class="row">
                                         <input id="nickname" name="nickname" type="text" value="" disabled/>
                                     </div>
                                     <div class="row">
-                                        <p>Nom:</p>
+                                        <label for=lastname">Nom:</label>
                                     </div>
                                     <div class="row">
                                         <input id="lastname" name="lastname" type="text" value="" disabled/>
                                     </div>
                                     <div class="row">
-                                        <p>Prénom:</p>
+                                        <label for=firstname">Prénom:</label>
                                     </div>
                                     <div class="row">
                                         <input id="firstname" name="firstname" type="text" value=""" disabled/>

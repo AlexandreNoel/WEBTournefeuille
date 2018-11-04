@@ -31,6 +31,7 @@
             $usersNickname[] = $user->getNickname();
         }
 
+
         /* Produits/Catégories */
         //Récupération des produits disponibles
         $productslist = $productRepository->findAllByCategory();

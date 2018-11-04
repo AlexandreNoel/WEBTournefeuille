@@ -72,7 +72,6 @@ nav{
 }
 
 .navbar-brand img{
-	height: 100%;
 	padding: 15px;
 	width:75px;
 	-webkit-transition: transform 1s; /* Safari */
@@ -226,6 +225,8 @@ nav{
 	display:block;
 	height: 400px;
 	background-image: url("../assets/images/news_bg2.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius:5%;
 	overflow: hidden;
@@ -280,7 +281,7 @@ nav{
 	border-radius:5%;
 	background-color: black;
 	background-image: url("../assets/images/catalogue_background.jpg");
-	background-size: contain;
+	background-size: cover;
 	background-repeat: no-repeat;
 }
 

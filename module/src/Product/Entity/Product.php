@@ -147,11 +147,8 @@ Class Product{
     {
         if ($Quantity>0){
             $this->Quantity = $Quantity;
-            return $this;
         }
-        else{
-            throwException(U_ILLEGAL_ARGUMENT_ERROR);
-        }
+        return $this;
     }
     /**
      * @param int $Quantity
@@ -160,11 +157,8 @@ Class Product{
     {
         if ($Quantity > 0){
             $this->Quantity += $Quantity;
-            return $this;
         }
-        else{
-            throwException(U_ILLEGAL_ARGUMENT_ERROR);
-        }
+        return $this;
     }
     /**
      * @param int $Quantity
@@ -173,11 +167,8 @@ Class Product{
     {
         if ($Quantity > 0){
             $this->Quantity -= $Quantity;
-            return $this;
         }
-        else{
-            throwException(U_ILLEGAL_ARGUMENT_ERROR);
-        }
+        return $this;
     }
 
     /**

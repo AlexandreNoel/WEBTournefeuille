@@ -14,39 +14,38 @@ switch ($url) {
         require __DIR__ . '/../view/welcome.php';
         break;
 
-    /* ABOUT */
-    case '/about' :
-        require __DIR__ . '/../view/about.php';
-        break;
-
+    /**********************/
+    /* PARTIE UTILISATEUR */
+    /**********************/
+    // UTILISATEUR - LOGIN
     case '/login' :
         require __DIR__ . '/login.php';
         break;
 
-    /* HOME */
+    // UTILISATEUR - ACCUEIL
     case '/home':
         require __DIR__ . '/home.php';
         break;
 
-    /* CONSOLE */
-    case '/console':
-        require __DIR__ . '/console.php';
-        break;
-
-    case '/services':
-        require __DIR__ . '/services.php';
-        break;
-    /* CONSOLE */
-    case '/transaction':
-        require __DIR__ . '/transaction.php';
-        break;
-    
-    /* CATALOGUE */
+    // UTILISATEUR - CATALOGUE
     case '/catalogue':
         require __DIR__ . '/catalogue.php';
         break;
 
-    /* CONSOLE - GESTION - NEWS */
+    /*************************/
+    /* PARTIE ADMINISTRATEUR */
+    /*************************/
+    // CONSOLE - ACCUEIL
+    case '/console':
+        require __DIR__ . '/console.php';
+        break;
+
+    // CONSOLE - GESTION - TRANSACTIONS
+    case '/transaction':
+        require __DIR__ . '/transaction.php';
+        break;
+
+    /* CONSOLE - GESTION - PRODUITS */
     case '/gestionProduct':
         require __DIR__ . '/product.php';
         break;
@@ -56,7 +55,14 @@ switch ($url) {
         require __DIR__ . '/news.php';
         break;
 
-    /* AUTRES CAS NON GERE */
+    // CONSOLE - SERVICES (AJAX)
+    case '/services':
+        require __DIR__ . '/services.php';
+        break;
+
+    /*************************/
+    /* AUTRES                */
+    /*************************/
     default:
         require __DIR__ . '/../view/404.php';
         break;

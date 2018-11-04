@@ -84,16 +84,13 @@
 }
 
 #single-table{
-    width:40%;
     display:inline-grid;
     min-height: 400px;
 }
 
 #tables{
-    display:flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
+
+}   
 
 #table-tile{
     text-align: center;

@@ -20,7 +20,7 @@
         /** @var \Client\Entity\Client $user */
         $user =  $_SESSION["authenticated_user"];
         // Mise à jour de l'utilisateur
-        $user = $userRepository->findOneById($user->getId());
+        $user = $userRepository->findOneByNickname($user->getNickname());
         $_SESSION["authenticated_user"] = $user;
         // Initialisation des variables
         $nickname = $user->getNickname();
