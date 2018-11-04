@@ -213,25 +213,21 @@ class Transaction
     }
 
     public function getStatistiques($id){
-        $statement=$this->dbAdapter->prepare('        select distinct(p.libelle) from faitpartiecommande f join commande c 
-        on f.idcommande=c.idcommande join produit p on p.idproduit=f.idproduit where idutilisateur=:id ');
-        $statement->bindParam(':id', $id);
-        $statement->execute();
-        foreach ($statement->fetchAll() as $productData) {
-            
-            $rows1['name']=$productData['libelle'];
+        $data = array();
+        $res=array();
         $statement2 = $this->dbAdapter->prepare(
             'select p.libelle,sum(f.quantite) as quantite from faitpartiecommande f join commande c on f.idcommande=c.idcommande 
-            join produit p on p.idproduit=f.idproduit where idutilisateur=:id and p.libelle=:libelle group by p.libelle;');
+            join produit p on p.idproduit=f.idproduit where idutilisateur=:id group by p.libelle;');
         $statement2->bindParam(':id', $id);
-        $statement2->bindParam(':libelle', $productData['libelle']);
-            foreach ($statement2->fetchAll() as $productData2) {
-                $rows1['data'][]=$productData['quantite'];
-            }
-            $rows=array($rows1['name'],$rows1['data']);
+        $statement2->execute();
+        foreach ($statement2->fetchAll() as $productData) {
+
+            $data['name']=$productData['libelle'];
+            $data['y']=$productData['quantite'];
+            $res[]=$data;
         }
 
-        return $rows;
+        return $res;
 
     }
 }

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_POST["idutilisateur"])){
         $hydrator = new Transaction\Hydrator\Transaction();
         $repoptransac = new Transaction\Repository\Transaction();
-        $myarray= $repoptransac->getStatistiques($_POST["idutilisateur"]);
+        $myarray= $repoptransac->getStatistiques(3);
         echo json_encode($myarray);
     }
 }
