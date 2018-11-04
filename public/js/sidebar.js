@@ -4,7 +4,9 @@ const deco_li = ['menu_form'];
 
 
 $(document).ready(() => {
+    postSession();
     reloadSideBar();
+    
     if(getSession()['id']){
         loadUserSideBar();
         loadUserInfo();

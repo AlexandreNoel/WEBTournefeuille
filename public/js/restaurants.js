@@ -8,6 +8,7 @@ let filters = {
 
 $(document).ready(() => {
 
+    postSession();
     getRestaurants();
     getCategories();
 
