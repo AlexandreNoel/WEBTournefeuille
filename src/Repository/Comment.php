@@ -34,7 +34,7 @@ class Comment
      */
     public function fetchAll()
     {
-        $rows = $this->connection->query('SELECT * FROM "comments"')->fetchAll();
+        $rows = $this->connection->query('SELECT * FROM "comments" ORDER BY date_comment DESC')->fetchAll();
         $comments = [];
         foreach ($rows as $commentData) {
             $entity = new \Entity\Comment();
@@ -51,7 +51,7 @@ class Comment
      * @return array
      */
     public function findAllByUser($id_user){
-        $statement = $this->connection->prepare('SELECT * FROM "comments" WHERE id_user_persons = :id_user');
+        $statement = $this->connection->prepare('SELECT * FROM "comments" WHERE id_user_persons = :id_user ORDER BY date_comment DESC');
         $statement->bindParam(':id_user', $id_user);
         $statement->execute();
 
@@ -73,7 +73,7 @@ class Comment
      * @return array
      */
     public function findAllByResto($id_resto){
-        $statement = $this->connection->prepare('SELECT * FROM "comments" WHERE id_resto_restos = :id_resto');
+        $statement = $this->connection->prepare('SELECT * FROM "comments" WHERE id_resto_restos = :id_resto ORDER BY date_comment DESC');
         $statement->bindParam(':id_resto', $id_resto);
         $statement->execute();
 
@@ -119,9 +119,9 @@ class Comment
         $statement = $this->connection->prepare('INSERT INTO comments VALUES   (DEFAULT, :text_comment, :date_comment, :id_user_persons, :id_resto_restos, :note_resto)');
         $statement->bindParam(':text_comment', $commentArray['text_comment']);
         $statement->bindParam(':date_comment', $commentArray['date_comment']);
-        $statement->bindParam(':id_user_persons', $commentArray['id_user']);
-        $statement->bindParam(':id_resto_restos', $commentArray['id_resto']);
-        $statement->bindParam(':note_resto', $commentArray['score_comment']);
+        $statement->bindParam(':id_user_persons', $commentArray['id_user_persons']);
+        $statement->bindParam(':id_resto_restos', $commentArray['id_resto_restos']);
+        $statement->bindParam(':note_resto', $commentArray['note_resto']);
 
         return $statement->execute();
     }

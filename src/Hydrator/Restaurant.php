@@ -44,7 +44,7 @@ class Restaurant
             $data['thumbnail'] = $object->getThumbnail();
         }
 
-        if ($object->getScore()){
+        if ($object->getScore() != null){
             $data['score'] = $object->getScore();
         }
 
@@ -65,7 +65,7 @@ class Restaurant
             ->setPhoneNumber($data['tel_resto'] ?? null)
             ->setUrl($data['website_resto'] ?? null)
             ->setThumbnail($data['thumbnail'] ?? null)
-            ->setScore($data['score'] ?? null)
+            ->setScore(isset($data['score'])  ? $data['score'] :  null)
             ->setIsDeleted($data['isdeleted'] ?? null);
     }
 
