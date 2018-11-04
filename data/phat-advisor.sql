@@ -49,7 +49,7 @@ CREATE TABLE public.Restos(
 CREATE TABLE public.Comments(
 	id_Comment        SERIAL NOT NULL,
 	Text_comment      VARCHAR (500) NOT NULL ,
-	Date_comment      DATE  NOT NULL ,
+	Date_comment      TIMESTAMP  NOT NULL ,
 	Id_User_Persons   INT  NOT NULL ,
 	Id_Resto_Restos   INT  NOT NULL ,
 	Note_Resto INT NOT NULL
@@ -228,16 +228,16 @@ INSERT INTO persons VALUES (DEFAULT,'user_lastname','user_firstname','user@mail.
 CREATE FUNCTION before_insert_comment () RETURNS TRIGGER AS 
 '
   DECLARE
-    note INTEGER;
+    noteSum INTEGER;
     notefin INTEGER;
     nbnote INTEGER;
   BEGIN
-    SELECT INTO note score FROM restos WHERE restos.id_resto=NEW.Id_Resto_Restos;
-    IF note ISNULL THEN
-      note:=0;
+    SELECT INTO noteSum sum(note_resto) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
+    IF noteSum ISNULL THEN
+      noteSum:=0;
     END IF;
     SELECT INTO nbnote count(*) FROM Comments WHERE Comments.Id_Resto_Restos=NEW.Id_Resto_Restos;
-    notefin:=(note+NEW.Note_Resto)/(nbnote+1);
+    notefin:=(noteSum+NEW.Note_Resto)/(nbnote+1);
     UPDATE restos SET score = notefin WHERE restos.id_resto = NEW.Id_Resto_Restos;
     RETURN NEW;
   END; 
