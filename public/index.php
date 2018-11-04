@@ -40,7 +40,11 @@ switch ($url) {
     case '/transaction':
         require __DIR__ . '/transaction.php';
         break;
-    
+    /* STATS */
+    case '/statistiques':
+        require __DIR__ . '/statistiques.php';
+        break;
+
     /* CATALOGUE */
     case '/catalogue':
         require __DIR__ . '/catalogue.php';
