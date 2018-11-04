@@ -123,7 +123,6 @@ function getBadges(restaurantId) {
         }
     }).done(function (badge) {
         badge = JSON.parse(badge);
-        console.log(badge.badges);
         updateBadges(badge.badges);
 
     }).fail(function (error) {
@@ -252,6 +251,16 @@ function updateComment(){
         commDiv.find('#rest-comm-username').text(comment.prenom_user + ' ' + comment.nom_user);
         commDiv.find('#rest-comm-date').text(new Date(comment.date_comment).toLocaleDateString('fr-FR', dateOptions));
         commDiv.find('#rest-comm-text').text(comment.text_comment);
+
+        let stars = [];
+        for (let i = 0; i < 5; i++) {
+            if (i < comment.note_resto)
+                stars.push('<i class="fas fa-star"></i>');
+            else
+                stars.push('<i class="far fa-star"></i>');
+        }
+        commDiv.find('#rest-score-comment').empty();
+        commDiv.find('#rest-score-comment').append(stars);
 
         return commDiv;
     }));
