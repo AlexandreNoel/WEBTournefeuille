@@ -47,7 +47,7 @@ return array(
         "hydrator"         => Hydrator\Comment::class,
         "repository"       => Repository\Comment::class,
         "api-methods"      => ['GET','POST','DELETE'],
-        "POST-action"      => "../public/add-comment",
+        "POST-action"      => "../public/add-comment.php",
         "PUT-action"       => "",
         "GET-hidden-fields" => []
     ],

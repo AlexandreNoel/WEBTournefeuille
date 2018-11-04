@@ -28,7 +28,7 @@ class Comment
             $data['date_comment'] = $object->getDate()->format(\DateTime::ATOM);
         }
 
-        if ($object->getScore()) {
+        if ($object->getScore() != null) {
             $data['note_resto'] = $object->getScore();
         }
 
@@ -43,6 +43,6 @@ class Comment
             ->setIdUser($data['id_user_persons'] ?? null)
             ->setText( $data['text_comment'] ?? null)
             ->setDate($data['date_comment'] ? new \DateTime($data['date_comment']): null)
-            ->setScore( $data['note_resto'] ?? null);
+            ->setScore( isset($data['note_resto']) ? $data['note_resto'] : null);
     }
 }

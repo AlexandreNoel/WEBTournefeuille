@@ -59,6 +59,53 @@
         </div>
     </div>
     <div id="rest-comments" class="col-xs-10 left-border">
+
+        <div class="btn-group">
+            <button id="newComment" name="validate" class="btn">
+                Ajouter un commentaire
+                <i id="rest-add-btn" class="fas fa-spinner fa-pulse hidden"></i>
+            </button>
+        </div>
+
+        <div id="add-comment" class="hidden form-horizontal col-md-offset-0 col-md-15">
+            <fieldset>
+                <legend>Nouveau commentaire</legend>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="rest-comment-score">Votre Note</label>
+                    <p id="rest-comment-score" class="col-md-4" >
+                        <i id="star-comment-1" class="far fa-star" value="1"></i>
+                        <i id="star-comment-2" class="far fa-star" value="2"></i>
+                        <i id="star-comment-3" class="far fa-star" value="3"></i>
+                        <i id="star-comment-4" class="far fa-star" value="4"></i>
+                        <i id="star-comment-5" class="far fa-star" value="5"></i>
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="comment_resto">Votre commentaire</label>
+                    <div class="col-md-6">
+                        <textarea class="form-control" id="comment_resto" name="comment_resto"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-8">
+                        <button id="validate-comment" name="validate" class="btn">
+                            Valider
+                            <i id="rest-add-com" class="fas fa-spinner fa-pulse hidden"></i>
+                        </button>
+                        <button id="cancel-comment" name="cancel" class="btn">
+                            Annuler
+                            <i id="rest-cancel-com" class="fas fa-spinner fa-pulse hidden"></i>
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <legend>Commentaires</legend>
+
     </div>
     <div id="rest-map" class="col-xs-10 left-border hidden">
         <iframe id="mapRestaurant" width="550" height="550" id="gmap_canvas" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
@@ -66,10 +113,18 @@
 </div>
 <div id="rest-comm-template" class="row hidden">
     <div class="col-md-2">
+        <span id="rest-comm-id" class="hidden col-md-1"></span>
         <span id="rest-comm-username" class="col-md-11"></span>
         <span id="rest-comm-date" class="col-md-1"></span>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-8">
+        <p id="rest-score-comment">
+        </p>
+    </div>
+    <div class="col-md-8">
         <p id="rest-comm-text"></p>
+    </div>
+    <div id="rest-com-delete" class="col-md-1">
+        <i class="fas fa-trash"></i>
     </div>
 </div>

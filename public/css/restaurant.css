@@ -1,6 +1,7 @@
 .rest-detail #rest-favorite,
 .rest-detail #rest-unfavorite,
-.rest-detail #rest-score {
+.rest-detail #rest-score,
+.rest-detail #rest-comment-score{
     color: gold;
 }
 
@@ -19,6 +20,11 @@
     cursor: pointer;
 }
 
+.rest-detail #rest-comment-score i{
+    font-size: 2em;
+    cursor: pointer;
+}
+
 .rest-detail #rest-badges img {
     width: 3em;
     height: 3em;
@@ -28,6 +34,7 @@
     border-left: solid 0.2em #e0e0e0;
 }
 
+#rest-com-delete i,
 #rest-map-toggle span {
     cursor: pointer;
 }
