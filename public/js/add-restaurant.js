@@ -1,5 +1,6 @@
 $(document).ready(() => {
     getCategories();
+    getBadges();
     checkInputs();
     $('[name="nom_resto"]').focus();
 
@@ -66,14 +67,17 @@ function checkInputs() {
     }
 
     const type = $('[name="type_resto"]').val();
-    if (type.length >= 1) {
-        $('[name="type_resto"]').parent().addClass('has-success');
-        $('[name="type_resto"]').parent().removeClass('has-error');
-    } else {
-        $('[name="type_resto"]').parent().removeClass('has-success');
-        $('[name="type_resto"]').parent().addClass('has-error');
-        allOK = false;
+    if(type) {
+        if (type.length >= 1) {
+            $('[name="type_resto"]').parent().addClass('has-success');
+            $('[name="type_resto"]').parent().removeClass('has-error');
+        } else {
+            $('[name="type_resto"]').parent().removeClass('has-success');
+            $('[name="type_resto"]').parent().addClass('has-error');
+            allOK = false;
+        }
     }
+
 
     const description = $('[name="descr_resto"]').val();
     if (description.length >= 1) {
@@ -86,11 +90,14 @@ function checkInputs() {
     }
 
     const badge = $('[name="badge_resto"]').val();
-    if (badge.length >= 1) {
-        $('[name="badge_resto"]').parent().addClass('has-success');
-    } else {
-        $('[name="badge_resto"]').parent().removeClass('has-success');
+    if(badge){
+        if (badge.length >= 1) {
+            $('[name="badge_resto"]').parent().addClass('has-success');
+        } else {
+            $('[name="badge_resto"]').parent().removeClass('has-success');
+        }
     }
+
 
     const address = $('[name="addr_resto"]').val();
     if (address.length >= 1) {
@@ -203,6 +210,9 @@ function cityFromzipCodeLookup(zipCode){
 
 function addRestaurant() {
     $('#rest-add-spinner').removeClass('hidden');
+
+    var badges = getCheckedBadges();
+    console.log(badges);
     //get data from the form
     $.ajax({
         url: 'https://localhost:8080/api/restaurants',
@@ -216,7 +226,8 @@ function addRestaurant() {
             tel_resto: $('#tel').val(),
             website_resto: $('#web').val(),
             thumbnail: $('#filebutton').val(),
-            categorie: $('#type_resto option:selected').text()
+            categorie: $('#type_resto option:selected').text(),
+            badges: badges
         }
     }).done(function (res) {
         swal({
@@ -253,9 +264,45 @@ function getCategories() {
     });
 }
 
+function getBadges() {
+    $.ajax({
+        url: 'https://localhost:8080/api/badges',
+        type: 'GET'
+    }).done(function (res) {
+
+        addAllBadges(res);
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
+
 function addAllCategories(categories) {
 
     for (let i = 0; i < categories.length; i++) {
         $('<option />', { value: categories[i].nom_cat, text: categories[i].nom_cat }).appendTo($('#type_resto'));
     }
+}
+
+function addCheckbox(name,id) {
+    var container = $('#badge_resto');
+
+    $('<input />', { type: 'checkbox',id: id, name:'badges', value: name }).appendTo(container);
+    $('<label />', { text: name }).appendTo(container);
+    $('</br>').appendTo(container);
+    
+}
+
+function addAllBadges(badges) {
+
+    for (let i = 0; i < badges.length; i++) {
+        addCheckbox(badges[i].nom_badge, badges[i].id_badge);
+    }
+}
+
+function getCheckedBadges() {
+    var selected = [];
+    $('#badge_resto input:checked').each(function () {
+        selected.push($(this).attr('id'));
+    });
+    return selected;
 }
