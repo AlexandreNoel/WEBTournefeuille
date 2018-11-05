@@ -34,6 +34,6 @@
 
 <script>
     $(document).ready(function() {
-        $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
+        $('a[href="' + this.location.pathname + '"]').closest("li").addClass('active');
     });
 </script>

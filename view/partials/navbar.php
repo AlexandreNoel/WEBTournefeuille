@@ -16,7 +16,7 @@
                         <a class="nav-link fixed-nav-text" href="/home">Accueil</a>
                     </li>
                     <li id="Actualités" class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="/news">Actualités</a>
+                        <a class="nav-link fixed-nav-text" href="#">Actualités</a>
                     </li>
                     <li id="Catalogue" class="nav-item">
                         <a class="nav-link fixed-nav-text" href="/catalogue">Catalogue</a>
@@ -37,6 +37,6 @@
 
 <script>
     $(document).ready(function() {
-        $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
+        $('a[href="' + this.location.pathname + '"]').closest("li").addClass('active');
     });
 </script>

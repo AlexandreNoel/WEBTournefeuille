@@ -145,7 +145,7 @@ Class Product{
      */
     public function setQuantity(int $Quantity): Product
     {
-        if ($Quantity>0){
+        if ($Quantity>=0){
             $this->Quantity = $Quantity;
         }
         return $this;

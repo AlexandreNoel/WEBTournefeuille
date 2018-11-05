@@ -106,7 +106,6 @@ nav{
 /* NAVBAR LOGGED*/
 #collapsibleNavbar .active{
 	text-decoration: underline red;
-	text-decoration-style: dashed;
 }
 
 .fixed-nav {
