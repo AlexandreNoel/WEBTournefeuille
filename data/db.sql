@@ -96,7 +96,7 @@ INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (3,'TO
 SELECT setval('utilisateur_idutilisateur_seq', 3, true);
 
 --Table Barman
-INSERT INTO Barmen(idUtilisateur,Codebarmen) VALUES(2,'LaGuinessCestLaBase');
+INSERT INTO Barmen(idUtilisateur,Codebarmen) VALUES(2,'admin');
 
 -- Table Categorie
 INSERT INTO Categorie(idCategorie,libelle) VALUES (1,'Boisson');
