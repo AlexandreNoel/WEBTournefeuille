@@ -266,7 +266,7 @@ class Restaurant
     public function filterRestaurants($scoreResto, $badge, $categorie, $idUser)
     {
         $sql = 'SELECT * 
-                FROM restos ';
+                FROM restos where isDeleted is FALSE ';
 
         //scoreResto value can equal 0
         if($scoreResto != null){
