@@ -26,7 +26,9 @@ if (preg_match('/^\/form\/?$/', $uri)) {
     $pagePath = 'disconnected.html';
 } elseif  (preg_match('/^\/caroussel\/?$/', $uri)) {
     $pagePath = 'caroussel.html';
-}else {
+} elseif (preg_match('/^\/403\/?$/', $uri)) {
+    $pagePath = '403.html';
+} else {
     $pagePath = 'form.html';
 }
 include('template.php');

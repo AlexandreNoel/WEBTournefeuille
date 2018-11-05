@@ -1,4 +1,11 @@
 $(document).ready(() => {
+
+    if (!getSession()['isadmin']) {
+        res = [];
+        res.errorcode = '403';
+        redirectErrorCode(res);
+    }
+
     getCategories();
     getBadges();
     checkInputs();
@@ -212,7 +219,6 @@ function addRestaurant() {
     $('#rest-add-spinner').removeClass('hidden');
 
     var badges = getCheckedBadges();
-    console.log(badges);
     //get data from the form
     $.ajax({
         url: 'https://localhost:8080/api/restaurants',
@@ -230,6 +236,7 @@ function addRestaurant() {
             badges: badges
         }
     }).done(function (res) {
+        redirectErrorCode(res);
         swal({
             type: 'success',
             title: 'Operation réussie',
@@ -258,6 +265,7 @@ function getCategories() {
         url: 'https://localhost:8080/api/categories',
         type: 'GET'
     }).done(function (res) {
+        redirectErrorCode(res); 
         addAllCategories(res);
     }).fail(function (error) {
         alert("Erreur");
@@ -269,7 +277,7 @@ function getBadges() {
         url: 'https://localhost:8080/api/badges',
         type: 'GET'
     }).done(function (res) {
-
+        redirectErrorCode(res); 
         addAllBadges(res);
     }).fail(function (error) {
         alert("Erreur");

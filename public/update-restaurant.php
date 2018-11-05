@@ -4,6 +4,8 @@ require '../vendor/autoload.php';
 header("Access-Control-Allow-Origin: *");
 session_start();
 
+SessionChecker::redirectIfNotAdmin();
+
 $restaurantRepository = new \Repository\Restaurant();
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT' && (isset($_SESSION['isadmin']))) {

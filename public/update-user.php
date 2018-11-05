@@ -4,6 +4,8 @@ require '../vendor/autoload.php';
 header("Access-Control-Allow-Origin: *");
 session_start();
 
+SessionChecker::redirectIfNotAdmin();
+
 $userRepository = new \Repository\User();
 
 

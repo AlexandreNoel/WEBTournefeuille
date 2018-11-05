@@ -1,4 +1,16 @@
 $(document).ready(() => {
+
+    if (getSession()['id'] == null ) {
+        console.log("wtff");
+        res = [];
+        res.errorcode = '401';
+        redirectErrorCode(res);
+    } 
+
+    checkIfAdmin("#rest-com-delete");
+    checkIfAdmin("#delete");
+    checkIfAdmin("#edit");
+
     const restaurantId = window.location.pathname.match(/restaurants\/([0-9]+)/)[1];
     getRestaurant(restaurantId);
     getCategory(restaurantId);
@@ -17,6 +29,7 @@ $(document).ready(() => {
                 url: 'https://localhost:8080/api/restaurants/' + restaurantId,
                 type: 'DELETE',
             }).done(function (res) {
+                redirectErrorCode(res);
                 window.location = "/restaurants";
             }).fail(function (error) {
                 alert("Erreur");
@@ -71,7 +84,8 @@ function getRestaurant(restaurantId) {
         url: 'https://localhost:8080/api/restaurants/' + restaurantId,
         type: 'GET',
     }).done(function (res) {
-        restaurant = res;
+        redirectErrorCode(res);
+        restaurant = res['data'];
         restaurant.favorite = false;
         updateFavorite();
         buildContent();
@@ -90,6 +104,7 @@ function getComments(restaurantId) {
             id_resto : restaurantId
         }
     }).done(function (comment) {
+        redirectErrorCode(comment);
         comment = JSON.parse(comment);
         comments = comment.comments;
         updateComment();
@@ -107,6 +122,7 @@ function getCategory(restaurantId) {
             id_resto: restaurantId
         }
     }).done(function (cat) {
+        redirectErrorCode(cat);
         cat = JSON.parse(cat);
         updateCategorie(cat.category);
 
@@ -139,11 +155,11 @@ function getFavorites(restaurantId) {
             id_resto : restaurantId
         }
     }).done(function (favorites) {
+        redirectErrorCode(favorites);
         favorites = JSON.parse(favorites);
         restaurant.favorite = favorites.isFavorite;
         updateFavorite();
     }).fail(function (error) {
-        alert("Erreur");
     });
 }
 
@@ -158,6 +174,8 @@ function addComment(restaurantId) {
             note_resto : tempCommentScore
         }
     }).done(function (restaurant) {
+        console.log(restaurant);
+        redirectErrorCode(restaurant);
         location.reload();
     }).fail(function (error) {
         alert("Erreur");
@@ -169,6 +187,7 @@ function deleteComment(commentId){
         url: 'https://localhost:8080/api/comments/' + commentId,
         type: 'DELETE'
     }).done(function (res) {
+        redirectErrorCode(res);
         location.reload();
     }).fail(function (error) {
         alert("Erreur");
@@ -183,6 +202,7 @@ function changeFavorite(restaurantId){
             id_resto : restaurantId
         }
     }).done(function (fav) {
+        redirectErrorCode(fav);
         fav = JSON.parse(fav);
         restaurant.favorite = fav.isFavorite;
         updateFavorite();

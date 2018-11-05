@@ -10,10 +10,12 @@ $userHydrator = new \Hydrator\Restaurant();
 
 $dataRestos = [];
 $errors = [];
+$errorcode = '200';
 
 if ($_SERVER['REQUEST_METHOD'] !== "GET" || ! isset($_SESSION['id'])) {
     $errors = "internal error";
-    http_response_code(400);
+    $errors = '500';
+    http_response_code(500);
 } else {
     $id_user = $_SESSION['id'];
     $restos = $restoRepository->findAllFavoritesByUser($id_user);
@@ -23,6 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] !== "GET" || ! isset($_SESSION['id'])) {
     }
 }
 
-$data = ['errors' => $errors, 'resto' => $dataRestos];
+$data = ['errors' => $errors, 'resto' => $dataRestos, 'errorcode' => $errorcode];
 echo json_encode($data);
 

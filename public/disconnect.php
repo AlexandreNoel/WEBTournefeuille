@@ -7,7 +7,7 @@ session_start();
 session_unset();
 session_destroy();
 
-var_dump($_SESSION);
+//var_dump($_SESSION);
 
 //include("template.php");
 //require_once('html/disconnected.html');

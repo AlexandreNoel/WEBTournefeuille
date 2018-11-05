@@ -10,10 +10,12 @@ $userHydrator = new \Hydrator\Restaurant();
 
 $dataRestos = [];
 $errors = [];
+$errorcode = "200";
 
 if ($_SERVER['REQUEST_METHOD'] !== "GET") {
+    $errorcode = "500";
     $errors = "internal error";
-    http_response_code(400);
+    http_response_code(500);
 } else {
     $categorie  =$_GET['categorie']    && ! empty($_GET['categorie'])  ? $_GET['categorie']: null;
     $badge      =$_GET['badge']        && ! empty($_GET['badge'])      ? $_GET['badge']    : null;
@@ -29,5 +31,5 @@ if ($_SERVER['REQUEST_METHOD'] !== "GET") {
 }
 
 
-$data = ['errors' => $errors, 'resto' => $dataRestos];
+$data = ['errors' => $errors, 'resto' => $dataRestos, 'errorcode' => $errorcode];
 echo json_encode($data);

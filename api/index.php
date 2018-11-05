@@ -2,8 +2,13 @@
 
 //namespace api;
 require '../vendor/autoload.php';
+use Service\SessionChecker;
+session_start();
+SessionChecker::redirectIfNotConnected();
 
 $config = include('config/module.config.php');
+
+
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -26,7 +31,7 @@ if (!$isRequestAvailable){
         'usage'=>array(
             '/api/entityName/id' => 'Returns a JSON of the entity with the specified id',
             '/api/entityName'    => 'Returns a JSON with all the entities designed by entityName'),
-        'available-apis' => $availableApis));
+        'available-apis' => $availableApis, 'errorcode' => '500'));
     exit;
 }
 
@@ -36,7 +41,7 @@ $isHttpMethodAvailable=in_array($httpMethod,$config[$entity]['api-methods']);
 if (!$isHttpMethodAvailable){
     echo json_encode(
         array('message' => 'Invalid method API '.$httpMethod.' for entity '.$entity,
-            "available-methods" => $config[$entity]['api-methods']
+            "available-methods" => $config[$entity]['api-methods'],'errorcode' => '500'
         )
     );
     exit;
@@ -84,24 +89,26 @@ switch($httpMethod){
         return;
 
     case 'PUT':
+        SessionChecker::redirectIfNotAdmin();
         // PUT     Modifier un Element     /api/entity/{id}
         if($entityId !== null){
             include_once($config[$entity]['PUT-action']);
             return;
         }
         else{
-            $resultData = array("status"=>"KO","message"=>"You must specify an id for updating entity".$entity);
+            $resultData = array("status"=>"KO","message"=>"You must specify an id for updating entity".$entity, 'errorcode' => '500');
         }
 
         break;
     case "DELETE":
+        SessionChecker::redirectIfNotAdmin();
         // DELETE     Effacer Element     /api/entity/{id}
         if ($entityId !== null) {
             $entityToDel = $entityRepository->findOneById($entityId);
             $isDeleted = $entityRepository->delete($entityToDel);
-            $resultData = array("status"=>"OK","message"=>"Entity ".$entity." id #".$entityId." deleted!");
+            $resultData = array("status"=>"OK","message"=>"Entity ".$entity." id #".$entityId." deleted!","errorcode" => '200');
         }else{
-            $resultData = array("status"=>"KO","message"=>" Error while trying to delete Entity ".$entity." id #".$entityId);
+            $resultData = array("status"=>"KO","message"=>" Error while trying to delete Entity ".$entity." id #".$entityId, 'errorcode' => '500');
             http_response_code(400);
         }
         break;
@@ -109,5 +116,7 @@ switch($httpMethod){
         echo json_encode(array("message"=>"Invalid HTTP VERB SPECIFIED"));
         exit;
 }
-echo json_encode($resultData);
+$result = ["data" => $resultData, "errorcode" => "200"];
+echo json_encode($result);
+
 ?>

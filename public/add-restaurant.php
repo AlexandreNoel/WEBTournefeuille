@@ -1,8 +1,11 @@
 <?php
 
+use Service\SessionChecker;
+
 require '../vendor/autoload.php';
 header("Access-Control-Allow-Origin: *");
-session_start();
+
+SessionChecker::redirectIfNotAdmin();
 
 $restaurantRepository = new \Repository\Restaurant();
 $restaurantHydrator = new \Hydrator\Restaurant();
@@ -79,6 +82,5 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSI
         http_response_code(400);
     }
 }
-
-
+$view['errorcode'] = '200';
 echo json_encode($view['errors']);

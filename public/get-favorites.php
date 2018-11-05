@@ -8,10 +8,12 @@ $restoRepository = new \Repository\Restaurant();
 
 $isFavorite = null;
 $errors = null;
+$errorcode = "200";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' || ! isset($_SESSION['id'])) {
     $errors = "internal error";
-    http_response_code(400);
+    $errorcode = "500";
+    http_response_code(500);
 } else {
     $idResto = $_GET['id_resto'];
 
@@ -19,10 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET' || ! isset($_SESSION['id'])) {
         $isFavorite = $restoRepository->isAlreadyFavorite($_SESSION['id'], $idResto) ? true : false;
 
     } else {
-        http_response_code(400);
+        $errorcode = "500";
+        http_response_code(500);
         $errors = "error";
     }
 }
 
-$data = ['isFavorite' => $isFavorite, 'errors' => $errors];
+$data = ['isFavorite' => $isFavorite, 'errors' => $errors, 'errorcode' => $errorcode];
 echo json_encode($data);

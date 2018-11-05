@@ -28,3 +28,37 @@ function postSession() {
         alert("Erreur");
     });
 }
+function checkIfAdmin(id_admin) {
+    if (!getSession()['isadmin']) {
+        $(id_admin).hide();
+    }
+}
+
+function redirectErrorCode(res) {
+    if (res.errorcode) {
+        error_code = res.errorcode;
+    } else {
+        error_code = JSON.parse(res)['errorcode'];
+    }
+
+    if (error_code == '401') {
+        swal({
+            type: 'error',
+            title: 'Attention',
+            text: "Redirection... Non connecté"
+        }).then(() => {
+
+        });
+        window.location = '/forms';
+
+    } else if (error_code == '403') {
+        swal({
+            type: 'error',
+            title: 'Attention',
+            text: "Redirection... Non autorisé"
+        })
+        window.location = '/403';
+
+    } else if (error_code == '200') {
+    }
+}

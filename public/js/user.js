@@ -44,7 +44,8 @@ function getUser() {
         type: 'GET',
 
     }).done(function (user) {
-        buildContent(user);
+        redirectErrorCode(user); 
+        buildContent(user.data);
     }).fail(function (error) {
         alert("Erreur");
     });
@@ -173,7 +174,8 @@ function updateUser() {
             secret_user_new: $('#secret_user_new').val(),
             secret_user_new2: $('#secret_user_new2').val(),
         }
-    }).done(function () {
+    }).done(function (res) {
+        redirectErrorCode(res); 
         window.location = '/restaurants';
     }).fail(function () {
     }).always(() => {

@@ -2,7 +2,6 @@
 
 require '../vendor/autoload.php';
 header("Access-Control-Allow-Origin: *");
-session_start();
 
 $commentRepository = new \Repository\Comment();
 $commentHydrator = new \Hydrator\Comment();
@@ -26,10 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id'])) {
     );
 
     if (!$commentRepository->create($newComment)) {
-        $result = ['result' => 'Error when creating new comment'];
+        $result = ['result' => 'Error when creating new comment','errorcode' => '500'];
         http_response_code(400);
     }else {
-        $result = ['result' => 'succes'];
+        $result = ['result' => 'succes', 'errorcode' => '200'];
     }
 }
 

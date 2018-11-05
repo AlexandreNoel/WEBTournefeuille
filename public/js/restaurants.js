@@ -8,7 +8,14 @@ let filters = {
 
 $(document).ready(() => {
 
-    postSession();
+    checkIfAdmin("#add-resto");
+
+    if (getSession()['id'] == null) {
+        res = [];
+        res.errorcode = '401';
+        redirectErrorCode(res);
+    } 
+
     getRestaurants();
     getCategories();
 
@@ -38,7 +45,9 @@ function getRestaurants() {
         url: 'https://localhost:8080/api/restaurants',
         type: 'GET'
     }).done(function (res) {
-        buildContent(res);
+        redirectErrorCode(res);    
+        buildContent(res.data);
+       
     }).fail(function (error) {
         alert("Erreur");
     });
@@ -49,7 +58,8 @@ function getCategories() {
         url: 'https://localhost:8080/api/categories',
         type: 'GET'
     }).done(function (res) {
-        addAllCategories(res);
+        redirectErrorCode(res); 
+        addAllCategories(res.data);
     }).fail(function (error) {
         alert("Erreur");
     });
@@ -75,7 +85,10 @@ function filterRestos(){
             favorite       : filters.favorite,
         }
     }).done(function (res) {
+        
+        redirectErrorCode(res); 
         res = JSON.parse(res);
+        console.log(res);
         buildContent(res.resto);
     }).fail(function (error) {
         alert("Erreur");
