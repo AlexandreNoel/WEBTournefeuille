@@ -37,7 +37,7 @@
             try{
                 $userBarmen = $userRepository->findOneByCodeBarmen($_POST['password']);
                 if(isset($userBarmen)) {
-                    $userRepository->giveMoney($_POST["id"],$_POST["credit"]);
+                    $userRepository->giveMoney($_POST["id"],$_POST["credit"],$userBarmen->getId());
                     $arr = array(
                         'status' => true,
                     );

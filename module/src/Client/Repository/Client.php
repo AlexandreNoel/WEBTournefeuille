@@ -74,7 +74,7 @@ class Client
         return $user;
     }
 
-    public function giveMoney($id,$money)
+    public function giveMoney($id,$money,$idbarmen)
     {
         $user = null;
         $statement = $this->dbAdapter->prepare(
@@ -82,6 +82,7 @@ class Client
         $statement->bindParam(':id', $id);
         $statement->bindParam(':money', $money);
         $result = $statement->execute();
+        $this->credit($money,$id,$idbarmen);
         return $result;
     }
 
@@ -164,6 +165,15 @@ class Client
         $statement->bindParam(':id', $clientarray['idutilisateur']);
         $statement->execute();
 
+
+    }
+    public function credit($ammount,$clientId,$Barmenid){
+        $statement = $this->dbAdapter->prepare("INSERT INTO credit (montant, idutilisateur, idbarmen) values(:ammount,:iduser,:idbarmen)");
+        $solde=0;
+        $statement->bindParam(':ammount',$ammount );
+        $statement->bindParam(':iduser', $clientId);
+        $statement->bindParam(':idbarmen', $Barmenid);
+        $statement->execute();
 
     }
 }
