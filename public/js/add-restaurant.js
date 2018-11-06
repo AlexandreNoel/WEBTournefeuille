@@ -247,7 +247,6 @@ function addRestaurant() {
             }});
     }).fail(function (error) {
         var errorData=error.responseJSON;
-        console.log(errorData);
         swal({
             type: 'error',
             title: 'Oops...',
