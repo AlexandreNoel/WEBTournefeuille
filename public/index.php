@@ -28,10 +28,12 @@ if (preg_match('/^\/form\/?$/', $uri)) {
     $pagePath = 'caroussel.html';
 } elseif (preg_match('/^\/403\/?$/', $uri)) {
     $pagePath = '403.html';
-} elseif (preg_match ('/^\/503\/?$/', $uri)) {
+} elseif (preg_match ('/^\/410\/?$/', $uri)) {
+    $pagePath = '410.html';
+} elseif (preg_match('/^\/503\/?$/', $uri)) {
     $pagePath = '503.html';
 } else {
-    $pagePath = 'form.html';
+    $pagePath = '404.html';
 }
 include('template.php');
 ?>

@@ -33,4 +33,15 @@ class SessionChecker{
         }
     }
 
+    public static function redirectDoesntExist($entityId,$entity,$val)
+    {
+
+        if (is_null($val)) {
+            echo json_encode(array("$entity+' with id '+$entityId+' does not exist'", "errorcode" => "410"));
+            http_response_code(410);
+            exit;
+        }
+    }
+
+
 }

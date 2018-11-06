@@ -57,10 +57,19 @@ function redirectErrorCode(res) {
             title: 'Attention',
             text: "Redirection... Non autorisé"
         }).then(() => {
-            window.location = '/403';
+            window.location = '/restaurants';
         });
        
 
-    } else if (error_code == '200') {
+    } else if (error_code == '410'){
+        console.log("410 !!");
+        swal({
+            type: 'error',
+            title: 'Attention',
+            text: "Redirection... Ressource unavailable"
+        }).then(() => {
+            window.location = '/restaurants';
+        });
+    }else if (error_code == '200') {
     }
 }

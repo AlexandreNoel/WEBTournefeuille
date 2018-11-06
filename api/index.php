@@ -4,7 +4,6 @@
 require '../vendor/autoload.php';
 use Service\SessionChecker;
 session_start();
-SessionChecker::redirectIfNotConnected();
 
 $config = include('config/module.config.php');
 
@@ -58,7 +57,9 @@ switch($httpMethod){
             if($entity === "users" ){
                 SessionChecker::redirectIfNotPermited($entityId);
             }
-            $resultData = $entityHydrator->extract($entityRepository->$methodName($entityId));
+            $val = $entityRepository->$methodName($entityId);
+            SessionChecker::redirectDoesntExist($entity,$entityId,$val);
+            $resultData = $entityHydrator->extract($val);
 
             // On traite les datas qui ne doivent pas être publiées
             foreach ($config[$entity]["GET-hidden-fields"] as $unwantedKey){
@@ -91,6 +92,10 @@ switch($httpMethod){
 
         break;
     case 'POST':
+
+        if($entity !== "users"){
+            SessionChecker::redirectIfNotConnected();
+        }
         // POST     Creation d’Elements     /api/entity
         include_once($config[$entity]['POST-action']);
         return;
