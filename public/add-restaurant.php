@@ -64,20 +64,20 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSI
 
         if (!$restaurantRepository->create($newRestaurant)) {
             $view['errors']['database'] = 'Error when creating new restaurant';
-        }
+        } else {
+            $resto = $restaurantRepository->findOneByName($name);
+            $idResto = $resto->getId();
 
-        $resto = $restaurantRepository->findOneByName($name);
-        $idResto = $resto->getId();
+            $cat = $catRepository->findOneByName($categorie);
+            $idCat  = $cat->getId();
 
-        $cat = $catRepository->findOneByName($categorie);
-        $idCat  = $cat->getId();
+            if (!$catRepository->associateCategorie($idResto,$idCat)){
+                $view['errors']['database'] = 'Error when associating a categorie';
+            }
 
-        if (!$catRepository->associateCategorie($idResto,$idCat)){
-            $view['errors']['database'] = 'Error when associating a categorie';
-        }
-
-        if (!$badgeRepository->associateBadges($idResto, $badges)){
-            $view['errors']['database'] = 'Error when associating badges'; 
+            if (!$badgeRepository->associateBadges($idResto, $badges)){
+                $view['errors']['database'] = 'Error when associating badges';
+            }
         }
 
     } else {

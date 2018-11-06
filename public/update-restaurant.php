@@ -65,18 +65,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && (isset($_SESSION['isadmin']))) {
                 if (! $restaurantRepository->update($restaurant)){
                     $view['errors']['database'] = 'Error when updating new restaurant';
                     http_response_code(400);
-                }
+                } else {
 
-                $cat = $catRepository->findOneByName($categorie);
-                $idCat  = $cat->getId();
+                    $cat = $catRepository->findOneByName($categorie);
+                    $idCat = $cat->getId();
 
-                if (!$catRepository->associateCategorie($id,$idCat)){
-                    $view['errors']['database'] = 'Error when associating a categorie';
+                    if (!$catRepository->associateCategorie($id, $idCat)) {
+                        $view['errors']['database'] = 'Error when associating a categorie';
+                    }
+                    if (!$badgeRepository->associateBadges($id, $badges)) {
+                        $view['errors']['database'] = 'Error when associating badges';
+                    }
                 }
-                if (!$badgeRepository->associateBadges($id, $badges)){
-                    $view['errors']['database'] = 'Error when associating badges';
-                }
-
             }
             else{
                 http_response_code(400);
