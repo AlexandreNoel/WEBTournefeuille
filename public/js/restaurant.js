@@ -1,7 +1,6 @@
 $(document).ready(() => {
 
     if (getSession()['id'] == null ) {
-        console.log("wtff");
         res = [];
         res.errorcode = '401';
         redirectErrorCode(res);
@@ -174,7 +173,6 @@ function addComment(restaurantId) {
             note_resto : tempCommentScore
         }
     }).done(function (restaurant) {
-        console.log(restaurant);
         redirectErrorCode(restaurant);
         location.reload();
     }).fail(function (error) {
