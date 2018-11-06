@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS Produit;
 DROP TABLE IF EXISTS Barmen;
 DROP TABLE IF EXISTS Categorie;
 DROP TABLE IF EXISTS Commande;
+DROP TABLE IF EXISTS Credit;
 DROP TABLE IF EXISTS Utilisateur;
 
 ------------------------------------
@@ -81,6 +82,13 @@ CREATE TABLE Annonce (
     idAuteur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
     dateCreation date not null default CURRENT_DATE
 );
+CREATE TABLE Credit(
+    idCredit SERIAL PRIMARY KEY,
+    date date not null default CURRENT_DATE,
+    montant FLOAT NOT NULL,
+    idUtilisateur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
+    idBarmen INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur)
+);
 
 
 --------------------------------------------------
@@ -122,8 +130,15 @@ INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Appli
 INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
 
 -- Table NouveauProduit
-INSERT INTO NouveauProduit(idNouveauProduit,libelle,Description,idAuteur) VALUES (1,'RedBull','Pour avoir des ailes en allant en cours',1);
+INSERT INTO NouveauProduit(idNouveauProduit,libelle,Description,idAuteur) VALUES ('RedBull','Pour avoir des ailes en allant en cours',1);
+-- Table Credit
 
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-22',12,3,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-23',14,3,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-24',16,3,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-25',18,3,2);
+
+-- Table Commande/FaitPartieCommande
 INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-09-19', 3, 2, 1);
 INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (3,1,0.5,2);
 INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-09-27', 3, 2, 1);
