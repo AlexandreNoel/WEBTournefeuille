@@ -236,7 +236,6 @@ function addRestaurant() {
             badges: badges
         }
     }).done(function (res) {
-        redirectErrorCode(res);
         swal({
             type: 'success',
             title: 'Operation réussie',
@@ -265,8 +264,7 @@ function getCategories() {
         url: 'https://localhost:8080/api/categories',
         type: 'GET'
     }).done(function (res) {
-        redirectErrorCode(res); 
-        addAllCategories(res);
+        addAllCategories(res.data);
     }).fail(function (error) {
         alert("Erreur");
     });
@@ -276,9 +274,8 @@ function getBadges() {
     $.ajax({
         url: 'https://localhost:8080/api/badges',
         type: 'GET'
-    }).done(function (res) {
-        redirectErrorCode(res); 
-        addAllBadges(res);
+    }).done(function (res) { 
+        addAllBadges(res.data);
     }).fail(function (error) {
         alert("Erreur");
     });

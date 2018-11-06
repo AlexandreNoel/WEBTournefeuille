@@ -2,8 +2,8 @@
 
 require '../vendor/autoload.php';
 header("Access-Control-Allow-Origin: *");
-session_start();
 
+use Service\SessionChecker;
 SessionChecker::redirectIfNotAdmin();
 
 $restaurantRepository = new \Repository\Restaurant();

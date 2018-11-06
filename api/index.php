@@ -116,7 +116,7 @@ switch($httpMethod){
         echo json_encode(array("message"=>"Invalid HTTP VERB SPECIFIED"));
         exit;
 }
-$result = ["data" => $resultData, "errorcode" => "200"];
+$result = ["data" => $resultData,"errorcode" => "200"];
 echo json_encode($result);
 
 ?>

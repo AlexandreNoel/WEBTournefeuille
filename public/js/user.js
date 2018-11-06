@@ -43,8 +43,7 @@ function getUser() {
         url: 'https://localhost:8080/api/users/' + userId,
         type: 'GET',
 
-    }).done(function (user) {
-        redirectErrorCode(user); 
+    }).done(function (user) { 
         buildContent(user.data);
     }).fail(function (error) {
         alert("Erreur");

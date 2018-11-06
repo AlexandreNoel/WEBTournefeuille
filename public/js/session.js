@@ -30,6 +30,7 @@ function postSession() {
 }
 function checkIfAdmin(id_admin) {
     if (!getSession()['isadmin']) {
+        console.log("is not admin");
         $(id_admin).hide();
     }
 }

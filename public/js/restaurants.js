@@ -58,7 +58,6 @@ function getCategories() {
         url: 'https://localhost:8080/api/categories',
         type: 'GET'
     }).done(function (res) {
-        redirectErrorCode(res); 
         addAllCategories(res.data);
     }).fail(function (error) {
         alert("Erreur");

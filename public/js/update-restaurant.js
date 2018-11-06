@@ -9,7 +9,8 @@ function getRestaurant() {
         url: 'https://localhost:8080/api/restaurants/' + restaurantId,
         type: 'GET',
     }).done(function (res) {
-        buildContent(res);
+        redirectErrorCode(res);
+        buildContent(res.data);
     }).fail(function (error) {
         alert("Erreur");
     });
