@@ -29,8 +29,8 @@ function postSession() {
     });
 }
 function checkIfAdmin(id_admin) {
-    if (!getSession()['isadmin']) {
-        console.log("is not admin");
+    var isadmin = getSession()['isadmin'];
+    if (isadmin === 'false') {
         $(id_admin).hide();
     }
 }
@@ -48,17 +48,18 @@ function redirectErrorCode(res) {
             title: 'Attention',
             text: "Redirection... Non connecté"
         }).then(() => {
-
+            window.location = '/forms';
         });
-        window.location = '/forms';
 
     } else if (error_code == '403') {
         swal({
             type: 'error',
             title: 'Attention',
             text: "Redirection... Non autorisé"
-        })
-        window.location = '/403';
+        }).then(() => {
+            window.location = '/403';
+        });
+       
 
     } else if (error_code == '200') {
     }

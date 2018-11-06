@@ -1,4 +1,10 @@
 $(document).ready(() => {
+    if (getSession()['isadmin'] === 'false') {
+        res = [];
+        res.errorcode = '403';
+        redirectErrorCode(res);
+    }
+
     getUsers();
 
     $('#users-list tbody').click((event) => {

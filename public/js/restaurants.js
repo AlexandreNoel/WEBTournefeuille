@@ -18,6 +18,7 @@ $(document).ready(() => {
 
     getRestaurants();
     getCategories();
+    getBadges();
 
     $('#score-filter').change(() => {
         filters.score = parseInt($('#score-filter').val());
@@ -64,6 +65,16 @@ function getCategories() {
     });
 }
 
+function getBadges() {
+    $.ajax({
+        url: 'https://localhost:8080/api/badges',
+        type: 'GET'
+    }).done(function (res) {
+        addAllBadges(res.data);
+    }).fail(function (error) {
+        alert("Erreur");
+    });
+}
 
 function addAllCategories(categories){
 
@@ -71,6 +82,15 @@ function addAllCategories(categories){
         $('<option />', { value: categories[i].nom_cat, text: categories[i].nom_cat }).appendTo($('#category-filter'));
     }
 }
+
+function addAllBadges(badges) {
+
+    for (let i = 0; i < badges.length; i++) {
+        $('<option />', { value: badges[i].nom_badge, text: badges[i].nom_badge }).appendTo($('#badge-filter'));
+    }
+}
+
+addAllBadges
 
 function filterRestos(){
 

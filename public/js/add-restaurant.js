@@ -1,6 +1,6 @@
 $(document).ready(() => {
 
-    if (!getSession()['isadmin']) {
+    if (getSession()['isadmin'] === 'false') {
         res = [];
         res.errorcode = '403';
         redirectErrorCode(res);

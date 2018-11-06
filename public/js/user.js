@@ -1,4 +1,6 @@
 $(document).ready(() => {
+
+
     if (window.location.pathname != "/form"){
         getUser();
     }
@@ -44,6 +46,7 @@ function getUser() {
         type: 'GET',
 
     }).done(function (user) { 
+        redirectErrorCode(user);
         buildContent(user.data);
     }).fail(function (error) {
         alert("Erreur");

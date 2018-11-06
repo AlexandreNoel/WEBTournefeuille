@@ -55,6 +55,9 @@ switch($httpMethod){
         if ($entityId !== null){
             // GET Récuperation un Element     /api/entity/{id}
             $methodName="findOneById";
+            if($entity === "users" ){
+                SessionChecker::redirectIfNotPermited($entityId);
+            }
             $resultData = $entityHydrator->extract($entityRepository->$methodName($entityId));
 
             // On traite les datas qui ne doivent pas être publiées
@@ -66,19 +69,23 @@ switch($httpMethod){
         }
         else{
             // GET  Récupération Collection     /api/entity
-            $methodName="fetchAll";
-            $datas=$entityRepository->$methodName();
-            $resultData=[];
-            foreach($datas as $data){
-                $extractedData = $entityHydrator->extract($data);
+            if ($entity === "users") {
+            SessionChecker::redirectIfNotAdmin();
+            }
+                $methodName = "fetchAll";
+                $datas = $entityRepository->$methodName();
+                $resultData = [];
+                foreach ($datas as $data) {
+                    $extractedData = $entityHydrator->extract($data);
 
                 // On traite les datas qui ne doivent pas être publiées
-                foreach ($config[$entity]["GET-hidden-fields"] as $unwantedKey){
-                    if(in_array($unwantedKey,array_keys($extractedData))) {
-                        unset($extractedData[$unwantedKey]);
+                    foreach ($config[$entity]["GET-hidden-fields"] as $unwantedKey) {
+                        if (in_array($unwantedKey, array_keys($extractedData))) {
+                            unset($extractedData[$unwantedKey]);
+                        }
                     }
-                }
-                $resultData[]= $extractedData;
+                    $resultData[] = $extractedData;
+                
             }
         }
 
