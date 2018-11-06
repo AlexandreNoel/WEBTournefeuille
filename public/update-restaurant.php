@@ -7,6 +7,8 @@ use Service\SessionChecker;
 SessionChecker::redirectIfNotAdmin();
 
 $restaurantRepository = new \Repository\Restaurant();
+$catRepository = new \Repository\Categorie();
+$badgeRepository = new \Repository\Badge();
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT' && (isset($_SESSION['isadmin']))) {
 
@@ -21,6 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && (isset($_SESSION['isadmin']))) {
     $phoneNumber = $post_vars['tel_resto'] ?? null;
     $website = $post_vars['website_resto'] ?? null;
     $thumbnail = $post_vars['thumbnail'] ?? null;
+    $categorie = $post_vars['categorie'] ?? null;
+    $badges = $post_vars['badges'] ?? null;
 
     if ($id) {
         $restaurant = $restaurantRepository->findOneById($id);
@@ -36,7 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && (isset($_SESSION['isadmin']))) {
                     'city_resto' => $city,
                     'tel_resto' => $phoneNumber,
                     'website_resto' => $website,
-                    'thumbnail' => $thumbnail
+                    'thumbnail' => $thumbnail,
+                    'categorie' => $categorie,
+                    'badges'=>$badges
                 ],
                 'errors',
             ];
@@ -59,6 +65,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && (isset($_SESSION['isadmin']))) {
                 if (! $restaurantRepository->update($restaurant)){
                     $view['errors']['database'] = 'Error when updating new restaurant';
                     http_response_code(400);
+                }
+
+                $cat = $catRepository->findOneByName($categorie);
+                $idCat  = $cat->getId();
+
+                if (!$catRepository->associateCategorie($id,$idCat)){
+                    $view['errors']['database'] = 'Error when associating a categorie';
+                }
+                if (!$badgeRepository->associateBadges($id, $badges)){
+                    $view['errors']['database'] = 'Error when associating badges';
                 }
 
             }

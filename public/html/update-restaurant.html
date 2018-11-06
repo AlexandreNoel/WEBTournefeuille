@@ -18,13 +18,7 @@
             <label  class="col-md-4 control-label" for="type_resto">TYPE</label>
             <div class="col-md-4">
                 <select id="type_resto" name="type_resto" class="form-control">
-                    <option>Choisir ...</option>
-                    <option>Fast food (Burger)</option>
-                    <option>Pizzeria</option>
-                    <option>Brasserie</option>
-                    <option>Cafétériat</option>
-                    <option>Kebab</option>
-                    <option>Tacos</option>
+                    <option value="">Choisir ...</option>
                 </select>
             </div>
         </div>
@@ -40,13 +34,10 @@
         <!-- Select Basic -->
         <div class="form-group">
             <label  class="col-md-4 control-label" for="badge_resto">BADGES</label>
-            <div class="col-md-4">
-                <select id="badge_resto" name="badge_resto" class="form-control">
-                    <option>Choisir ...</option>
-                    <option>Halal</option>
-                    <option>Partenariat BDE</option>
-                    <option>Végétarien</option>
-                </select>
+            <div class="col-md-8">
+                <div id="badge_resto">
+
+                </div>
             </div>
         </div>
 
@@ -105,7 +96,7 @@
                 <div class="col-md-12">
                     <div class="btn-group">
                         <div class="col-md-4">
-                            <button id="add" onclick="updateRestaurant();" name="validate" class="btn btn-login">ENREGISTRER</button>
+                            <button id="save-restaurant" name="validate" class="btn btn-login">ENREGISTRER</button>
                         </div>
                     </div>
                     <div class="btn-group">

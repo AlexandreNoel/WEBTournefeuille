@@ -72,7 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['id']) || !$_SESSI
         $cat = $catRepository->findOneByName($categorie);
         $idCat  = $cat->getId();
 
-        $cat = $catRepository->findOneByName($categorie);
+        if (!$catRepository->associateCategorie($idResto,$idCat)){
+            $view['errors']['database'] = 'Error when associating a categorie';
+        }
 
         if (!$badgeRepository->associateBadges($idResto, $badges)){
             $view['errors']['database'] = 'Error when associating badges'; 

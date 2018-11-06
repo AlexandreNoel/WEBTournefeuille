@@ -32,8 +32,10 @@ class Badge
      */
     public function fetchAll()
     {
+        $badges =  [];
+
         $rows = $this->connection->query('SELECT * FROM "badge"')->fetchAll();
-        $cats = [];
+
         foreach ($rows as $badgeData) {
             $entity = new \Entity\Badge();
             $badge = $this->hydrator->hydrate($badgeData, clone $entity);
@@ -51,7 +53,8 @@ class Badge
      */
     public function findOneByName($name)
     {
-        $cat = null;
+        $badge = null;
+
         $statement = $this->connection->prepare('select * from "badge" where nom_badge = :name_badge');
         $statement->bindParam(':name_badge', $name);
         $statement->execute();
@@ -70,6 +73,16 @@ class Badge
      */
     public function associateBadges($restaurantId, $ids)
     {
+
+        //Clear Badges
+        $stat = $this->connection->prepare('DELETE FROM badge_resto WHERE id_resto = :id_resto');
+        $stat->bindParam(':id_resto', $restaurantId);
+        if ( ! $stat->execute()){
+            return false;
+        }
+
+
+        //Add badges
         for ($i=0; $i < count($ids) ; $i++) {
             $id = intval($ids[$i]);
             $statement = $this->connection->prepare('INSERT INTO badge_resto values (:id_resto, :id_badge)');
@@ -81,14 +94,14 @@ class Badge
         }
         return true;
     }
-    
+
     /**
      * @param $id
      * @return \Entity\Badge|null
      */
     public function findOneById($id)
     {
-        $cat = null;
+        $badge = null;
         $statement = $this->connection->prepare('select * from "badges" where id_badge = :id_badge');
         $statement->bindParam(':id_badge', $id);
         $statement->execute();
@@ -109,8 +122,7 @@ class Badge
         $statement = $this->connection->prepare('SELECT * FROM "badge" NATURAL JOIN badge_resto WHERE id_resto = :id_resto');
         $statement->bindParam(':id_resto', $idResto);
         $statement->execute();
-        $badges = $statement->fetchAll();
-        return $badges;
+        return  $statement->fetchAll();
     }
 
     /**
