@@ -22,7 +22,7 @@ stop:
 
 restart: stop start
 
-install: uninstall start composer.install db.install
+install: uninstall start composer.install db.install phpunit.run
 
 install.silent: uninstall start composer.install.silent db.install.silent
 
@@ -54,7 +54,7 @@ db.save:
 	docker-compose exec postgres pg_dump -U $$POSTGRES_USER ensiie > data/dbexport-$(shell date "+%Y.%m.%d-%H.%M.%S").pgsql
 
 db.install:
-	sleep 15
+	sleep 1
 	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/db.sql'
 
 php.connect:
