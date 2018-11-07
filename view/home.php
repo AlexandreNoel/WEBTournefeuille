@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 
-<!-- HEADER !-->
-<?php require_once(__DIR__ . '/partials/header.php'); ?>
-
+<head>
+    <!-- HEADER !-->
+    <?php require_once(__DIR__ . '/partials/header.php'); ?>
+</head>
 <body>
     <!-- NAVBAR !-->
     <?php require_once(__DIR__ . '/partials/navbar.php'); ?>

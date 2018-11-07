@@ -2,8 +2,9 @@
 <html>
 
 <!-- HEADER !-->
-<?php require_once(__DIR__ . '/partials/header.php'); ?>
-
+<head>
+    <?php require_once(__DIR__ . '/partials/header.php'); ?>
+</head>
 <body class="main-body">
 
     <!--MODAL-->

@@ -2,9 +2,10 @@
 <!DOCTYPE html>
 <html>
 
+<head>
 <!-- HEADER !-->
 <?php require_once(__DIR__ . '/partials/header.php'); ?>
-
+</head>
 <body>
 
     <!-- NAVBAR !-->

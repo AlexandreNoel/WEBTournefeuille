@@ -1,9 +1,8 @@
 .form-ajout{
     font-family: 'Open Sans Condensed', arial, sans;
-    width: 500px;
+    width: 100%;
     padding: 30px;
     background: #FFFFFF;
-    margin: 50px auto;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
@@ -48,7 +47,8 @@
 .form-ajout textarea{
     resize:none;
     overflow: hidden;
-    height: 400px;
+    height: 100%;
+    min-height: 200px;
 }
 .form-ajout input[type="button"],
 .form-ajout input[type="submit"],

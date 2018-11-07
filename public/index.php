@@ -57,7 +57,7 @@ switch ($url) {
 
     /* CONSOLE - GESTION - NEWS */
     case '/gestionNews':
-        require __DIR__ . '/news.php';
+        require __DIR__ . '/gestionNews.php';
         break;
 
     // CONSOLE - SERVICES (AJAX)

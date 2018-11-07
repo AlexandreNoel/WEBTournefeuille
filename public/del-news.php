@@ -22,5 +22,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     throw new \HttpInvalidParamException('Method not allowed', 405);
 }
-header('Location: news.php');
+header('Location: /gestionNews');
 exit();

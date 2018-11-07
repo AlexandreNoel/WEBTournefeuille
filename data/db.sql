@@ -79,6 +79,7 @@ CREATE TABLE Annonce (
     titre VARCHAR NOT NULL,
     contenu VARCHAR NOT NULL,
     idAuteur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
+    image VARCHAR NULL,
     dateCreation date not null default CURRENT_DATE
 );
 
@@ -118,7 +119,7 @@ INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategor
 
 -- Table Annonce
 INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
-INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
+INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Excellente idée','Bientôt ce sera là',3,'01/01/2018');
 INSERT INTO Annonce(titre,contenu,idAuteur,dateCreation) VALUES ('Nouvelle Application','<h1>Merci aux FIPAS </h1><br><p>Grace au travail acharnée des FIPAS, le BarC devient le BarD et vous porpose une toute nouvelle application de gestion de votre compte</p>',3,'01/01/2018');
 
 -- Table NouveauProduit
