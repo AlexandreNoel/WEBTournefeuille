@@ -224,18 +224,26 @@ function updateFavorite() {
 }
 
 function updateCategorie(cat){
-    $('#rest-category').append("<img height='100' width='100' alt='" + cat.nom_cat + "' src='/assets/images/categories/" + cat.cat_link + "'></img>");
-    $('#rest-category').text();
+    if (cat.cat_link != null){
+        $('#rest-category').append("<img height='100' width='100' alt='" + cat.nom_cat + "' src='/assets/images/categories/" + cat.cat_link + "'/>");
+        $('#rest-category').text();
+    }else{
+        $('#rest-category').text(cat.nom_cat);
+    }
+
 }
 
 function updateBadges(badges) {
     for (let i = 0; i < badges.length; i++) {
         let badgeLink = badges[i].badge_link;
 
-        if(badgeLink != null)
+        if(badgeLink != null) {
             $('#rest-badges').append("<img alt='" + badges[i].nom_badge + "' src='/assets/images/badges/" + badgeLink + "'/>");
-        else
+            $('#rest-badges').text();
+        }
+        else{
             $('#rest-badges').text(badges[i].nom_badge);
+        }
     }
 }
 
