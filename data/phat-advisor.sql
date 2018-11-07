@@ -168,6 +168,36 @@ VALUES
 		'01 82 93 00 31', 'http://evry2.wafflefactory.com/', '0', 'http://evry2.wafflefactory.com/wp-content/uploads/2017/03/Capture-d’écran-2017-03-14-à-15.19.06.png'
 	);
 
+	INSERT INTO restos
+VALUES
+	(
+		DEFAULT,
+		'O''Tacos',
+		'Dans chaque otacos, retrouvez une recette originale de sauce fromagère et choisissez parmi 5 viandes certifiées HALAL, rigoureusement sélectionnées pour leur qualité premium',
+		'2Bis Rue Père André Jarlan', 91000, 'EVRY',
+		NULL, 'https://www.o-tacos.fr', '0', 'https://www.just-eat.fr/logos_restos/17605tacos200.png'
+	);
+
+	INSERT INTO restos
+VALUES
+	(
+		DEFAULT,
+		'Chicken Spot',
+		'chickenspot est un restaurant spécialisé dans la restauration rapide de nourriture basé au poulet',
+		'30 Place des Aunettes', 91000, 'EVRY',
+		'09 86 66 32 90', 'http://www.chickenspot.com/Home', '0', 'http://www.chickenspot.com/images/logo.png'
+	);
+
+	INSERT INTO restos
+VALUES
+	(
+		DEFAULT,
+		'Dominos Pizza',
+		'Domino''s Pizza est une franchise internationale spécialisée dans le domaine de la restauration rapide autour de la pizza, considérée comme un fast food.',
+		'41 Rue Paul Claudel', 91000, 'EVRY',
+		'01 64 97 09 80', 'dominos.fr', '0', 'https://sophosnews.files.wordpress.com/2014/06/250px-dominos_pizza_logo.jpg?w=251'
+	);
+
 ---------------------------
 -- Insertion des catégories
 ---------------------------
@@ -191,6 +221,9 @@ INSERT INTO Cat_Resto VALUES (1,1);
 INSERT INTO Cat_Resto VALUES (2,9);
 INSERT INTO Cat_Resto VALUES (3,5);
 INSERT INTO Cat_Resto VALUES (4,11);
+INSERT INTO Cat_Resto VALUES (5,10);
+INSERT INTO Cat_Resto VALUES (6,6);
+INSERT INTO Cat_Resto VALUES (7,2);
 
 ---------------------------
 -- Insertion des badges
@@ -216,6 +249,15 @@ INSERT INTO Badge_Resto VALUES (3,5);
 INSERT INTO Badge_Resto VALUES (3,6);
 INSERT INTO Badge_Resto VALUES (4,5);
 INSERT INTO Badge_Resto VALUES (4,6);
+INSERT INTO Badge_Resto VALUES (5,2);
+INSERT INTO Badge_Resto VALUES (5,7);
+INSERT INTO Badge_Resto VALUES (5,6);
+INSERT INTO Badge_Resto VALUES (6,2);
+INSERT INTO Badge_Resto VALUES (6,7);
+INSERT INTO Badge_Resto VALUES (6,6);
+INSERT INTO Badge_Resto VALUES (7,7);
+INSERT INTO Badge_Resto VALUES (7,6);
+INSERT INTO Badge_Resto VALUES (7,5);
 
 ---------------------------
 -- Insertion des utilisateurs
