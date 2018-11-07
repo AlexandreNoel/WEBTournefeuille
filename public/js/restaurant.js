@@ -4,7 +4,7 @@ $(document).ready(() => {
         res = [];
         res.errorcode = '401';
         redirectErrorCode(res);
-    } 
+    }
 
     checkIfAdmin("#rest-com-delete");
     checkIfAdmin("#delete");
@@ -228,7 +228,12 @@ function updateCategorie(cat_name){
 
 function updateBadges(badges) {
     for (let i = 0; i < badges.length; i++) {
-        $('#rest-badges').append("<img alt='" + badges[i].nom_badge +"' src='/assets/images/badges/"+badges[i].badge_link+"'></img>");
+        let badgeLink = badges[i].badge_link;
+
+        if(badgeLink != null)
+            $('#rest-badges').append("<img alt='" + badges[i].nom_badge + "' src='/assets/images/badges/" + badgeLink + "'/>");
+        else
+            $('#rest-badges').text(badges[i].nom_badge);
     }
 }
 

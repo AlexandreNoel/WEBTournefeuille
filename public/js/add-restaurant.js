@@ -29,14 +29,14 @@ $(document).ready(() => {
     $('[name="cp_resto"]').keyup((e) => {
         // console.log(e);    
         // if (e.which !== 0 && e.charCode !== 0 && !e.ctrlKey && !e.metaKey && !e.altKey){
-            checkInputs();
-            var typedZipCode = $('[name="cp_resto"]').val();
-            $("#city").val("");
-            $("#cityHint").text("");
-            if (typedZipCode.length > 4){
-                
-                cityFromzipCodeLookup(typedZipCode);
-            }
+        checkInputs();
+        var typedZipCode = $('[name="cp_resto"]').val();
+        $("#city").val("");
+        $("#cityHint").text("");
+        if (typedZipCode.length > 4){
+
+            cityFromzipCodeLookup(typedZipCode);
+        }
         // }
     });
     $('[name="city_resto"]').keyup(() => {
@@ -56,7 +56,7 @@ $(document).ready(() => {
     });
     $('[name="validate"]').click(() => {
         if (checkInputs())
-           addRestaurant();
+            addRestaurant();
     });
 });
 
@@ -180,8 +180,8 @@ function checkInputs() {
 }
 
 /**
- * 
- * @param {} zipCode 
+ *
+ * @param {} zipCode
  */
 function cityFromzipCodeLookup(zipCode){
     $.ajax({
@@ -202,7 +202,7 @@ function cityFromzipCodeLookup(zipCode){
             var hintText=result.length+" ville(s) trouvée(s). Double-cliquez sur le champ pour afficher la liste...";
         }
         else { var hintText = "Aucune ville trouvée"}
-        
+
         result.sort();
         $("#cityHint").text(hintText);
         if (result.length === 1) { $("#city").val(result[0]);}
@@ -287,14 +287,18 @@ function addAllCategories(categories) {
     }
 }
 
-function addCheckbox(name,id, imgSrc) {
+function addCheckbox(name,id, imgLink) {
     var container = $('#badge_resto');
 
     $('<input />', { type: 'checkbox',id: id, name:'badges', value: name }).appendTo(container);
+
+    if (imgLink != null) {
+        $('<img />', {alt: name, src: '/assets/images/badges/' + imgLink}).appendTo(container);
+    }
+
     $('<label />', { text: name }).appendTo(container);
-   // $('<img />', { alt: name, src:'/assets/images/badges/' + imgSrc  }).appendTo(container);
     $('</br>').appendTo(container);
-    
+
 }
 
 function addAllBadges(badges) {

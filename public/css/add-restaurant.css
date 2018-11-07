@@ -1,3 +1,8 @@
 #rest-add textarea {
     resize: vertical;
 }
+
+#badge_resto img {
+    width: 3em;
+    height: 3em;
+}

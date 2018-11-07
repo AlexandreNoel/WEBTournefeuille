@@ -100,7 +100,7 @@ CREATE TABLE public.Cat_Resto(
 CREATE TABLE public.Badge(
 	id_Badge    SERIAL NOT NULL ,
 	Nom_Badge   VARCHAR (30) NOT NULL ,
-	Badge_link	VARCHAR (30) NOT NULL ,
+	Badge_link	VARCHAR (30),
 	CONSTRAINT Badge_PK PRIMARY KEY (id_Badge)
 )WITHOUT OIDS;
 
@@ -196,7 +196,7 @@ INSERT INTO Cat_Resto VALUES (4,9);
 -- Insertion des badges
 ---------------------------
 
-INSERT INTO Badge VALUES (DEFAULT,'Bio','data/bio.png');
+INSERT INTO Badge VALUES (DEFAULT,'Bio', NULL);
 INSERT INTO Badge VALUES (DEFAULT,'Halal','badge-halal.png');
 INSERT INTO Badge VALUES (DEFAULT,'Vegan','badge-vegetarien.png');
 INSERT INTO Badge VALUES (DEFAULT,'Partenariat','badge-partenariat.png');
