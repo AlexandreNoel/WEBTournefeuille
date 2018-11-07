@@ -107,10 +107,10 @@ INSERT INTO Categorie(idCategorie,libelle) VALUES (3,'Snack');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (4,'Boissons Chaudes');
 
 -- Table Produit
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Coca',0.50,0,4,TRUE,1);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Fanta',0.50,0,2,TRUE,1);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Sprite',0.50,0,5,TRUE,1);
-INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Pizza ChouFleur',1.60,0,2,TRUE,3);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Coca',0.50,0,8,TRUE,1);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Fanta',0.50,0,9,TRUE,1);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Sprite',0.50,0,14,TRUE,1);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Pizza ChouFleur',1.60,0,10,TRUE,3);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Buns Flageolet',1.50,0,2,TRUE,3);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Mars',0.50,0,2,TRUE,2);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Kinder Bueno',0.50,0,2,TRUE,2);

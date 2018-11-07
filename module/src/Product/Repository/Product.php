@@ -114,7 +114,7 @@ class Product
             $statement->execute();
             return $this->findById($id)->getQuantity();
         } else {
-            throw new Exception("Stock trop faible");
+            throw new \Exception("Stock trop faible");
         }
     }
 
