@@ -15,13 +15,18 @@
 }
 
 .rest-detail #rest-score i,
-.rest-detail #rest-favorite, .rest-detail #rest-unfavorite {
+.rest-detail #rest-favorite, .rest-detail #rest-unfavorite{
     font-size: 2.5em;
-    cursor: pointer;
 }
 
 .rest-detail #rest-comment-score i{
     font-size: 2em;
+}
+
+.rest-detail #rest-comment-score i,
+.rest-detail #rest-favorite, .rest-detail #rest-unfavorite,
+#rest-com-delete i,
+#rest-map-toggle span {
     cursor: pointer;
 }
 
@@ -32,11 +37,6 @@
 
 .left-border {
     border-left: solid 0.2em #e0e0e0;
-}
-
-#rest-com-delete i,
-#rest-map-toggle span {
-    cursor: pointer;
 }
 
 .hover-hightlight {
