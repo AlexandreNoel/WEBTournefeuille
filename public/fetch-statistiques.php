@@ -21,9 +21,9 @@ else{
             $repoptransac = new Transaction\Repository\Transaction();
             $user = $_SESSION["authenticated_user"];
 
-            $myarray= $repoptransac->getStatistiques($user);
+            $myarray= $repoptransac->getStatistiques($user->getId());
             echo json_encode($myarray);
-            
+
         }
     }
     else {
