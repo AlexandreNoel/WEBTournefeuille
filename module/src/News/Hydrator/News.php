@@ -27,6 +27,9 @@ class News{
         if ($object->getDateCreation()){
             $data['datecreation'] = $object->getDateCreation()->format(\DateTime::ATOM);
         }
+        if ($object->getImage()){
+            $data['image'] = $object->getImage();
+        }
 
         return $data;
     }
@@ -42,6 +45,7 @@ class News{
             ->setTitle($data['titre'] ?? null)
             ->setContenu($data['contenu'] ?? null)
             ->setIdAuteur($data['idauteur'] ?? null)
+            ->setImage($data['image'] ?? null)
             ->setDateCreation($time);
     }
 }

@@ -23,6 +23,11 @@ class News{
     private $idauteur;
 
     /**
+     * @var string
+     */
+    private $image;
+
+    /**
      * @var null|\DateTime
      */
     private $dateCreation;
@@ -112,4 +117,20 @@ class News{
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(?string $image)
+    {
+        $this->image = $image;
+        return $this;
+    }
 }

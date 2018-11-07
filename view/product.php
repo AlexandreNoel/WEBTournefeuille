@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 
-<!-- NAVBAR !-->
-<?php require_once(__DIR__ . '/partials/header.php'); ?>
-
+<head>
+    <!-- HEADER !-->
+    <?php require_once(__DIR__ . '/partials/header.php'); ?>
+</head>
 <body class="main-body">
 
 <!-- NAVBAR !-->

@@ -124,7 +124,7 @@ class ClientTest extends TestCase
                 'pseudo' => "Chap",
                 'nom' => "CHAPUZOT",
                 'solde' => 25,
-                'codebarmen' => 'LaGuinessCestLaBase'
+                'codebarmen' => 'admin'
             ],
             new \Client\Entity\Client()
         );

@@ -113,6 +113,60 @@
             http_response_code(200);
             return ;
         }
+
+        //===================================
+        // Upload d'un fichier sur le serveur
+        //===================================
+        else if(isset($_FILES['fileToUpload']['name'])){
+            try{
+                //----------------------------
+                //Initialisation des variables
+                //----------------------------
+                $arr = array('status' => false);
+
+                $currentDir = getcwd();
+                $uploadDirectory = "/assets/images/articles/";
+                $fileExtensions = ['jpeg', 'jpg', 'png'];
+                $maxsize=2000000;
+                $fileName = $_FILES['fileToUpload']['name'];
+                $fileSize = $_FILES['fileToUpload']['size'];
+                $fileTmpName = $_FILES['fileToUpload']['tmp_name'];
+                $fileType = $_FILES['fileToUpload']['type'];
+
+                $split = explode('.', $fileName);
+                $fileExtension = strtolower((end($split)));
+                $uploadPath = $currentDir . $uploadDirectory . basename($fileName);
+
+                //Vérification initiale sur le type / taille de fichier
+                if (!in_array($fileExtension, $fileExtensions)) {
+                    throw new \Exception("Extension autorisé: png ou jpg/jpeg seulement");
+                }
+                if ($fileSize > $maxsize) {
+                    throw new \Exception("Fichier de 2MB");
+                }
+
+                // Transfère du fichier dans le dossier d'upload
+                $didUpload = move_uploaded_file($fileTmpName, $uploadPath);
+                if ($didUpload) {
+                    $arr = array(
+                        'status' => true,
+                        'fileName' =>  $fileName
+                    );
+                    echo json_encode($arr);
+                }else {
+                    throw new \Exception("Un problème a eu lieu durant le transfert du fichier depuis le dossier temporaire");
+                }
+            }
+            catch(Exception $e){
+                $arr = array(
+                    'status' => false,
+                    'error' => $e->getMessage()
+                );
+
+                echo json_encode($arr);
+            }
+        }
+
         http_response_code(400);
 
     }

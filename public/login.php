@@ -61,8 +61,8 @@ if ($consumer->is_authenticated()) {
                     ],
                     new \Client\Entity\Client()
                 );
-                $userRepository->create($newUser);
-                $_SESSION["authenticated_user"] = $newUser;
+                $id_user = $userRepository->create($newUser);
+                $_SESSION["authenticated_user"] = $newUser->setId($id_user);
             }else {
                 $_SESSION["authenticated_user"] = $user;
             }
