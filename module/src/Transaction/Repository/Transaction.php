@@ -230,4 +230,26 @@ class Transaction
         return $res;
 
     }
+    public function getEvolutionSolde($id){
+        $data = array();
+        $res=array();
+        $statement2 = $this->dbAdapter->prepare(
+'select datecommande,sum(debit) as debit,sum(credit) as credit from (
+                select datecommande,prixtotal as debit,0 as credit from commande where idutilisateur=:id 
+                union all select date,0,montant from credit where idutilisateur=:id order by datecommande desc) as foo 
+          group by datecommande order by datecommande desc;');
+        $statement2->bindParam(':id', $id);
+        $statement2->execute();
+        foreach ($statement2->fetchAll() as $productData) {
+
+            $data['date']=$productData['datecommande'];
+            $data['debit']=$productData['debit'];
+            $data['credit']=$productData['credit'];
+            $res[]=$data;
+        }
+
+        return $res;
+
+    }
+
 }

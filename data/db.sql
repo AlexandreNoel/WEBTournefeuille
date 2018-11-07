@@ -99,9 +99,9 @@ CREATE TABLE Credit(
 
 -- Table Utilisateur
 INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (1,'GEFCLIC', 'Benoit','SCHOLL','25');
-INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (2,'CHAP','Antoine','CHAPUSOT','25');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (2,'CHAP','Antoine','CHAPUSOT','30');
 INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (3,'TOAST', 'Théo','PEUCKERT','25');
-INSERT INTO Utilisateur(idUtilisateur, pseudo, prenom, nom, solde) VALUES (4,'Demo', 'Demo', 'User','1000');
+INSERT INTO Utilisateur(idUtilisateur, pseudo, prenom, nom, solde) VALUES (4,'Demo', 'Demo', 'User','1');
 
 SELECT setval('utilisateur_idutilisateur_seq', 4, true);
 
@@ -113,6 +113,24 @@ INSERT INTO Categorie(idCategorie,libelle) VALUES (1,'Boisson');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (2,'Friandise');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (3,'Snack');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (4,'Boissons Chaudes');
+
+-- Jeu de test graphique solde
+-- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-05', 2, 2, 1);
+-- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-05', 2, 2, 1);
+-- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-04', 2, 2, 3);
+-- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-03', 2, 2, 4);
+-- INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-11-03',10,2,2);
+-- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-03', 2, 2, 2);
+-- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-03', 2, 2, 2);
+-- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-01', 2, 2, 6);
+-- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-01', 2, 2, 8);
+-- INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-11-02',15,2,2);
+INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-01', 2, 2, 2);
+INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-02', 2, 2, 3);
+INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-03', 2, 2, 4);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-11-04',15,2,2);
+INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-05', 2, 2, 10);
+
 
 -- Table Produit
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Coca',0.50,0,4,TRUE,1);
