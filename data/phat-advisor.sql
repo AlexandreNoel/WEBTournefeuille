@@ -208,20 +208,24 @@ INSERT INTO Categories VALUES (DEFAULT,'Salade','salade.png');
 INSERT INTO Categories VALUES (DEFAULT,'Japonais','sushi.png');
 INSERT INTO Categories VALUES (DEFAULT,'Burger','burger.png');
 INSERT INTO Categories VALUES (DEFAULT,'Poulet','bucket.png');
-INSERT INTO Categories VALUES (DEFAULT,'Coreen');
-INSERT INTO Categories VALUES (DEFAULT,'Restaurant');
-INSERT INTO Categories VALUES (DEFAULT,'Sandwich');
-INSERT INTO Categories VALUES (DEFAULT,'Tacos');
-INSERT INTO Categories VALUES (DEFAULT,'Gauffre');
+INSERT INTO Categories VALUES (DEFAULT,'Restaurant','restaurant.png');
+INSERT INTO Categories VALUES (DEFAULT,'Sandwich','sandwich.png');
+INSERT INTO Categories VALUES (DEFAULT,'Tacos','tacos.png');
+INSERT INTO Categories VALUES (DEFAULT,'Gauffre','waffle.png');
+INSERT INTO Categories VALUES (DEFAULT,'Stand','stand.png');
+INSERT INTO Categories VALUES (DEFAULT,'Crepes','crepes.png');
+INSERT INTO Categories VALUES (DEFAULT,'Cafeteria','cafeteria.png');
+INSERT INTO Categories VALUES (DEFAULT,'Indien','indien.png');
+INSERT INTO Categories VALUES (DEFAULT,'Kebab','kebab.png');
 ---------------------------
 -- Insertion des catégories des restaurants
 ---------------------------
 
 INSERT INTO Cat_Resto VALUES (1,1);
-INSERT INTO Cat_Resto VALUES (2,9);
+INSERT INTO Cat_Resto VALUES (2,8);
 INSERT INTO Cat_Resto VALUES (3,5);
-INSERT INTO Cat_Resto VALUES (4,11);
-INSERT INTO Cat_Resto VALUES (5,10);
+INSERT INTO Cat_Resto VALUES (4,10);
+INSERT INTO Cat_Resto VALUES (5,9);
 INSERT INTO Cat_Resto VALUES (6,6);
 INSERT INTO Cat_Resto VALUES (7,2);
 
@@ -323,6 +327,6 @@ CREATE TRIGGER trig_del_comment AFTER DELETE ON Comments
 ---------------------------
 -- Insertion des commentaires
 ---------------------------
-INSERT INTO Comments VALUES (DEFAULT,'Bon mais il y avait un peu d''attente....','05/10/2018',1,2,4);
+INSERT INTO Comments VALUES (DEFAULT,'Les prix augmentent , à boycotter....','05/10/2018',1,2,0);
 insert into comments values(default, 'De la merde, je n''ai pas l''intention de revenir', '01/01/95',2,2,2);
 insert into comments values(default, 'Excellent, meilleur repas de ma vie', '01/01/95',1,1,5);
