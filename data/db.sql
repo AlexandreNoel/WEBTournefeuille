@@ -93,8 +93,9 @@ CREATE TABLE Annonce (
 INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (1,'GEFCLIC', 'Benoit','SCHOLL','25');
 INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (2,'CHAP','Antoine','CHAPUSOT','25');
 INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (3,'TOAST', 'Théo','PEUCKERT','25');
+INSERT INTO Utilisateur(idUtilisateur, pseudo, prenom, nom, solde) VALUES (4,'Demo', 'Demo', 'User','1000');
 
-SELECT setval('utilisateur_idutilisateur_seq', 3, true);
+SELECT setval('utilisateur_idutilisateur_seq', 4, true);
 
 --Table Barman
 INSERT INTO Barmen(idUtilisateur,Codebarmen) VALUES(2,'admin');
