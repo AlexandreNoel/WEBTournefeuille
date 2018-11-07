@@ -48,7 +48,7 @@ function redirectErrorCode(res) {
             title: 'Attention',
             text: "Redirection... Non connecté"
         }).then(() => {
-            window.location = '/forms';
+            window.location = '/form';
         });
 
     } else if (error_code == '403') {
