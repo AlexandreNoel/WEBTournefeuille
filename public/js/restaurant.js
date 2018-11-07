@@ -120,10 +120,11 @@ function getCategory(restaurantId) {
         data: {
             id_resto: restaurantId
         }
-    }).done(function (cat) {
-        redirectErrorCode(cat);
-        cat = JSON.parse(cat);
-        updateCategorie(cat.category);
+    }).done(function (res) {
+        resjson = JSON.parse(res);
+        cat = resjson.category[0];
+        redirectErrorCode(resjson);
+        updateCategorie(cat);
 
     }).fail(function (error) {
         alert("Erreur");
@@ -222,8 +223,9 @@ function updateFavorite() {
     }
 }
 
-function updateCategorie(cat_name){
-    $('#rest-category').text(cat_name);
+function updateCategorie(cat){
+    $('#rest-category').append("<img height='100' width='100' alt='" + cat.nom_cat + "' src='/assets/images/categories/" + cat.cat_link + "'></img>");
+    $('#rest-category').text();
 }
 
 function updateBadges(badges) {

@@ -101,11 +101,10 @@ class Categorie
      * @return array
      */
     public function findOneByResto($idResto){
-        $statement = $this->connection->prepare('SELECT nom_cat FROM "categories" NATURAL JOIN cat_resto WHERE id_resto = :id_resto');
+        $statement = $this->connection->prepare('SELECT * FROM "categories" NATURAL JOIN cat_resto WHERE id_resto = :id_resto');
         $statement->bindParam(':id_resto', $idResto);
         $statement->execute();
-        $cat = $statement->fetchColumn(0);
-        return $cat;
+        return $statement->fetchAll();
     }
 
     /**

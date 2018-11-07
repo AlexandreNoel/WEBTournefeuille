@@ -79,6 +79,7 @@ CREATE TABLE public.Favoris(
 CREATE TABLE public.Categories(
 	id_Cat    SERIAL NOT NULL ,
 	Nom_Cat   VARCHAR (30) NOT NULL  ,
+	Cat_link   VARCHAR (30) ,
 	CONSTRAINT Categories_PK PRIMARY KEY (id_Cat)
 )WITHOUT OIDS;
 
@@ -171,26 +172,25 @@ VALUES
 -- Insertion des catégories
 ---------------------------
 
-INSERT INTO Categories VALUES (DEFAULT,'Fast Food');
-INSERT INTO Categories VALUES (DEFAULT,'Asiatique');
-INSERT INTO Categories VALUES (DEFAULT,'Pizza');
-INSERT INTO Categories VALUES (DEFAULT,'Tacos');
-INSERT INTO Categories VALUES (DEFAULT,'Salade');
-INSERT INTO Categories VALUES (DEFAULT,'Japonais');
+INSERT INTO Categories VALUES (DEFAULT,'Asiatique','asiatique.png');
+INSERT INTO Categories VALUES (DEFAULT,'Pizza','pizza.png');
+INSERT INTO Categories VALUES (DEFAULT,'Salade','salade.png');
+INSERT INTO Categories VALUES (DEFAULT,'Japonais','sushi.png');
+INSERT INTO Categories VALUES (DEFAULT,'Burger','burger.png');
+INSERT INTO Categories VALUES (DEFAULT,'Poulet','bucket.png');
 INSERT INTO Categories VALUES (DEFAULT,'Coreen');
 INSERT INTO Categories VALUES (DEFAULT,'Restaurant');
-INSERT INTO Categories VALUES (DEFAULT,'Burger');
-INSERT INTO Categories VALUES (DEFAULT,'Pates');
 INSERT INTO Categories VALUES (DEFAULT,'Sandwich');
-
+INSERT INTO Categories VALUES (DEFAULT,'Tacos');
+INSERT INTO Categories VALUES (DEFAULT,'Gauffre');
 ---------------------------
 -- Insertion des catégories des restaurants
 ---------------------------
 
-INSERT INTO Cat_Resto VALUES (1,2);
-INSERT INTO Cat_Resto VALUES (2,11);
-INSERT INTO Cat_Resto VALUES (3,9);
-INSERT INTO Cat_Resto VALUES (4,9);
+INSERT INTO Cat_Resto VALUES (1,1);
+INSERT INTO Cat_Resto VALUES (2,9);
+INSERT INTO Cat_Resto VALUES (3,5);
+INSERT INTO Cat_Resto VALUES (4,11);
 
 ---------------------------
 -- Insertion des badges
@@ -202,6 +202,7 @@ INSERT INTO Badge VALUES (DEFAULT,'Vegan','badge-vegetarien.png');
 INSERT INTO Badge VALUES (DEFAULT,'Partenariat','badge-partenariat.png');
 INSERT INTO Badge VALUES (DEFAULT,'Livraison','badge-livraison.png');
 INSERT INTO Badge VALUES (DEFAULT,'A emporter','badge-emporter.png');
+INSERT INTO Badge VALUES (DEFAULT,'Commander','badge-commander.png');
 
 ---------------------------
 -- Insertion des badges des restaurants
