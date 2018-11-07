@@ -201,7 +201,7 @@ INSERT INTO Badge VALUES (DEFAULT,'Halal','badge-halal.png');
 INSERT INTO Badge VALUES (DEFAULT,'Vegan','badge-vegetarien.png');
 INSERT INTO Badge VALUES (DEFAULT,'Partenariat','badge-partenariat.png');
 INSERT INTO Badge VALUES (DEFAULT,'Livraison','badge-livraison.png');
-INSERT INTO Badge VALUES (DEFAULT,'A emporter','badge-takeaway.png');
+INSERT INTO Badge VALUES (DEFAULT,'A emporter','badge-emporter.png');
 
 ---------------------------
 -- Insertion des badges des restaurants

@@ -62,7 +62,7 @@ class Badge
      */
     public function getLink()
     {
-        return $this->name;
+        return $this->link;
     }
 
     /**

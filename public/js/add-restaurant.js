@@ -273,7 +273,7 @@ function getBadges() {
     $.ajax({
         url: 'https://localhost:8080/api/badges',
         type: 'GET'
-    }).done(function (res) { 
+    }).done(function (res) {
         addAllBadges(res.data);
     }).fail(function (error) {
         alert("Erreur");
@@ -287,11 +287,12 @@ function addAllCategories(categories) {
     }
 }
 
-function addCheckbox(name,id) {
+function addCheckbox(name,id, imgSrc) {
     var container = $('#badge_resto');
 
     $('<input />', { type: 'checkbox',id: id, name:'badges', value: name }).appendTo(container);
     $('<label />', { text: name }).appendTo(container);
+   // $('<img />', { alt: name, src:'/assets/images/badges/' + imgSrc  }).appendTo(container);
     $('</br>').appendTo(container);
     
 }
@@ -299,7 +300,7 @@ function addCheckbox(name,id) {
 function addAllBadges(badges) {
 
     for (let i = 0; i < badges.length; i++) {
-        addCheckbox(badges[i].nom_badge, badges[i].id_badge);
+        addCheckbox(badges[i].nom_badge, badges[i].id_badge, badges[i].badge_link);
     }
 }
 

@@ -102,7 +102,7 @@ class Badge
     public function findOneById($id)
     {
         $badge = null;
-        $statement = $this->connection->prepare('select * from "badges" where id_badge = :id_badge');
+        $statement = $this->connection->prepare('select * from "badge" where id_badge = :id_badge');
         $statement->bindParam(':id_badge', $id);
         $statement->execute();
 
