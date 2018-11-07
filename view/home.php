@@ -25,18 +25,23 @@
                                 <?php endif; ?>
                             <?php endfor; ?>
                         </ol>
-                        <div class="carou,<sel-inner" role="listbox">
+                        <div class="carousel-inner" role="listbox">
                             <?php $i =0; foreach ($news as $aNews):?>
+                                <?php if($aNews->getImage() != null && $aNews->getImage()!= ""){$coverNews = $aNews->getImage();}
+                                    else{$coverNews = "assets/images/articles/art1.jpg";}
+                                ?>
                                 <?php if($i==0): ?>
                                     <div class="carousel-item active">
                                 <?php else: ?>
                                     <div class="carousel-item">
                                 <?php endif; ?>
-                                        <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
-                                        <div class="carousel-caption">
-                                            <h3><?php echo $aNews->getTitle();?></h3>
-                                            <p>Papa noël</p>
-                                        </div>
+                                        <a href="/news?id=<?php echo $aNews->getId();?>">
+                                            <img class="d-block mx-auto img-fluid" style="height:200px;" src="<?php echo $coverNews; ?>" alt="">
+                                            <div class="carousel-caption">
+                                                <p>News:</p>
+                                                <h3><?php echo $aNews->getTitle();?></h3>
+                                            </div>
+                                        </a>
                                     </div>
                             <?php $i++; endforeach; ?>
                         </div>

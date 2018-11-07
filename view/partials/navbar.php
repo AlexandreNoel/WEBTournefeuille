@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top fixed-nav" id="navbarD">
     <div class="container">
         <!-- Brand -->
-        <a class="navbar-brand" href="/"><img id="img-navbar" src="assets/images/logo_sf_blanc.png"></a>
+        <a class="navbar-brand" href="/home"><img id="img-navbar" src="assets/images/logo_sf_blanc.png"></a>
 
         <!-- BANNIERE ACCUEIL !-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -16,7 +16,7 @@
                         <a class="nav-link fixed-nav-text" href="/home">Accueil</a>
                     </li>
                     <li id="Actualités" class="nav-item">
-                        <a class="nav-link fixed-nav-text" href="#">Actualités</a>
+                        <a class="nav-link fixed-nav-text" href="/news">Actualités</a>
                     </li>
                     <li id="Catalogue" class="nav-item">
                         <a class="nav-link fixed-nav-text" href="/catalogue">Catalogue</a>

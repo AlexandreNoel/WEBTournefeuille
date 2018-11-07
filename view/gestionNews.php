@@ -11,6 +11,9 @@
 
 <body class="main-body">
 
+<!-- MODAL !-->
+<?php require_once(__DIR__ . '/partials/modalBarmen.php'); ?>
+
 <!-- NAVBAR !-->
 <?php require_once(__DIR__ . '/partials/navbarAdmin.php'); ?>
 
@@ -28,6 +31,7 @@
                             <div>
                                 <label>Couverture</label>
                                 <div class="custom-file">
+                                    <input type="hidden" id="previousImage" name="previousImage">
                                     <input type="file" name="fileToUpload" class="custom-file-input" id="image-input">
                                     <label id="image-label" class="custom-file-label" for="customFile">Choisissez une image de couverture</label>
                                 </div>
@@ -65,7 +69,8 @@
                                     name="idannonce"
                                     value="0"
                             >
-                            <input id="submit-form" type="submit" value="Ajouter">
+                            <input id="submit-form" type="submit"  hidden>
+                            <input id="validate-add" type="button" value="Ajouter">
                             <button type="button" id="cancel-button"> BACK </button>
                         </form>
                     </div>
@@ -80,7 +85,6 @@
                     <thead>
                         <tr>
                             <th>Titre</th>
-                            <th>Contenu</th>
                             <th>Auteur</th>
                             <th>Date création</th>
                             <th>Modify</th>
@@ -92,15 +96,12 @@
                         <?php if (!is_null($newsentity)):?>
                             <tr>
                                 <td><?php echo $newsentity->getTitle()?></td>
-                                <td><?php echo htmlentities($newsentity->getContenu())?></td>
                                 <td><?php echo $auteurlist[$newsentity->getIdAuteur()]?></td>
                                 <td><?php echo $newsentity->getDateCreation()->format("d-m-Y")?></td>
                                 <td>
-                                    <button class="edit-button" style="background:none;border:0px;" onclick="updateNews(<?php echo "'" . $newsentity->getTitle() . "', '" .
-                                        htmlentities($newsentity->getContenu()) . "' ," .
-                                     $newsentity->getIdAuteur() . " ," .
-                                     $newsentity->getId() . " ," .
-                                     "'".$newsentity->getImage()."'";?>)" >
+                                    <button class="edit-button"
+                                            style="background:none;border:0px;"
+                                            onclick="updateNews(<?php echo $newsentity->getId();?>)" >
                                     <img class="icon" src="assets/images/edit.png">
                                     </button>
                                 </td>
@@ -130,14 +131,12 @@
         //===============================================
         $("#add-button").on("click",function(){
             $("#add-button").css("display","none");
-                $("#tables").css("display", "none");
-                $("#titre-input").val(" ");
-                $("#contenu-input").val(" ");
-                $("#idauteur-input").val(1);
-                //$("#idauteur-input").val(<?php #echo $_SESSION["authenticated_admin"]->getId()?>);
-                $("#submit-form").val("Ajouter");
-                $("#form-ajout").attr('action','add-news.php');
-                $("#form-div").show();
+            $("#tables").css("display", "none");
+            $("#titre-input").val(" ");
+            $("#contenu-input").val(" ");
+            $("#submit-form").val("Ajouter");
+            $("#form-ajout").attr('action','add-news.php');
+            $("#form-div").show();
         });
 
         $("#cancel-button").on("click", function(){
@@ -145,6 +144,10 @@
             $("#form-div").css("display", "none");
             $("#add-button").show();
             $("#tables").show();
+        });
+
+        $("#validate-add").on("click",function(){
+            modalAdmin('validateForm');
         });
 
         //==============================================================
@@ -183,24 +186,81 @@
 
     });
 
-    function updateNews(titre, contenu, idauteur, idannonce,couverture)
+
+    //============================
+    // FONCTIONS
+    //============================
+
+    function updateNews(id)
     {
-        $("#add-button").css("display","none");
-        $("#tables").css("display", "none");
-        $("#previewImage").attr('src',couverture);
-        $("#titre-input").val(titre);
-        $("#contenu-input").summernote('code', decodeEntities(contenu));
-        $("#idauteur-input").val(idauteur);
-        $("#idannonce-input").val(idannonce);
-        $("#submit-form").val("Modifier");
-        $("#form-ajout").attr('action','update-news.php');
-        $("#form-div").show();
+        data = new FormData();
+        data.append("idNews",id);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/services.php",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                var response = JSON.parse(data);
+                if (response.idannonce) {
+                    $("#add-button").css("display","none");
+                    $("#tables").css("display", "none");
+                    $("#previewImage").attr('src',response.image);
+                    $("#previousImage").val(response.image);
+                    $("#titre-input").val(response.titre);
+                    $("#contenu-input").summernote('code', decodeEntities(response.contenu));
+                    $("#idauteur-input").val(response.idauteur);
+                    $("#idannonce-input").val(response.idannonce);
+                    $("#submit-form").val("Modifier");
+                    $("#form-ajout").attr('action','update-news.php');
+                    $("#form-div").show();
+                }
+            }
+        });
     }
 
     function decodeEntities(encodedString) {
         var textArea = document.createElement('textarea');
         textArea.innerHTML = encodedString;
         return textArea.value;
+    }
+
+    function readURL(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewImage').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function validateForm(){
+        var password = $('#password').val();
+        data = new FormData();
+        data.append("serviceCheckBarmen",true);
+        data.append("password", password);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/services.php",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                console.log(data);
+                var response = JSON.parse(data);
+                if (response.status == false){
+                    $('#error-modal').text(response.error);
+                }
+                else{
+                    $("#idauteur-input").val(response.barmenId);
+                    $("#submit-form").click();
+                }
+            }
+        });
     }
 
     function sendFile(data,type){
@@ -229,16 +289,6 @@
                 }
             }
         });
-    }
-
-    function readURL(input){
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#previewImage').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
     }
 
 </script>

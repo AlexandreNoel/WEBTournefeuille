@@ -1,10 +1,9 @@
 <?php
 // Récupération de l'url demandé
-$url = $_SERVER['REQUEST_URI'];
-
+$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
 
 // Redirection
-switch ($url) {
+switch ($request_uri[0]) {
 
     /* WELCOME */
     case '/':
@@ -32,6 +31,10 @@ switch ($url) {
         require __DIR__ . '/catalogue.php';
         break;
 
+    case '/news':
+        require __DIR__ . '/news.php';
+        break;
+
     // UTILISATEUR - STATS 
         case '/statistiques':
         require __DIR__ . '/statistiques.php';
@@ -40,6 +43,11 @@ switch ($url) {
     /*************************/
     /* PARTIE ADMINISTRATEUR */
     /*************************/
+    // CONSOLE - LOGIN
+    case '/connect-console':
+        require __DIR__ . '/connect-console.php';
+        break;
+
     // CONSOLE - ACCUEIL
     case '/console':
         require __DIR__ . '/console.php';

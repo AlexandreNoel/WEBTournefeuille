@@ -74,7 +74,7 @@ class Transaction
         $iduser = $productArray['idutilisateur'];
         $prix = $productArray['prixtotal'];
         $client = $repoclient->findOneById($iduser);
-        if (($client->getSolde() - $prix) > 0) {
+        if (($client->getSolde() - $prix) >= 0) {
             if ($this->isPossible($productArray['products'])) {
                 #insertions de la commande
                 $statement = $this->dbAdapter->prepare('INSERT INTO commande (datecommande,idutilisateur,idbarmen,prixtotal) values (:datecommande,:idutilisateur,:idbarmen,:prixtotal) RETURNING idcommande');

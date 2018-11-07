@@ -18,6 +18,35 @@
         $transacHydrator = new \Transaction\Hydrator\Transaction();
         $productHydrator = new \Product\Hydrator\Product();
         $productRepository = new \Product\Repository\Product();
+        $newsRepository = new \News\Repository\News();
+        $newsHydrator = new \News\Hydrator\News();
+        //================================
+        // Vérification du mdp barmen
+        //================================
+        if(isset($_POST['serviceCheckBarmen']) && isset($_POST['password'])){
+            try {
+                $userBarmen = $userRepository->findOneByCodeBarmen($_POST['password']);
+                if (isset($userBarmen)) {
+                    $arr = array(
+                        'status' => true,
+                        'barmenId' => $userBarmen->getId()
+                    );
+                    echo json_encode($arr);
+                }
+                else{
+                    throw new \Exception("Barmen Invalide.");
+                }
+            }catch(Exception $e){
+                $arr = array(
+                    'status' => false,
+                    'error' => $e->getMessage()
+                );
+
+                echo json_encode($arr);
+            }
+            http_response_code(200);
+            return ;
+        }
 
         //================================
         // Gestion de recherche de client
@@ -55,6 +84,8 @@
 
                 echo json_encode($arr);
             }
+            http_response_code(200);
+            return ;
 
         }
 
@@ -115,6 +146,15 @@
         }
 
         //===================================
+        //  Récupération d'une news
+        //===================================
+        else if(isset($_POST['idNews'])){
+            $id = $_POST['idNews'];
+            $news = $newsRepository->findById($id);
+            echo json_encode($newsHydrator->extract($news));
+            exit;
+        }
+        //===================================
         // Upload d'un fichier sur le serveur
         //===================================
         else if(isset($_FILES['fileToUpload']['name'])){
@@ -165,8 +205,8 @@
 
                 echo json_encode($arr);
             }
+            http_response_code(200);
+            return ;
         }
-
         http_response_code(400);
-
     }

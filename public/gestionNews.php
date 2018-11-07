@@ -4,7 +4,7 @@
     session_start();
 
     if(!isset($_SESSION['authenticated_admin'])){
-        header('Location: /');
+        header('Location: /connect-console');
     }
     $repositorynews = new \News\Repository\News();
     $repositoryclients = new \Client\Repository\Client();

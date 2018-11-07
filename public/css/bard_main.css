@@ -348,7 +348,27 @@ nav{
 /*************/
 
 
+/*************/
+/* NEWS		 */
+/*************/
+.cover-news {
+	position: relative;
+	text-align: center;
+	color: white;
+	background-color: black;
+	background: no-repeat center center scroll;
+	background-size: cover;
+	height:180px;
+}
 
+/* Bottom left text */
+.title-news {
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
 
 /*************/
 /* ANIMATION */
