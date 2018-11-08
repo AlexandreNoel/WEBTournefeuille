@@ -18,7 +18,7 @@ function postSession() {
         return;
     }
     $.ajax({
-        url: 'https://localhost:8080/synchro-session.php',
+        url: 'https://localhost:8080/user-synchroSession.php',
         type: 'POST',
         data: {
             session: JSON.stringify(getSession())

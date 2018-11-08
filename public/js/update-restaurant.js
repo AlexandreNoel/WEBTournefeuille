@@ -111,7 +111,7 @@ function addAllBadges(badges) {
 
 function getCategory(restaurantId) {
     $.ajax({
-        url: 'https://localhost:8080/get-category.php',
+        url: 'https://localhost:8080/restaurant-getCategory.php',
         type: 'GET',
         data: {
             id_resto: restaurantId
@@ -127,7 +127,7 @@ function getCategory(restaurantId) {
 
 function getBadge(restaurantId) {
     $.ajax({
-        url: 'https://localhost:8080/get-badges.php',
+        url: 'https://localhost:8080/restaurant-getBadges.php',
         type: 'GET',
         data: {
             id_resto: restaurantId

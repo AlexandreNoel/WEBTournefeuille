@@ -95,7 +95,7 @@ addAllBadges
 function filterRestos(){
 
     $.ajax({
-        url: 'https://localhost:8080/filter-restaurant.php',
+        url: 'https://localhost:8080/restaurant-filtering.php',
         type: 'GET',
         data:{
             score       : filters.score,

@@ -97,7 +97,7 @@ function getRestaurant(restaurantId) {
 
 function getComments(restaurantId) {
     $.ajax({
-        url: 'https://localhost:8080/get-comments.php',
+        url: 'https://localhost:8080/restaurant-getComments.php',
         type: 'GET',
         data :{
             id_resto : restaurantId
@@ -115,7 +115,7 @@ function getComments(restaurantId) {
 
 function getCategory(restaurantId) {
     $.ajax({
-        url: 'https://localhost:8080/get-category.php',
+        url: 'https://localhost:8080/restaurant-getCategory.php',
         type: 'GET',
         data: {
             id_resto: restaurantId
@@ -133,7 +133,7 @@ function getCategory(restaurantId) {
 
 function getBadges(restaurantId) {
     $.ajax({
-        url: 'https://localhost:8080/get-badges.php',
+        url: 'https://localhost:8080/restaurant-getBadges.php',
         type: 'GET',
         data: {
             id_resto: restaurantId
@@ -149,7 +149,7 @@ function getBadges(restaurantId) {
 
 function getFavorites(restaurantId) {
     $.ajax({
-        url: 'https://localhost:8080/get-favorites.php',
+        url: 'https://localhost:8080/restaurant-getFavorites.php',
         type: 'GET',
         data :{
             id_resto : restaurantId
@@ -195,7 +195,7 @@ function deleteComment(commentId){
 
 function changeFavorite(restaurantId){
     $.ajax({
-        url: 'https://localhost:8080/change-favorite-restaurant.php',
+        url: 'https://localhost:8080/restaurant-changeFavorite.php',
         type: 'POST',
         data :{
             id_resto : restaurantId

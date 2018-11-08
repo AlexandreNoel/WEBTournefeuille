@@ -207,7 +207,7 @@ function register() {
 
 function connect() {
     $.ajax({
-        url: 'https://localhost:8080/connect.php',
+        url: 'https://localhost:8080/user-connect.php',
         type: 'POST',
         data: {
             mail_user: $('#username_connect').val(),

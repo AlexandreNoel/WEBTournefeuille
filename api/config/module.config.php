@@ -7,8 +7,8 @@ return array(
         "repository"  => Repository\Restaurant::class,
         "service"     => Service\Restaurant::class,
         "api-methods" => ['GET','POST','PUT','DELETE'],
-        "POST-action" => "../public/add-restaurant.php",
-        "PUT-action"  => "../public/update-restaurant.php",
+        "POST-action" => "../public/restaurant-add.php",
+        "PUT-action"  => "../public/restaurant-update.php",
         "GET-hidden-fields" => []
     ],
     "users" =>[
@@ -17,8 +17,8 @@ return array(
         "repository"       => Repository\User::class,
         "service"          => Service\User::class,
         "api-methods"      => ['GET','POST','PUT','DELETE'],
-        "POST-action"      => "../public/register.php",
-        "PUT-action"       => "../public/update-user.php",
+        "POST-action"      => "../public/user-register.php",
+        "PUT-action"       => "../public/user-update.php",
         "GET-hidden-fields" => ["secret_user"]
     ],
     "categories" =>[
@@ -47,7 +47,7 @@ return array(
         "hydrator"         => Hydrator\Comment::class,
         "repository"       => Repository\Comment::class,
         "api-methods"      => ['GET','POST','DELETE'],
-        "POST-action"      => "../public/add-comment.php",
+        "POST-action"      => "../public/restaurant-addComment.php",
         "PUT-action"       => "",
         "GET-hidden-fields" => []
     ],
