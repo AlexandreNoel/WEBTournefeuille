@@ -34,6 +34,15 @@ else{
                     $user = $repouser->findOneById(2);
                     $mysolde=$user->getSolde();
                     $myarray= $repoptransac->getEvolutionSolde($user->getId());
+                    date_default_timezone_set('Europe/Paris');
+                    $today = strtotime("now Europe/Paris");
+//                    $today = $date->format('m/d/Y H:i:s');
+                    $timstamptoday = strtotime($today);
+//                    date_default_timezone_set('UTC');
+//                    echo $today;
+                    $data[0]=$today*1000;
+                    $data[1]=$mysolde;
+                    $res[]=$data;
                     foreach ($myarray as $elem){
                         $mysolde-=$elem['credit'];
                         $mysolde+=$elem['debit'];
@@ -43,8 +52,9 @@ else{
                         $data[1]=$mysolde;
                         $res[]=$data;
                     }
-//                    echo json_encode($myarray);
-//                    echo $mysolde;
+                    usort($res, function($a, $b) {
+                        return $a[0] <=> $b[0];
+                    });
                     echo json_encode($res);
                 }
             }

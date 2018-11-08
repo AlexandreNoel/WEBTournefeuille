@@ -91,7 +91,7 @@ CREATE TABLE Credit(
     idBarmen INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur)
 );
 
-
+SET TIME ZONE 'Europe/Paris';
 --------------------------------------------------
 -- INSERTION DES DONNEES
 --------------------------------------------------
@@ -125,11 +125,13 @@ INSERT INTO Categorie(idCategorie,libelle) VALUES (4,'Boissons Chaudes');
 -- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-01', 2, 2, 6);
 -- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-01', 2, 2, 8);
 -- INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-11-02',15,2,2);
-INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-01', 2, 2, 2);
-INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-02', 2, 2, 3);
-INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-03', 2, 2, 4);
-INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-11-04',15,2,2);
-INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-05', 2, 2, 10);
+INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-01 00:00:00', 2, 2, 2);
+INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-02 00:00:00', 2, 2, 3);
+INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-03 00:00:00', 2, 2, 4);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-11-04 00:00:00',15,2,2);
+INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-05 00:00:00', 2, 2, 10);
+INSERT INTO commande (idutilisateur, idbarmen, prixtotal) VALUES ( 2, 2, 2);
+UPDATE utilisateur set solde=30 where idutilisateur=2;
 
 
 -- Table Produit

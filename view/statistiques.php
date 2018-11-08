@@ -62,21 +62,25 @@
         });
     }
     function fetchsolde() {
+
         var options = {
             chart: {
                 renderTo: 'container2',
                 type: 'line',
 
             },
+            global: {
+                useUTC: false
+            },
             title: {
-                text: 'Fruit Consumption'
+                text: 'Evolution du solde'
             },
             xAxis:{
                 type:'datetime'
             },
             yAxis: {
                 title: {
-                    text: 'Fruits Amount'
+                    text: 'Montant en €'
                 }
             },
             series: [{}]
@@ -86,19 +90,14 @@
             url: 'fetch-statistiques.php',
             data: "methode=chart",
             success: function (data) {
-                data=JSON.parse(data);
                 console.log(data);
-                // var data = [
-                //     [1531972144000, 20.94],
-                //     [1531972204000, 20.94],
-                //     [1531972264000, 20.85],
-                //     [1531972324000, 20.94],
-                //     [1531972384000, 21.21]
-                //     ];
+                data=JSON.parse(data);
 
                 options.series[0].data = data;
                 var chart = new Highcharts.Chart(options);
-
+                Highcharts.setOptions({
+                    global: { useUTC: false }
+                });
             }
 
         });
