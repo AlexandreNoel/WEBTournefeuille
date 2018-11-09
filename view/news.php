@@ -7,7 +7,11 @@
 </head>
 
 <body class="main-body">
-
+    <style>
+        .cards button{
+            width:50%;
+        }
+    </style>
     <!-- NAVBAR !-->
     <?php require_once(__DIR__ . '/partials/navbar.php'); ?>
 
@@ -27,47 +31,14 @@
             </div>
         <?php else: ?>
         <!-- Affichage de toutes les news !-->
-
-            <style>
-                * {
-                    box-sizing: border-box;
-                }
-                .cards {
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: stretch;
-                }
-                .card {
-                    width: 200px;
-                    margin: 10px;
-                    border: 1px solid #ccc;
-                    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
-                }
-                .card img {
-                    max-width: 100%;
-                }
-                .card .text {
-                    padding: 0 20px 20px;
-                }
-                .card .text > button {
-                    background: gray;
-                    border: 0;
-                    color: white;
-                    padding: 10px;
-                    width: 100%;
-                }
-                .card:nth-child(1) {
-                    width: 420px;
-                }
-            </style>
             <main class="cards">
                 <?php foreach ($news as $aNews): ?>
                 <article class="card">
                     <img src="<?php echo $aNews->getImage();?>" alt="Photo news">
-                    <div class="text">
+                    <div class="text text-center">
                         <h3><?php echo $aNews->getTitle(); ?></h3>
                     </div>
-                    <a href="/news?id=<?php echo $aNews->getId();?>"><button class="btn btn-primary rounded"> Voir </button></a>
+                    <a href="/news?id=<?php echo $aNews->getId();?>"><button class="btn btn-primary rounded d-block mx-auto"> Voir </button></a>
                 </article>
                 <?php endforeach; ?>
             </main>

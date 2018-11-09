@@ -21,7 +21,7 @@ class News {
 
     public function findAll() : array
     {
-        $sql='SELECT * FROM annonce';
+        $sql='SELECT * FROM annonce ORDER BY dateCreation DESC';
         foreach ($this->dbAdapter->query($sql) as $articleData) {
             $entity = new \News\Entity\News();
             $articles[] = $this->hydrator->hydrate($articleData, clone $entity);

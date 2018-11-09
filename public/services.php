@@ -166,7 +166,7 @@
 
                 $currentDir = getcwd();
                 $uploadDirectory = "/assets/images/articles/";
-                $fileExtensions = ['jpeg', 'jpg', 'png'];
+                $fileExtensions = ['jpeg', 'jpg', 'png','gif'];
                 $maxsize=2000000;
                 $fileName = $_FILES['fileToUpload']['name'];
                 $fileSize = $_FILES['fileToUpload']['size'];
@@ -179,7 +179,7 @@
 
                 //Vérification initiale sur le type / taille de fichier
                 if (!in_array($fileExtension, $fileExtensions)) {
-                    throw new \Exception("Extension autorisé: png ou jpg/jpeg seulement");
+                    throw new \Exception("Extension autorisé: gif,png ou jpg/jpeg seulement");
                 }
                 if ($fileSize > $maxsize) {
                     throw new \Exception("Fichier de 2MB");

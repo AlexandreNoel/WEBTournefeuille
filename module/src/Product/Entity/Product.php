@@ -42,10 +42,15 @@ Class Product{
      * @var int
      */
     private $Quantity;
+
     /**
      * @var bool
      */
     private $estDisponible;
+
+    /******************************************
+     * GETTER/SETTER
+     ******************************************/
 
     /**
      * @return int
@@ -187,9 +192,5 @@ Class Product{
         $this->estDisponible = $estDisponible;
         return $this;
     }
-
-
-
-
 
 }

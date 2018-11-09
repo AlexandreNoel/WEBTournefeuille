@@ -19,9 +19,9 @@
                         Gestion du bar <i class="fa fa-cog"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/gestionProduct">Gestion produits</a>
-                        <a class="dropdown-item" href="/gestionNews">Gestion news</a>
-                        <a class="dropdown-item" href="#">Gestion utilisateurs</a>
+                        <a class="dropdown-item" href="/gestionProduct">Gestion des produits</a>
+                        <a class="dropdown-item" href="/gestionNews">Gestion des news</a>
+                        <a class="dropdown-item" href="#">Gestion des utilisateurs</a>
                     </div>
                 </li>
                 <li id="<?php print $_SESSION['authenticated_admin']['login'] ?>" class="nav-item">

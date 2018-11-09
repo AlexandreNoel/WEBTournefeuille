@@ -212,19 +212,38 @@
             $(document).on('keypress', function(e) {
                 var inputTab = $('input.tabConsoleInput');
                 var checkedVal =  $('input.tabConsoleInput:checked').val();
-                if (e.which === 119 && e.altKey===true){
+                var numTabSelected = null;
+
+                // Gestion des events
+                switch(e.key){
+                    case "ArrowRight":
+                        numTabSelected = (checkedVal % inputTab.length);
+                        break;
+                    case "ArrowLeft":
+                        if((checkedVal-2) < 0 )
+                            numTabSelected= (inputTab.length)-1;
+                        else
+                            numTabSelected = checkedVal -2;
+                        break;
+                    default:
+
+                        break;
+                }
+
+                // Vérification si événements de changement d'onglet
+                if (numTabSelected != null) {
                     // Désactivation du focus sur les élements input
                     $('input').blur();
                     // Gestion des onglets
-                    inputTab[(checkedVal%inputTab.length)].click();
-
-                    if((checkedVal%inputTab.length) === 0 ){
+                    inputTab[numTabSelected].click();
+                    if((numTabSelected) === 0 ){
                         $('#searchInput').focus();
                     }
-                    else if((checkedVal%inputTab.length) === 1){
+                    else if((numTabSelected) === 1){
                         $('#creditInput').focus();
                     }
                 }
+
             });
 
             // Gestion des focus sur click
@@ -234,7 +253,6 @@
             $('#search').on('click',function(e){;
                 $('#searchInput').focus();
             });
-
 
             //========================
             // GESTION DES COMMANDES
@@ -361,8 +379,8 @@
                             $('#solde').val(dataJson['solde']);
                             $('#id').val(dataJson['idutilisateur']);
                             $('.user-title-card').html(dataJson['pseudo']);
-                            $('#futurSolde').html("Solde après commande: " + futurSolde);
-                            $('#profile').click();                        }
+                            $('#futurSolde').html("Solde après commande: " + futurSolde +"€");
+                            $('#command').click();                        }
                         else{
                             alert("Veuillez sélectionner un utilisateur connu.");
                         }

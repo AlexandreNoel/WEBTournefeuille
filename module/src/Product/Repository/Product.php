@@ -176,6 +176,5 @@ class Product
             $res[]=$productData;
         }
         return $res;
-
     }
 }
