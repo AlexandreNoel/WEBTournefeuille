@@ -5,11 +5,13 @@
  * Date: 24/10/18
  * Time: 22:34
  */
+
 namespace Transaction\Repository;
 /**
  * Class Transaction
  * @package \Transaction\Repository
  */
+
 use \Adapter\DatabaseFactory;
 use Client\Repository\Client;
 
@@ -19,6 +21,7 @@ class Transaction
      * @var \PDO
      **/
     private $connection;
+
     /**
      * UserRepository constructor.
      * @param \PDO $connection
@@ -30,11 +33,11 @@ class Transaction
         $this->hydrator = new \Transaction\Hydrator\Transaction();
     }
 
-    public function findAll() : array
+    public function findAll(): array
     {
         $productRepository = new \Product\Repository\Product();
         $products = new \SplObjectStorage();
-        $commandes=[];
+        $commandes = [];
         #Récupération de chaque commande
         $statement = $this->dbAdapter->prepare(
             'SELECT * FROM commande');
@@ -52,13 +55,13 @@ class Transaction
             foreach ($statement2->fetchAll() as $productsData) {
                 $productid = $productsData['idproduit'];
                 $ammount = $productsData['quantite'];
-                $product=$productRepository->findById($productid);
+                $product = $productRepository->findById($productid);
                 #on ajoute un produit et sa quantite au tableau "articles=>quantite'
-                $products->attach($product,$ammount);
+                $products->attach($product, $ammount);
 
             }
             #on ajoute le tableau de produits construit à la commande
-            $commandData['products']=$products;
+            $commandData['products'] = $products;
             $commandes[] = $this->hydrator->hydrate($commandData, clone $entity);
 
 
@@ -66,7 +69,8 @@ class Transaction
 
         return $commandes;
     }
-    public function create (\Transaction\Entity\Transaction $product) :int
+
+    public function create(\Transaction\Entity\Transaction $product): int
     {
         $repoclient = new \Client\Repository\Client();
         $repoProduct = new \Product\Repository\Product();
@@ -108,12 +112,13 @@ class Transaction
         }
     }
 
-    public function isPossible($productList){
+    public function isPossible($productList)
+    {
         $repoProduct = new \Product\Repository\Product();
         $possible = True;
-        foreach ($productList as $product){
+        foreach ($productList as $product) {
             $quantityWanted = $productList->getInfo();
-            $id =$productList->current()->getId();
+            $id = $productList->current()->getId();
             $quantiyAvailable = $repoProduct->findById($id)->getQuantity();
             $possible = $possible and (($quantiyAvailable - $quantityWanted) > 0);
         }
@@ -121,7 +126,8 @@ class Transaction
     }
 
 
-    public function findOneById($id){
+    public function findOneById($id)
+    {
         #récupération de toules articles compris dans la commande
         $statement = $this->dbAdapter->prepare(
             'SELECT idproduit,quantite FROM  faitpartiecommande f where f.idcommande=:idcommande');
@@ -133,9 +139,9 @@ class Transaction
         foreach ($statement->fetchAll() as $productData) {
             $productid = $productData['idproduit'];
             $ammount = $productData['quantite'];
-            $product=$productRepository->findById($productid);
+            $product = $productRepository->findById($productid);
             #on ajoute un produit et sa quantite au tableau "articles=>quantite'
-            $products->attach($product,$ammount);
+            $products->attach($product, $ammount);
 
         }
         #Récupération de la commande
@@ -143,16 +149,17 @@ class Transaction
             'SELECT * FROM commande  where idcommande=:idcommande');
         $statement2->bindParam(':idcommande', $id);
         $statement2->execute();
-        $product=null;
+        $product = null;
         foreach ($statement2->fetchAll() as $commandeData) {
             $entity = new \Transaction\Entity\Transaction();
-            $commandeData['products']=$products;
+            $commandeData['products'] = $products;
             $product = $this->hydrator->hydrate($commandeData, clone $entity);
         }
         return $product;
     }
 
-    public function findProductsByCommande($id){
+    public function findProductsByCommande($id)
+    {
         #récupération de toules articles compris dans la commande
         $productRepository = new \Product\Repository\Product();
         $products = new \SplObjectStorage();
@@ -167,17 +174,19 @@ class Transaction
         foreach ($statement2->fetchAll() as $productsData) {
             $productid = $productsData['idproduit'];
             $ammount = $productsData['quantite'];
-            $product=$productRepository->findById($productid);
+            $product = $productRepository->findById($productid);
             #on ajoute un produit et sa quantite au tableau "articles=>quantite'
-            $products->attach($product,$ammount);
+            $products->attach($product, $ammount);
 
         }
         #on ajoute le tableau de produits construit à la commande
         return $products;
     }
-    public function findByCriteria($criteria,$value){
+
+    public function findByCriteria($criteria, $value)
+    {
         $productRepository = new \Product\Repository\Product();
-        $commandes=[];
+        $commandes = [];
         #Récupération de chaque commande
         $statement = $this->dbAdapter->prepare(
             "SELECT * FROM commande where $criteria =:value");
@@ -197,13 +206,13 @@ class Transaction
             foreach ($statement2->fetchAll() as $productsData) {
                 $productid = $productsData['idproduit'];
                 $ammount = $productsData['quantite'];
-                $product=$productRepository->findById($productid);
+                $product = $productRepository->findById($productid);
                 #on ajoute un produit et sa quantite au tableau "articles=>quantite'
-                $products->attach($product,$ammount);
+                $products->attach($product, $ammount);
 
             }
             #on ajoute le tableau de produits construit à la commande
-            $commandData['products']=$products;
+            $commandData['products'] = $products;
             $commandes[] = $this->hydrator->hydrate($commandData, clone $entity);
 
 
@@ -212,9 +221,10 @@ class Transaction
         return $commandes;
     }
 
-    public function getStatistiquesProduit($id){
+    public function getStatistiquesProduit($id)
+    {
         $data = array();
-        $res=array();
+        $res = array();
         $statement2 = $this->dbAdapter->prepare(
             'select p.libelle,sum(f.quantite) as quantite from faitpartiecommande f join commande c on f.idcommande=c.idcommande 
             join produit p on p.idproduit=f.idproduit where idutilisateur=:id group by p.libelle;');
@@ -222,17 +232,19 @@ class Transaction
         $statement2->execute();
         foreach ($statement2->fetchAll() as $productData) {
 
-            $data['name']=$productData['libelle'];
-            $data['y']=$productData['quantite'];
-            $res[]=$data;
+            $data['name'] = $productData['libelle'];
+            $data['y'] = $productData['quantite'];
+            $res[] = $data;
         }
 
         return $res;
 
     }
-    public function getStatistiquesCategorie($id){
+
+    public function getStatistiquesCategorie($id)
+    {
         $data = array();
-        $res=array();
+        $res = array();
         $statement2 = $this->dbAdapter->prepare(
             'select ca.libelle as libelle,sum(f.quantite) as quantite from faitpartiecommande f join commande co on f.idcommande=co.idcommande
 join produit p on p.idproduit=f.idproduit join categorie ca on p.idcategorie=ca.idcategorie where idutilisateur=:id group by ca.libelle;');
@@ -240,33 +252,37 @@ join produit p on p.idproduit=f.idproduit join categorie ca on p.idcategorie=ca.
         $statement2->execute();
         foreach ($statement2->fetchAll() as $productData) {
 
-            $data['name']=$productData['libelle'];
-            $data['y']=$productData['quantite'];
-            $res[]=$data;
+            $data['name'] = $productData['libelle'];
+            $data['y'] = $productData['quantite'];
+            $res[] = $data;
         }
 
         return $res;
 
     }
-    public function getExpenseslastDays($id,$nbdays){
+
+    public function getExpenseslastDays($id, $nbdays)
+    {
         $statement = $this->dbAdapter->prepare(
-            'select sum(prixtotal) from faitpartiecommande f join commande c on f.idcommande=c.idcommande 
-            where idutilisateur=:id and datecommande > (NOW() - INTERVAL \''.$nbdays.' DAY\');');
+            'select sum(prixtotal) from commande c  
+            where idutilisateur=:id and datecommande > (NOW() - INTERVAL \'' . $nbdays . ' DAY\');');
         $statement->bindParam(':id', $id);
         $statement->execute();
         foreach ($statement->fetchAll() as $productData) {
 
-            $res=$productData['sum'];
+            $res = $productData['sum'];
         }
 
         return $res;
 
     }
-    public function getEvolutionSolde($id){
+
+    public function getEvolutionSolde($id)
+    {
         $data = array();
-        $res=array();
+        $res = array();
         $statement2 = $this->dbAdapter->prepare(
-'select datecommande,sum(debit) as debit,sum(credit) as credit from (
+            'select datecommande,sum(debit) as debit,sum(credit) as credit from (
                 select datecommande,prixtotal as debit,0 as credit from commande where idutilisateur=:id 
                 union all select date,0,montant from credit where idutilisateur=:id order by datecommande desc) as foo 
           group by datecommande order by datecommande desc;');
@@ -274,14 +290,35 @@ join produit p on p.idproduit=f.idproduit join categorie ca on p.idcategorie=ca.
         $statement2->execute();
         foreach ($statement2->fetchAll() as $productData) {
 
-            $data['date']=$productData['datecommande'];
-            $data['debit']=$productData['debit'];
-            $data['credit']=$productData['credit'];
-            $res[]=$data;
+            $data['date'] = $productData['datecommande'];
+            $data['debit'] = $productData['debit'];
+            $data['credit'] = $productData['credit'];
+            $res[] = $data;
         }
 
         return $res;
 
+    }
+
+    public function getCreditById($id)
+    {
+        $data = array();
+        $res = array();
+        $statement2 = $this->dbAdapter->prepare(
+            'select * from credit where idutilisateur =:id;');
+        $statement2->bindParam(':id', $id);
+        $statement2->execute();
+        foreach ($statement2->fetchAll() as $productData) {
+
+            $data['date'] = $productData['date'];
+            $data['montant'] = $productData['montant'];
+            $data['idcredit'] = $productData['idcredit'];
+            $data['idutilisateur'] = $productData['idutilisateur'];
+            $data['idbarmen'] = $productData['idbarmen'];
+            $res[] = $data;
+        }
+
+        return $res;
     }
 
 }

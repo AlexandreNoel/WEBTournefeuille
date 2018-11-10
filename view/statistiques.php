@@ -45,7 +45,11 @@
 
 <script>
     function fetchproductdata() {
-
+        Highcharts.setOptions({
+            time: {
+                useUTC: false
+            }
+        });
         $.ajax({
             type: 'POST',
             url: 'fetch-statistiques.php',
@@ -143,9 +147,7 @@
                 type: 'line',
 
             },
-            global: {
-                useUTC: false
-            },
+
             title: {
                 text: 'Evolution du solde'
             },
@@ -180,7 +182,9 @@
                         text: 'Evolution du Solde'
                     },
                     xAxis:{
-                        type:'Date'
+                        type:'Date',
+                        ordinal:false
+
                     },
                     yAxis: {
                         title: {
