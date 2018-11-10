@@ -23,7 +23,9 @@ else {
         $nicknameforid[$user->getId()]=$user->getNickname();
     }
     $transactions = $repositorytransac->findByCriteria("idutilisateur", $id);
-
+    $expensesweek = $repositorytransac->getExpenseslastDays($id,7);
+    $expensesmonth = $repositorytransac->getExpenseslastDays($id,31);
+    $solde=$user->getSolde();
 
     require_once '../view/statistiques.php';
 }
