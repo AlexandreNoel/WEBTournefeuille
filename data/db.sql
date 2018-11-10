@@ -92,7 +92,7 @@ CREATE TABLE Annonce (
 );
 CREATE TABLE Credit(
     idCredit SERIAL PRIMARY KEY,
-    date date not null default CURRENT_DATE,
+    date TIMESTAMP default CURRENT_TIMESTAMP,
     montant FLOAT NOT NULL,
     idUtilisateur INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur),
     idBarmen INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur)
@@ -121,25 +121,13 @@ INSERT INTO Categorie(idCategorie,libelle) VALUES (2,'Friandise');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (3,'Snack');
 INSERT INTO Categorie(idCategorie,libelle) VALUES (4,'Boissons Chaudes');
 
--- Jeu de test graphique solde
--- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-05', 2, 2, 1);
--- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-05', 2, 2, 1);
--- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-04', 2, 2, 3);
--- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-03', 2, 2, 4);
--- INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-11-03',10,2,2);
--- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-03', 2, 2, 2);
--- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-03', 2, 2, 2);
--- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-01', 2, 2, 6);
--- INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-01', 2, 2, 8);
--- INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-11-02',15,2,2);
 INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-01 00:00:00', 2, 2, 2);
 INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-02 00:00:00', 2, 2, 3);
 INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-03 00:00:00', 2, 2, 4);
-INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-11-04 00:00:00',15,2,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-11-04 00:00:01',15,2,2);
 INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-11-05 00:00:00', 2, 2, 10);
 INSERT INTO commande (idutilisateur, idbarmen, prixtotal) VALUES ( 2, 2, 2);
 UPDATE utilisateur set solde=30 where idutilisateur=2;
-
 
 -- Table Produit
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Coca',0.50,0,4,TRUE,1);
@@ -152,6 +140,9 @@ INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategor
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Cafe Fort',0.40,0,20,TRUE,4);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Cafe leger',0.40,0,20,TRUE,4);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Thé',0.40,0,20,TRUE,4);
+INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (3,1,0.5,2);
+INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (3,2,0.5,2);
+
 
 -- Table Annonce
 INSERT INTO annonce (titre, contenu, idauteur, image, datecreation) VALUES ('NYAN CAT LOVER', '<p style="text-align: center; "><br></p><h6 style="text-align: center; ">HELLO LES PETITS CHATS</h6><p style="text-align: center;"><span style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);">SOIREE EVENEMENTS</span></p><p style="text-align: center;"><span style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);">VENEZ COLORE,COSTUME,BIEN BOURRE.</span></p><p style="text-align: center;"><iframe src="//www.youtube.com/embed/QH2-TGUlwu4" class="note-video-clip" style="font-size: 1em;" width="640" height="360" frameborder="0"></iframe><br></p>', 2, '/assets/images/articles/cropped-wallpaper1171856.jpg', '2018-11-07');
@@ -164,10 +155,20 @@ INSERT INTO annonce (titre, contenu, idauteur, image, datecreation) VALUES (' FI
 INSERT INTO NouveauProduit(idNouveauProduit,libelle,Description,idAuteur) VALUES ('RedBull','Pour avoir des ailes en allant en cours',1);
 
 -- Table Credit
-INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-22',12,3,2);
-INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-23',14,3,2);
-INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-24',16,3,2);
-INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-25',18,3,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-23 00:00:00',14,3,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-24 00:00:00',16,3,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-25 00:00:00',18,3,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-09-10 00:00:00',14,3,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-08-20 00:00:00',40,4,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-08-25 00:00:00',60,4,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-09-22 00:00:00',65,4,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-09-01 00:00:00',30,4,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-02 00:00:00',50,4,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-10 00:00:00',80,4,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-12 00:00:00',40,4,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-20 00:00:00',50,4,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-25 00:00:00',20,4,2);
+INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-28 00:00:00',20,4,2);
 
 -- Table FaitPartiCommande/Commande
 INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (1,3,0.5,2);
@@ -4100,3 +4101,6 @@ INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALU
 INSERT INTO commande ( datecommande, idutilisateur, idbarmen, prixtotal) VALUES ('2018-02-23', 4, 2, 1); 
 INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (1,999,0.5,3);
 INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (2,999,0.5,3);
+INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (2,1000,0.5,3);
+INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (2,1001,0.5,3);
+update commande c set prixtotal=(select sum(quantite*prixvente) from faitpartiecommande where idcommande=c.idcommande);
