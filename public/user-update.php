@@ -2,14 +2,11 @@
 
 require '../vendor/autoload.php';
 header("Access-Control-Allow-Origin: *");
-session_start();
-
-SessionChecker::redirectIfNotAdmin();
 
 $userRepository = new \Repository\User();
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'PUT' && (isset($_SESSION['isadmin']))) {
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
     parse_str(file_get_contents("php://input"),$post_vars);
 

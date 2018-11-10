@@ -34,7 +34,7 @@ $(document).ready(() => {
     });
     $('[name="validate"]').click(() => {
         if (checkInputs())
-        updateUser();
+            updateUser();
     });
 });
 
@@ -45,7 +45,7 @@ function getUser() {
         url: 'https://localhost:8080/api/users/' + userId,
         type: 'GET',
 
-    }).done(function (user) { 
+    }).done(function (user) {
         redirectErrorCode(user);
         buildContent(user.data);
     }).fail(function (error) {
@@ -177,7 +177,6 @@ function updateUser() {
             secret_user_new2: $('#secret_user_new2').val(),
         }
     }).done(function (res) {
-        redirectErrorCode(res); 
         window.location = '/restaurants';
     }).fail(function () {
     }).always(() => {

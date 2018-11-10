@@ -71,22 +71,22 @@ switch($httpMethod){
         else{
             // GET  Récupération Collection     /api/entity
             if ($entity === "users") {
-            SessionChecker::redirectIfNotAdmin();
+                SessionChecker::redirectIfNotAdmin();
             }
-                $methodName = "fetchAll";
-                $datas = $entityRepository->$methodName();
-                $resultData = [];
-                foreach ($datas as $data) {
-                    $extractedData = $entityHydrator->extract($data);
+            $methodName = "fetchAll";
+            $datas = $entityRepository->$methodName();
+            $resultData = [];
+            foreach ($datas as $data) {
+                $extractedData = $entityHydrator->extract($data);
 
                 // On traite les datas qui ne doivent pas être publiées
-                    foreach ($config[$entity]["GET-hidden-fields"] as $unwantedKey) {
-                        if (in_array($unwantedKey, array_keys($extractedData))) {
-                            unset($extractedData[$unwantedKey]);
-                        }
+                foreach ($config[$entity]["GET-hidden-fields"] as $unwantedKey) {
+                    if (in_array($unwantedKey, array_keys($extractedData))) {
+                        unset($extractedData[$unwantedKey]);
                     }
-                    $resultData[] = $extractedData;
-                
+                }
+                $resultData[] = $extractedData;
+
             }
         }
 
@@ -101,7 +101,11 @@ switch($httpMethod){
         return;
 
     case 'PUT':
-        SessionChecker::redirectIfNotAdmin();
+
+        if($entity !== "users") {
+            SessionChecker::redirectIfNotAdmin();
+        }
+
         // PUT     Modifier un Element     /api/entity/{id}
         if($entityId !== null){
             include_once($config[$entity]['PUT-action']);

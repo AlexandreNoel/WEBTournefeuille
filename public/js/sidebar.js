@@ -7,10 +7,10 @@ $(document).ready(() => {
     postSession();
     reloadSideBar();
     
-    if(getSession()['id']){
+  /*  if(getSession()['id']){
         loadUserSideBar();
         loadUserInfo();
-    }
+    }*/
     var wrapper = $('#wrapper');
 
     wrapper.click(() => {
