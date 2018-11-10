@@ -1,6 +1,7 @@
 ------------------------------------
 -- Suppression préventive des tables
 ------------------------------------
+DROP TABLE IF EXISTS Shortcut;
 DROP TABLE IF EXISTS Annonce;
 DROP TABLE IF EXISTS Vote;
 DROP TABLE IF EXISTS NouveauProduit;
@@ -42,12 +43,6 @@ CREATE TABLE Categorie(
     libelle VARCHAR NOT NULL
 );
 
-CREATE TABLE Shortcut(
-    idShorcut SERIAL PRIMARY KEY,
-    idProduit INTEGER NOT NULL REFERENCES Produit (idProduit),
-    command VARCHAR NOT NULL UNIQUE
-);
-
 CREATE TABLE Produit(
     idProduit SERIAL PRIMARY KEY,
     libelle VARCHAR NOT NULL,
@@ -56,6 +51,12 @@ CREATE TABLE Produit(
     quantiteStock INTEGER NOT NULL,
     estDisponible Bool NOT NULL,
     idCategorie INTEGER NOT NULL REFERENCES Categorie (idCategorie)
+);
+
+CREATE TABLE Shortcut(
+    idShorcut SERIAL PRIMARY KEY,
+    idProduit INTEGER NOT NULL REFERENCES Produit (idProduit),
+    command VARCHAR NOT NULL UNIQUE
 );
 
 CREATE TABLE FaitPartieCommande(
@@ -153,21 +154,22 @@ INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategor
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Thé',0.40,0,20,TRUE,4);
 
 -- Table Annonce
-INSERT INTO public.annonce (titre, contenu, idauteur, image, datecreation) VALUES ('NYAN CAT LOVER', '<p style="text-align: center; "><br></p><h6 style="text-align: center; ">HELLO LES PETITS CHATS</h6><p style="text-align: center;"><span style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);">SOIREE EVENEMENTS</span></p><p style="text-align: center;"><span style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);">VENEZ COLORE,COSTUME,BIEN BOURRE.</span></p><p style="text-align: center;"><iframe src="//www.youtube.com/embed/QH2-TGUlwu4" class="note-video-clip" style="font-size: 1em;" width="640" height="360" frameborder="0"></iframe><br></p>', 2, '/assets/images/articles/cropped-wallpaper1171856.jpg', '2018-11-07');
-INSERT INTO public.annonce (titre, contenu, idauteur, image, datecreation) VALUES (' Soirée Harry Potter', '<div class="h-100 text-white" style="background-color:black;"><h1 class="text-white" style="text-align: center; "> Harry Potter</h1><p style="text-align: center;">Welcome at ENSIIE WIZARD SCHOOL.<br>Pour cette soirée événements, l''école met la "lumos" sur la magie du bar D.<br>Bière au beurre, bonbons dragisurprise de Berty Crochu.</p><div><img class="articleImage img-fluid d-block mx-auto" src="/assets/images/articles/Half-Blood-Prince-Butterbeer-GIF.gif">
+INSERT INTO annonce (titre, contenu, idauteur, image, datecreation) VALUES ('NYAN CAT LOVER', '<p style="text-align: center; "><br></p><h6 style="text-align: center; ">HELLO LES PETITS CHATS</h6><p style="text-align: center;"><span style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);">SOIREE EVENEMENTS</span></p><p style="text-align: center;"><span style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);">VENEZ COLORE,COSTUME,BIEN BOURRE.</span></p><p style="text-align: center;"><iframe src="//www.youtube.com/embed/QH2-TGUlwu4" class="note-video-clip" style="font-size: 1em;" width="640" height="360" frameborder="0"></iframe><br></p>', 2, '/assets/images/articles/cropped-wallpaper1171856.jpg', '2018-11-07');
+INSERT INTO annonce (titre, contenu, idauteur, image, datecreation) VALUES (' Soirée Harry Potter', '<div class="h-100 text-white" style="background-color:black;"><h1 class="text-white" style="text-align: center; "> Harry Potter</h1><p style="text-align: center;">Welcome at ENSIIE WIZARD SCHOOL.<br>Pour cette soirée événements, l''école met la "lumos" sur la magie du bar D.<br>Bière au beurre, bonbons dragisurprise de Berty Crochu.</p><div><img class="articleImage img-fluid d-block mx-auto" src="/assets/images/articles/Half-Blood-Prince-Butterbeer-GIF.gif">
 </div></div>', 2, '/assets/images/articles/harry-potter-wallpaper-28.jpg', '2018-11-08');
-INSERT INTO public.annonce (titre, contenu, idauteur, image, datecreation) VALUES ('Les Lions ', '<p style="text-align: center; "><br></p><h1 style="text-align: center; "><b style="color: rgb(255, 0, 0);">Les lions, et ben ... c''est bon !</b></h1><p style="text-align: center; "><iframe frameborder="0" src="//www.youtube.com/embed/Z_Lm-0oO67M" width="640" height="360" class="note-video-clip"></iframe><br></p>', 2, '/assets/images/articles/lion.jpg', '2018-11-08');
-INSERT INTO public.annonce (titre, contenu, idauteur, image, datecreation) VALUES (' FIPA GOAL', '<p><div style="text-align: center;"><span style="font-size: 1em;"><b><u>Bienvenue à la FIPA Game Of A Link !&nbsp;</u></b></span></div><div style="text-align: center;"><span style="font-size: 1em;">Participe vite à cette </span>événements<span style="font-size: 1em;">&nbsp;</span>exceptionnel<span style="font-size: 1em;">&nbsp;le 20/12/2018.</span></div><div style="text-align: center;"><span style="font-size: 1em;">Cadeaux,</span></div><div style="text-align: center;"><span style="font-size: 1em;">Jeux,</span></div><div style="text-align: center;"><span style="font-size: 1em;">Et d''autres choses incroyable en vue.</span></div><div style="text-align: center;"><span style="font-size: 1em;"><br></span></div></p>', 2, '/assets/images/articles/game-of-zelda-banniere.jpg', '2018-11-07');
+INSERT INTO annonce (titre, contenu, idauteur, image, datecreation) VALUES ('Les Lions ', '<p style="text-align: center; "><br></p><h1 style="text-align: center; "><b style="color: rgb(255, 0, 0);">Les lions, et ben ... c''est bon !</b></h1><p style="text-align: center; "><iframe frameborder="0" src="//www.youtube.com/embed/Z_Lm-0oO67M" width="640" height="360" class="note-video-clip"></iframe><br></p>', 2, '/assets/images/articles/lion.jpg', '2018-11-08');
+INSERT INTO annonce (titre, contenu, idauteur, image, datecreation) VALUES (' FIPA GOAL', '<p><div style="text-align: center;"><span style="font-size: 1em;"><b><u>Bienvenue à la FIPA Game Of A Link !&nbsp;</u></b></span></div><div style="text-align: center;"><span style="font-size: 1em;">Participe vite à cette </span>événements<span style="font-size: 1em;">&nbsp;</span>exceptionnel<span style="font-size: 1em;">&nbsp;le 20/12/2018.</span></div><div style="text-align: center;"><span style="font-size: 1em;">Cadeaux,</span></div><div style="text-align: center;"><span style="font-size: 1em;">Jeux,</span></div><div style="text-align: center;"><span style="font-size: 1em;">Et d''autres choses incroyable en vue.</span></div><div style="text-align: center;"><span style="font-size: 1em;"><br></span></div></p>', 2, '/assets/images/articles/game-of-zelda-banniere.jpg', '2018-11-07');
+
 -- Table NouveauProduit
 INSERT INTO NouveauProduit(idNouveauProduit,libelle,Description,idAuteur) VALUES ('RedBull','Pour avoir des ailes en allant en cours',1);
--- Table Credit
 
+-- Table Credit
 INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-22',12,3,2);
 INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-23',14,3,2);
 INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-24',16,3,2);
 INSERT INTO Credit(date,montant,idUtilisateur,idBarmen) VALUES ('2018-10-25',18,3,2);
 
-
+-- Table FaitPartiCommande/Commande
 INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (1,3,0.5,2);
 INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (2,3,0.5,3);
 INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (3,3,0.5,2);
