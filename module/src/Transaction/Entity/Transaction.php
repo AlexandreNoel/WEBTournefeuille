@@ -88,7 +88,7 @@ class Transaction
         $price=0;
         foreach ($this->product as $key)  {
             $productprice=$this->product->current()->getPrice();
-            $totalprice=$productprice*intval($this->product->getInfo());
+            $totalprice= $productprice*intval($this->product->getInfo());
             $totalprice-=$totalprice*($this->product->current()->getReduction()/100);
             $price+= $totalprice;
         }

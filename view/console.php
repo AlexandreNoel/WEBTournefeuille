@@ -134,7 +134,7 @@
                                                             <table class="table align-middle" style="height:100%; width:100%;">
                                                                 <tr>
                                                                     <td data="<?php echo $product->getName()?>" class="pName font-weight-bold"><?php echo $product->getName()?></td>
-                                                                    <td data="<?php echo $product->getPrice()?>" class="pPrice"><?php echo $product->getPrice()." €";?></td>
+                                                                    <td data="<?php echo $product->getPrice()*(1+$product->getReduction()/100)?>" class="pPrice"><?php echo $product->getPrice()." €";?></td>
                                                                     <td data="<?php echo $product->getQuantity(); ?>" class="pStock">Stock: <?php echo $product->getQuantity(); ?></td>
                                                                 </tr>
                                                             </table>
@@ -196,7 +196,6 @@
         // Déclaration des raccourcis clavier
         var shorcutArray = <?php echo json_encode($allShortcut); ?>;
 
-        console.log(shorcutArray);
         // Initiation de l'autocompletion
         autocomplete(document.getElementById("searchInput"),userArray,$('#searchSubmit'));
 
