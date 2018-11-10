@@ -106,6 +106,8 @@ class Transaction
                     $statement->bindParam(':prixvente', $price);
                     $statement->bindParam(':quantite', $ammount);
                     $statement->execute();
+                    $product->removequantity($ammount);
+                    $repoProduct->update($product);
                 }
                 $repoclient->giveMoney($iduser, -$prix,$productArray['idbarmen']);
 
