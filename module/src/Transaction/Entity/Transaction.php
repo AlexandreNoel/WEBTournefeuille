@@ -76,7 +76,7 @@ class Transaction
      */
     public function getPrice(): float
     {
-        return $this->price;
+        return bcdiv($this->price,1,2);
     }
 
     /**
@@ -92,7 +92,7 @@ class Transaction
             $totalprice-=$totalprice*($this->product->current()->getReduction()/100);
             $price+= $totalprice;
         }
-        $this->price = $price;
+        $this->price = bcdiv($price,1,2);
         return $this;
     }
 

@@ -193,7 +193,10 @@
 
         // Déclaration des utilisateurs disponibles
         var userArray = <?php echo json_encode($usersNickname); ?>;
+        // Déclaration des raccourcis clavier
+        var shorcutArray = <?php echo json_encode($allShortcut); ?>;
 
+        console.log(shorcutArray);
         // Initiation de l'autocompletion
         autocomplete(document.getElementById("searchInput"),userArray,$('#searchSubmit'));
 
@@ -205,6 +208,16 @@
             // Focus initiale de la page
             $('#searchInput').focus();
             $('#productsByCategory ul').hide();
+
+            function findShortcut(arr,value){
+                var test = null;
+                $(arr).each(function(index, element){
+                    if(element[1] == value){
+                        test = element[0];
+                    }
+                });
+                return test;
+            }
 
             //========================
             // GESTION DES SHORTCUTS
@@ -226,7 +239,13 @@
                             numTabSelected = checkedVal -2;
                         break;
                     default:
-
+                        if((checkedVal)==3){
+                            var idProd = findShortcut(shorcutArray,e.key);
+                            if(idProd != null && idProd != undefined){
+                                var idElement = '#prod-'+ idProd;
+                                $(idElement).click();
+                            }
+                        }
                         break;
                 }
 
@@ -355,6 +374,7 @@
             // Mise à jour
             refreshSoldeInfo();
         }
+
 
         /************************
          * AJAX

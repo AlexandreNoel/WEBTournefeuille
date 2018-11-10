@@ -22,6 +22,12 @@
 
     $productslist = $repoproducts->findAllByCategory();
     $categories = $repoproducts->getCategories();
+
+    $shortcutsByProduct = $repoproducts->getShortcut();
+    $allShortcut = [];
+    foreach ($shortcutsByProduct as $shortcut){
+        $allShortcut[] = array($shortcut['idproduit'],$shortcut['command']);
+    }
     require_once '../view/product.php';
 
 

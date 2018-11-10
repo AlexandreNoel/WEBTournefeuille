@@ -41,6 +41,12 @@ CREATE TABLE Categorie(
     libelle VARCHAR NOT NULL
 );
 
+CREATE TABLE Shortcut(
+    idShorcut SERIAL PRIMARY KEY,
+    idProduit INTEGER NOT NULL REFERENCES Produit (idProduit),
+    command VARCHAR NOT NULL UNIQUE
+);
+
 CREATE TABLE Produit(
     idProduit SERIAL PRIMARY KEY,
     libelle VARCHAR NOT NULL,

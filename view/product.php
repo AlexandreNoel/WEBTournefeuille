@@ -15,6 +15,7 @@
 <!-- CONTENU !-->
 <div class="content-container">
 
+    <div class="container">
     <div class="card">
         <h5 class="card-header text-center">Liste des catégories/produits</h5>
         <div class="card-body">
@@ -75,6 +76,24 @@
                                 <?php echo $categorie["libelle"] ?>
                             </option>
                         <?php endforeach; ?>
+                        </select>
+                    </div>
+
+
+                    <div id="shortcutSelector">
+                        <label for="shortcutCheck">Shortcut (with CTRL+ NUMBER)</label>
+                        <input type="checkbox" id="shortcutCheck" name="shortcutCheck"/>
+                        <select name="shortcut" id="shortcut">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
                         </select>
                     </div>
                     <input id="submit-form" type="submit" value="Ajouter">
@@ -145,10 +164,23 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
 </body>
 <script>
+
     $(document).ready(function () {
+        $('#shortcut').hide();
+
+        $('#shortcutCheck').change(function() {
+            if($(this).is(":checked")) {
+                $('#shortcut').show();
+            }
+            else{
+                $('#shortcut').hide();
+            }
+        });
+
         $("#add-button").on("click",function(){
             $("#add-button").css("display","none"),
             $("#tables").css("display", "none"),
@@ -168,9 +200,8 @@
             $("#tables").show()
         });
 
-        $(document).ready(function() {
-            $('table.display').DataTable();
-        } );
+        $('table.display').DataTable();
+
     });
 
     function updateStock(id) {
@@ -193,6 +224,16 @@
     }
 
     function updateProduct(libelle, price, reduction, quantitestock, id, categorie) {
+        var shortcut = findShortcutById(id);
+        if(shortcut != null && shortcut != undefined){
+            $('#shortcut').show();
+            $("#shortcutCheck").attr('checked', true);
+            $("#shortcut").val(shortcut).change();
+        }
+        else{
+            $('#shortcut').hide();
+            $("#shortcutCheck").attr('checked', false);
+        }
         $("#add-button").css("display","none"),
         $("#tables").css("display", "none"),
         $("#name-input").val(libelle),
@@ -204,6 +245,17 @@
         $("#submit-form").val("Modifier"),
         $("#form-ajout").attr('action','update-product.php'),
         $("#form-div").show()
+    }
+
+    function findShortcutById(id){
+        var arr = <?php echo json_encode($allShortcut)?>;
+        var test = null;
+        $(arr).each(function(index, element){
+            if(element[0] == id){
+                test = element[1];
+            }
+        });
+        return test;
     }
 </script>
 </html>

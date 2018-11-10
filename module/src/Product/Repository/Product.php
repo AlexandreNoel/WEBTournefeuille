@@ -177,4 +177,39 @@ class Product
         }
         return $res;
     }
+
+    public function getShortcut() : array
+    {
+        $categories[] = null;
+        $statement = $this->dbAdapter->prepare('SELECT * FROM shortcut s INNER JOIN produit p ON p.idProduit = s.idProduit; ');
+        $statement->execute();
+        return $statement->fetchAll();
+
+    }
+
+    public function createProductShortcut($idProduct,$command)
+    {
+        $statement = $this->dbAdapter->prepare('INSERT INTO shortcut(idProduit,command) VALUES(:id,:command);');
+        $statement->bindParam(':id', $idProduct);
+        $statement->bindParam(':command', $command);
+        $statement->execute();
+    }
+
+    public function updateProductShortcut($idProduct,$command)
+    {
+        $statement = $this->dbAdapter->prepare('UPDATE shortcut SET command = :command WHERE idProduit = :id;');
+        $statement->bindParam(':id', $idProduct);
+        $statement->bindParam(':command', $command);
+        $statement->execute();
+        $statement = $this->dbAdapter->prepare('INSERT INTO shortcut(idProduit,command) SELECT :id,:command WHERE NOT EXISTS(SELECT 1 FROM shortcut WHERE idProduit = :id);');
+        $statement->bindParam(':id', $idProduct);
+        $statement->bindParam(':command', $command);
+        $statement->execute();
+    }
+    public function deleteProductShortcut($idProduct)
+    {
+        $statement = $this->dbAdapter->prepare('DELETE FROM shortcut WHERE idProduit=:id;');
+        $statement->bindParam(':id', $idProduct);
+        $statement->execute();
+    }
 }

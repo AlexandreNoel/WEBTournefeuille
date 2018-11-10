@@ -22,7 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hydrator = new \Product\Hydrator\Product();
         $repoproducts = new \Product\Repository\Product();
         $entity =$hydrator->hydrate($_POST, new \Product\Entity\Product());
-        $repoproducts->create($entity);
+        $id = $repoproducts->create($entity);
+        if(isset($_POST["shortcutCheck"],$_POST['shortcut'])){
+            $repoproducts->createProductShortcut($id,$_POST['shortcut']);
+        }
     }
 } else {
     throw new \HttpInvalidParamException('Method not allowed', 405);

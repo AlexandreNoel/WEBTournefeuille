@@ -91,7 +91,7 @@ Class Product{
      */
     public function getPrice(): float
     {
-        return $this->price;
+        return bcdiv($this->price,1,2);
     }
 
     /**
@@ -99,7 +99,7 @@ Class Product{
      */
     public function setPrice(float $price): Product
     {
-        $this->price = $price;
+        $this->price = bcdiv($price,1,2);
         return $this;
     }
 

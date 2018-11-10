@@ -97,10 +97,10 @@
                     trHTML += '<tr><td>' + o.idcommande +
                         '</td><td>' + o.name +
                         '</td><td>' + o.idproduit +
-                        '</td><td>' + o.price +
+                        '</td><td>' + o.price + '€' +
                         '</td><td>' + o.ammount +
-                        '</td><td>' + o.reduction +
-                        '</td><td>' + o.total +
+                        '</td><td>' + o.reduction + '€'+
+                        '</td><td>' + o.total + '€'+
                         '</td></tr>';
                 });
                 $('#mybody').children("tr").remove();

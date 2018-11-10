@@ -36,6 +36,11 @@
         //Récupération des produits disponibles
         $productslist = $productRepository->findAllByCategory();
         $categories = $productRepository->getCategories();
+        $shortcutsByProduct = $productRepository->getShortcut();
+        $allShortcut = [];
+        foreach ($shortcutsByProduct as $shortcut){
+            $allShortcut[] = array($shortcut['idproduit'],$shortcut['command']);
+        }
         require_once('../view/console.php');
     }
 
