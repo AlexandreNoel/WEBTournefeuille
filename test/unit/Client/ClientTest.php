@@ -168,6 +168,7 @@ class ClientTest extends TestCase
         $userRepository->giveMoney($retrieved->getId(),10,2);
         $retrieved2 = $userRepository->findOneById(1);
         self::assertEquals($retrieved->getSolde()+10,$retrieved2->getSolde());
+        $userRepository->giveMoney($retrieved->getId(),-10,2);
 
 
     }

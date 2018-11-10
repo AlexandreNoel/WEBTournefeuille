@@ -78,7 +78,6 @@ class Transaction
         $productArray = $this->hydrator->extract($product);
         $iduser = $productArray['idutilisateur'];
         $producte = new Product();
-        $producte->
         $prix = $productArray['prixtotal'];
         $client = $repoclient->findOneById($iduser);
         if (($client->getSolde() - $prix) >= 0) {
@@ -106,8 +105,6 @@ class Transaction
                     $statement->bindParam(':prixvente', $price);
                     $statement->bindParam(':quantite', $ammount);
                     $statement->execute();
-                    $product->removequantity($ammount);
-                    $repoProduct->update($product);
                 }
                 $repoclient->giveMoney($iduser, -$prix,$productArray['idbarmen']);
 

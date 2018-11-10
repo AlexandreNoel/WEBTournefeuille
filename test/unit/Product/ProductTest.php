@@ -90,6 +90,8 @@ class ProductTest extends TestCase
     {
         $productRepository = new \Product\Repository\Product();
         $coca = $productRepository->getMostSelled(1)[0];
+       $productRepository->deleteByName("tagada");
+
         self::assertEquals(1,$coca['idproduit']);
         self::assertGreaterThanOrEqual(150,$coca['quantite']);    }
 

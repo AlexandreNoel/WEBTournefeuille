@@ -15,6 +15,7 @@ class TransactionTest extends TestCase
         $transacHydrator = new \Transaction\Hydrator\Transaction();
         $productRepository = new \Product\Repository\Product();
         $transacRepository = new \Transaction\Repository\Transaction();
+        $clientRepository = new \Client\Repository\Client();
 
         $product=$productRepository->findById(4);
         $product2=$productRepository->findById(3);
@@ -64,10 +65,16 @@ class TransactionTest extends TestCase
             $products->next();
             $productsBase->next();
         }
-        $product->addQuantity(1);
-        $product2->addQuantity(3);
-        $productRepository->update($product);
-        $productRepository->update($product2);
+        $clientRepository->giveMoney(3,2,2);
+        try{
+
+            $productRepository->modifyStock($product->getId(), 1);
+            $productRepository->modifyStock($product2->getId(), 3);
+        }
+        catch(\Exception $error) {
+            echo "Catch " . $error->getMessage();
+        }
+
 
     }
 
@@ -80,11 +87,9 @@ class TransactionTest extends TestCase
         $transacRepository = new \Transaction\Repository\Transaction();
         $clientRepository = new \Client\Repository\Client();
         $user=$clientRepository->findOneById(3);
-        $oldmoney=$user->getSolde();
         $user->setSolde(0);
         $clientRepository->update($user);
         $product=$productRepository->findById(1);
-        $product2=$productRepository->findById(2);
 
         $products = new \SplObjectStorage();
         $products->attach($product,1);
@@ -105,9 +110,16 @@ class TransactionTest extends TestCase
             $id=$transacRepository->create($newTransaction);
         } catch (\Exception $error) {
             $craftederror = new \Exception("Solde client trop faible");
-            $user->setSolde($oldmoney);
-            $product->addQuantity(1);
+            $user->setSolde(25);
             $clientRepository->update($user);
+            try{
+
+                $productRepository->modifyStock($product->getId(), 1);
+            }
+            catch(\Exception $error) {
+                echo "Catch " . $error->getMessage();
+            }
+
             self::assertEquals($error, $craftederror);
         }
     }
@@ -147,10 +159,16 @@ class TransactionTest extends TestCase
         }
         $prixcommande = $newTransaction->getPrice();
         self::assertEquals($thuneclient - $prixcommande, $clientRepository->findOneById(3)->getSolde());
-        $product->addQuantity(1);
-        $product2->addQuantity(1);
-        $productRepository->update($product);
-        $productRepository->update($product2);
+        try{
+
+            $productRepository->modifyStock($product->getId(), 1);
+            $productRepository->modifyStock($product2->getId(), 1);
+        }
+        catch(\Exception $error) {
+            echo "Catch " . $error->getMessage();
+        }
+        $clientRepository->giveMoney(3,2,1);
+
     }
 
 
@@ -224,6 +242,22 @@ class TransactionTest extends TestCase
         $transac->setId(5);
 
         self::assertSame(4.0, $transac->getPrice());
+    }
+    public function testpurge(){
+        $productRepository = new \Product\Repository\Product();
+        $product = $productRepository->findById(4);
+        try{
+
+            $productRepository->modifyStock(1, -1);
+            $productRepository->modifyStock(3, -1);
+            $productRepository->modifyStock($product->getId(), 1);
+        }
+        catch(\Exception $error) {
+            echo "Catch " . $error->getMessage();
+        }
+        self::assertLessThanOrEqual($product->getQuantity()+1,$productRepository->findById($product->getId())->getQuantity());
+
+
     }
 
 }
