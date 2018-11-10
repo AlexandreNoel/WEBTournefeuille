@@ -24,6 +24,7 @@ else {
         $nicknameforid[$user->getId()]=$user->getNickname();
     }
     $transactions = $repositorytransac->findByCriteria("idutilisateur", $id);
+    $credits=$repositorytransac->getCreditById($id);
 
 
     require_once '../view/transaction.php';
