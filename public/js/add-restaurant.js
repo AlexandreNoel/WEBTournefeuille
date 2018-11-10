@@ -205,7 +205,7 @@ function cityFromzipCodeLookup(zipCode){
 
         result.sort();
         $("#cityHint").text(hintText);
-        if (result.length === 1) { $("#city").val(result[0]);}
+        if (result.length === 1) { $("#city").val(result[0]);} // Si Une seule ville est trouvée, on remplit directement le champ
         result.forEach(function(commune){
             $("#cityList").append("<option value='" + commune + "'>" + commune + "</option>")
         });
