@@ -134,8 +134,17 @@
                                                             <table class="table align-middle" style="height:100%; width:100%;">
                                                                 <tr>
                                                                     <td data="<?php echo $product->getName()?>" class="pName font-weight-bold"><?php echo $product->getName()?></td>
-                                                                    <td data="<?php echo $product->getPrice()?>" class="pPrice"><?php echo $product->getPrice()." €";?></td>
                                                                     <td data="<?php echo $product->getQuantity(); ?>" class="pStock">Stock: <?php echo $product->getQuantity(); ?></td>
+                                                                    <?php if($product->getReduction()): ?>
+                                                                        <td data="<?php echo $product->getPrice()-$product->getPrice()*($product->getReduction()/100)?>" class="pPrice">
+                                                                            <p class="text-light bg-danger"><?php echo $product->getPrice()-$product->getPrice()*($product->getReduction()/100)." €";?></p>
+                                                                            <strike><?php echo $product->getPrice()." €";?></strike>
+                                                                        </td>
+                                                                    <?php else: ?>
+                                                                        <td data="<?php echo $product->getPrice()?>" class="">
+                                                                            <?php echo $product->getPrice()." €";?>
+                                                                        </td>
+                                                                    <?php endif; ?>
                                                                 </tr>
                                                             </table>
                                                         </a>
@@ -196,7 +205,6 @@
         // Déclaration des raccourcis clavier
         var shorcutArray = <?php echo json_encode($allShortcut); ?>;
 
-        console.log(shorcutArray);
         // Initiation de l'autocompletion
         autocomplete(document.getElementById("searchInput"),userArray,$('#searchSubmit'));
 

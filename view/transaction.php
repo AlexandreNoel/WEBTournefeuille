@@ -134,7 +134,7 @@
                         '</p></td><td><p>' + o.idproduit +
                         '</p></td><td><p>' + o.price + '€' +
                         '</p></td><td><p>' + o.ammount +
-                        '</p></td><td><p>' + o.reduction + '€' +
+                        '</p></td><td><p>' + o.reduction + '%' +
                         '</p></td><td><p>' + o.total + '€' +
                         '</p></td></tr>';
                 });

@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ammount=$products->getInfo();
             $prixtotal=0;
             $prixtotal=$productobj->getPrice()*$ammount;
-            $prixnet=$prixtotal-$prixtotal*$productobj->getReduction();
+            $prixnet=$prixtotal-$prixtotal*($productobj->getReduction()/100);
             $myarray[$i]=array("idcommande"=>$_POST["idcommande"],"idproduit"=>$productobj->getId(),"name"=>$productobj->getName(),
                 "price"=>$productobj->getPrice(),"reduction"=>$productobj->getReduction(),"ammount"=>$ammount,"total"=>$prixnet);
             $i++;
