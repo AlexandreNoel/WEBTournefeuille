@@ -16,22 +16,29 @@ else{
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST["methode"])){
-            if($_POST["methode"]==="piechart"){
+            if($_POST["methode"]==="piechartproduit"){
 
                 $hydrator = new Transaction\Hydrator\Transaction();
                 $repoptransac = new Transaction\Repository\Transaction();
                 $user = $_SESSION["authenticated_user"];
 
-                $myarray= $repoptransac->getStatistiques($user->getId());
+                $myarray= $repoptransac->getStatistiquesProduit($user->getId());
                 echo json_encode($myarray);
             }
+            elseif ($_POST["methode"]==="piechartcategorie") {
 
-            else {
-                if ($_POST["methode"]==="chart") {
+                $hydrator = new Transaction\Hydrator\Transaction();
+                $repoptransac = new Transaction\Repository\Transaction();
+                $user = $_SESSION["authenticated_user"];
+
+                $myarray = $repoptransac->getStatistiquesCategorie($user->getId());
+                echo json_encode($myarray);
+            }
+            elseif ($_POST["methode"]==="chart"){
                     $repoptransac = new Transaction\Repository\Transaction();
                     $repouser = new Client\Repository\Client();
-//                    $user = $_SESSION["authenticated_user"];
-                    $user = $repouser->findOneById(2);
+                    $user = $_SESSION["authenticated_user"];
+//                    $user = $repouser->findOneById(2);
                     $mysolde=$user->getSolde();
                     $myarray= $repoptransac->getEvolutionSolde($user->getId());
                     date_default_timezone_set('Europe/Paris');
@@ -59,7 +66,7 @@ else{
                 }
             }
         }
-    }
+
     else {
         throw new \HttpInvalidParamException('Method not allowed', 405);
     }
