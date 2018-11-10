@@ -15,10 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && (isset($_SESSION['isadmin']))) {
     $id_user = $post_vars['id_user'] ?? null;
 
     $isadmin = $userRepository->checkRightById($id_user);
-    $result = $userRepository->updateRight($isadmin,$id_user);
+    $result['data'] = $userRepository->updateRight($isadmin,$id_user);
     if($_SESSION && $result){
-        $_SESSION['isadmin'] = !$_SESSION['isadmin'];
+        $result['errorcode'] = "200";
     }else{
+        $result['errorcode'] = "400";
         http_response_code(400);
     }
 
