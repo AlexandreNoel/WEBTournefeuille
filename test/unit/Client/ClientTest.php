@@ -159,4 +159,16 @@ class ClientTest extends TestCase
         $userRepository->update($retrieved);
 
     }
+    public function testCredit(){
+        $dbfactory = new DatabaseFactory();
+        $dbconnector = $dbfactory->getDbAdapter();
+        $userRepository = new \Client\Repository\Client($dbconnector);
+        $retrieved = $userRepository->findOneById(1);
+        $money=$retrieved->getSolde();
+        $userRepository->giveMoney(10,$retrieved->getId(),2);
+        $retrieved2 = $userRepository->findOneById(1);
+        self::assertEquals($retrieved->getSolde()+10,$retrieved2->getSolde());
+
+
+    }
 }
