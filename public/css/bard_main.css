@@ -844,16 +844,16 @@ nav{
     display: inline-block;
 }
 /*cartes de la page statistiques*/
-.column {
+#piechart .column {
 	float: left;
 	width: 25%;
 	padding: 0 5px;
 }
 
-.row {margin: 0 -5px;}
+#piechart .row {margin: 0 -5px;}
 
 /* Clear floats after the columns */
-.row:after {
+#piechart .row:after {
 	content: "";
 	display: table;
 	clear: both;
@@ -861,7 +861,7 @@ nav{
 
 /* Responsive columns */
 @media screen and (max-width: 600px) {
-	.column {
+	#piechart .column {
 		width: 100%;
 		display: block;
 		margin-bottom: 10px;
@@ -869,7 +869,7 @@ nav{
 }
 
 /* Style the counter cards */
-.card {
+#piechart .card {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	padding: 10px;
 	text-align: center;
@@ -878,7 +878,8 @@ nav{
 	margin: 5px;
 }
 
-.fa {font-size:50px;}
+/* .fa {font-size:50px;} */
+
 #piechart{
 	width:79%;
 	margin:auto;
