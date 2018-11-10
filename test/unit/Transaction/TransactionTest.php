@@ -39,8 +39,10 @@ class TransactionTest extends TestCase
         );
         try{
             $id=$transacRepository->create($newTransaction);
+
         } catch (\Exception $error) {
             echo "Catch " . $error->getMessage();
+
         }
         $found=$transacRepository->findOneById($id);
         self::assertSame(intval($id), $found->getId());
@@ -62,6 +64,11 @@ class TransactionTest extends TestCase
             $products->next();
             $productsBase->next();
         }
+        $product->addQuantity(1);
+        $product2->addQuantity(3);
+        $productRepository->update($product);
+        $productRepository->update($product2);
+
     }
 
     /**
@@ -71,13 +78,16 @@ class TransactionTest extends TestCase
         $transacHydrator = new \Transaction\Hydrator\Transaction();
         $productRepository = new \Product\Repository\Product();
         $transacRepository = new \Transaction\Repository\Transaction();
-
+        $clientRepository = new \Client\Repository\Client();
+        $user=$clientRepository->findOneById(3);
+        $oldmoney=$user->getSolde();
+        $user->setSolde(0);
+        $clientRepository->update($user);
         $product=$productRepository->findById(1);
         $product2=$productRepository->findById(2);
 
         $products = new \SplObjectStorage();
-        $products->attach($product,400);
-        $products->attach($product2,400);
+        $products->attach($product,1);
         $madate = new \DateTime();
         $madate->format('Y\-m\-d\ h:i:s');
 //        $madate=$madate->getTimestamp();
@@ -95,6 +105,9 @@ class TransactionTest extends TestCase
             $id=$transacRepository->create($newTransaction);
         } catch (\Exception $error) {
             $craftederror = new \Exception("Solde client trop faible");
+            $user->setSolde($oldmoney);
+            $product->addQuantity(1);
+            $clientRepository->update($user);
             self::assertEquals($error, $craftederror);
         }
     }
@@ -134,27 +147,31 @@ class TransactionTest extends TestCase
         }
         $prixcommande = $newTransaction->getPrice();
         self::assertEquals($thuneclient - $prixcommande, $clientRepository->findOneById(3)->getSolde());
+        $product->addQuantity(1);
+        $product2->addQuantity(1);
+        $productRepository->update($product);
+        $productRepository->update($product2);
     }
 
 
     /**
      * @test
      */
-    public function testFindAll()
-    {
-        $transacRepository = new \Transaction\Repository\Transaction();
-        $transacHydrator = new \Transaction\Hydrator\Transaction();
-        $allTransac=$transacRepository->findAll();
-        $firstelem=$allTransac[0];
-        $test= $firstelem;
-        self::assertGreaterThanOrEqual(0,sizeof($allTransac));
-        self::assertGreaterThanOrEqual(1,$test->getIdClient());
-        self::assertLessThanOrEqual(3,$test->getIdClient());
-        self::assertGreaterThanOrEqual(2,$test->getIdBarmen());
-        self::assertLessThanOrEqual(3,$test->getIdBarmen());
-
-        self::assertLessThanOrEqual(new \DateTime(),$firstelem->getDate());
-    }
+//    public function testFindAll()
+//    {
+//        $transacRepository = new \Transaction\Repository\Transaction();
+//        $transacHydrator = new \Transaction\Hydrator\Transaction();
+//        $allTransac=$transacRepository->findAll();
+//        $firstelem=$allTransac[0];
+//        $test= $firstelem;
+//        self::assertGreaterThanOrEqual(0,sizeof($allTransac));
+//        self::assertGreaterThanOrEqual(1,$test->getIdClient());
+//        self::assertLessThanOrEqual(3,$test->getIdClient());
+//        self::assertGreaterThanOrEqual(2,$test->getIdBarmen());
+//        self::assertLessThanOrEqual(3,$test->getIdBarmen());
+//
+//        self::assertLessThanOrEqual(new \DateTime(),$firstelem->getDate());
+//    }
     /**
      * @test
      */
@@ -178,7 +195,7 @@ class TransactionTest extends TestCase
     {
         $transacRepository = new \Transaction\Repository\Transaction();
         $transacHydrator = new \Transaction\Hydrator\Transaction();
-        $allTransac=$transacRepository->findByCriteria('idBarmen',2);
+        $allTransac=$transacRepository->findByCriteria('idBarmen',3);
         $firstelem=$allTransac[0];
         $test= $firstelem;
         self::assertGreaterThanOrEqual(0,sizeof($allTransac));

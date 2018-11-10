@@ -458,6 +458,7 @@
         }
 
         function command(){
+            console.log("toto");
 
             // Déclaration des variables
             var idutilisateur = $('#id').val();
@@ -484,7 +485,6 @@
                     product['total']=$(this).find('.artCommandTotal').text();
                     products.push(product);
                 });
-
                 // Appel ajax
                 $.post("services.php",
                     {

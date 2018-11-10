@@ -14,6 +14,7 @@ namespace Transaction\Repository;
 
 use \Adapter\DatabaseFactory;
 use Client\Repository\Client;
+use Product\Entity\Product;
 
 class Transaction
 {
@@ -76,6 +77,8 @@ class Transaction
         $repoProduct = new \Product\Repository\Product();
         $productArray = $this->hydrator->extract($product);
         $iduser = $productArray['idutilisateur'];
+        $producte = new Product();
+        $producte->
         $prix = $productArray['prixtotal'];
         $client = $repoclient->findOneById($iduser);
         if (($client->getSolde() - $prix) >= 0) {
@@ -105,6 +108,8 @@ class Transaction
                     $statement->execute();
                 }
                 $repoclient->giveMoney($iduser, -$prix,$productArray['idbarmen']);
+
+
                 return intval($id);
             }
         } else {

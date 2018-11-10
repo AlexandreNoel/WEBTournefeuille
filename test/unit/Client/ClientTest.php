@@ -138,11 +138,11 @@ class ClientTest extends TestCase
         $dbconnector = $dbfactory->getDbAdapter();
         $hydrator = new \Client\Hydrator\Client();
         $userRepository = new \Client\Repository\Client($dbconnector);
-        $userRepository->giveMoney(1,100);
+        $userRepository->giveMoney(1,100,2);
         $retrieved = $userRepository->findOneById(1);
         self::assertGreaterThanOrEqual(100,$retrieved->getSolde() );
 
-        $userRepository->giveMoney(1,-100);
+        $userRepository->giveMoney(1,-100,2);
     }
     public function testUpdate(){
         $dbfactory = new DatabaseFactory();
@@ -165,7 +165,7 @@ class ClientTest extends TestCase
         $userRepository = new \Client\Repository\Client($dbconnector);
         $retrieved = $userRepository->findOneById(1);
         $money=$retrieved->getSolde();
-        $userRepository->giveMoney(10,$retrieved->getId(),2);
+        $userRepository->giveMoney($retrieved->getId(),10,2);
         $retrieved2 = $userRepository->findOneById(1);
         self::assertEquals($retrieved->getSolde()+10,$retrieved2->getSolde());
 
