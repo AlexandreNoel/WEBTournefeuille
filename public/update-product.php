@@ -31,6 +31,6 @@ if(session_status()!=PHP_SESSION_ACTIVE)
         } else {
             throw new \HttpInvalidParamException('Method not allowed', 405);
         }
-        header('Location: gestionProduct');
+        header('Location: /gestionProduct');
     }
 exit();

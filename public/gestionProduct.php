@@ -28,6 +28,6 @@
     foreach ($shortcutsByProduct as $shortcut){
         $allShortcut[] = array($shortcut['idproduit'],$shortcut['command']);
     }
-    require_once '../view/product.php';
+    require_once '../view/gestionProduct.php';
 
 

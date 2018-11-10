@@ -88,8 +88,10 @@ function autocomplete(inp, arr,submit) {
         removeActive(x);
         if (currentFocus >= x.length) currentFocus = 0;
         if (currentFocus < 0) currentFocus = (x.length - 1);
+
         // Ajout de la classe active
-        x[currentFocus].classList.add("autocomplete-active");
+        if(x[currentFocus] != undefined)
+            x[currentFocus].classList.add("autocomplete-active");
     }
 
     function removeActive(x) {

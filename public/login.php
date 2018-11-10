@@ -77,10 +77,10 @@ if ($consumer->is_authenticated()) {
         header('Location: /');
     }
     else if($_SESSION["superAdmin"]===true){
-        header('Location: console');
+        header('Location: /console');
     }
     else{
-        header('Location: home');
+        header('Location: /home');
     }
 }
 

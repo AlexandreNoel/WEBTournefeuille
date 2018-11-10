@@ -23,5 +23,5 @@
     } else {
         throw new \HttpInvalidParamException('Method not allowed', 405);
     }
-    header('Location: product.php');
+    header('Location: /gestionProduct');
     exit();

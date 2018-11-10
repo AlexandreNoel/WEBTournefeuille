@@ -7,7 +7,7 @@
 
     // Vérification si Admin connecté
     if(!isset($_SESSION['authenticated_admin'])){
-        header('Location: /connect-console.php');
+        header('Location: /connect-console');
     }
     else{
 

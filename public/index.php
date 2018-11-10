@@ -60,7 +60,7 @@ switch ($request_uri[0]) {
 
     /* CONSOLE - GESTION - PRODUITS */
     case '/gestionProduct':
-        require __DIR__ . '/product.php';
+        require __DIR__ . '/gestionProduct.php';
         break;
 
     /* CONSOLE - GESTION - NEWS */
