@@ -118,7 +118,7 @@
                             'idbarmen' => $idbarmen ?? null,
                         ], new \Transaction\Entity\Transaction()
                     );
-
+                    var_dump($transaction);
                     $idCommande = $transacRepository->create($transaction);
 
                     // Si commande correctement effectuée

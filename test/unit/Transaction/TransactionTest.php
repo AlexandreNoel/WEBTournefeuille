@@ -15,6 +15,7 @@ class TransactionTest extends TestCase
         $transacHydrator = new \Transaction\Hydrator\Transaction();
         $productRepository = new \Product\Repository\Product();
         $transacRepository = new \Transaction\Repository\Transaction();
+        $clientRepository = new \Client\Repository\Client();
 
         $product=$productRepository->findById(4);
         $product2=$productRepository->findById(3);
@@ -39,8 +40,10 @@ class TransactionTest extends TestCase
         );
         try{
             $id=$transacRepository->create($newTransaction);
+
         } catch (\Exception $error) {
             echo "Catch " . $error->getMessage();
+
         }
         $found=$transacRepository->findOneById($id);
         self::assertSame(intval($id), $found->getId());
@@ -62,6 +65,17 @@ class TransactionTest extends TestCase
             $products->next();
             $productsBase->next();
         }
+        $clientRepository->giveMoney(3,2,2);
+        try{
+
+            $productRepository->modifyStock($product->getId(), 1);
+            $productRepository->modifyStock($product2->getId(), 3);
+        }
+        catch(\Exception $error) {
+            echo "Catch " . $error->getMessage();
+        }
+
+
     }
 
     /**
@@ -71,13 +85,14 @@ class TransactionTest extends TestCase
         $transacHydrator = new \Transaction\Hydrator\Transaction();
         $productRepository = new \Product\Repository\Product();
         $transacRepository = new \Transaction\Repository\Transaction();
-
+        $clientRepository = new \Client\Repository\Client();
+        $user=$clientRepository->findOneById(3);
+        $user->setSolde(0);
+        $clientRepository->update($user);
         $product=$productRepository->findById(1);
-        $product2=$productRepository->findById(2);
 
         $products = new \SplObjectStorage();
-        $products->attach($product,400);
-        $products->attach($product2,400);
+        $products->attach($product,1);
         $madate = new \DateTime();
         $madate->format('Y\-m\-d\ h:i:s');
 //        $madate=$madate->getTimestamp();
@@ -95,6 +110,16 @@ class TransactionTest extends TestCase
             $id=$transacRepository->create($newTransaction);
         } catch (\Exception $error) {
             $craftederror = new \Exception("Solde client trop faible");
+            $user->setSolde(25);
+            $clientRepository->update($user);
+            try{
+
+                $productRepository->modifyStock($product->getId(), 1);
+            }
+            catch(\Exception $error) {
+                echo "Catch " . $error->getMessage();
+            }
+
             self::assertEquals($error, $craftederror);
         }
     }
@@ -134,27 +159,37 @@ class TransactionTest extends TestCase
         }
         $prixcommande = $newTransaction->getPrice();
         self::assertEquals($thuneclient - $prixcommande, $clientRepository->findOneById(3)->getSolde());
+        try{
+
+            $productRepository->modifyStock($product->getId(), 1);
+            $productRepository->modifyStock($product2->getId(), 1);
+        }
+        catch(\Exception $error) {
+            echo "Catch " . $error->getMessage();
+        }
+        $clientRepository->giveMoney(3,2,1);
+
     }
 
 
     /**
      * @test
      */
-    public function testFindAll()
-    {
-        $transacRepository = new \Transaction\Repository\Transaction();
-        $transacHydrator = new \Transaction\Hydrator\Transaction();
-        $allTransac=$transacRepository->findAll();
-        $firstelem=$allTransac[0];
-        $test= $firstelem;
-        self::assertGreaterThanOrEqual(0,sizeof($allTransac));
-        self::assertGreaterThanOrEqual(1,$test->getIdClient());
-        self::assertLessThanOrEqual(3,$test->getIdClient());
-        self::assertGreaterThanOrEqual(2,$test->getIdBarmen());
-        self::assertLessThanOrEqual(3,$test->getIdBarmen());
-
-        self::assertLessThanOrEqual(new \DateTime(),$firstelem->getDate());
-    }
+//    public function testFindAll()
+//    {
+//        $transacRepository = new \Transaction\Repository\Transaction();
+//        $transacHydrator = new \Transaction\Hydrator\Transaction();
+//        $allTransac=$transacRepository->findAll();
+//        $firstelem=$allTransac[0];
+//        $test= $firstelem;
+//        self::assertGreaterThanOrEqual(0,sizeof($allTransac));
+//        self::assertGreaterThanOrEqual(1,$test->getIdClient());
+//        self::assertLessThanOrEqual(3,$test->getIdClient());
+//        self::assertGreaterThanOrEqual(2,$test->getIdBarmen());
+//        self::assertLessThanOrEqual(3,$test->getIdBarmen());
+//
+//        self::assertLessThanOrEqual(new \DateTime(),$firstelem->getDate());
+//    }
     /**
      * @test
      */
@@ -178,7 +213,7 @@ class TransactionTest extends TestCase
     {
         $transacRepository = new \Transaction\Repository\Transaction();
         $transacHydrator = new \Transaction\Hydrator\Transaction();
-        $allTransac=$transacRepository->findByCriteria('idBarmen',2);
+        $allTransac=$transacRepository->findByCriteria('idBarmen',3);
         $firstelem=$allTransac[0];
         $test= $firstelem;
         self::assertGreaterThanOrEqual(0,sizeof($allTransac));
@@ -207,6 +242,22 @@ class TransactionTest extends TestCase
         $transac->setId(5);
 
         self::assertSame(4.0, $transac->getPrice());
+    }
+    public function testpurge(){
+        $productRepository = new \Product\Repository\Product();
+        $product = $productRepository->findById(4);
+        try{
+
+            $productRepository->modifyStock(1, -1);
+            $productRepository->modifyStock(3, -1);
+            $productRepository->modifyStock($product->getId(), 1);
+        }
+        catch(\Exception $error) {
+            echo "Catch " . $error->getMessage();
+        }
+        self::assertLessThanOrEqual($product->getQuantity()+1,$productRepository->findById($product->getId())->getQuantity());
+
+
     }
 
 }
