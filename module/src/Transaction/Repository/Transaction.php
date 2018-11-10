@@ -104,7 +104,7 @@ class Transaction
                     $statement->bindParam(':quantite', $ammount);
                     $statement->execute();
                 }
-                $repoclient->giveMoney($iduser, -$prix);
+                $repoclient->giveMoney($iduser, -$prix,$productArray['idbarmen']);
                 return intval($id);
             }
         } else {

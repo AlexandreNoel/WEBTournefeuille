@@ -495,6 +495,7 @@
                     },
                     function (data, status) {
                         if(status == 'success') {
+                            console.log(data);
                             var response = JSON.parse(data);
                             if (response.status == false){
                                 $('#error-modal').text(response.error);
