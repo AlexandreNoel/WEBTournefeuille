@@ -19,7 +19,7 @@ class Transaction
             $data['idtransaction'] = $object->getId();
         }
         if ($object->getDate()) {
-            $data['datecommande'] = $object->getDate()->format('d-m-Y h:i:s');
+            $data['datecommande'] = $object->getDate()->format('Y\-m\-d\ h:i:s');
         }
         if ($object->getPrice()>=0) {
             $data['prixtotal'] = $object->getPrice();
