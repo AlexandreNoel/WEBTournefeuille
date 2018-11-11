@@ -130,8 +130,8 @@
                 trHTML = "";
                 $.each(data, function (i, o) {
                     trHTML += '<tr><td><p>' + o.idcommande +
-                        '</p></td><td><p>' + o.name +
                         '</p></td><td><p>' + o.idproduit +
+                        '</p></td><td><p>' + o.name +
                         '</p></td><td><p>' + o.price + '€' +
                         '</p></td><td><p>' + o.ammount +
                         '</p></td><td><p>' + o.reduction + '%' +
