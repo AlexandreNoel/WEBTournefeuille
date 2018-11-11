@@ -9,7 +9,6 @@ if(!isset($_SESSION['authenticated_user'])){
     header('Location: /');
 }
 else {
-
     /** @var \Client\Entity\Client $user */
     $user = $_SESSION["authenticated_user"];
     $id=$user->getId();

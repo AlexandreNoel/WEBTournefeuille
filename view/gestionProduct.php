@@ -11,7 +11,6 @@
 <?php require_once(__DIR__ . '/partials/navbarAdmin.php'); ?>
 
 
-
 <!-- CONTENU !-->
 <div class="content-container">
 
@@ -106,10 +105,10 @@
             <div id="tables">
                 <div class="container text-center">
             <?php foreach ($productslist as $category => $values):?>
+                <h3><?php echo $category ?></h3>
+                <div id="single-table">
 
-                <div id="single-table" class="row">
-                    <label id="table-tile"><?php echo $category ?></label>
-                    <table id="table_products" class="display">
+                    <table id="table_products" class="display table-responsive-sm">
                         <thead>
                             <tr>
                                 <th>Nom</th>
@@ -130,12 +129,12 @@
                                     <td><?php echo $product->getReduction()?></td>
                                     <td id="stock"><?php echo $product->getQuantity()?></td>
                                     <td>
-                                        <button class="quick-edit-buton" onclick="updateStock(<?php echo $product->getId()?>)">
+                                        <button class="quick-edit-buton" style="background:none;border:0px;" onclick="updateStock(<?php echo $product->getId()?>)">
                                             <img class="icon" src="assets/images/quantity.png"
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="edit-button" onclick="updateProduct(<?php echo "'" . $product->getName() . "'," .
+                                        <button class="edit-button" style="background:none;border:0px;" onclick="updateProduct(<?php echo "'" . $product->getName() . "'," .
                                                                                                     $product->getPrice() . "," .
                                                                                                     $product->getReduction() . "," .
                                                                                                     $product->getQuantity() . "," .
@@ -147,7 +146,7 @@
                                     <td>
                                         <form action="del-product.php" method="post">
                                             <input type="hidden" name="id_product" value="<?php echo $product->getId() ?>">
-                                            <button class="remove-button">
+                                            <button class="remove-button" style="background:none;border:0px;">
                                                 <img class="icon" src="assets/images/cross.png">
                                             </button>
                                         </form>

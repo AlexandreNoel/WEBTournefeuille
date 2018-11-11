@@ -35,7 +35,7 @@
                         <?php if (!is_null($transaction)): ?>
                             <tr>
                                 <td><p><?php echo $transaction->getId() ?></p></td>
-                                <td><p><?php echo $transaction->getDate()->format('Y-m-d H:i:s') ?></p></td>
+                                <td><p><?php echo date_format($transaction->getDate(), 'd-m-Y H:i:s') ?></p></td>
                                 <td><p><?php echo $nicknameforid[$transaction->getidBarmen()] ?></p></td>
                                 <td><p><?php echo $transaction->GetPrice() . " €" ?></p></td>
                                 <td>

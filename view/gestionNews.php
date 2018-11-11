@@ -81,7 +81,7 @@
                 <button class="btn btn-primary rounded" id="add-button">Ajouter une news</button>
             </div>
             <div id="tables">
-                <table id="table_news" class="display">
+                <table id="table_news" class="display table-responsive-sm">
                     <thead>
                         <tr>
                             <th>Titre</th>

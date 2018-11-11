@@ -141,7 +141,7 @@
                                                                             <strike><?php echo $product->getPrice()." €";?></strike>
                                                                         </td>
                                                                     <?php else: ?>
-                                                                        <td data="<?php echo $product->getPrice()?>" class="">
+                                                                        <td data="<?php echo $product->getPrice()?>" class="pPrice">
                                                                             <?php echo $product->getPrice()." €";?>
                                                                         </td>
                                                                     <?php endif; ?>

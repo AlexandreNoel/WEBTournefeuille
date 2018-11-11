@@ -77,7 +77,6 @@ class Transaction
         $repoProduct = new \Product\Repository\Product();
         $productArray = $this->hydrator->extract($product);
         $iduser = $productArray['idutilisateur'];
-        $producte = new Product();
         $prix = $productArray['prixtotal'];
         $client = $repoclient->findOneById($iduser);
         if (($client->getSolde() - $prix) >= 0) {
@@ -213,13 +212,10 @@ class Transaction
                 $product = $productRepository->findById($productid);
                 #on ajoute un produit et sa quantite au tableau "articles=>quantite'
                 $products->attach($product, $ammount);
-
             }
             #on ajoute le tableau de produits construit à la commande
             $commandData['products'] = $products;
             $commandes[] = $this->hydrator->hydrate($commandData, clone $entity);
-
-
         }
 
         return $commandes;
@@ -306,6 +302,7 @@ join produit p on p.idproduit=f.idproduit join categorie ca on p.idcategorie=ca.
 
     public function getCreditById($id)
     {
+        date_default_timezone_set('Europe/Paris');
         $data = array();
         $res = array();
         $statement2 = $this->dbAdapter->prepare(
@@ -314,7 +311,7 @@ join produit p on p.idproduit=f.idproduit join categorie ca on p.idcategorie=ca.
         $statement2->execute();
         foreach ($statement2->fetchAll() as $productData) {
 
-            $data['date'] = $productData['date'];
+            $data['date'] = date('d-m-Y H:i:s', strtotime($productData['date']));
             $data['montant'] = $productData['montant'];
             $data['idcredit'] = $productData['idcredit'];
             $data['idutilisateur'] = $productData['idutilisateur'];

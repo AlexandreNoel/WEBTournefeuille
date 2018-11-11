@@ -96,9 +96,10 @@
             try{
                 $user = $userRepository->findOneByCodeBarmen($_POST['password']);
                 if(isset($user)) {
+                    date_default_timezone_set('Europe/Paris');
                     $idbarmen = $user->getId();
                     $idclient = $_POST['idutilisateur'];
-                    $date = date("Y-m-d H:i:s");
+                    $date = date("d-m-Y H:i:s");
                     $products = $_POST['products'];
 
                     $prodSpl = new SplObjectStorage();

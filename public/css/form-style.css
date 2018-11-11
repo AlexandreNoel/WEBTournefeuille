@@ -75,6 +75,14 @@
 
 #form-div{
     display:none;
+    width:50%;
+}
+
+#form-div{
+    display:none;
+    width:75%;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 #cancel-button {
@@ -83,12 +91,7 @@
     box-shadow: none;
 }
 
-#single-table{
-    display:inline-grid;
-    min-height: 400px;
-}
-
-#tables{
+#tables button:hover{
 
 }
 
@@ -109,4 +112,11 @@
 
 td{
     text-align: center;
+}
+
+/* Responsive form */
+@media screen and (max-width: 600px) {
+    #form-div{
+        width:100%;
+    }
 }
