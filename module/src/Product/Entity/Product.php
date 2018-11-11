@@ -42,10 +42,15 @@ Class Product{
      * @var int
      */
     private $Quantity;
+
     /**
      * @var bool
      */
     private $estDisponible;
+
+    /******************************************
+     * GETTER/SETTER
+     ******************************************/
 
     /**
      * @return int
@@ -86,7 +91,7 @@ Class Product{
      */
     public function getPrice(): float
     {
-        return $this->price;
+        return bcdiv($this->price,1,2);
     }
 
     /**
@@ -94,7 +99,7 @@ Class Product{
      */
     public function setPrice(float $price): Product
     {
-        $this->price = $price;
+        $this->price = bcdiv($price,1,2);
         return $this;
     }
 
@@ -145,13 +150,10 @@ Class Product{
      */
     public function setQuantity(int $Quantity): Product
     {
-        if ($Quantity>0){
+        if ($Quantity>=0){
             $this->Quantity = $Quantity;
-            return $this;
         }
-        else{
-            throwException(U_ILLEGAL_ARGUMENT_ERROR);
-        }
+        return $this;
     }
     /**
      * @param int $Quantity
@@ -160,11 +162,8 @@ Class Product{
     {
         if ($Quantity > 0){
             $this->Quantity += $Quantity;
-            return $this;
         }
-        else{
-            throwException(U_ILLEGAL_ARGUMENT_ERROR);
-        }
+        return $this;
     }
     /**
      * @param int $Quantity
@@ -173,11 +172,8 @@ Class Product{
     {
         if ($Quantity > 0){
             $this->Quantity -= $Quantity;
-            return $this;
         }
-        else{
-            throwException(U_ILLEGAL_ARGUMENT_ERROR);
-        }
+        return $this;
     }
 
     /**
@@ -196,9 +192,5 @@ Class Product{
         $this->estDisponible = $estDisponible;
         return $this;
     }
-
-
-
-
 
 }

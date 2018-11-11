@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top fixed-nav" id="navbarD">
     <div class="container">
         <!-- Brand -->
-        <a class="navbar-brand" href="/"><img id="img-navbar" src="assets/images/logo_sf_blanc.png"></a>
+        <a class="navbar-brand" href="/home"><img id="img-navbar" src="assets/images/logo_sf_blanc.png"></a>
 
         <!-- BANNIERE ACCUEIL !-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -37,6 +37,6 @@
 
 <script>
     $(document).ready(function() {
-        $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
+        $('a[href="' + this.location.pathname + '"]').closest("li").addClass('active');
     });
 </script>

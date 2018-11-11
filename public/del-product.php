@@ -18,9 +18,10 @@
         if (isset($_POST["id_product"])){
             $repoproducts = new \Product\Repository\Product();
             $repoproducts->delete($_POST["id_product"]);
+            $repoproducts->deleteProductShortcut($_POST["id_product"]);
         }
     } else {
         throw new \HttpInvalidParamException('Method not allowed', 405);
     }
-    header('Location: product.php');
+    header('Location: /gestionProduct');
     exit();

@@ -1,27 +1,52 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Lineal
- * Date: 27/10/2018
- * Time: 04:21
- */
 
-    require_once __DIR__.'./../vendor/autoload.php';
+require_once __DIR__.'./../vendor/autoload.php';
+
+
+// Initialisation de la session
+if(session_status()!=PHP_SESSION_ACTIVE)
     session_start();
 
-    if(!isset($_SESSION['authenticated_admin'])){
-        header('Location: /');
-    }
-    $repositorynews = new \News\Repository\News();
-    $repositoryclients = new \Client\Repository\Client();
-    $news = $repositorynews->findAll();
-    $auteurlist = array();
+// Vérification si utilisateur correctement connecté
+if(!isset($_SESSION['authenticated_user'])){
+    header('Location: /');
+}
+else {
+    $newsRepository = new \News\Repository\News();
+    $userRepository = new \Client\Repository\Client();
 
-    foreach ($news as $newsentity){
-        $id_auteur = $newsentity->getIdauteur();
-        if (!array_key_exists($id_auteur, $auteurlist)){
-            $auteurlist[$id_auteur] = $repositoryclients->findOneById($id_auteur)->getNickname();
+    //========================================
+    // Gestion de l'utilisateur
+    //========================================
+    /** @var \Client\Entity\Client $user */
+    $user = $_SESSION["authenticated_user"];
+    // Mise à jour de l'utilisateur
+    $user = $userRepository->findOneByNickname($user->getNickname());
+    $_SESSION["authenticated_user"] = $user;
+    // Initialisation des variables
+    $nickname = $user->getNickname();
+    $firstname = $user->getFirstName();
+    $lastname = $user->getLastName();
+    $solde = $user->getSolde();
+
+    //========================================
+    // Gestion des news
+    //========================================
+    if(isset($_GET['id'])){
+        $allNews = false;
+        /** @var \News\Entity\News $news */
+        $news = $newsRepository->findById((int)$_GET['id']);
+        if($news->getImage() != null && $news->getImage() != ""){
+            $newsCover = $news->getImage();
+        }
+        else{
+            $newsCover = "/assets/images/articles/art1.jpg";
         }
     }
+    else{
+        $allNews = true;
+        $news = $newsRepository->findAll();
+    }
 
-    require_once '../view/news.php';
+    require_once('../view/news.php');
+}

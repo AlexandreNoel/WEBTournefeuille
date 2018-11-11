@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top fixed-nav" id="navbarD">
     <div class="container">
         <!-- Brand -->
-        <a class="navbar-brand" href="/"><img id="img-navbar" src="assets/images/logo_sf_blanc.png"></a>
+        <a class="navbar-brand" href="/console"><img id="img-navbar" src="assets/images/logo_sf_blanc.png"></a>
 
         <!-- BANNIERE ACCUEIL !-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -19,9 +19,9 @@
                         Gestion du bar <i class="fa fa-cog"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/gestionProduct">Gestion produits</a>
-                        <a class="dropdown-item" href="/gestionNews">Gestion news</a>
-                        <a class="dropdown-item" href="#">Gestion utilisateurs</a>
+                        <a class="dropdown-item" href="/gestionProduct">Gestion des produits</a>
+                        <a class="dropdown-item" href="/gestionNews">Gestion des news</a>
+                        <a class="dropdown-item" href="#">Gestion des utilisateurs</a>
                     </div>
                 </li>
                 <li id="<?php print $_SESSION['authenticated_admin']['login'] ?>" class="nav-item">
@@ -34,6 +34,6 @@
 
 <script>
     $(document).ready(function() {
-        $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
+        $('a[href="' + this.location.pathname + '"]').closest("li").addClass('active');
     });
 </script>

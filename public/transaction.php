@@ -9,7 +9,6 @@ if(!isset($_SESSION['authenticated_user'])){
     header('Location: /');
 }
 else {
-
     /** @var \Client\Entity\Client $user */
     $user = $_SESSION["authenticated_user"];
     $id=$user->getId();
@@ -24,6 +23,7 @@ else {
         $nicknameforid[$user->getId()]=$user->getNickname();
     }
     $transactions = $repositorytransac->findByCriteria("idutilisateur", $id);
+    $credits=$repositorytransac->getCreditById($id);
 
 
     require_once '../view/transaction.php';

@@ -76,7 +76,7 @@ class Transaction
      */
     public function getPrice(): float
     {
-        return $this->price;
+        return bcdiv($this->price,1,2);
     }
 
     /**
@@ -88,11 +88,11 @@ class Transaction
         $price=0;
         foreach ($this->product as $key)  {
             $productprice=$this->product->current()->getPrice();
-            $totalprice=$productprice*intval($this->product->getInfo());
+            $totalprice= $productprice*intval($this->product->getInfo());
             $totalprice-=$totalprice*($this->product->current()->getReduction()/100);
             $price+= $totalprice;
         }
-        $this->price = $price;
+        $this->price = bcdiv($price,1,2);
         return $this;
     }
 

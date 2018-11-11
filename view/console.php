@@ -2,36 +2,13 @@
 <html>
 
 <!-- HEADER !-->
-<?php require_once(__DIR__ . '/partials/header.php'); ?>
-
+<head>
+    <?php require_once(__DIR__ . '/partials/header.php'); ?>
+</head>
 <body class="main-body">
 
-    <!--MODAL-->
-    <div class="modal fade" id="modalBarmen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Validation barmen</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                        <input type="password" id="password" name="password" class="form-control validate">
-                        <label data-error="wrong" data-success="right" for="defaultForm-email">   <i class="fa fa-user"></i> Mot de passe barmen</label>
-                    </div>
-
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button id="action-modal" onclick="" class="btn btn-default" >Confirmer</button>
-                </div>
-                <div id="error-modal" class="text-red font-weight-bold">
-
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- MODAL !-->
+    <?php require_once(__DIR__ . '/partials/modalBarmen.php'); ?>
 
     <!-- NAVBAR !-->
     <?php require_once(__DIR__ . '/partials/navbarAdmin.php'); ?>
@@ -56,12 +33,11 @@
                     <input id="searchInput" name="current-user" type="text" class="form__field" placeholder="Nom du client" />
                     <button id="searchSubmit" type="button" onclick="submitUser()" class="btn btn--primary btn--inside rounded uppercase">Valider</button>
                 </form>
-
             </article>
 
             <!-- Onglet gestion utilisateur -->
             <article class='userTab mx-auto text-center '>
-                <form class="container" method="POST" action="update-user-solde.php">
+                <form class="container" method="POST">
                     <div class="card">
                         <div class="card-header">
                             <h2 class="user-title-card"></h2>
@@ -71,25 +47,25 @@
                                 <div class="col-sm-4"> <img class="img-fluid" src="assets/images/user_avatar.png" /></div>
                                 <div class="col-sm-4">
                                     <div class="d-none">
-                                        <input id="id" name="id" type="text" value="" disabled/>
+                                        <input id="id" name="id" title="id" type="text" value="" disabled/>
                                     </div>
                                     <div class="row">
                                         <p>Pseudo:</p>
                                     </div>
                                     <div class="row">
-                                        <input id="nickname" name="nickname" type="text" value="" disabled/>
+                                        <input id="nickname" name="nickname" title="nickname" type="text" value="" disabled />
                                     </div>
                                     <div class="row">
                                         <p>Nom:</p>
                                     </div>
                                     <div class="row">
-                                        <input id="lastname" name="lastname" type="text" value="" disabled/>
+                                        <input id="lastname" name="lastname" title="lastname"  type="text" value="" disabled/>
                                     </div>
                                     <div class="row">
                                         <p>Prénom:</p>
                                     </div>
                                     <div class="row">
-                                        <input id="firstname" name="firstname" type="text" value=""" disabled/>
+                                        <input id="firstname" name="firstname" title="firstname" type="text" value=""" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -97,10 +73,10 @@
                                         <p>Solde : </p>
                                     </div>
                                     <div class="row">
-                                        <input id="solde" name="solde" type="text" value="" disabled/>
+                                        <input id="solde" name="solde" title="solde"  type="text" value="" disabled/>
                                     </div>
                                     <div class="row mt-3">
-                                        <input id="creditInput" name="creditInput" type="number" />
+                                        <input id="creditInput" name="creditInput" title="creditInput" type="number" />
                                     </div>
                                     <div class="row text-center">
                                         <button type="button" id="creditBtn" name="creditBtn" onclick="modalAdmin('credit')" class="btn btn--primary btn--inside rounded uppercase" >Créditer</button>
@@ -158,8 +134,17 @@
                                                             <table class="table align-middle" style="height:100%; width:100%;">
                                                                 <tr>
                                                                     <td data="<?php echo $product->getName()?>" class="pName font-weight-bold"><?php echo $product->getName()?></td>
-                                                                    <td data="<?php echo $product->getPrice()?>" class="pPrice"><?php echo $product->getPrice()." €";?></td>
                                                                     <td data="<?php echo $product->getQuantity(); ?>" class="pStock">Stock: <?php echo $product->getQuantity(); ?></td>
+                                                                    <?php if($product->getReduction()): ?>
+                                                                        <td data="<?php echo $product->getPrice()-$product->getPrice()*($product->getReduction()/100)?>" class="pPrice">
+                                                                            <p class="text-light bg-danger"><?php echo $product->getPrice()-$product->getPrice()*($product->getReduction()/100)." €";?></p>
+                                                                            <strike><?php echo $product->getPrice()." €";?></strike>
+                                                                        </td>
+                                                                    <?php else: ?>
+                                                                        <td data="<?php echo $product->getPrice()?>" class="pPrice">
+                                                                            <?php echo $product->getPrice()." €";?>
+                                                                        </td>
+                                                                    <?php endif; ?>
                                                                 </tr>
                                                             </table>
                                                         </a>
@@ -174,6 +159,9 @@
                                 <!-- Gestion des produits achetés -->
                                 <div class="col-sm-4">
                                     <form id="command" >
+                                        <div id="futurSolde">
+                                            Solde après commande: Na
+                                        </div>
                                         <div id="totalAmount">
                                             Montant des achats: 0€
                                         </div>
@@ -214,19 +202,30 @@
 
         // Déclaration des utilisateurs disponibles
         var userArray = <?php echo json_encode($usersNickname); ?>;
+        // Déclaration des raccourcis clavier
+        var shorcutArray = <?php echo json_encode($allShortcut); ?>;
 
         // Initiation de l'autocompletion
         autocomplete(document.getElementById("searchInput"),userArray,$('#searchSubmit'));
 
         $(document).ready(function() {
+
             //========================
             // INITIALISATION
             //========================
             // Focus initiale de la page
             $('#searchInput').focus();
-
             $('#productsByCategory ul').hide();
 
+            function findShortcut(arr,value){
+                var test = null;
+                $(arr).each(function(index, element){
+                    if(element[1] == value){
+                        test = element[0];
+                    }
+                });
+                return test;
+            }
 
             //========================
             // GESTION DES SHORTCUTS
@@ -234,19 +233,44 @@
             $(document).on('keypress', function(e) {
                 var inputTab = $('input.tabConsoleInput');
                 var checkedVal =  $('input.tabConsoleInput:checked').val();
-                if (e.which === 119 && e.altKey===true){
+                var numTabSelected = null;
+
+                // Gestion des events
+                switch(e.key){
+                    case "ArrowRight":
+                        numTabSelected = (checkedVal % inputTab.length);
+                        break;
+                    case "ArrowLeft":
+                        if((checkedVal-2) < 0 )
+                            numTabSelected= (inputTab.length)-1;
+                        else
+                            numTabSelected = checkedVal -2;
+                        break;
+                    default:
+                        if((checkedVal)==3){
+                            var idProd = findShortcut(shorcutArray,e.key);
+                            if(idProd != null && idProd != undefined){
+                                var idElement = '#prod-'+ idProd;
+                                $(idElement).click();
+                            }
+                        }
+                        break;
+                }
+
+                // Vérification si événements de changement d'onglet
+                if (numTabSelected != null) {
                     // Désactivation du focus sur les élements input
                     $('input').blur();
                     // Gestion des onglets
-                    inputTab[(checkedVal%inputTab.length)].click();
-
-                    if((checkedVal%inputTab.length) === 0 ){
+                    inputTab[numTabSelected].click();
+                    if((numTabSelected) === 0 ){
                         $('#searchInput').focus();
                     }
-                    else if((checkedVal%inputTab.length) === 1){
+                    else if((numTabSelected) === 1){
                         $('#creditInput').focus();
                     }
                 }
+
             });
 
             // Gestion des focus sur click
@@ -256,7 +280,6 @@
             $('#search').on('click',function(e){;
                 $('#searchInput').focus();
             });
-
 
             //========================
             // GESTION DES COMMANDES
@@ -282,7 +305,15 @@
                 var stockTr =$(this).find('.pStock');
                 var stock = $(stockTr).attr("data");
                 var art = commandTable.find("#artCommand-"+id);
-                if(stock>0){
+
+                // Vérification du solde
+                if(stock<=0) {
+                    alert("Plus de stock disponible.");
+                }
+                else if(getFuturSolde()-price <0) {
+                    alert("Pas assez d'argent.");
+                }
+                else{
                     // Si le produit est présent dans la liste de commande
                     if(art.length>0)   {
                         // Mise à jour de la commande
@@ -304,7 +335,7 @@
                     }
 
                     // Simulation du coût final
-                    calculateAmountTotal();
+                    refreshSoldeInfo();
 
                     // Simulation du stock final
                     var newStock = parseInt(stock)-1;
@@ -312,26 +343,33 @@
                     $(stockTr).attr("data",newStock);
                 }
             });
-
-            $('#modalBarmen').on('hidden.bs.modal', function () {
-                $('#error-modal').empty();
-                $('#password').empty();
-            });
-
         });
 
-        function calculateAmountTotal(){
+        // Fonction de mise à jour du montant total a débité et du futur solde
+        function refreshSoldeInfo(){
+            $('#totalAmount').text("Montant commande:" +  getTotalAmount() +"€");
+            $('#futurSolde').text("Solde après la commande: "+ getFuturSolde() +"€");
+        }
+
+        function getTotalAmount(){
             var montant = 0;
             // Récupération des articles commandés
             $('#artCommand > tr').each(function() {
                 montant= montant + parseFloat($(this).find('.artCommandTotal').text());
             });
-            $('#totalAmount').text("Montant commande:" +  parseFloat(montant).toFixed(2) +"€");
+            return parseFloat(montant).toFixed(2);
+        }
+
+        function getFuturSolde(){
+            var solde = Number($('#solde').val());
+            var montant = getTotalAmount();
+            return parseFloat(solde-montant).toFixed(2);
         }
 
 
         // Effacement d'une ligne de commande
         function artRemove(productBtn,productId){
+            //Initialisation
             var productStock = $('#productsByCategory').find('#'+productId).find('.pStock');
             var stockQty = $(productStock).attr('data');
             var qtyCommand = $(productBtn).closest("tr").find(".artCommandQty").text();
@@ -341,19 +379,10 @@
             // Simulation du stock après suppression de ligne
             $(productBtn).closest("tr").remove();
 
-            calculateAmountTotal();
+            // Mise à jour
+            refreshSoldeInfo();
         }
 
-        // Action sur le modal
-        function modalAdmin(action){
-            // Réinitialisation
-            $('#error-modal').text("");
-            $('#password').val("");
-
-            // Gestion des actions
-            $('#action-modal').attr('onclick',action +"()");
-            $('#modalBarmen').modal('show');
-        }
 
         /************************
          * AJAX
@@ -370,14 +399,16 @@
                         if(status == 'success'){
                             console.log(data);
                             var dataJson = JSON.parse(data);
+                            var currentCommandeAmount = getTotalAmount();
+                            var futurSolde = Number(dataJson['solde']);
                             $('#nickname').val(dataJson['pseudo']);
                             $('#firstname').val(dataJson['prenom']);
                             $('#lastname').val(dataJson['nom']);
                             $('#solde').val(dataJson['solde']);
                             $('#id').val(dataJson['idutilisateur']);
                             $('.user-title-card').html(dataJson['pseudo']);
-                            $('#profile').click();
-                        }
+                            $('#futurSolde').html("Solde après commande: " + futurSolde +"€");
+                            $('#command').click();                        }
                         else{
                             alert("Veuillez sélectionner un utilisateur connu.");
                         }
@@ -391,14 +422,14 @@
             // Déclaration des variables
             var idutilisateur = $('#id').val();
             var password = $('#password').val();
-            var credit = parseInt($('#creditInput').val());
+            var credit = $('#creditInput').val();
 
             // Si aucun utilisateur donné
             if(!parseInt(idutilisateur) > 0) {
                 $('#error-modal').text("Aucun utilisateur saisie.");
             }
             //Valuer supérieur à 0
-            else if(!parseInt(credit)>0) {
+            else if(!parseFloat(credit)>0) {
                 $('#error-modal').text("La valeur crédité doit être supérieur à 0.");
             }
             else{
@@ -415,10 +446,13 @@
                                 $('#error-modal').text(response.error);
                             }
                             else{
-                                var solde = parseInt($('#solde').val());
-                                var newSolde = credit+solde;
+                                var solde = $('#solde').val();
+                                var newSolde = parseFloat(Number(credit)+Number(solde)).toFixed(2);
                                 $('#solde').val(newSolde);
                                 $('#creditInput').val(0);
+                                $('#modalBarmen').modal('hide');
+                                $('#password').val("");
+                                refreshSoldeInfo();
                                 alert("La mise à jour s'est bien effectué");
                             }
 
@@ -432,6 +466,7 @@
         }
 
         function command(){
+            console.log("toto");
 
             // Déclaration des variables
             var idutilisateur = $('#id').val();
@@ -458,7 +493,6 @@
                     product['total']=$(this).find('.artCommandTotal').text();
                     products.push(product);
                 });
-
                 // Appel ajax
                 $.post("services.php",
                     {
@@ -469,20 +503,22 @@
                     },
                     function (data, status) {
                         if(status == 'success') {
+                            console.log(data);
                             var response = JSON.parse(data);
                             if (response.status == false){
                                 $('#error-modal').text(response.error);
                             }
                             else{
                                 $('#modalBarmen').modal('hide');
+                                $('#solde').val(getFuturSolde());
+                                $('#totalAmount').text("Montant commande: 0€");
                                 $('#password').val("");
                                 $("#artCommand").empty();
-                                $('#totalAmount').text("Montant commande: 0€");
                                 alert("La commande a été validée.");
                             }
                         }
                         else {
-                            alert("Mise à jour non validé: une erreure est survenue.");
+                            alert("Mise à jour non validé: une erreur est survenue.");
                         }
                     }
                 );

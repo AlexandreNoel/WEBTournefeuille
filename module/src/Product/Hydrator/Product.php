@@ -44,7 +44,7 @@ class Product{
             ->setName(strtolower($data['libelle']) ?? null)
             ->setPrice($data['prix'] ?? 0 )
             ->setReduction($data['reduction'] ?? 0)
-            ->setQuantity($data['quantitestock'] ?? null)
+            ->setQuantity($data['quantitestock'] ?? 0 )
             ->setEstDisponible($data['estdisponible'] ?? True)
             ->setIdfamilly($data['idcategorie'] ?? null);
     }

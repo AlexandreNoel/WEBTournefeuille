@@ -72,7 +72,6 @@ nav{
 }
 
 .navbar-brand img{
-	height: 100%;
 	padding: 15px;
 	width:75px;
 	-webkit-transition: transform 1s; /* Safari */
@@ -107,7 +106,6 @@ nav{
 /* NAVBAR LOGGED*/
 #collapsibleNavbar .active{
 	text-decoration: underline red;
-	text-decoration-style: dashed;
 }
 
 .fixed-nav {
@@ -226,6 +224,8 @@ nav{
 	display:block;
 	height: 400px;
 	background-image: url("../assets/images/news_bg2.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius:5%;
 	overflow: hidden;
@@ -280,7 +280,7 @@ nav{
 	border-radius:5%;
 	background-color: black;
 	background-image: url("../assets/images/catalogue_background.jpg");
-	background-size: contain;
+	background-size: cover;
 	background-repeat: no-repeat;
 }
 
@@ -348,7 +348,54 @@ nav{
 /*************/
 
 
+/*************/
+/* NEWS		 */
+/*************/
+.cover-news {
+	position: relative;
+	text-align: center;
+	color: white;
+	background-color: black;
+	background: no-repeat center center scroll;
+	background-size: cover;
+	height:180px;
+}
 
+/* Bottom left text */
+.title-news {
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.cards * {
+	box-sizing: border-box;
+}
+.cards {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+}
+.cards .card {
+	width: 200px;
+	margin: 10px;
+	border: 1px solid #ccc;
+	box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+}
+.cards .card img {
+	max-width: 100%;
+}
+.cards .card .text {
+	padding: 0 20px 20px;
+}
+.cards .card:nth-child(1) {
+	width: 420px;
+}
+.cards button{
+	width:50%;
+}
 
 /*************/
 /* ANIMATION */
@@ -437,7 +484,6 @@ nav{
 @media (max-width:500px)
 {
 	.navbar-nav{
-		background-color:#000;
 		color:#fff;
 		z-index:1;
 		margin-top:5px;
@@ -796,4 +842,49 @@ nav{
 .table_products {
     width:40%;
     display: inline-block;
+}
+/*cartes de la page statistiques*/
+#piechart .column {
+	float: left;
+	width: 25%;
+	padding: 0 5px;
+}
+
+#piechart .row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+#piechart .row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+	#piechart .column {
+		width: 100%;
+		display: block;
+		margin-bottom: 10px;
+	}
+}
+
+/* Style the counter cards */
+#piechart .card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	padding: 10px;
+	text-align: center;
+	background-color: white;
+	color: white;
+	margin: 5px;
+}
+
+/* .fa {font-size:50px;} */
+
+#piechart{
+	width:80%;
+	margin:auto;
+}
+#mainchart{
+	width:80%;
+	margin:auto;
 }

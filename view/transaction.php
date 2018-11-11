@@ -1,16 +1,16 @@
-
 <!DOCTYPE html>
 
-<!-- NAVBAR !-->
-<?php require_once(__DIR__ . '/partials/header.php'); ?>
-
+<head>
+    <!-- HEADER !-->
+    <?php require_once(__DIR__ . '/partials/header.php'); ?>
+</head>
 
 <body class="main-body">
 <!-- NAVBAR !-->
 <?php require_once(__DIR__ . '/partials/navbar.php'); ?>
 
 <!-- CONTENU !-->
-<div  class="content-container">
+<div class="content-container">
     <div id="transaction-table" class="container pt-3">
         <div class="card">
             <h5 class="card-header text-center">Liste des transactions</h5>
@@ -18,26 +18,31 @@
                 <table class="display" style="text-align:center">
                     <thead>
                     <tr>
-                        <th>Id Commande</th>
-                        <th>Date</th>
-                        <th>Barmen</th>
-                        <th>Prix Total</th>
-                        <th>Détail</th>
+                        <th><p>
+                            <p>Id Commande</p></th>
+                        <th><p>Date</p></th>
+                        <th><p>Barmen</p></th>
+                        <th><p>Prix Total</p></th>
+                        <th><p>Détail</p></th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
 
-                    foreach($transactions as $transaction): ?>
+                    foreach ($transactions as $transaction): ?>
                         <?php
                         ?>
-                        <?php if (!is_null($transaction)):?>
+                        <?php if (!is_null($transaction)): ?>
                             <tr>
-                                <td><?php echo $transaction->getId()?></td>
-                                <td><?php echo $transaction->getDate()->format('Y-m-d H:i:s')?></td>
-                                <td><?php echo $nicknameforid[$transaction->getidBarmen()]?></td>
-                                <td><?php echo $transaction->GetPrice()." €"?></td>
-                                <td><button class="btn btn-danger rounded" id="add-button" onclick="fetchproductdata(<?php echo $transaction->getId();?>)"> Voir le contenu de la commande</button>
+                                <td><p><?php echo $transaction->getId() ?></p></td>
+                                <td><p><?php echo date_format($transaction->getDate(), 'd-m-Y H:i:s') ?></p></td>
+                                <td><p><?php echo $nicknameforid[$transaction->getidBarmen()] ?></p></td>
+                                <td><p><?php echo $transaction->GetPrice() . " €" ?></p></td>
+                                <td>
+                                    <button class="btn btn-danger rounded" id="add-button"
+                                            onclick="fetchproductdata(<?php echo $transaction->getId(); ?>)"> Voir le
+                                        contenu de la commande
+                                    </button>
                                 </td>
                             </tr>
                         <?php endif; ?>
@@ -68,9 +73,6 @@
                     <tbody id="mybody">
 
 
-                    </tfoot>
-                    <td>
-
                 </table>
                 <button id="back-button">Retour</button>
             </div>
@@ -78,7 +80,41 @@
     </div>
 
 </div>
+<div class="content-container">
+    <div id="transaction-table" class="container pt-3">
+        <div class="card">
+            <h5 class="card-header text-center">Liste des Creditation</h5>
+            <div class="card-body">
+                <table class="display" style="text-align:center">
+                    <thead>
+                    <tr>
+                        <th><p>
+                            <p>Id Credit</p></th>
+                        <th><p>Date</p></th>
+                        <th><p>Barmen</p></th>
+                        <th><p>Montant</p></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
 
+                    foreach ($credits as $credit): ?>
+                        <?php
+                        ?>
+                        <?php if (!is_null($transaction)): ?>
+                            <tr>
+                                <td><p><?php echo $credit['idcredit'] ?></p></td>
+                                <td><p><?php echo $credit['date'] ?></p></td>
+                                <td><p><?php echo $nicknameforid[$credit['idbarmen']] ?></p></td>
+                                <td><p><?php echo $credit['montant'] . " €" ?></p></td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     var trHTML = '';
 
@@ -90,17 +126,17 @@
             data: "idcommande=" + param1,
             success: function (data) {
                 console.log(data);
-                data=$.parseJSON(data)
-                trHTML="";
-                $.each(data, function (i, o){
-                    trHTML += '<tr><td>' + o.idcommande +
-                        '</td><td>' + o.name +
-                        '</td><td>' + o.idproduit +
-                        '</td><td>' + o.price +
-                        '</td><td>' + o.ammount +
-                        '</td><td>' + o.reduction +
-                        '</td><td>' + o.total +
-                        '</td></tr>';
+                data = $.parseJSON(data);
+                trHTML = "";
+                $.each(data, function (i, o) {
+                    trHTML += '<tr><td><p>' + o.idcommande +
+                        '</p></td><td><p>' + o.idproduit +
+                        '</p></td><td><p>' + o.name +
+                        '</p></td><td><p>' + o.price + '€' +
+                        '</p></td><td><p>' + o.ammount +
+                        '</p></td><td><p>' + o.reduction + '%' +
+                        '</p></td><td><p>' + o.total + '€' +
+                        '</p></td></tr>';
                 });
                 $('#mybody').children("tr").remove();
                 $('#mybody').append(trHTML);
@@ -109,20 +145,21 @@
             }
         });
     }
+
     $(document).ready(function () {
         $("#Products-div").hide();
-        $("#add-button").on("click",function() {
+        $("#add-button").on("click", function () {
             $("#transaction-table").hide();
             $("#Products-div").show()
         });
-        $("#back-button").on("click",function() {
+        $("#back-button").on("click", function () {
             $("#Products-div").hide();
             $("#transaction-table").show()
         });
 
         $('table.display').DataTable({
-            "order": [[ 0, "desc" ]]
-        } );
+            "order": [[0, "desc"]]
+        });
         $("#Products-div").hide();
 
     });

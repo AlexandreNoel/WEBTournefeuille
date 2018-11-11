@@ -1,9 +1,8 @@
 .form-ajout{
     font-family: 'Open Sans Condensed', arial, sans;
-    width: 500px;
+    width: 100%;
     padding: 30px;
     background: #FFFFFF;
-    margin: 50px auto;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
@@ -48,7 +47,8 @@
 .form-ajout textarea{
     resize:none;
     overflow: hidden;
-    height: 400px;
+    height: 100%;
+    min-height: 200px;
 }
 .form-ajout input[type="button"],
 .form-ajout input[type="submit"],
@@ -75,6 +75,14 @@
 
 #form-div{
     display:none;
+    width:50%;
+}
+
+#form-div{
+    display:none;
+    width:75%;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 #cancel-button {
@@ -83,16 +91,8 @@
     box-shadow: none;
 }
 
-#single-table{
-    width:40%;
-    display:inline-grid;
-    min-height: 400px;
-}
+#tables button:hover{
 
-#tables{
-    display:flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
 }
 
 #table-tile{
@@ -112,4 +112,11 @@
 
 td{
     text-align: center;
+}
+
+/* Responsive form */
+@media screen and (max-width: 600px) {
+    #form-div{
+        width:100%;
+    }
 }

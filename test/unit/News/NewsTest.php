@@ -37,16 +37,6 @@ class NewsTest extends TestCase
     /**
      * @test
      */
-    public function DeleteTest()
-    {
-        $repository = new \News\Repository\News();
-        $last = $repository->findLastNews();
-        $repository->delete($last->getId());
-        $anotherlast = $repository->findLastNews();
-        self::assertNotEquals($last, $anotherlast);
-    }/**
-     * @test
-     */
     public function UpdateTest()
     {
         $repository = new \News\Repository\News();
@@ -55,9 +45,22 @@ class NewsTest extends TestCase
         $repository->update($last);
         $lastupdated=$repository->findById($last->getId());
         self::assertSame("ceci est un titre modifie par phpunit, merci à plus", $lastupdated->getTitle());
-        $last->setTitle("Nouvelle Application");
-        $repository->update($last);
-    }/**
+    }
+
+    /**
+     * @test
+     */
+    public function DeleteTest()
+    {
+        $repository = new \News\Repository\News();
+        $last = $repository->findLastNews();
+        $repository->delete($last->getId());
+        $anotherlast = $repository->findLastNews();
+        self::assertNotEquals($last, $anotherlast);
+    }
+
+
+    /**
      * @test
      */
     public function FindByIdTest()
@@ -65,9 +68,11 @@ class NewsTest extends TestCase
         $repository = new \News\Repository\News();
         $last = $repository->findById(1);
         self::assertEquals(1,$last->getId());
-        self::assertEquals("Nouvelle Application",$last->getTitle());
+        self::assertEquals("NYAN CAT LOVER",$last->getTitle());
 
-    }/**
+    }
+
+    /**
      * @test
      */
     public function FindLast()
@@ -78,7 +83,6 @@ class NewsTest extends TestCase
         $last = $repository->findLast(2);
         self::assertEquals(2,sizeof($last));
         self::assertInstanceOf('\News\Entity\News',$last[0]);
-
     }
 
 }

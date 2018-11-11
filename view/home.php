@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 
-<!-- HEADER !-->
-<?php require_once(__DIR__ . '/partials/header.php'); ?>
-
+<head>
+    <!-- HEADER !-->
+    <?php require_once(__DIR__ . '/partials/header.php'); ?>
+</head>
 <body>
     <!-- NAVBAR !-->
     <?php require_once(__DIR__ . '/partials/navbar.php'); ?>
@@ -16,32 +17,33 @@
                     <div id="newsCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
-                            <li data-target="#newsCarousel" data-slide-to="0" class=""></li>
-                            <li data-target="#newsCarousel" data-slide-to="1" class="active"></li>
-                            <li data-target="#newsCarousel" data-slide-to="2" class=""></li>
+                            <?php for($i=0;$i<count($news);$i++): ?>
+                                <?php if($i==0): ?>
+                                    <li data-target="#newsCarousel" data-slide-to="<?php echo $i ?>" class="active"></li>
+                                <?php else: ?>
+                                    <li data-target="#newsCarousel" data-slide-to="<?php echo $i ?>" class=""></li>
+                                <?php endif; ?>
+                            <?php endfor; ?>
                         </ol>
                         <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item">
-                                <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
-                                <div class="carousel-caption">
-                                    <h3>La pinte de Noel</h3>
-                                    <p>Papa noël</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item active">
-                                <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
-                                <div class="carousel-caption">
-                                    <h3>NJV BEUVERIE</h3>
-                                    <p>Soon</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block mx-auto img-fluid" src="assets/images/articles/art1.jpg" alt="">
-                                <div class="carousel-caption">
-                                    <h3>Yes</h3>
-                                    <p>C'est beau</p>
-                                </div>
-                            </div>
+                            <?php $i =0; foreach ($news as $aNews):?>
+                                <?php if($aNews->getImage() != null && $aNews->getImage()!= ""){$coverNews = $aNews->getImage();}
+                                    else{$coverNews = "assets/images/articles/art1.jpg";}
+                                ?>
+                                <?php if($i==0): ?>
+                                    <div class="carousel-item active">
+                                <?php else: ?>
+                                    <div class="carousel-item">
+                                <?php endif; ?>
+                                        <a href="/news?id=<?php echo $aNews->getId();?>">
+                                            <img class="d-block mx-auto img-fluid" style="height:200px;" src="<?php echo $coverNews; ?>" alt="">
+                                            <div class="carousel-caption">
+                                                <p>News:</p>
+                                                <h3><?php echo $aNews->getTitle();?></h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                            <?php $i++; endforeach; ?>
                         </div>
 
                     </div>
@@ -49,7 +51,7 @@
             </div>
 
             <div class="Catalogue grid-block">
-                <a href="#">
+                <a href="catalogue">
                     <div class="container h-100">
                         <div class="row h-100 justify-content-center align-items-center">
                             <div class="col-12 mx-auto">
@@ -73,7 +75,7 @@
                                             <br>
                                             Solde: <?php print $solde ?> €
                                         </p>
-                                        <a href="#" title="Mes statistiques" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i>Mes statistiques </a>
+                                        <a href="statistiques" title="Mes statistiques" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i>Mes statistiques </a>
                                         <a href="transaction" title="Mes transactions" class="anchor btn btn-default"> <i class="fa fa-chart-bar" aria-hidden="true"></i> Mes transactions </a>
                                     </div>
                                 </div>

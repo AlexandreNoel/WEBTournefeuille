@@ -6,7 +6,6 @@
         session_start();
 
 
-    $_SESSION['authenticated_admin']=true;
     // Vérification si Admin connecté
     if(!isset($_SESSION['authenticated_admin'])){
         header('Location: /');
@@ -19,6 +18,35 @@
         $transacHydrator = new \Transaction\Hydrator\Transaction();
         $productHydrator = new \Product\Hydrator\Product();
         $productRepository = new \Product\Repository\Product();
+        $newsRepository = new \News\Repository\News();
+        $newsHydrator = new \News\Hydrator\News();
+        //================================
+        // Vérification du mdp barmen
+        //================================
+        if(isset($_POST['serviceCheckBarmen']) && isset($_POST['password'])){
+            try {
+                $userBarmen = $userRepository->findOneByCodeBarmen($_POST['password']);
+                if (isset($userBarmen)) {
+                    $arr = array(
+                        'status' => true,
+                        'barmenId' => $userBarmen->getId()
+                    );
+                    echo json_encode($arr);
+                }
+                else{
+                    throw new \Exception("Barmen Invalide.");
+                }
+            }catch(Exception $e){
+                $arr = array(
+                    'status' => false,
+                    'error' => $e->getMessage()
+                );
+
+                echo json_encode($arr);
+            }
+            http_response_code(200);
+            return ;
+        }
 
         //================================
         // Gestion de recherche de client
@@ -38,7 +66,7 @@
             try{
                 $userBarmen = $userRepository->findOneByCodeBarmen($_POST['password']);
                 if(isset($userBarmen)) {
-                    $userRepository->giveMoney($_POST["id"],$_POST["credit"]);
+                    $userRepository->giveMoney($_POST["id"],$_POST["credit"],$userBarmen->getId());
                     $arr = array(
                         'status' => true,
                     );
@@ -56,6 +84,8 @@
 
                 echo json_encode($arr);
             }
+            http_response_code(200);
+            return ;
 
         }
 
@@ -66,9 +96,10 @@
             try{
                 $user = $userRepository->findOneByCodeBarmen($_POST['password']);
                 if(isset($user)) {
+                    date_default_timezone_set('Europe/Paris');
                     $idbarmen = $user->getId();
                     $idclient = $_POST['idutilisateur'];
-                    $date = date("Y-m-d H:i:s");
+                    $date = date("d-m-Y H:i:s");
                     $products = $_POST['products'];
 
                     $prodSpl = new SplObjectStorage();
@@ -88,7 +119,6 @@
                             'idbarmen' => $idbarmen ?? null,
                         ], new \Transaction\Entity\Transaction()
                     );
-
                     $idCommande = $transacRepository->create($transaction);
 
                     // Si commande correctement effectuée
@@ -114,6 +144,69 @@
             http_response_code(200);
             return ;
         }
-        http_response_code(400);
 
+        //===================================
+        //  Récupération d'une news
+        //===================================
+        else if(isset($_POST['idNews'])){
+            $id = $_POST['idNews'];
+            $news = $newsRepository->findById($id);
+            echo json_encode($newsHydrator->extract($news));
+            exit;
+        }
+        //===================================
+        // Upload d'un fichier sur le serveur
+        //===================================
+        else if(isset($_FILES['fileToUpload']['name'])){
+            try{
+                //----------------------------
+                //Initialisation des variables
+                //----------------------------
+                $arr = array('status' => false);
+
+                $currentDir = getcwd();
+                $uploadDirectory = "/assets/images/articles/";
+                $fileExtensions = ['jpeg', 'jpg', 'png','gif'];
+                $maxsize=2000000;
+                $fileName = $_FILES['fileToUpload']['name'];
+                $fileSize = $_FILES['fileToUpload']['size'];
+                $fileTmpName = $_FILES['fileToUpload']['tmp_name'];
+                $fileType = $_FILES['fileToUpload']['type'];
+
+                $split = explode('.', $fileName);
+                $fileExtension = strtolower((end($split)));
+                $uploadPath = $currentDir . $uploadDirectory . basename($fileName);
+
+                //Vérification initiale sur le type / taille de fichier
+                if (!in_array($fileExtension, $fileExtensions)) {
+                    throw new \Exception("Extension autorisé: gif,png ou jpg/jpeg seulement");
+                }
+                if ($fileSize > $maxsize) {
+                    throw new \Exception("Fichier de 2MB");
+                }
+
+                // Transfère du fichier dans le dossier d'upload
+                $didUpload = move_uploaded_file($fileTmpName, $uploadPath);
+                if ($didUpload) {
+                    $arr = array(
+                        'status' => true,
+                        'fileName' =>  $fileName
+                    );
+                    echo json_encode($arr);
+                }else {
+                    throw new \Exception("Un problème a eu lieu durant le transfert du fichier depuis le dossier temporaire");
+                }
+            }
+            catch(Exception $e){
+                $arr = array(
+                    'status' => false,
+                    'error' => $e->getMessage()
+                );
+
+                echo json_encode($arr);
+            }
+            http_response_code(200);
+            return ;
+        }
+        http_response_code(400);
     }

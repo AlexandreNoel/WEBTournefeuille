@@ -21,7 +21,7 @@ class News {
 
     public function findAll() : array
     {
-        $sql='SELECT * FROM annonce';
+        $sql='SELECT * FROM annonce ORDER BY dateCreation DESC';
         foreach ($this->dbAdapter->query($sql) as $articleData) {
             $entity = new \News\Entity\News();
             $articles[] = $this->hydrator->hydrate($articleData, clone $entity);
@@ -32,10 +32,11 @@ class News {
     public function create(\News\Entity\News $news) : int
     {
         $data = $this->hydrator->extract($news);
-        $statement = $this->dbAdapter->prepare('INSERT INTO "annonce" (titre, contenu, idauteur) values (:titre, :contenu, :idauteur) RETURNING idAnnonce');
+        $statement = $this->dbAdapter->prepare('INSERT INTO "annonce" (titre, contenu, idauteur,image) values (:titre, :contenu, :idauteur,:image) RETURNING idAnnonce');
         $statement->bindParam(':titre', $data['titre']);
         $statement->bindParam(':contenu',$data['contenu']);
         $statement->bindParam(':idauteur',$data['idauteur']);
+        $statement->bindParam(':image',$data['image']);
         $statement->execute();
         $id="";
         foreach ($statement->fetchAll() as $productData) {
@@ -102,11 +103,12 @@ class News {
     public function update(\News\Entity\News $news) : void
     {
         $data = $this->hydrator->extract($news);
-        $statement = $this->dbAdapter->prepare('UPDATE "annonce" SET titre=:titre, contenu=:contenu, idauteur=:idauteur WHERE idannonce=:id');
+        $statement = $this->dbAdapter->prepare('UPDATE "annonce" SET titre=:titre, contenu=:contenu, idauteur=:idauteur,image=:image WHERE idannonce=:id');
         $statement->bindParam(':id', $data['idannonce']);
         $statement->bindParam(':titre', $data['titre']);
         $statement->bindParam(':contenu',$data['contenu']);
         $statement->bindParam(':idauteur',$data['idauteur']);
+        $statement->bindParam(':image',$data['image']);
         $statement->execute();
 
     }

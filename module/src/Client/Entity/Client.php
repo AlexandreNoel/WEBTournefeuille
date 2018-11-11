@@ -86,17 +86,17 @@ class Client
     /**
      * @return int
      */
-    public function getSolde(): int
+    public function getSolde(): float
     {
-        return $this->solde;
+        return bcdiv($this->solde,1,2);
     }
 
     /**
      * @param int $solde
      */
-    public function setSolde(int $solde): Client
+    public function setSolde(float $solde): Client
     {
-        $this->solde = $solde;
+        $this->solde = bcdiv($solde,1,2);
         return $this;
     }
 

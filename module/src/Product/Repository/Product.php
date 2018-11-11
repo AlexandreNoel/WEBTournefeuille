@@ -107,7 +107,7 @@ class Product
     public function modifyStock($id, $stock)
     {
         $quantityProduct = $this->findById($id)->getQuantity();
-        if (($quantityProduct + $stock) > 0 or $stock > 0) {
+        if (($quantityProduct + $stock) >= 0 or $stock > 0) {
             $statement = $this->dbAdapter->prepare('UPDATE produit SET quantitestock=quantitestock + :stock WHERE idproduit=:id');
             $statement->bindParam(":stock", $stock);
             $statement->bindParam(":id", $id);
@@ -166,6 +166,7 @@ class Product
         $statement->bindParam(':libelle', $productName);
         $statement->execute();
     }
+
     public function getMostSelled($top){
         $statement = $this->dbAdapter->prepare(
             'select idproduit,sum(quantite) as quantite from faitpartiecommande group by idproduit limit :top;');
@@ -175,6 +176,40 @@ class Product
             $res[]=$productData;
         }
         return $res;
+    }
 
+    public function getShortcut() : array
+    {
+        $categories[] = null;
+        $statement = $this->dbAdapter->prepare('SELECT * FROM shortcut s INNER JOIN produit p ON p.idProduit = s.idProduit; ');
+        $statement->execute();
+        return $statement->fetchAll();
+
+    }
+
+    public function createProductShortcut($idProduct,$command)
+    {
+        $statement = $this->dbAdapter->prepare('INSERT INTO shortcut(idProduit,command) VALUES(:id,:command);');
+        $statement->bindParam(':id', $idProduct);
+        $statement->bindParam(':command', $command);
+        $statement->execute();
+    }
+
+    public function updateProductShortcut($idProduct,$command)
+    {
+        $statement = $this->dbAdapter->prepare('UPDATE shortcut SET command = :command WHERE idProduit = :id;');
+        $statement->bindParam(':id', $idProduct);
+        $statement->bindParam(':command', $command);
+        $statement->execute();  
+        $statement = $this->dbAdapter->prepare('INSERT INTO shortcut(idProduit,command) SELECT :id,:command WHERE NOT EXISTS(SELECT 1 FROM shortcut WHERE idProduit = :id);');
+        $statement->bindParam(':id', $idProduct);
+        $statement->bindParam(':command', $command);
+        $statement->execute();
+    }
+    public function deleteProductShortcut($idProduct)
+    {
+        $statement = $this->dbAdapter->prepare('DELETE FROM shortcut WHERE idProduit=:id;');
+        $statement->bindParam(':id', $idProduct);
+        $statement->execute();
     }
 }

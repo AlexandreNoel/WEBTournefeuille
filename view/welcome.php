@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 
-    <!-- NAVBAR !-->
-    <?php require_once(__DIR__ . '/partials/header.php'); ?>
-
+    <!-- HEADER !-->
+    <head>
+        <?php require_once(__DIR__ . '/partials/header.php'); ?>
+    </head>
     <body>
 
         <!-- NAVBAR !-->
@@ -17,16 +18,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Actualités</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" >Catalogue</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </nav>
 

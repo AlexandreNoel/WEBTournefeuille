@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (count($view['errors']) === 0) {
         $_SESSION['authenticated_admin']=$view['user'];
-        header('Location: /console.php');
+        header('Location: /console');
     }
 }
 

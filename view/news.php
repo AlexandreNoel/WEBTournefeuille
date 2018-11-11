@@ -1,142 +1,54 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 
-<!-- HEADER !-->
-<?php require_once(__DIR__ . '/partials/header.php'); ?>
+<head>
+    <!-- HEADER !-->
+    <?php require_once(__DIR__ . '/partials/header.php'); ?>
+</head>
 
 <body class="main-body">
+    <style>
+        .cards button{
+            width:50%;
+        }
+    </style>
+    <!-- NAVBAR !-->
+    <?php require_once(__DIR__ . '/partials/navbar.php'); ?>
 
-<!-- NAVBAR !-->
-<?php require_once(__DIR__ . '/partials/navbarAdmin.php'); ?>
-
-<!-- CONTENU !-->
-
-<div class="content-container">
-    <div class="card">
-        <h5 class="card-header text-center">Liste des news</h5>
-        <div class="card-body">
-        <div id="form-div">
-            <form id="form-ajout" class="form-ajout" action="add-news.php" method="post">
-                <div>
-                    <label>Titre</label>
-                    <input
-                        id="titre-input"
-                        type="text"
-                        name="titre"
-                        placeholder="Titre de la news"
-                        value=""
-                    >
-                </div>
-                <div>
-                    <label>Contenu</label>
-                    <textarea
-                        id="contenu-input"
-                        name="contenu"
-                        title="Contenu"
-                    ></textarea>
-                </div>
-                <input
-                    id="idauteur-input"
-                    type="hidden"
-                    name="idauteur"
-                    value="0"
-                >
-                <input
-                    id="idannonce-input"
-                    type="hidden"
-                    name="idannonce"
-                    value="0"
-                >
-                <input id="submit-form" type="submit" value="Ajouter">
-                <button type="button" id="cancel-button"> BACK </button>
-            </form>
-        </div>
-        <div id="add">
-            <button id="add-button">Ajouter une news</button>
-        </div>
-        <div id="tables">
-            <div id="single-table">
-                    <label id="table-tile">News</label>
-                    <table id="table_news" class="display">
-                        <thead>
-                        <tr>
-                            <th>Titre</th>
-                            <th>Contenu</th>
-                            <th>Auteur</th>
-                            <th>Date création</th>
-                            <th>Modify</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach($news as $newsentity): ?>
-                            <?php if (!is_null($newsentity)):?>
-                                <tr>
-                                    <td><?php echo $newsentity->getTitle()?></td>
-                                    <td><?php echo $newsentity->getContenu()?></td>
-                                    <td><?php echo $auteurlist[$newsentity->getIdAuteur()]?></td>
-                                    <td><?php echo $newsentity->getDateCreation()->format("d-m-Y")?></td>
-                                    <td>
-                                        <button class="edit-button" onclick="updateNews(<?php echo "'" . $newsentity->getTitle() . "', '" .
-                                         $newsentity->getContenu() . "' ," .
-                                         $newsentity->getIdAuteur() . " ," .
-                                         $newsentity->getId();?>)" >
-                                        <img class="icon" src="assets/images/edit.png">
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <form action="del-news.php" method="post">
-                                            <input type="hidden" name="id_annonce" value="<?php echo $newsentity->getId() ?>">
-                                            <button class="remove-button">
-                                                <img class="icon" src="assets/images/cross.png">
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
+    <!-- CONTENU !-->
+    <div class="content-container">
+        <!-- Affichage d'une news !-->
+        <?php if($allNews===false): ?>
+            <div class="cover-news py-5 bg-image-full" style="background-image: url('<?php echo $newsCover ?>');">
+                <div class="title-news">
+                    <span class="badge badge-light "><h6><?php echo $news->getTitle();?></h6></span><br>
+                    <span class="badge badge-dark"><?php echo $news->getDateCreation()->format('d-m-Y');?></span>
+                    <p></p>
                 </div>
             </div>
-        </div>
+            <div id="news" class="content-news">
+                <?php echo $news->getContenu(); ?>
+            </div>
+        <?php else: ?>
+        <!-- Affichage de toutes les news !-->
+            <main class="cards">
+                <?php foreach ($news as $aNews): ?>
+                <article class="card">
+                    <img src="<?php echo $aNews->getImage();?>" alt="Photo news">
+                    <div class="text text-center">
+                        <h3><?php echo $aNews->getTitle(); ?></h3>
+                    </div>
+                    <a href="/news?id=<?php echo $aNews->getId();?>"><button class="btn btn-primary rounded d-block mx-auto"> Voir </button></a>
+                </article>
+                <?php endforeach; ?>
+            </main>
+        <?php endif;?>
+
     </div>
-</div>
-</body>
-<script>
-    $(document).ready(function () {
-        $("#add-button").on("click",function(){
-            $("#add-button").css("display","none"),
-            $("#tables").css("display", "none"),
-            $("#titre-input").val(" "),
-            $("#contenu-input").val(" "),
-            $("#idauteur-input").val(<?php echo $_SESSION["authenticated_user"]->getId()?>),
-            $("#submit-form").val("Ajouter"),
-            $("#form-ajout").attr('action','add-news.php'),
-            $("#form-div").show()
-    });
+    <script>
+        $(document).ready(function () {
 
-        $("#cancel-button").on("click", function(){
-            $("#form-div").css("display", "none"),
-            $("#add-button").show(),
-            $("#tables").show()
         });
-
-        $(document).ready(function() {
-            $('table.display').DataTable();
-        } );
-    });
-
-    function updateNews(titre, contenu, idauteur, idannonce) {
-        $("#add-button").css("display","none"),
-        $("#tables").css("display", "none"),
-        $("#titre-input").val(titre),
-        $("#contenu-input").val(contenu),
-        $("#idauteur-input").val(idauteur),
-        $("#idannonce-input").val(idannonce),
-        $("#submit-form").val("Modifier"),
-        $("#form-ajout").attr('action','update-news.php'),
-        $("#form-div").show()
-    }
-</script>
+    </script>
+</body>
 </html>

@@ -21,10 +21,16 @@ if(session_status()!=PHP_SESSION_ACTIVE)
                 $hydrator = new Product\Hydrator\Product();
                 $repoproducts = new Product\Repository\Product();
                 $repoproducts->update($hydrator->hydrate($_POST, new \Product\Entity\Product()));
+                if(isset($_POST["shortcutCheck"],$_POST['shortcut'])){
+                    $repoproducts->updateProductShortcut($_POST["idproduit"],$_POST['shortcut']);
+                }
+                else{
+                    $repoproducts->deleteProductShortcut($_POST["idproduit"]);
+                }
             }
         } else {
             throw new \HttpInvalidParamException('Method not allowed', 405);
         }
-        header('Location: console');
+        header('Location: /gestionProduct');
     }
 exit();

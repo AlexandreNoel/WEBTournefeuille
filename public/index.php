@@ -1,10 +1,9 @@
 <?php
 // Récupération de l'url demandé
-$url = $_SERVER['REQUEST_URI'];
-
+$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
 
 // Redirection
-switch ($url) {
+switch ($request_uri[0]) {
 
     /* WELCOME */
     case '/':
@@ -14,49 +13,69 @@ switch ($url) {
         require __DIR__ . '/../view/welcome.php';
         break;
 
-    /* ABOUT */
-    case '/about' :
-        require __DIR__ . '/../view/about.php';
-        break;
-
+    /**********************/
+    /* PARTIE UTILISATEUR */
+    /**********************/
+    // UTILISATEUR - LOGIN
     case '/login' :
         require __DIR__ . '/login.php';
         break;
 
-    /* HOME */
+    // UTILISATEUR - ACCUEIL
     case '/home':
         require __DIR__ . '/home.php';
         break;
 
-    /* CONSOLE */
-    case '/console':
-        require __DIR__ . '/console.php';
-        break;
-
-    case '/services':
-        require __DIR__ . '/services.php';
-        break;
-    /* CONSOLE */
-    case '/transaction':
-        require __DIR__ . '/transaction.php';
-        break;
-    
-    /* CATALOGUE */
+    // UTILISATEUR - CATALOGUE
     case '/catalogue':
         require __DIR__ . '/catalogue.php';
         break;
 
-    /* CONSOLE - GESTION - NEWS */
+    case '/news':
+        require __DIR__ . '/news.php';
+        break;
+
+    // UTILISATEUR - STATS 
+        case '/statistiques':
+        require __DIR__ . '/statistiques.php';
+        break;
+
+    /*************************/
+    /* PARTIE ADMINISTRATEUR */
+    /*************************/
+    // CONSOLE - LOGIN
+    case '/connect-console':
+        require __DIR__ . '/connect-console.php';
+        break;
+
+    // CONSOLE - ACCUEIL
+    case '/console':
+        require __DIR__ . '/console.php';
+        break;
+
+    // CONSOLE - GESTION - TRANSACTIONS
+    case '/transaction':
+        require __DIR__ . '/transaction.php';
+        break;
+
+    /* CONSOLE - GESTION - PRODUITS */
     case '/gestionProduct':
-        require __DIR__ . '/product.php';
+        require __DIR__ . '/gestionProduct.php';
         break;
 
     /* CONSOLE - GESTION - NEWS */
     case '/gestionNews':
-        require __DIR__ . '/news.php';
+        require __DIR__ . '/gestionNews.php';
         break;
 
-    /* AUTRES CAS NON GERE */
+    // CONSOLE - SERVICES (AJAX)
+    case '/services':
+        require __DIR__ . '/services.php';
+        break;
+
+    /*************************/
+    /* AUTRES                */
+    /*************************/
     default:
         require __DIR__ . '/../view/404.php';
         break;
