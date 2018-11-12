@@ -80,7 +80,7 @@ En prenant comme modèle le template docker fourni avec le sujet, nous avons pu 
 
 Les rôles affectés à chaque membre de l'équipe :
 
-- Rémi Mollandin : Backend & Infra
+- Rémy Mollandin : Backend & Infra
 - Théo Peuckert : Backend & Tests
 - Antoine Chapusot Management projet
 - Xavier Grimaldi Frontend & Features
