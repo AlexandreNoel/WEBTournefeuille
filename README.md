@@ -1,5 +1,7 @@
 # ENSIIE - LE BAR D
 
+Le rapport de ce projet est présent dans le dossier _document/_
+
 ### Install your application
 * Change the parameters in .env file by your own values (for DOCKER_USER and DOCKER_USER_ID). Keep those configuration:
 
