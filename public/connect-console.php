@@ -1,12 +1,16 @@
 <?php
+require_once __DIR__.'./../vendor/autoload.php';
+
+use \Adapter\DatabaseFactory;
 
 // Initialisation de la session
 if(session_status()!=PHP_SESSION_ACTIVE)
     session_start();
 
 unset($_SESSION['authenticated_admin']);
-$required_login = "chap";
-$required_password = "chap";
+
+
+$PREFIX_SAL = "[BARD]";
 
 $view = [
     'user' => [
@@ -22,14 +26,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($login && $password) {
 
-        if (!strcmp($login,$required_login) && !strcmp($password,$required_password)) {
+        $passwordHashed= hash('sha256',$PREFIX_SAL.$password);
+        $dbFactory = new DatabaseFactory();
+        $dbAdapter = $dbFactory->getDbAdapter();
+
+        $statement=$dbAdapter->prepare('SELECT * FROM admin WHERE login ILIKE :login and password ILIKE :password');
+        $statement->bindParam(':login', $login);
+        $statement->bindParam(':password', $passwordHashed);
+        $statement->execute();
+
+        if($statement->rowCount() > 0){
+            $result =$statement->fetchAll();
             $view['user'] = [
-                'login' => $login,
-                'password' => $password,
+                'login' => $result[0]['login']
             ];
         } else {
-            $view['errors']['login-password'] = 'Password and login do not match';
+                $view['errors']['login-password'] = 'Password and login do not match';
         }
+
+
     } else {
         if (!$login) {
             $view['errors']['login'] = 'login is required';

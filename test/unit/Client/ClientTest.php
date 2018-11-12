@@ -124,13 +124,13 @@ class ClientTest extends TestCase
                 'pseudo' => "Chap",
                 'nom' => "CHAPUZOT",
                 'solde' => 25,
-                'codebarmen' => 'admin'
+                'codebarmen' => hash('sha256','[BARD-BARMEN]admin')
             ],
             new \Client\Entity\Client()
         );
         $retrieved = $userRepository->findOneById(2);
         self::assertSame($chap->getFirstname(), $retrieved->getFirstname());
-        self::assertSame($chap->getCodebarmen(), $retrieved->getCodebarmen());
+        self::assertSame(strtoupper($chap->getCodebarmen()), strtoupper($retrieved->getCodebarmen()));
 
     }
     public function testMoney(){

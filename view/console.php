@@ -137,8 +137,7 @@
                                                                     <td data="<?php echo $product->getQuantity(); ?>" class="pStock">Stock: <?php echo $product->getQuantity(); ?></td>
                                                                     <?php if($product->getReduction()): ?>
                                                                         <td data="<?php echo $product->getPrice()-$product->getPrice()*($product->getReduction()/100)?>" class="pPrice">
-                                                                            <p class="text-light bg-danger"><?php echo $product->getPrice()-$product->getPrice()*($product->getReduction()/100)." €";?></p>
-                                                                            <strike><?php echo $product->getPrice()." €";?></strike>
+                                                                            <p class="text-light bg-danger"><?php echo $product->getPrice()-$product->getPrice()*($product->getReduction()/100)." €";?> <strike><?php echo $product->getPrice()." €";?></strike></p>
                                                                         </td>
                                                                     <?php else: ?>
                                                                         <td data="<?php echo $product->getPrice()?>" class="pPrice">

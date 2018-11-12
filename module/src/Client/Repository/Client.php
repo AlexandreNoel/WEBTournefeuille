@@ -8,6 +8,7 @@ class Client
      * @var \PDO
      */
     private $connection;
+    private $PREFIX_SAL="[BARD-BARMEN]";
 
     /**
      * Client constructor.
@@ -60,12 +61,13 @@ class Client
         return $user;
     }
 
-    public function findOneByCodeBarmen($code)
+    public function findOneByCodeBarmen($password)
     {
         $user = null;
+        $hashpassword = hash('sha256',$this->PREFIX_SAL.$password);
         $statement = $this->dbAdapter->prepare(
-            'select u.*,b.codebarmen from Utilisateur u left join barmen b on u.idutilisateur = b.idutilisateur where b.codebarmen = :code');
-        $statement->bindParam(':code', $code);
+            'select u.*,b.codebarmen from Utilisateur u left join barmen b on u.idutilisateur = b.idutilisateur where b.codebarmen ILIKE :code');
+        $statement->bindParam(':code', $hashpassword);
         $statement->execute();
         foreach ($statement->fetchAll() as $row) {
             $entity = new \Client\Entity\Client();
