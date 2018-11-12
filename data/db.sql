@@ -116,7 +116,7 @@ INSERT INTO Admin(login,password) VALUES('PCBAR1','A7D7A50395AA8686ECAAF8105885C
 INSERT INTO Admin(login,password) VALUES('PCBAR2','5096AC2A5C60147F22F591A0C240FF5F999F1D431BC3B21DEF5508D314E7F631');
 
 -- Table Utilisateur
-INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (1,'GEFCLIC', 'Benoit','SCHOLL','25');
+INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (1,'GEFCLIC', 'Benoît','SCHOLL','25');
 INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (2,'CHAP','Antoine','CHAPUSOT','30');
 INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (3,'TOAST', 'Théo','PEUCKERT','25');
 INSERT INTO Utilisateur(idUtilisateur, pseudo, prenom, nom, solde) VALUES (4,'Demo', 'Demo', 'User','1');
