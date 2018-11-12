@@ -2,12 +2,12 @@
 /*           Wrappers            */
 /*-------------------------------*/
 
-#wrapper {
-    padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+#header img {
+    width: 1.2em;
+}
+
+.container {
+    width: initial;
 }
 
 /*-------------------------------*/
@@ -15,36 +15,21 @@
 /*-------------------------------*/
 
 #sidebar-wrapper {
-    z-index: 1000;
-    left: 18em;
-    width: 0;
     height: 100%;
-    margin-left: -18em;
     overflow-y: auto;
     overflow-x: hidden;
     background: #f5f5f5;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-    top: 3.7em;
+    left: -3em;
+    top: -1.67em;
+    font-size: 1.2em;
 }
-
-#wrapper.toggled #sidebar-wrapper {
-    width: 18em;
-}
-
-#page-content-wrapper {
-    width: 100%;
-}
-
 
 .sidebar-nav li:before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 999;
     height: 100%;
     width: 0px;
     background-color: #1c1c1c;
@@ -76,6 +61,7 @@
     color: #000;
     text-decoration: none;
     padding: 10px 15px 10px 30px;    
+    z-index: 1000;
 }
 
 .sidebar-nav li a:hover,

@@ -6,20 +6,20 @@ const deco_li = ['menu_form'];
 $(document).ready(() => {
     postSession();
     reloadSideBar();
-    
-  /*  if(getSession()['id']){
-        loadUserSideBar();
-        loadUserInfo();
-    }*/
-    var wrapper = $('#wrapper');
+    loadUserSideBar();
 
-    wrapper.click(() => {
-        $('#wrapper').removeClass('toggled');
-    });
-
-    $('[data-toggle="offcanvas"]').click(() => {
-        $('#wrapper').toggleClass('toggled');
-    });  
+    $('.navbar li').removeClass('selected');
+    const path = window.location.pathname;
+    if (path === '/')
+        $('#menu_home').addClass('selected');
+    else if (path.match(/\/restaurants\/[0-9]+/))
+        $('#menu_home').addClass('selected');
+    else if (path === '/restaurants/add')
+        $('#menu_add_restaurant').addClass('selected');
+    else if (path.match(/\/users\/[0-9]+/))
+        $('#menu_user').addClass('selected');
+    else if (path === '/users')
+        $('#menu_users').addClass('selected');
 });
 
 var k = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
