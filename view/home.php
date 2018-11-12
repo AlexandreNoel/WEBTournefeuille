@@ -66,7 +66,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card-base">
-                                <div class="card-icon"><a href="#" title="Widgets" id="widgetCardIcon" class="imagecard"><span class="fa fa-user"></span></a>
+                            <?php if($user->getImage() != null && $user->getImage() != ""): ?>
+                                <div class="card-icon"><a href="#" title="Widgets" id="widgetCardIcon" style="background-image: url('<?php echo $user->getImage();?>');" class="imagecard"><span class="fa fa-user"></span></a>
+                            <?php else:?>
+                                <div class="card-icon"><a href="#" title="Widgets" id="widgetCardIcon" style="background-image: url('assets/images/beer_fond_small.jpg');" class="imagecard"><span class="fa fa-user"></span></a>
+                            <?php endif; ?>
                                     <div class="card-data widgetCardData">
                                         <h2 class="box-title pb-0" style="color: #bb7824;"><?php print $nickname?> </h2>
                                         <h6 class="box-title pt-0" style="color: #bb7824;"><?php print $firstname ." ". $lastname?></h6>

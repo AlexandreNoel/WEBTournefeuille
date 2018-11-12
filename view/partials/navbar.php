@@ -26,6 +26,7 @@
                             <?php print $_SESSION['authenticated_user']->getNickname(); ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/userInfo">Voir/Modifier mes infos</a>
                             <a class="dropdown-item" href="/logout.php">Déconnexion</a>
                             <a class="dropdown-item" href="/logout.php?logoutAriseId=true">Déconnexion AriseID</a>
                         </div>

@@ -22,7 +22,9 @@ CREATE TABLE Utilisateur (
     pseudo VARCHAR NOT NULL UNIQUE,
     prenom VARCHAR NOT NULL ,
     nom VARCHAR NOT NULL ,
-    solde NUMERIC(19,2) NOT NULL
+    solde NUMERIC(19,2) NOT NULL,
+    email VARCHAR NULL,
+    image VARCHAR NULL
 );
 
 CREATE TABLE Barmen(

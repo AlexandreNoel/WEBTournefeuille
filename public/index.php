@@ -22,6 +22,11 @@ switch ($request_uri[0]) {
         break;
 
     // UTILISATEUR - ACCUEIL
+    case '/userInfo':
+        require __DIR__ . '/userInfo.php';
+        break;
+
+    // UTILISATEUR - ACCUEIL
     case '/home':
         require __DIR__ . '/home.php';
         break;

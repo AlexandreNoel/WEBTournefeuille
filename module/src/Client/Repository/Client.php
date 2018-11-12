@@ -128,13 +128,24 @@ class Client
     public function update(\Client\Entity\Client $client)
     {
         $clientkArray = $this->hydrator->extract($client);
-        $statement = $this->dbAdapter->prepare('update utilisateur set nom=:lastname, prenom=:firstname, pseudo=:nickname, solde=:solde where Idutilisateur=:id');
+        $statement = $this->dbAdapter->prepare('update utilisateur set nom=:lastname, prenom=:firstname, pseudo=:nickname, solde=:solde , email=:email,image=:image where Idutilisateur=:id');
 
-        $solde=0;
         $statement->bindParam(':lastname', $clientkArray['nom']);
         $statement->bindParam(':firstname', $clientkArray['prenom']);
         $statement->bindParam(':nickname', $clientkArray['pseudo']);
         $statement->bindParam(':solde', $clientkArray['solde']);
+        $statement->bindParam(':email', $clientkArray['email']);
+        $statement->bindParam(':image', $clientkArray['image']);
+        $statement->bindParam(':id', $clientkArray['idutilisateur']);
+        $statement->execute();
+    }
+
+    public function updateInfo(\Client\Entity\Client $client)
+    {
+        $clientkArray = $this->hydrator->extract($client);
+        $statement = $this->dbAdapter->prepare('update utilisateur set email=:email,image=:image where Idutilisateur=:id');
+        $statement->bindParam(':email', $clientkArray['email']);
+        $statement->bindParam(':image', $clientkArray['image']);
         $statement->bindParam(':id', $clientkArray['idutilisateur']);
         $statement->execute();
     }
