@@ -20,7 +20,7 @@ class ClientTest extends TestCase
         $gefclic = $hydrator->hydrate(
             [
                 'idutilisateur' => 1,
-                'prenom' => "Benoît",
+                'prenom' => "Benoït",
                 'pseudo' => "Gefclic",
                 'nom' => "SCHOLL"
             ],
@@ -150,12 +150,12 @@ class ClientTest extends TestCase
         $hydrator = new \Client\Hydrator\Client();
         $userRepository = new \Client\Repository\Client($dbconnector);
         $retrieved = $userRepository->findOneById(1);
-        self::assertSame("benoît",$retrieved->getFirstname());
+        self::assertSame("benoït",$retrieved->getFirstname());
         $retrieved->setFirstname("Ne fait rien pour le projet");
         $userRepository->update($retrieved);
         $retrieved = $userRepository->findOneById(1);
         self::assertSame("ne fait rien pour le projet",$retrieved->getFirstname() );
-        $retrieved->setFirstname("benoît");
+        $retrieved->setFirstname("benoït");
         $userRepository->update($retrieved);
 
     }
