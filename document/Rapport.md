@@ -18,7 +18,7 @@
 
 ## Acteurs
 
-- Rémi Mollandin ~~aka Lineal aka [ibdw.fr](http://ibdw.fr) à vendre 5$~~
+- Rémy Mollandin ~~aka Lineal aka [ibdw.fr](http://ibdw.fr) à vendre 5$~~
 - Théo Peuckert ~~aka Toast aka la salière~~
 - Antoine Chapusot ~~aka Chap aka Fantôme~~
 - Xavier Grimaldi ~~aka Xerx aka Application God~~
