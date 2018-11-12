@@ -15,7 +15,7 @@
         <div class="card">
             <h5 class="card-header text-center">Liste des transactions</h5>
             <div class="card-body">
-                <table class="display" style="text-align:center">
+                <table class="display table-responsive-sm" style="text-align:center">
                     <thead>
                     <tr>
                         <th><p>
@@ -58,7 +58,7 @@
             <h5 class="card-header text-center">Détail de la transaction</h5>
             <div class="card-body">
 
-                <table id="commande-table" class="display" style="text-align:center">
+                <table id="commande-table" class="display table-responsive-sm" style="text-align:center">
                     <thead>
                     <tr>
                         <th>Id Commande</th>
@@ -85,7 +85,7 @@
         <div class="card">
             <h5 class="card-header text-center">Liste des Creditation</h5>
             <div class="card-body">
-                <table class="display" style="text-align:center">
+                <table class="display table-responsive-sm" style="text-align:center">
                     <thead>
                     <tr>
                         <th><p>

@@ -200,7 +200,7 @@ class Product
         $statement = $this->dbAdapter->prepare('UPDATE shortcut SET command = :command WHERE idProduit = :id;');
         $statement->bindParam(':id', $idProduct);
         $statement->bindParam(':command', $command);
-        $statement->execute();  
+        $statement->execute();
         $statement = $this->dbAdapter->prepare('INSERT INTO shortcut(idProduit,command) SELECT :id,:command WHERE NOT EXISTS(SELECT 1 FROM shortcut WHERE idProduit = :id);');
         $statement->bindParam(':id', $idProduct);
         $statement->bindParam(':command', $command);

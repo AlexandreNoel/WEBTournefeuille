@@ -29,7 +29,7 @@ class Product{
         if ($object->getIdfamilly()) {
             $data['idcategorie'] = $object->getIdfamilly();
         }
-        if ($object->getQuantity()) {
+        if ($object->getQuantity()>=0) {
             $data['quantitestock'] = $object->getQuantity();
         }
         if ($object->getEstDisponible() === True) {

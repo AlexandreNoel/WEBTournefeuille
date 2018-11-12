@@ -13,10 +13,10 @@
 
     <!-- CONTENU !-->
     <div class="content-container">
+        <div class="container text-center">
         <div class="card">
             <h5 class="card-header text-center">Catalogue</h5>
             <div class="card-body">
-                <div class="container text-center">
                     <div class="pull-right">
                         <div class="btn-group">
                         <?php foreach ($categories as $category){ ?>

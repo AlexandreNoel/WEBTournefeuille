@@ -44,7 +44,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-4"> <img class="img-fluid" src="assets/images/user_avatar.png" /></div>
+                                <div class="col-sm-4"> <img id="user-pic-img" class="img-fluid" src="assets/images/user_avatar.png" /></div>
                                 <div class="col-sm-4">
                                     <div class="d-none">
                                         <input id="id" name="id" title="id" type="text" value="" disabled/>
@@ -137,8 +137,7 @@
                                                                     <td data="<?php echo $product->getQuantity(); ?>" class="pStock">Stock: <?php echo $product->getQuantity(); ?></td>
                                                                     <?php if($product->getReduction()): ?>
                                                                         <td data="<?php echo $product->getPrice()-$product->getPrice()*($product->getReduction()/100)?>" class="pPrice">
-                                                                            <p class="text-light bg-danger"><?php echo $product->getPrice()-$product->getPrice()*($product->getReduction()/100)." €";?></p>
-                                                                            <strike><?php echo $product->getPrice()." €";?></strike>
+                                                                            <p class="text-light bg-danger"><?php echo $product->getPrice()-$product->getPrice()*($product->getReduction()/100)." €";?> <strike><?php echo $product->getPrice()." €";?></strike></p>
                                                                         </td>
                                                                     <?php else: ?>
                                                                         <td data="<?php echo $product->getPrice()?>" class="pPrice">
@@ -401,6 +400,12 @@
                             var dataJson = JSON.parse(data);
                             var currentCommandeAmount = getTotalAmount();
                             var futurSolde = Number(dataJson['solde']);
+                            if(dataJson['image']!=null && dataJson['image']!=""){
+                                $('#user-pic-img').attr('src',dataJson['image']);
+                            }
+                            else{
+                                $('#user-pic-img').attr('src',"assets/images/user_avatar.png");
+                            }
                             $('#nickname').val(dataJson['pseudo']);
                             $('#firstname').val(dataJson['prenom']);
                             $('#lastname').val(dataJson['nom']);

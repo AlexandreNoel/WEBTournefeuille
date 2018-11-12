@@ -7,6 +7,7 @@
 - Les Problématiques
   - Brainstorming avec Trello
   - Transformation en tâches
+  - Les fonctionnalités
 - L'implémentation
   - Démarrage
     - Affectation des tâches depuis Trello
@@ -17,7 +18,7 @@
 
 ## Acteurs
 
-- Rémi Mollandin ~~aka Lineal aka [ibdw.fr](http://ibdw.fr) à vendre 5$~~
+- Rémy Mollandin ~~aka Lineal aka [ibdw.fr](http://ibdw.fr) à vendre 5$~~
 - Théo Peuckert ~~aka Toast aka la salière~~
 - Antoine Chapusot ~~aka Chap aka Fantôme~~
 - Xavier Grimaldi ~~aka Xerx aka Application God~~
@@ -79,7 +80,7 @@ En prenant comme modèle le template docker fourni avec le sujet, nous avons pu 
 
 Les rôles affectés à chaque membre de l'équipe :
 
-- Rémi Mollandin : Backend & Infra
+- Rémy Mollandin : Backend & Infra
 - Théo Peuckert : Backend & Tests
 - Antoine Chapusot Management projet
 - Xavier Grimaldi Frontend & Features
@@ -118,21 +119,30 @@ Le site tiens compte de la gestion du responsive qui pourra permettre d'adapter 
 
 Deux parties au site :
 
-- Partie utilisateur avec connexion obligatoire par Arise Id pour s'authentifier et accéder à l'application
+- Partie utilisateur avec connexion obligatoire par Arise Id pour s'authentifier et accéder à son espace client pour y consulter son solde, son compte, ses informations, ses statistiques de consommation, les transactions effectuées, les news du bar, le catalogue du bar et autres
 - Partie administrateur `/console` , pour effectuer des commandes, créer et gérer des fonctionnalités du site: Gestion utilisateurs, news, produits, visualisation des transactions globales,etc...
   - Gestion des news: CRUD news avec enrichisement de la gestion avec un éditeur de page HTML intégré, permettant l'upload d'images sur serveur (page de couverture + image dans le contenu HTML)
   - Gestion des produits: CRUD produit + shortcut disponible pour commander rapidement un produit sur la page de console partie commande.
-
-L'utilisateur pourra visualiser son compte, ses informations, ses statistiques de consommation, les transactions effectuées, les news du bar, le catalogue du bar. Éventuellement d'autres features tel que le vote pour un nouveau produit.
 
 La sécurité des pages est gérée au moyen de variable de session objet utilisateur/admin.
 
 ### Problèmes et difficultées rencontrés
 
 - Peu de problème de communication entre les membres de l'équipe
+
+Chacun a trouvé sa place plutôt naturellement dans l'équipe et le partage des tâches a été respecté dans les grandes lignes.
+
 - Sous-estimation de la charge de travail
 
+La plupart des projets sont victimes de retards et/ou de dépassements de budget. Puisque nous n'avions pas de budget et une deadline fixe, nous avons subit un autre type de risque : la charge de travail.
 
+- Typage de la monnaie
+
+Le typage de la monnaie sur le site s'est initialement fait en décimale, donc en `double float`. Mais ce format apporte des soucis d'affichage lors d'opérations sur ces nombres. Une solution proposée aurait été de changer pour des `integer`. Trop tard pour changer et trop d'impacts, nous avons laisser tel quel.
+
+- Le stress de la deadline
+
+Pour diverses raisons qui peuvent être : une idée de feature au dernier moment, une feature oubliée, le soucis du détail, un bug récalcitrant, l'équipe subit le stress de la deadline. Cependant, d'un commun accord, nous avons éviter toute modification de dernière trop impactante.
 
 ## Propositions d'améliorations
 

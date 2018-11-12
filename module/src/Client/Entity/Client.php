@@ -33,6 +33,17 @@ class Client
     private $codebarmen;
 
     /**
+     * @var string
+     */
+    private $email;
+
+    /**
+     * @var string
+     */
+    private $image;
+
+
+    /**
      * @return string
      */
     public function getFirstname(): string
@@ -134,7 +145,39 @@ class Client
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
 
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image)
+    {
+        $this->image = $image;
+        return $this;
+    }
 
 }
 

@@ -329,7 +329,8 @@ nav{
 #widgetCardIcon {
 	font-size: 28px;
 	line-height: 78px;
-	background-size: 50px;
+	background-size: cover;
+	background-repeat: no-repeat;
 	background-image: url("../assets/images/beer_fond_small.jpg");
 }
 

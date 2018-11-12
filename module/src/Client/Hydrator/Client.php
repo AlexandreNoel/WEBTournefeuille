@@ -27,6 +27,12 @@ class Client{
         if ($object->getCodebarmen()) {
             $data['codebarmen'] = $object->getCodebarmen();
         }
+        if ($object->getEmail()) {
+            $data['email'] = $object->getEmail();
+        }
+        if ($object->getImage()) {
+            $data['image'] = $object->getImage();
+        }
         return $data;
     }
     public function hydrate(array $data, \Client\Entity\Client $emptyEntity): \Client\Entity\Client
@@ -37,7 +43,9 @@ class Client{
             ->setLastname(strtolower($data['nom']) ?? "")
             ->setFirstname(strtolower($data['prenom']) ?? "")
             ->setSolde($data['solde'] ?? 0)
-            ->setCodebarmen($data['codebarmen'] ?? "");
+            ->setCodebarmen($data['codebarmen'] ?? "")
+            ->setEmail($data['email'] ?? "")
+            ->setImage($data['image'] ?? "");
     }
 }
 ?>

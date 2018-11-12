@@ -22,7 +22,9 @@ CREATE TABLE Utilisateur (
     pseudo VARCHAR NOT NULL UNIQUE,
     prenom VARCHAR NOT NULL ,
     nom VARCHAR NOT NULL ,
-    solde NUMERIC(19,2) NOT NULL
+    solde NUMERIC(19,2) NOT NULL,
+    email VARCHAR NULL,
+    image VARCHAR NULL
 );
 
 CREATE TABLE Barmen(
@@ -98,11 +100,20 @@ CREATE TABLE Credit(
     idBarmen INTEGER NOT NULL REFERENCES Utilisateur (idUtilisateur)
 );
 
+CREATE TABLE Admin(
+    idAdmin SERIAL PRIMARY KEY,
+    login VARCHAR NOT NULL,
+    password VARCHAR NOT NULL
+);
+
 SET TIME ZONE 'Europe/Paris';
 --------------------------------------------------
 -- INSERTION DES DONNEES
 --------------------------------------------------
 
+-- Table Admin
+INSERT INTO Admin(login,password) VALUES('PCBAR1','A7D7A50395AA8686ECAAF8105885C892D86A422B0EA6784EA834DE65043E2C77');
+INSERT INTO Admin(login,password) VALUES('PCBAR2','5096AC2A5C60147F22F591A0C240FF5F999F1D431BC3B21DEF5508D314E7F631');
 
 -- Table Utilisateur
 INSERT INTO Utilisateur(idUtilisateur,pseudo,  prenom,nom, solde ) VALUES (1,'GEFCLIC', 'Benoit','SCHOLL','25');
@@ -113,7 +124,7 @@ INSERT INTO Utilisateur(idUtilisateur, pseudo, prenom, nom, solde) VALUES (4,'De
 SELECT setval('utilisateur_idutilisateur_seq', 4, true);
 
 --Table Barman
-INSERT INTO Barmen(idUtilisateur,Codebarmen) VALUES(2,'admin');
+INSERT INTO Barmen(idUtilisateur,Codebarmen) VALUES(2,'DCFB8A4794AE3A681BF9DC643E4978568691A7CE1AE6BA6DB7537A5B9D11CC7E');
 
 -- Table Categorie
 INSERT INTO Categorie(idCategorie,libelle) VALUES (1,'Boisson');
@@ -130,6 +141,7 @@ INSERT INTO commande (idutilisateur, idbarmen, prixtotal) VALUES ( 2, 2, 2);
 UPDATE utilisateur set solde=30 where idutilisateur=2;
 
 -- Table Produit
+
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Coca',0.50,0,4,TRUE,1);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Fanta',0.50,0,2,TRUE,1);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Sprite',0.50,0,5,TRUE,1);
@@ -140,6 +152,8 @@ INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategor
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Cafe Fort',0.40,0,20,TRUE,4);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Cafe leger',0.40,0,20,TRUE,4);
 INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Thé',0.40,0,20,TRUE,4);
+INSERT INTO Produit(libelle,prix,reduction,quantiteStock,estDisponible,idCategorie) VALUES ('Bière de Noël',1,20,100,TRUE,1);
+
 INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (3,1,0.5,3);
 INSERT INTO faitpartiecommande (idproduit, idcommande, prixvente, quantite) VALUES (3,2,0.5,3);
 
