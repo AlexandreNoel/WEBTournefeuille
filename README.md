@@ -46,7 +46,8 @@ To access the admin console, go to YourAppUrl/console.
 Exemple: `localhost/console`
 > Note: If you're not connected, you will be redirect to the connect page `/connect-console`
 
-You can access the application admin CONSOLE with one of the following login/pwd:
+You can access the application admin CONSOLE with one of the following login/pwd: 
+
 | Login | Password |
 | ----------- | ----------- |
 | PCBAR1 | fullAdmin |
