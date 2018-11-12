@@ -1,39 +1,93 @@
 <script src="/js/restaurants.js"></script>
-<div id="rest-search" class="col-xs-8 col-xs-offset-2">
-    <form class="row">
-    <div class="form-group col-md-2">
-        <label for="score-filter">Note</label>
-        <select id="score-filter" class="form-control">
-                <option value="-1"></option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </optgroup>
-        </select>
+<div>
+    <div class="carousel fade-carousel slides" data-ride="carousel" data-interval="3000" id="bs-carousel">
+        <!-- Overlay -->
+        <div class="overlay"></div>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item slides active">
+                <div class="slide-1"></div>
+            </div>
+            <div class="item slides">
+                <div class="slide-2"></div>
+            </div>
+            <div class="item slides">
+                <div class="slide-3"></div>
+            </div>
+            <div class="item slides">
+                <div class="slide-4"></div>
+            </div>
+            <div class="item slides">
+                <div class="slide-5"></div>
+            </div>
+            <div class="item slides">
+                <div class="slide-6"></div>
+            </div>
+            <div class="item slides">
+                <div class="slide-7"></div>
+            </div>
+            <div class="item slides">
+                <div class="slide-8"></div>
+            </div>
+            <div class="item slides">
+                <div class="slide-9"></div>
+            </div>
+            <a class="carousel-control left" href="#bs-carousel" data-slide="prev">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+            </a>
+            <a class="carousel-control right" href="#bs-carousel" data-slide="next">
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        </div>
     </div>
-    <div class="form-group col-md-4">
-        <label for="badge-filter">Badge</label>
-        <select id="badge-filter" class="form-control">
-            <option></option>
-            <option value="Bio">Bio</option>
-            <option value="Halal">Halal</option>
-            <option value="Vegan">Vegan</option>
-        </select>
+    <div id="rest-search">
+        <form class="row">
+            <div class="form-group col-xs-2">
+                <p class="text-center">
+                <label class="label-filter" for="score-filter"> Note </label>
+                <select id="score-filter" class="form-control">
+                    <option value="-1"></option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    </optgroup>
+                </select>
+                </p>
+            </div>
+            <div class="form-group col-xs-4 ">
+                <p class="text-center">
+                <label class="label-filter" for="badge-filter"> Badge </label>
+                <select id="badge-filter" class="form-control">
+                    <option></option>
+                </select>
+                </p>
+            </div>
+            <div class="form-group col-xs-4">
+                <p class="text-center">
+                <label class="label-filter" for="category-filter"> Categorie </label>
+                <select id="category-filter" class="form-control">
+                    <option></option>
+                </select>
+                </p>
+            </div>
+            <div class="form-group col-xs-2">
+                <p class="text-center">
+                <label class="label-filter" for="favorites-filter"> Favoris </label><br/>
+                <input type="checkbox" id="favorites-filter" class="form-check-input"/>
+                </p>
+            </div>
+        </form>
     </div>
-    <div class="form-group col-md-4">
-        <label for="category-filter">Categorie</label>
-        <select id="category-filter" class="form-control">
-        </select>
+    <div class="separator"></div>
+    <div class="row" id="list-restaurants"></div>
+    <div class="separator"></div>
+    <div>
+        <a href="/restaurants/add" id="add-resto" class="btn btn-login"><i class="fas fa-plus"></i> Ajouter</a>
     </div>
-    <div class="form-group col-md-2">
-        <label for="favorites-filter">Favoris</label><br/>
-        <input type="checkbox" id="favorites-filter" class="form-check-input"/>
-    </div>
-    </form>
-</div>
-<div class="row" id="list-restaurants">
 </div>
 <div class="hidden" id="rest-template">
     <a id="rest-link" href="">

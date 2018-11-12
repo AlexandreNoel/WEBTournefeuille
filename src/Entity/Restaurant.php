@@ -51,6 +51,11 @@ class Restaurant
     private $thumbnail;
 
     /**
+     * @var int
+     */
+    private $score;
+
+    /**
      * @var bool
      */
     private $isDeleted;
@@ -233,6 +238,24 @@ class Restaurant
     public function setIsDeleted($isDeleted)
     {
         $this->isDeleted = $isDeleted;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getScore()
+    {
+        return $this->score;
+    }
+
+    /**
+     * @param int $score
+     * @return Restaurant
+     */
+    public function setScore($score)
+    {
+        $this->score = $score;
         return $this;
     }
 }

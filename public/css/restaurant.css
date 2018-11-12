@@ -1,6 +1,7 @@
 .rest-detail #rest-favorite,
 .rest-detail #rest-unfavorite,
-.rest-detail #rest-score {
+.rest-detail #rest-score,
+.rest-detail #rest-comment-score{
     color: gold;
 }
 
@@ -10,25 +11,28 @@
 }
 
 .rest-detail #rest-thumb {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: -webkit-fill-available;
 }
 
 .rest-detail #rest-score i,
-.rest-detail #rest-favorite, .rest-detail #rest-unfavorite {
-    font-size: 3em;
+.rest-detail #rest-favorite, .rest-detail #rest-unfavorite{
+    font-size: 2.5em;
+}
+
+.rest-detail #rest-comment-score i{
+    font-size: 2em;
+}
+
+.rest-detail #rest-comment-score i,
+.rest-detail #rest-favorite, .rest-detail #rest-unfavorite,
+#rest-com-delete i,
+#rest-map-toggle span {
     cursor: pointer;
 }
 
 .rest-detail #rest-badges img {
-    width: 3em;
-    height: 3em;
-}
-
-.separator {
-    border-top: solid 0.2em #e0e0e0;
-    margin-top: 1em;
-    padding-top: 1em;
+    width: 5em;
+    height: 5em;
 }
 
 .left-border {

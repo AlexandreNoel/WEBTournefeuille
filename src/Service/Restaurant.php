@@ -27,13 +27,13 @@ class Restaurant
         $error['addr_resto'] = DataCheck::verify($address, null, null, 'addr_resto', 1, 100);
         $error['cp_resto'] = DataCheck::verify($zipCode,!is_numeric($zipCode), 'Error: cp_resto must be a number', 'cp_resto', 5, 5);
         $error['city_resto'] = DataCheck::verify($city, preg_match('#[0-9]#', $city), 'Error: city name must not contain digit', 'city_resto', 2, 50);
-        $error['website_resto'] = DataCheck::verify($website, null, null, 'website_resto', 2, 50);
-
-        $error['tel_resto'] = DataCheck::verifyNotRequired($phoneNumber, null, null, 'tel_resto', 10, 12);
+        
+        $error['website_resto'] = DataCheck::verifyNotRequired($website, null, null, 'website_resto', 2, 200);
+        $error['tel_resto'] = DataCheck::verifyNotRequired($phoneNumber, null, null, 'tel_resto', 10, 20);
 
         $resto = $restaurantRepository->findOneByName($name);
         if ($resto) {
-            $error['nom_resto']= 'restaurant already exist';
+            $error['nom_resto_exist']= 'restaurant already exists';
         }
         return $error;
     }

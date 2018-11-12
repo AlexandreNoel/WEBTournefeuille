@@ -68,16 +68,13 @@ class Categorie
      * @param int,int
      * @return bool
      */
-    public function associateBadges($restaurantId, $ids)
+    public function associateCategorie($restaurantId, $id)
     {
-        for ($i=0; $i < count($ids) ; $i++) {
-            $statement = $this->connection->prepare('INSERT INTO cat_resto values (DEFAULT, :id_resto, :id_cat)');
+            $statement = $this->connection->prepare('INSERT INTO cat_resto values (:id_resto, :id_cat)');
             $statement->bindParam(':id_resto', $restaurantId);
-            $statement->bindParam(':id_cat', $ids[$i]);
+            $statement->bindParam(':id_cat', $id);
 
             return $statement->execute();
-        }
-        
     }
     
     /**
@@ -103,22 +100,11 @@ class Categorie
      * @param $idResto
      * @return array
      */
-    public function findAllByResto($idResto){
+    public function findOneByResto($idResto){
         $statement = $this->connection->prepare('SELECT * FROM "categories" NATURAL JOIN cat_resto WHERE id_resto = :id_resto');
-        $statement->bindParam(':nom_cat', $idResto);
+        $statement->bindParam(':id_resto', $idResto);
         $statement->execute();
-
-        $rows = $statement->fetchAll();
-
-        $cats = [];
-        foreach ($rows as $catData) {
-            $entity = new \Entity\Categorie();
-            $cat = $this->hydrator->hydrate($catData, clone $entity);
-
-            $cats[] = $cat;
-        }
-
-        return $cats;
+        return $statement->fetchAll();
     }
 
     /**

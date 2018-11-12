@@ -8,6 +8,7 @@ Application permettant aux étudiants de l'ENSIIE de s'organiser pour déjeuner.
 
 - [ ] Se connecter via arise pour accéder à l'application 
 - [ ] Se connecter via une inscription directement sur l'application
+- [ ] S'inscrire sur le site via formulaire 
 - [ ] Accéder à la liste des restaurants disponibles 
 - [ ] Filtrer la liste des restaurants
 - [ ] Trier la liste des restaurants

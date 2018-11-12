@@ -27,11 +27,7 @@ class Restaurant
         $this->hydrator = new \Hydrator\Restaurant();
     }
 
-    /**
-     * @return array
-     */
-    public function fetchAll()
-    {
+    public function findAll(){
         $rows = $this->connection->query('SELECT * FROM "restos"')->fetchAll();
         $restos = [];
         foreach ($rows as $restoData) {
@@ -40,11 +36,9 @@ class Restaurant
 
             $restos[] = $resto;
         }
-
-        return $restos;
     }
 
-    public function findAllNoDeleted()
+    public function findAllUnDeleted()
     {
         $rows = $this->connection->query('SELECT * FROM "restos" where isDeleted is FALSE ')->fetchAll();
         $restos = [];
@@ -72,6 +66,14 @@ class Restaurant
         return $restos;
     }
 
+    /**
+     * By default, returns all undeleted restaurants
+     * @return array
+     */
+    public function fetchAll()
+    {
+        return $this->findAllUnDeleted();
+    }
 
     /**
      * @param $name
@@ -130,26 +132,6 @@ class Restaurant
 
         return $restos;
     }
-
-    public function findAllFavoritesByUser($idUser) // favorites
-    {
-        $statement = $this->connection->prepare('SELECT distinct nom_resto, addr_resto, city_resto FROM favoris JOIN restos ON favoris.id_resto_restos = restos.id_resto JOIN persons ON favoris.id_user_persons = persons.id_user WHERE id_user_persons = :id_user_given');
-        $statement->bindParam(':id_user_given', $idUser);
-        $statement->execute();
-
-        $rows = $statement->fetchAll();
-
-        $restos = [];
-        foreach ($rows as $restoData) {
-            $entity = new \Entity\Restaurant();
-            $resto = $this->hydrator->hydrate($restoData, clone $entity);
-
-            $restos[] = $resto;
-        }
-
-        return $restos;
-    }
-
 
     public function isAlreadyFavorite($idUser, $idResto) // favorites
     {
@@ -243,6 +225,8 @@ class Restaurant
      * @return bool
      */
     public function delete(\Entity\Restaurant $restaurant){
+        $restaurant->setIsDeleted(true);
+
         $restoArray = $this->hydrator->extract($restaurant);
         $statement = $this->connection->prepare('UPDATE restos SET isdeleted = :isdeleted WHERE id_resto = :id');
         $statement->bindParam(':isdeleted', $restoArray['isdeleted']);
@@ -277,5 +261,66 @@ class Restaurant
         $statement->bindParam(':id_resto', $restoArray['id_resto']);
 
         return $statement->execute();
+    }
+
+    public function filterRestaurants($scoreResto, $badge, $categorie, $idUser)
+    {
+        $sql = 'SELECT * 
+                FROM restos where isDeleted is FALSE ';
+
+        //scoreResto value can equal 0
+        if($scoreResto != null){
+            $sql.=      ' INTERSECT
+                           SELECT *
+                           FROM restos
+                           WHERE score  = :score ';
+        }
+
+        if ($badge) {
+            $sql.=  ' INTERSECT
+                     SELECT restos.* 
+                     FROM restos 
+                     JOIN badge_resto ON restos.id_resto = badge_resto.id_resto
+                     JOIN badge ON badge_resto.id_badge = badge.id_badge
+                     WHERE badge.nom_badge  = :badge ';
+        }
+
+        if($categorie) {
+            $sql.=      ' INTERSECT
+                        SELECT restos.* 
+                        FROM restos 
+                        JOIN cat_resto on restos.id_resto = cat_resto.id_resto
+                        JOIN categories  on categories.id_cat = cat_resto.id_cat
+                        WHERE categories.nom_cat  = :categorie ';
+        }
+
+        if ($idUser) {
+            $sql.= ' INTERSECT
+                SELECT restos.* 
+                FROM favoris 
+                JOIN restos ON favoris.id_resto_restos = restos.id_resto 
+                JOIN persons ON favoris.id_user_persons = persons.id_user
+                WHERE id_user_persons = :id_user_given ';
+        }
+
+
+        $statement = $this->connection->prepare($sql);
+        if($scoreResto != null) $statement->bindParam(':score', $scoreResto);
+        if($badge)      $statement->bindParam(':badge', $badge);
+        if($categorie)  $statement->bindParam(':categorie', $categorie);
+        if($idUser)     $statement->bindParam(':id_user_given', $idUser);
+
+        $statement->execute();
+        $rows = $statement->fetchAll();
+
+        $restos = [];
+        foreach ($rows as $restoData) {
+            $entity = new \Entity\Restaurant();
+            $resto = $this->hydrator->hydrate($restoData, clone $entity);
+
+            $restos[] = $resto;
+        }
+
+        return $restos;
     }
 }
