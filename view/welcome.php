@@ -43,12 +43,11 @@
             <div class="container">
                 <div class="banner-text">
                     <div class="banner-heading">
-                        Consulte notre catalogue   <i class="fa fa-beer"></i>  
+                        Venez découvrir le catalogue et les dernières actualités du BAR D <i class="fa fa-beer"></i>
                     </div>
                     <div class="banner-sub-heading">
                         <br>
                     </div>
-                    <button type="button" class="btn text-dark btn-banner">Catalogue</button>
                 </div>
             </div>
         </div>
