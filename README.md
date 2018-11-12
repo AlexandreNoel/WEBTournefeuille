@@ -55,6 +55,5 @@ You can access the application admin CONSOLE with one of the following login/pwd
 | PCBAR1 | fullAdmin |
 | PCBAR2 | BadBarC|
 
-
-
+Once you are login to the console, you can use the Barman password "admin" in order to perform operations.
  
