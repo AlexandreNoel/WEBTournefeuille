@@ -1,0 +1,24 @@
+
+// print foods of parent mickey;
+
+select * from food inner join watch on food.idfood=watch.idfood inner join userf on watch.id=userf.id and userf.nameu='Mickey';
+
+//print all of parents
+
+select userf.name from userf inner join can_be on userf.id=can_be.id inner join parent on can_be.idparent=parent.idparent;
+
+1) select * from food;
+
+2) select * from waste inner join food on waste.idfood = food.idfood inner join userf on Userf.id = waste.id where userf.id = '3';
+
+3) select * from consumed inner join food on consumed.idfood = food.idfood inner join userf on userf.id = consumed.id where userf.id = '3';
+
+4) select * from food order by expirationdate desc;
+
+5) select * from food where expirationdate = '2018-11-15';
+
+
+select * from food where expirationdate between (select now() - interval '2 DAY') and (select now());
+
+
+

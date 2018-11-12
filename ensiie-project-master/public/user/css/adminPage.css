@@ -1,0 +1,187 @@
+body{
+    position:relative;
+    left:10%;
+    width:1000px;
+    height: 1000px;
+}
+#spentCard{
+    position: absolute;
+    left:17px;
+    width: 240px;
+   
+
+}
+
+#WasteCard{
+    position: absolute;
+    left:264px;
+    width: 240px;
+}
+#mail1{
+    position:absolute;
+    top:40px;
+    left:10%;
+}
+#pass{
+    position:absolute;
+    top:40px;
+    left:43%;
+}
+#submitB{
+    position:absolute;
+    top:120px;
+    left:62%;
+}
+
+#body{
+    position: absolute;
+    left:10%;
+    right: 10%;
+    width:80%;
+    height: 50%;
+   
+    background-image: url('../../views/authentification/images/fridge.jpg');
+    background-size: 40%;
+    background-repeat:no-repeat; 
+    background-position-x:150px;
+    background-position-y:80%;  
+    
+
+}
+#ensiie{
+    width: 20px;
+    position:absolute;
+    left:80%;
+    color:rgb(119, 67, 67);
+    font-size: 55px;
+    font-family: 'Faster One', cursive;
+} 
+#page-wrapper{
+    position:relative;
+
+}
+#contener1{
+    position:relative;
+  
+}
+#menu{
+    position: absolute;
+    border:1px solid blue;
+    /*background-color: white;/* #2597fa;*/
+    border-radius: 10px;
+    width:140px;
+    height: 490px;
+    left:0px;
+    font-family: 'Cookie', cursive;
+
+}
+#contener123{
+    position: absolute;
+    left:20%;
+}
+#contener223{
+    position: absolute;
+    left:50%;
+}
+#bonjour{
+    font-family: 'Cookie', cursive;
+    font-size:70px;
+}
+#iduser{
+    font-family: 'Cookie', cursive;
+    font-size:70px;
+}
+#createFood{
+    position: absolute;
+    border:1px solid blue;
+    background: url('../icons/createIcon.png');
+    background-repeat: no-repeat; 
+    background-size:70px; 
+    background-position: 25px 35px;
+    width: 120px;
+    height: 110px;
+    z-index: 1;
+    font-size:28px;
+    left:10px;
+    top:10px;
+    text-align: center;
+}
+#editFood{
+    position: absolute;
+    top:120px;
+    border:1px solid blue;
+    background: url('../icons/editFood.png');
+    background-repeat: no-repeat; 
+    background-size:70px; 
+    background-position: 25px 35px;
+    width: 120px;
+    height: 110px;
+    z-index: 1;
+    font-size:28px;
+    left:10px;
+    top:125px;
+    text-align: center;
+}
+#inscription{
+    position: absolute;
+    top:180px;
+    left:62%;
+
+}
+#datas{
+    position: absolute;
+    top:155px;
+    left:135px;
+    overflow: auto;
+    height: 550px;
+    width: 700px;
+}
+#wasteProduct12{
+    position: absolute;
+   top:150px;
+
+}
+#consumed123{
+    position: absolute;
+    top:190px;
+}
+#deleteFood{
+    position: absolute;
+    top:240px;
+    border:1px solid blue;
+    background: url('../icons/deleteFood.png');
+    background-repeat: no-repeat; 
+    background-size:70px; 
+    background-position: 25px 35px;
+    width: 120px;
+    height: 110px;
+    z-index: 1;
+    font-size:28px;
+    left:10px;
+    top:245px;
+    text-align: center;
+}
+#listFood{
+    position: absolute;
+    top:360px;
+    border:1px solid blue;
+    background: url('../icons/fridge.jpg');
+    background-repeat: no-repeat; 
+    background-size:70px; 
+    background-position: 25px 35px;
+    width: 120px;
+    height: 110px;
+    z-index: 1;
+    font-size:25px;
+    left:10px;
+    top:365px;
+    text-align: center;
+}
+.container{
+    position: absolute;
+    top:800px;
+}
+
+#mickeyTab{
+    display: inline-block;
+}

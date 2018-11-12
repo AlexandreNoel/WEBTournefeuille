@@ -1,0 +1,92 @@
+<nav class="nav nav-tabs">
+    <a class="nav-item nav-link active" href="#p1" data-toggle="tab">Add a product by code barre</a>
+    <a class="nav-item nav-link"  href="#p2" data-toggle="tab">Add a product normally</a>
+  </nav>
+  <div class="tab-content">
+    <div class="tab-pane active" id="p1">
+      <form>
+        <label class="form-control-label" for="inputSuccess1">Code Barre</label>
+        <div class="input-group">
+        <input type="text" class="form-control form-control-success" id="codeBarre11" required>
+        <button type="button" id="findProduct" class="btn btn-success">Find</button>
+      </div>
+        <label class="form-control-label" for="inputSuccess1" >Type </label> 
+        <input type="text" class="form-control form-control-success" id="type1" required>
+        <label class="form-control-label" for="inputSuccess1">Price</label>
+        <input type="text" class="form-control form-control-success"  id="price1" required>
+        <label class="form-control-label" for="inputSuccess1" >Expiration date</label>
+        <input type="text" value="2018-02-25" class="form-control form-control-success" id="date1" required>
+        <label class="form-control-label" for="inputSuccess1" >Quantity</label>
+        <input type="text" class="form-control form-control-success" id="quantity1" required>
+        <label class="form-control-label" for="inputSuccess1" >Name</label>
+        <input type="text" class="form-control form-control-success" id="name1" required>
+        <br />
+        <button type="button" id="save1" class="btn btn-success">Save</button>
+ 
+       </form>
+ </div>
+      <div class="tab-pane" id="p2">
+        <form>
+         <label class="form-control-label" for="inputSuccess1">Name</label>
+         <input type="text" class="form-control form-control-success" id="name2" required>
+         <label class="form-control-label" for="inputSuccess1">Type</label>
+         <input type="text" class="form-control form-control-success" id="type2" required>
+         <label class="form-control-label" for="inputSuccess1">Price</label>
+         <input type="text" class="form-control form-control-success" id="price23" required>
+         <label class="form-control-label" for="inputSuccess1">Expiration date</label>
+         <input type="text" value="2018-02-25" class="form-control form-control-success" id="date2" required>
+         <label class="form-control-label" for="inputSuccess1">Quantity</label>
+         <input type="text" class="form-control form-control-success" id="quantity2" required>
+         <label class="form-control-label" for="inputSuccess1">Code Barre</label>
+         <input type="text" class="form-control form-control-success" id="codebarre23" required>
+         <br />
+         <button type="button" id="save2" class="btn btn-success">Save</button>
+        </form>
+
+  </div>
+</div>
+<div id="temp"></div>
+<script>
+function addFood2(contexte){
+$("#save2").click(function(){
+          var name2 = $("#name2").val();
+          var type2 = $("#type2").val();
+          var price23 = $('#price23').val();
+          var date2 = $("#date2").val();
+          var idParent = $("#iduser").text();
+          var quantity2 = $("#quantity2").val();
+          var codebarre23=$("#codebarre23").val();
+          idParent = idParent.substring(9,idParent.length);
+          $.post("../addFood/php/addFood.php",{
+              name1:name2,
+              type1:type2,
+              price1:price23,
+              date1:date2,
+              codeBarre:codebarre23,
+              idParent:idParent,
+              quantity1:quantity2
+          },
+          function(response){
+              if(response==="Success"){
+                  toastr.success('Product added !');
+                  $("#codebarre23").val("");
+                  $("#quantity2").val("");
+                  $("#date2").val("");
+                  $("#type2").val("");
+                  $("#name2").val("");
+                  $('#price23').val("");
+              }else{
+                console.log(response);
+                  toastr.error('There had a problem! Try it again, Please');
+              }
+          }
+        )
+      })
+    }
+addFood2();
+</script>
+
+
+       
+
+
