@@ -23,7 +23,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link fixed-nav-text dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?php print $_SESSION['authenticated_user']->getNickname(); ?>
+                            <?php print $_SESSION['authenticated_user']->getNickname(); ?> <i class="far fa-user"></i></a>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="/userInfo">Voir/Modifier mes infos</a>

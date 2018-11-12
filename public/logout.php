@@ -12,6 +12,10 @@ if (isset($_GET['logoutAriseId'])) {
     session_destroy();
     header('Location: '.$consumer->get_single_logout_uri("http://".$_SERVER['HTTP_HOST']."/"));
 }
+else if(isset($_GET['logoutAdmin'])){
+    unset($_SESSION['authenticated_admin']);
+    header('Location: /connect-console');
+}
 // Déconnexion session
 else{
     session_destroy();

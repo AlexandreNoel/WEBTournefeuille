@@ -24,8 +24,15 @@
                         <a class="dropdown-item" href="#">Gestion des utilisateurs</a>
                     </div>
                 </li>
-                <li id="<?php print $_SESSION['authenticated_admin']['login'] ?>" class="nav-item">
-                    <a class="nav-link fixed-nav-text" href="#"><?php print $_SESSION['authenticated_admin']['login'] ?> <i class="far fa-user"></i></a>
+                <li class="nav-item dropdown">
+                                   </li>
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdownMenuLink" class="nav-link fixed-nav-text dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php print $_SESSION['authenticated_admin']['login'] ?> <i class="far fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/logout.php?logoutAdmin=true">Déconnexion</a>
+                    </div>
                 </li>
             </ul>
         </div>
