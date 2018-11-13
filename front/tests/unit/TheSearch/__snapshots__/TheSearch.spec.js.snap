@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TheSearch should render a list of bars 1`] = `
+<div>
+  <searchbar-stub keywords="a,b,c,d,e" value="a,b,c"></searchbar-stub>
+  <vcontainer-stub tag="div" fluid="" grid-list-xl="">
+    <vprogresslinear-stub active="true" buffervalue="100" color="secondary" height="4" indeterminate="true" value="0"></vprogresslinear-stub>
+    <valert-stub type="info">
+      Désolé, mais votre recherche n'a rien donné.
+      Essayez avec d'autres mots clés !
+    </valert-stub>
+    <vlayout-stub tag="div" row="" wrap="">
+      <bar-stub id="1" name="Bar 1" address="1 rue" keywords="b" photoreference="ref" rating="4.4"></bar-stub>
+      <bar-stub id="2" name="Bar 2" address="2 rue" keywords="a" photoreference="ref" rating="2.4"></bar-stub>
+    </vlayout-stub>
+  </vcontainer-stub>
+  <vbtn-stub activeclass="v-btn--active" tag="button" type="button" color="secondary">
+    Un bar manque à la liste ?
+  </vbtn-stub>
+</div>
+`;
+
+exports[`TheSearch should render an empty result 1`] = `
+<div>
+  <searchbar-stub keywords="a,b,c,d,e" value="a,b,c"></searchbar-stub>
+  <vcontainer-stub tag="div" fluid="" grid-list-xl="">
+    <vprogresslinear-stub active="true" buffervalue="100" color="secondary" height="4" indeterminate="true" value="0"></vprogresslinear-stub>
+    <valert-stub type="info">
+      Désolé, mais votre recherche n'a rien donné.
+      Essayez avec d'autres mots clés !
+    </valert-stub>
+    <vlayout-stub tag="div" row="" wrap=""></vlayout-stub>
+  </vcontainer-stub>
+  <vbtn-stub activeclass="v-btn--active" tag="button" type="button" color="secondary">
+    Un bar manque à la liste ?
+  </vbtn-stub>
+</div>
+`;

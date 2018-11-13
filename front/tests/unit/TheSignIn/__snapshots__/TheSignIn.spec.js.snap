@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TheSignIn should render properly 1`] = `
+<vcontent-stub tag="main">
+  <vcontainer-stub tag="div" fluid="">
+    <vlayout-stub tag="div" align-center="" justify-center="">
+      <vflex-stub tag="div" xs12="" sm8="" md6="" lg4="">
+        <vcard-stub tag="div" class="elevation-12">
+          <vtoolbar-stub scrollthreshold="300" dark="" color="primary">
+            <vtoolbartitle-stub>Formulaire de connexion</vtoolbartitle-stub>
+            <vspacer-stub></vspacer-stub>
+          </vtoolbar-stub>
+          <vcardtext-stub>
+            <vform-stub lazyvalidation="true">
+              <vtextfield-stub prepend-icon="person" name="login" label="Pseudo ou adresse email" type="text" rules="function (value) {
+        return value.length >= 3 || 'Min 3 caractères.';
+      },function (value) {
+        return value.length < 25 || 'Max 25 caractères.';
+      },function (value) {
+        return !!value || 'Obligatoire.';
+      }"></vtextfield-stub>
+              <vtextfield-stub id="password" prepend-icon="lock" name="password" label="Mot de passe" type="password" rules="function (value) {
+        return value.length >= 3 || 'Min 3 caractères.';
+      },function (value) {
+        return value.length < 25 || 'Max 25 caractères.';
+      },function (value) {
+        return !!value || 'Obligatoire.';
+      }"></vtextfield-stub>
+            </vform-stub>
+          </vcardtext-stub>
+          <vcardactions-stub>
+            <vspacer-stub></vspacer-stub>
+            <vbtn-stub activeclass="v-btn--active" tag="button" type="button" color="secondary" disabled="true">
+              Connexion
+            </vbtn-stub>
+          </vcardactions-stub>
+        </vcard-stub>
+      </vflex-stub>
+    </vlayout-stub>
+  </vcontainer-stub>
+</vcontent-stub>
+`;

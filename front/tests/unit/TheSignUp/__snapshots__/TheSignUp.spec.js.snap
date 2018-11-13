@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TheSignUp should render properly 1`] = `
+<vcontent-stub tag="main">
+  <vcontainer-stub tag="div" fluid="">
+    <vlayout-stub tag="div" align-center="" justify-center="">
+      <vflex-stub tag="div" xs12="" sm8="" md6="" lg4="">
+        <vcard-stub tag="div" class="elevation-12">
+          <vtoolbar-stub scrollthreshold="300" dark="" color="primary">
+            <vtoolbartitle-stub>Inscription</vtoolbartitle-stub>
+            <vspacer-stub></vspacer-stub>
+          </vtoolbar-stub>
+          <vcardtext-stub color="primary">
+            <vform-stub lazyvalidation="true">
+              <vtextfield-stub label="Pseudo" rules="function required(value) {
+          return !!value || 'Required.';
+        },function minCounter(value) {
+          return value.length >= 3 || 'Min 3 caractères.';
+        },function maxCounter(value) {
+          return value.length < 25 || 'Max 25 caractères.';
+        }" required=""></vtextfield-stub>
+              <vtextfield-stub label="Email" rules="function required(value) {
+          return !!value || 'Required.';
+        },function email(value) {
+          var pattern = /^(([^<>()[\\]\\\\.,;:\\s@&quot;]+(\\.[^<>()[\\]\\\\.,;:\\s@&quot;]+)*)|(&quot;.+&quot;))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || 'Invalid e-mail.';
+        }" required=""></vtextfield-stub> <span class="caption grey--text text--darken-1">
+              Cette email sera utilisé pour vérifier votre compte.
+              </span>
+              <vtextfield-stub label="Mot de passe" type="password" rules="function required(value) {
+          return !!value || 'Required.';
+        },function minCounter(value) {
+          return value.length >= 3 || 'Min 3 caractères.';
+        },function maxCounter(value) {
+          return value.length < 25 || 'Max 25 caractères.';
+        }" required=""></vtextfield-stub>
+              <vtextfield-stub label="Confirmez le mot de passe" type="password" rules="function required(value) {
+          return !!value || 'Required.';
+        },function minCounter(value) {
+          return value.length >= 3 || 'Min 3 caractères.';
+        },function maxCounter(value) {
+          return value.length < 25 || 'Max 25 caractères.';
+        },function passwordMatch(value) {
+          return value === _this.password || 'Password must match';
+        }" required=""></vtextfield-stub> <span class="caption grey--text text--darken-1">
+              Veuillez entrer un mot de passe pour votre compte
+              </span>
+              <vcardactions-stub>
+                <vspacer-stub></vspacer-stub>
+                <vbtn-stub activeclass="v-btn--active" tag="button" type="button" color="secondary" disabled="true">
+                  Continuer
+                </vbtn-stub>
+              </vcardactions-stub>
+            </vform-stub>
+          </vcardtext-stub>
+        </vcard-stub>
+      </vflex-stub>
+    </vlayout-stub>
+  </vcontainer-stub>
+</vcontent-stub>
+`;

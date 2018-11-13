@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBar should render properly 1`] = `
+<vtoolbar-stub flat="true" scrollthreshold="300" color="transparent">
+  <vautocomplete-stub allowoverflow="true" browserautocomplete="off" filter="function _default(item, queryText, itemText) {
+                var hasValue = function hasValue(val) {
+                    return val != null ? val : '';
+                };
+                var text = hasValue(itemText);
+                var query = hasValue(queryText);
+                return text.toString().toLowerCase().indexOf(query.toString().toLowerCase()) > -1;
+            }" hidenodata="true" menuprops="[object Object]" value="[object Object]" items="[object Object],[object Object],[object Object]" item-text="name" label="Ce que j'aimerais" multiple="" hide-details="" clearable="" solo=""></vautocomplete-stub>
+  <vbtn-stub activeclass="v-btn--active" large="true" tag="button" type="button" color="secondary">J'ai soif !</vbtn-stub>
+</vtoolbar-stub>
+`;

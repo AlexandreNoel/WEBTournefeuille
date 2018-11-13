@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snackbar should render properly 1`] = `
+<vsnackbar-stub timeout="6000" bottom="" left="">
+
+</vsnackbar-stub>
+`;
+
+exports[`Snackbar should render properly when error is call 1`] = `
+<vsnackbar-stub timeout="6000" bottom="" left="" color="error">
+  Error...
+</vsnackbar-stub>
+`;
+
+exports[`Snackbar should render properly when info is call 1`] = `
+<vsnackbar-stub timeout="6000" bottom="" left="" color="info">
+  Info...
+</vsnackbar-stub>
+`;
+
+exports[`Snackbar should render properly when success is call 1`] = `
+<vsnackbar-stub timeout="6000" bottom="" left="" color="success">
+  Success...
+</vsnackbar-stub>
+`;
+
+exports[`Snackbar should render properly when warning is call 1`] = `
+<vsnackbar-stub timeout="6000" bottom="" left="" color="warning">
+  Warning...
+</vsnackbar-stub>
+`;

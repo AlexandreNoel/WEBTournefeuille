@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App.vue should render properly when authenticated 1`] = `
+<vapp-stub id="app">
+  <vtoolbar-stub scrollthreshold="300" app="">
+    <vbtn-stub activeclass="v-btn--active" fab="true" flat="true" icon="true" tag="button" type="button" to="/" color="transparent"><img src="./assets/img/logo2.png" alt="logo" height="60" width="60"></vbtn-stub>
+    <vtoolbartitle-stub class="purple-color">Trouvemonbar.com</vtoolbartitle-stub>
+    <vspacer-stub></vspacer-stub>
+    <vtoolbaritems-stub>
+      <vmenu-stub closeonclick="true" closeoncontentclick="true" maxheight="auto" offsety="true" openonclick="true" origin="top left" transition="v-menu-transition" bottom="" left="">
+        <vbtn-stub activeclass="v-btn--active" icon="true" large="true" tag="button" type="button" color="primary">
+          <vicon-stub>account_circle</vicon-stub>
+        </vbtn-stub>
+        <vlist-stub>
+          <vlisttile-stub activeclass="primary--text" to="/admin">
+            <vlisttiletitle-stub>Administration</vlisttiletitle-stub>
+          </vlisttile-stub>
+          <vlisttile-stub activeclass="primary--text" to="/feed">
+            <vlisttiletitle-stub>Mon feed</vlisttiletitle-stub>
+          </vlisttile-stub>
+          <vlisttile-stub activeclass="primary--text" to="/me">
+            <vlisttiletitle-stub>Mon compte</vlisttiletitle-stub>
+          </vlisttile-stub>
+          <vlisttile-stub activeclass="primary--text">
+            <vlisttiletitle-stub>Déconnexion</vlisttiletitle-stub>
+          </vlisttile-stub>
+        </vlist-stub>
+      </vmenu-stub>
+    </vtoolbaritems-stub>
+  </vtoolbar-stub>
+  <vcontent-stub tag="main">
+    <vcontainer-stub tag="div">
+      <vfadetransition-stub mode="out-in" origin="top center 0">
+        <router-view-stub></router-view-stub>
+      </vfadetransition-stub>
+    </vcontainer-stub>
+  </vcontent-stub>
+  <snackbar-stub></snackbar-stub>
+</vapp-stub>
+`;
+
+exports[`App.vue should render properly when not authenticated 1`] = `
+<vapp-stub id="app">
+  <vtoolbar-stub scrollthreshold="300" app="">
+    <vbtn-stub activeclass="v-btn--active" fab="true" flat="true" icon="true" tag="button" type="button" to="/" color="transparent"><img src="./assets/img/logo2.png" alt="logo" height="60" width="60"></vbtn-stub>
+    <vtoolbartitle-stub class="purple-color">Trouvemonbar.com</vtoolbartitle-stub>
+    <vspacer-stub></vspacer-stub>
+    <vtoolbaritems-stub>
+      <vbtn-stub activeclass="v-btn--active" flat="true" tag="button" type="button" color="primary" to="/signup">S'inscrire</vbtn-stub>
+      <vbtn-stub activeclass="v-btn--active" flat="true" tag="button" type="button" color="primary" to="/signin">Connexion</vbtn-stub>
+    </vtoolbaritems-stub>
+  </vtoolbar-stub>
+  <vcontent-stub tag="main">
+    <vcontainer-stub tag="div">
+      <vfadetransition-stub mode="out-in" origin="top center 0">
+        <router-view-stub></router-view-stub>
+      </vfadetransition-stub>
+    </vcontainer-stub>
+  </vcontent-stub>
+  <snackbar-stub></snackbar-stub>
+</vapp-stub>
+`;

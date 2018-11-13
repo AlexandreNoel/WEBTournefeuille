@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TheHome should render properly 1`] = `
+<vcontent-stub tag="main">
+  <vcontainer-stub tag="div" fluid="">
+    <vlayout-stub tag="div" align-center="" justify-center="" row="" wrap="">
+      <vflex-stub tag="div" xs12="">
+        <vcard-stub flat="true" tag="div" color="transparent">
+          <vcardtext-stub class="purple-color">
+            <h1 class="text-xs-center">La flemme de chercher un bar ?</h1>
+            <h1 class="text-xs-center">On s'occupe de tout !</h1>
+          </vcardtext-stub>
+        </vcard-stub>
+      </vflex-stub>
+      <vflex-stub tag="div" xs12="" lg8="" xl6="">
+        <searchbar-stub keywords="a,b,c,d,e" value="a" class="search-bar"></searchbar-stub>
+      </vflex-stub>
+    </vlayout-stub>
+  </vcontainer-stub>
+</vcontent-stub>
+`;

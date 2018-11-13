@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TheFeed should render properly when user have keywords 1`] = `
+<vcontainer-stub tag="div" fluid="" grid-list-xl="">
+  <vlayout-stub tag="div" row="" wrap="">
+    <vflex-stub tag="div" sm12="" md8="" xl6="">
+      <vcard-stub tag="div" class="elevation-4">
+        <vcardtitle-stub class="headline">
+          Bienvenue sur votre FeedBar Test
+        </vcardtitle-stub>
+        <vcardtext-stub>
+          <h4>Vos mots clés sont</h4>
+          <vchip-stub outline="true" value="true" color="primary">
+
+          </vchip-stub>
+          <vchip-stub outline="true" value="true" color="primary">
+
+          </vchip-stub>
+          <vchip-stub outline="true" value="true" color="primary">
+
+          </vchip-stub>
+        </vcardtext-stub>
+        <vcardactions-stub>
+          <vbtn-stub activeclass="v-btn--active" flat="true" tag="button" type="button" to="/me" color="secondary">Modifier mes mots clés</vbtn-stub>
+          <vbtn-stub activeclass="v-btn--active" flat="true" tag="button" type="button" to="/" color="secondary">Recherche personnalisée</vbtn-stub>
+        </vcardactions-stub>
+      </vcard-stub>
+    </vflex-stub>
+    <bar-stub id="1" name="Bar 1" address="1 rue" photoreference="ref" rating="4.4"></bar-stub>
+  </vlayout-stub>
+</vcontainer-stub>
+`;

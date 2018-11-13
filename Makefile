@@ -20,7 +20,7 @@ stop:
 	docker-compose down -v
 	docker-compose rm -v
 
-install: uninstall start composer.install db.install
+install: uninstall npm.build start composer.install db.install
 
 depedencies: /usr/bin/docker /usr/local/bin/docker-compose
 
@@ -47,13 +47,25 @@ db.connect:
 	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
 
 db.install:
-	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f data/db.sql'
+	docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER -h localhost -f ./db.sql'
 
 php.connect:
 	docker-compose exec php /bin/bash
 
 phpunit.run:
-	docker-compose exec php vendor/bin/phpunit --config=phpunit.xml
+	docker-compose exec php vendor/bin/kahlan --coverage=3 --reporter=verbose
 
 composer.install:
 	docker-compose exec php composer install || exit 0
+
+composer.install.prod:
+	docker-compose exec php composer install --no-dev || exit 0
+
+npm.build: npm.install
+	docker run -v $$PWD/front:/usr/src/app -ti node:alpine sh -c "cd /usr/src/app; npm run build"
+
+npm.install:
+	docker run -v $$PWD/front:/usr/src/app -ti node:alpine sh -c "cd /usr/src/app; npm install"
+
+npmunit.run:
+	docker run -v $$PWD/front:/usr/src/app -ti node:alpine sh -c "cd /usr/src/app; npm test"
