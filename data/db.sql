@@ -1,19 +1,34 @@
-CREATE TABLE "user" (
-    id SERIAL PRIMARY KEY ,
-    firstname VARCHAR NOT NULL ,
-    lastname VARCHAR NOT NULL ,
-    birthday date
+CREATE TABLE "Connexion" (
+       id SERIAL PRIMARY KEY ,
+       mail VARCHAR NOT NULL
+       CHECK (mail LIKE '%@%.%'),
+       mdp VARCHAR NOT NULL ,
 );
 
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('John', 'Doe', '1967-11-22');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Yvette', 'Angel', '1932-01-24');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Amelia', 'Waters', '1981-12-01');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Manuel', 'Holloway', '1979-07-25');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Alonzo', 'Erickson', '1947-11-13');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Otis', 'Roberson', '1995-01-09');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Jaime', 'King', '1924-05-30');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Vicky', 'Pearson', '1982-12-12)');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Silvia', 'Mcguire', '1971-03-02');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Brendan', 'Pena', '1950-02-17');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Jackie', 'Cohen', '1967-01-27');
-INSERT INTO "user"(firstname, lastname, birthday) VALUES ('Delores', 'Williamson', '1961-07-19');
+CREATE TABE "Identite" (
+       id SERIAL PRIMARY KEY,
+       nom VARCHAR NOT NULL,
+       prenom VARCHAR NOT NULL,
+       ddn DATE NOT NULL
+       CHECK (ddn>'2007-01-01'),
+       sexe VARCHAR NOT NULL,
+       telephone INTEGER(10),
+);
+
+CREATE TABLE "Localisation" (
+       id SERIAL PRIMARY KEY,
+       ville VARCHAR,
+       pays VARCHAR,
+),
+
+CREATE TABLE "Commentaire" (
+       id PRIMARY KEY,
+       commentaire VARCHAR (300),
+       reponse VARCHAR (6),
+);
+
+CREATE TABLE "Note" (
+       id PRIMARY KEY,
+       note INTEGER
+       CHECK note <=20,
+);
