@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Inscription</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+        <header>
+            ManAdvisor
+        </header>
+        <nav>
+            | <a href="index.php">Accueil</a> | <a href="profil.php">Mon Profil</a> | <a href="modification.php">Modifier mon Profil</a> | <a href="recherche.html">Noter un Profil |</a>
+        </nav>
+        <h1>Formulaire d'inscription</h1>
+        <br/>
+        <form action="profil.php" method=post">
+            <p>
+                <label for="prénom">Prénom :</label>
+                <input type="text" size="20" name="prénom" id="prénom" />
+            </p>
+            <p>
+                <label for="nom">Nom :</label>
+                <input type="text" size="20" name="nom" id="nom" />
+            </p>
+            <p>
+                <label for="ville">Ville :</label>
+                <input type="text" size="20" name="ville" id="ville" />
+            </p>
+            <br/>
+            <p>
+                <label for="email">Adresse email :</label>
+                <input type="text" size="50" name="email" id="email" />
+            </p>
+            <p>
+                <label for="mdp">Mot de passe :</label>
+                <input type="text" size="50" name="mdp" id="mdp" />
+            </p>
+            <br/>
+            <input type="submit" value="S'inscrire" />
+            <input type="reset" value="Annuler" />
+    </body>
+</html>

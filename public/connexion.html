@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Connexion</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+    <header>
+        ManAdvisor
+    </header>
+    <nav>
+        | <a href="index.php">Accueil</a> | <a href="profil.php">Mon Profil</a> | <a href="modification.php">Modifier mon Profil</a> | <a href="recherche.html">Noter un Profil |</a>
+    </nav>
+    <h1>Formulaire de connexion</h1>
+    <br/>
+    <form action="profil.php" method=post">
+        <p>
+            <label for="email">Adresse email :</label>
+            <input type="text" size="50" name="email" id="email" />
+        </p>
+        <p>
+            <label for="mdp">Mot de passe :</label>
+            <input type="text" size="50" name="mdp" id="mdp" />
+        </p>
+        <br/>
+        <input type="submit" value="Se connecter" />
+        <input type="reset" value="Annuler" />
+    </body>
+</html>
