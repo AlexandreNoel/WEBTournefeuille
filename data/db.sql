@@ -2,10 +2,11 @@ CREATE TABLE "Connexion" (
        id SERIAL PRIMARY KEY ,
        mail VARCHAR NOT NULL
        CHECK (mail LIKE '%@%.%'),
+       nom VARCHAR NOT NULL ,
        mdp VARCHAR NOT NULL ,
 );
 
-CREATE TABE "Identite" (
+CREATE TABLE "Identite" (
        id SERIAL PRIMARY KEY,
        nom VARCHAR NOT NULL,
        prenom VARCHAR NOT NULL,
